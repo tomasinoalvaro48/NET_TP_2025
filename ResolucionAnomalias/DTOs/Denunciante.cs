@@ -1,6 +1,6 @@
 ﻿namespace DTOs
 {
-    public class Denunciante
+    public class DenuncianteDTO
     {
         public int Cod_den { get; set; }
         public string Nombre_den { get; set; }

@@ -1,14 +1,18 @@
 ﻿using Domain.Model;
 using Data;
+using DTOs;
 
 namespace Application.Services
 {
     public class DenuncianteService
     {
-        public void Add(Denunciante denunciante)
+        public DenuncianteDTO Add(DenuncianteDTO dto)
         {
-            denunciante.SetCod_den(GetNextCod_den());
+            var cod_den = GetNextCod_den();
+            Denunciante denunciante = new Denunciante(cod_den, dto.Nombre_den, dto.Telefono, dto.Direccion_den);
             DenuncianteInMemory.Denunciantes.Add(denunciante);
+            dto.Cod_den = denunciante.Cod_den;
+            return dto;
         }
 
         public bool Delete(int cod_den)
@@ -25,24 +29,41 @@ namespace Application.Services
             }
         }
 
-        public Denunciante Get(int cod_den)
+        public DenuncianteDTO Get(int cod_den)
         {
-            return DenuncianteInMemory.Denunciantes.Find(x => x.Cod_den == cod_den);
+            Denunciante? denunciante = DenuncianteInMemory.Denunciantes.Find(x => x.Cod_den == cod_den);
+
+            if (denunciante == null)
+                return null;
+
+            return new DenuncianteDTO
+            {
+                Cod_den = denunciante.Cod_den,
+                Nombre_den = denunciante.Nombre_den,
+                Telefono = denunciante.Telefono,
+                Direccion_den = denunciante.Direccion_den
+            };
         }
 
-        public IEnumerable<Denunciante> GetAll()
+        public IEnumerable<DenuncianteDTO> GetAll()
         {
-            return DenuncianteInMemory.Denunciantes.ToList();
+            return DenuncianteInMemory.Denunciantes.Select(denunciante => new DenuncianteDTO
+            {
+                Cod_den = denunciante.Cod_den,
+                Nombre_den = denunciante.Nombre_den,
+                Telefono = denunciante.Telefono,
+                Direccion_den = denunciante.Direccion_den
+            }).ToList();
         }
 
-        public bool Update(Denunciante denunciante)
+        public bool Update(DenuncianteDTO dto)
         {
-            Denunciante? denuncianteToUpdate = DenuncianteInMemory.Denunciantes.Find(x => x.Cod_den == denunciante.Cod_den);
+            Denunciante? denuncianteToUpdate = DenuncianteInMemory.Denunciantes.Find(x => x.Cod_den == dto.Cod_den);
             if (denuncianteToUpdate != null)
             {
-                denuncianteToUpdate.SetNombre_den(denunciante.Nombre_den);
-                denuncianteToUpdate.SetTelefono(denunciante.Telefono);
-                denuncianteToUpdate.SetDireccion_den(denunciante.Direccion_den);
+                denuncianteToUpdate.SetNombre_den(dto.Nombre_den);
+                denuncianteToUpdate.SetTelefono(dto.Telefono);
+                denuncianteToUpdate.SetDireccion_den(dto.Direccion_den);
                 return true;
             }
             else
