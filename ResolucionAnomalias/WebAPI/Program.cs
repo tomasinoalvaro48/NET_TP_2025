@@ -26,11 +26,11 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.MapGet("/denunciantes/{id}", (int id) =>
+app.MapGet("/denunciantes/{cod_den}", (int cod_den) =>
 {
     DenuncianteService denuncianteService = new DenuncianteService();
 
-    DenuncianteDTO dto = denuncianteService.Get(id);
+    DenuncianteDTO dto = denuncianteService.Get(cod_den);
 
     if (dto == null)
     {
@@ -64,7 +64,7 @@ app.MapPost("/denunciantes", (DenuncianteDTO dto) =>
 
         DenuncianteDTO denuncianteDTO = denuncianteService.Add(dto);
 
-        return Results.Created($"/denunciantes/{denuncianteDTO.Id}", denuncianteDTO);
+        return Results.Created($"/denunciantes/{denuncianteDTO.Cod_den}", denuncianteDTO);
     }
     catch (ArgumentException ex)
     {
@@ -101,11 +101,11 @@ app.MapPut("/denunciantes", (DenuncianteDTO dto) =>
 .Produces(StatusCodes.Status400BadRequest)
 .WithOpenApi();
 
-app.MapDelete("/denunciantes/{id}", (int id) =>
+app.MapDelete("/denunciantes/{cod_den}", (int cod_den) =>
 {
     DenuncianteService denuncianteService = new DenuncianteService();
 
-    var deleted = denuncianteService.Delete(id);
+    var deleted = denuncianteService.Delete(cod_den);
 
     if (!deleted)
     {
