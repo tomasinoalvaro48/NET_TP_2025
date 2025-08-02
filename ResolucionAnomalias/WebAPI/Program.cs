@@ -26,6 +26,8 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+//--------------------- Denucniante --------------------
+
 app.MapGet("/denunciantes/{cod_den}", (int cod_den) =>
 {
 
@@ -122,8 +124,7 @@ app.MapDelete("/denunciantes/{cod_den}", (int cod_den) =>
 .WithOpenApi();
 
 
-//-------------------------------------------------Localidad --------------------------------------------------------------------------------------------------------
-
+//--------------------- Localidad --------------------
 
 app.MapGet("/localidades/{id}", (int id) =>
 {
@@ -142,9 +143,6 @@ app.MapGet("/localidades/{id}", (int id) =>
 .Produces<LocalidadDTO>(StatusCodes.Status204NoContent)
 .Produces(StatusCodes.Status404NotFound)
 .WithOpenApi();
-
-
-
 
 app.MapGet("/localidades", () => {
     LocalidadService localidadService = new LocalidadService();
@@ -172,7 +170,6 @@ app.MapDelete("/localidades/{id}", (int id) =>
 .Produces(StatusCodes.Status200OK)
 .WithOpenApi();
 
-
 app.MapPost("/localidades", (LocalidadDTO dto) =>
 {
     try
@@ -190,11 +187,6 @@ app.MapPost("/localidades", (LocalidadDTO dto) =>
 .Produces<LocalidadDTO>(StatusCodes.Status200OK)
 .Produces(StatusCodes.Status400BadRequest)
 .WithOpenApi();
-
-
-
-
-
 
 app.MapPut("/localidades", (LocalidadDTO dto)=>
 {
@@ -319,7 +311,6 @@ app.MapDelete("/tipoanomalia/{cod_tipo}", (int cod_tipo) =>
 .WithOpenApi();
 
 
-
-
+//--------------------- Run app --------------------
 
 app.Run();
