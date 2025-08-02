@@ -118,16 +118,5 @@ namespace WindowsForms
 
             return denunciante;
         }
-
-        /*private DTOs.DenuncianteDTO ToDTO(Domain.Model.Denunciante entity)
-        {
-            return new DTOs.DenuncianteDTO
-            {
-                Cod_den = entity.Cod_den,
-                Nombre_den = entity.Nombre_den,
-                Telefono = entity.Telefono,
-                Direccion_den = entity.Direccion_den
-            };
-        }*/
     }
 }
