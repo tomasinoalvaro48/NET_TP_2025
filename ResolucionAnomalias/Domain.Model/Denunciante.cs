@@ -34,7 +34,7 @@
             if (telefono == 0)
                 throw new ArgumentException("El telefono no puede ser nulo o vacío.", nameof(telefono));
             Telefono = telefono;
-        }
+        }   
 
         public void SetDireccion_den(string direccion_den)
         {
