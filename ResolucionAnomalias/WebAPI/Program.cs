@@ -168,7 +168,7 @@ app.MapDelete("/localidades/{id}", (int id) =>
     }
 })
 .WithName("DeleteLocalidad")
-.Produces(StatusCodes.Status200OK);
+.Produces(StatusCodes.Status200OK)
 .WithOpenApi();
 
 
