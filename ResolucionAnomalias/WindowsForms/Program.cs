@@ -12,6 +12,8 @@ namespace WindowsForms
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             Application.Run(new DenuncianteDetalle());
+            Application.Run(new LocalidadDetalle());
+            Application.Run(new LocalidadLista());
         }
     }
 }

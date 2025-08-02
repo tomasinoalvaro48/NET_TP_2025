@@ -6,19 +6,19 @@ namespace API.Denunciantes
 {
     public class DenuncianteApiDenunciante
     {
-        private static HttpDenunciante denunciante = new HttpDenunciante();
+        private static HttpClient httpClient = new HttpClient();
         static DenuncianteApiDenunciante()
         {
-            denunciante.BaseAddress = new Uri("http://localhost:5183/");
-            denunciante.DefaultRequestHeaders.Accept.Clear();
-            denunciante.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            httpClient.BaseAddress = new Uri("http://localhost:5183/");
+            httpClient.DefaultRequestHeaders.Accept.Clear();
+            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
         public static async Task<DenuncianteDTO> GetAsync(int cod_den)
         {
             try
             {
-                HttpResponseMessage response = await denunciante.GetAsync("denunciantes/" + cod_den);
+                HttpResponseMessage response = await httpClient.GetAsync("denunciantes/" + cod_den);
                 if (response.IsSuccessStatusCode)
                 {
                     return await response.Content.ReadAsAsync<DenuncianteDTO>();
@@ -43,7 +43,7 @@ namespace API.Denunciantes
         {
             try
             {
-                HttpResponseMessage response = await denunciante.GetAsync("denunciantes");
+                HttpResponseMessage response = await httpClient.GetAsync("denunciantes");
                 if (response.IsSuccessStatusCode)
                 {
                     return await response.Content.ReadAsAsync<IEnumerable<DenuncianteDTO>>();
@@ -68,7 +68,7 @@ namespace API.Denunciantes
         {
             try
             {
-                HttpResponseMessage response = await denunciante.PostAsJsonAsync("denunciantes", denunciante);
+                HttpResponseMessage response = await httpClient.PostAsJsonAsync("denunciantes", denunciante);
                 if (!response.IsSuccessStatusCode)
                 {
                     string errorContent = await response.Content.ReadAsStringAsync();
@@ -89,7 +89,7 @@ namespace API.Denunciantes
         {
             try
             {
-                HttpResponseMessage response = await denunciante.DeleteAsync("denunciantes/" + cod_den);
+                HttpResponseMessage response = await httpClient.DeleteAsync("denunciantes/" + cod_den);
                 if (!response.IsSuccessStatusCode)
                 {
                     string errorContent = await response.Content.ReadAsStringAsync();
@@ -110,7 +110,7 @@ namespace API.Denunciantes
         {
             try
             {
-                HttpResponseMessage response = await denunciante.PutAsJsonAsync("denunciantes", denunciante);
+                HttpResponseMessage response = await httpClient.PutAsJsonAsync("denunciantes", denunciante);
                 if (!response.IsSuccessStatusCode)
                 {
                     string errorContent = await response.Content.ReadAsStringAsync();

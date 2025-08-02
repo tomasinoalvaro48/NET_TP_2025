@@ -82,6 +82,7 @@
             // 
             // codigoTextBox
             // 
+            codigoTextBox.BackColor = SystemColors.Control;
             codigoTextBox.Location = new Point(106, 36);
             codigoTextBox.Name = "codigoTextBox";
             codigoTextBox.Size = new Size(100, 23);
