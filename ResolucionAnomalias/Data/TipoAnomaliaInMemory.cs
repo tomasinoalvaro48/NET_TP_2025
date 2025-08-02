@@ -9,7 +9,7 @@ namespace Data
         {
             TiposAnomalia = new List<TipoAnomalia>
             {
-                new TipoAnomalia(1, "Fantasma de Familiar", "facil"),
+                new TipoAnomalia(1, "Fantasma de Persona ", "facil"),
                 new TipoAnomalia(2, "Ejército de Zombies", "dificil"),
                 new TipoAnomalia(3, "Vikingos Fantasmas", "dificil"),
                 new TipoAnomalia(4, "Objetos Flotantes", "facil"),
