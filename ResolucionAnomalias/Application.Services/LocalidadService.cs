@@ -15,13 +15,13 @@ namespace Application.Services
 
         public LocalidadDTO add(LocalidadDTO dto)
         {
-            int codigo_localidad = GentNextCodigoLocalidad();
-            Localidad localidad = new Localidad(codigo_localidad, dto.Nombre);
+            //int codigo_localidad = GentNextCodigoLocalidad();
+            Localidad localidad = new Localidad(dto.Codigo, dto.Nombre);
             LocalidadInMemory.Localidades.Add(localidad);
             dto.Codigo = localidad.Codigo;
             return dto;
         }
-
+        /*
         internal int GentNextCodigoLocalidad()
         {
             int nextcodigo;
@@ -32,6 +32,7 @@ namespace Application.Services
             else { nextcodigo = 1; }
             return nextcodigo;
         }
+        */
 
         public bool delete(int codigo)
         {
