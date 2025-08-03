@@ -28,12 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             labelCodigoLoc = new Label();
             labelNombreLoc = new Label();
             buttonAceptarDetLoc = new Button();
             buttonCancelarLocDet = new Button();
+            errorProvider = new ErrorProvider(components);
             textBoxCodigoLoc = new TextBox();
             textBoxNombreLoc = new TextBox();
+            ((System.ComponentModel.ISupportInitialize)errorProvider).BeginInit();
             SuspendLayout();
             // 
             // labelCodigoLoc
@@ -44,7 +47,6 @@
             labelCodigoLoc.Size = new Size(65, 20);
             labelCodigoLoc.TabIndex = 0;
             labelCodigoLoc.Text = "Codigo: ";
-            labelCodigoLoc.Click += label1_Click;
             // 
             // labelNombreLoc
             // 
@@ -54,7 +56,6 @@
             labelNombreLoc.Size = new Size(67, 20);
             labelNombreLoc.TabIndex = 1;
             labelNombreLoc.Text = "Nombre:";
-            labelNombreLoc.Click += label2_Click;
             // 
             // buttonAceptarDetLoc
             // 
@@ -64,7 +65,7 @@
             buttonAceptarDetLoc.TabIndex = 2;
             buttonAceptarDetLoc.Text = "Aceptar";
             buttonAceptarDetLoc.UseVisualStyleBackColor = true;
-            buttonAceptarDetLoc.Click += button1_Click;
+            buttonAceptarDetLoc.Click += aceptarButton_Click;
             // 
             // buttonCancelarLocDet
             // 
@@ -74,16 +75,22 @@
             buttonCancelarLocDet.TabIndex = 3;
             buttonCancelarLocDet.Text = "Cancelar";
             buttonCancelarLocDet.UseVisualStyleBackColor = true;
+            buttonCancelarLocDet.Click += cancelarButton_Click;
+            // 
+            // errorProvider
+            // 
+            errorProvider.ContainerControl = this;
             // 
             // textBoxCodigoLoc
             // 
-            textBoxCodigoLoc.BackColor = SystemColors.ControlLight;
+            textBoxCodigoLoc.BackColor = SystemColors.ControlLightLight;
             textBoxCodigoLoc.Location = new Point(183, 122);
             textBoxCodigoLoc.Name = "textBoxCodigoLoc";
-            textBoxCodigoLoc.ReadOnly = true;
             textBoxCodigoLoc.Size = new Size(210, 27);
             textBoxCodigoLoc.TabIndex = 4;
-            textBoxCodigoLoc.TextChanged += this.textBoxCodigoLoc_TextChanged;
+
+            //textBoxCodigoLoc.TextChanged += textBoxCodigoLoc_TextChanged;
+           
             // 
             // textBoxNombreLoc
             // 
@@ -91,7 +98,6 @@
             textBoxNombreLoc.Name = "textBoxNombreLoc";
             textBoxNombreLoc.Size = new Size(210, 27);
             textBoxNombreLoc.TabIndex = 4;
-            textBoxNombreLoc.TextChanged += this.textBoxNombreLoc_TextChanged;
             // 
             // LocalidadDetalle
             // 
@@ -105,7 +111,8 @@
             Controls.Add(labelNombreLoc);
             Controls.Add(labelCodigoLoc);
             Name = "LocalidadDetalle";
-            Text = "LocalidadDetalle";
+            Text = "Localidad";
+            ((System.ComponentModel.ISupportInitialize)errorProvider).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -118,5 +125,6 @@
         private Button buttonCancelarLocDet;
         private TextBox textBoxCodigoLoc;
         private TextBox textBoxNombreLoc;
+        private ErrorProvider errorProvider;
     }
 }

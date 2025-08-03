@@ -43,7 +43,8 @@
             // codigoLabel
             // 
             codigoLabel.AutoSize = true;
-            codigoLabel.Location = new Point(37, 39);
+            codigoLabel.Location = new Point(3
+                , 39);
             codigoLabel.Name = "codigoLabel";
             codigoLabel.Size = new Size(46, 15);
             codigoLabel.TabIndex = 0;

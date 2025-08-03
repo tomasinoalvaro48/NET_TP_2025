@@ -1,10 +1,11 @@
 ﻿
 using System.Collections;
 using System.Net.Http.Headers;
+using System.Net.Http.Json;
 using System.Security.AccessControl;
 using DTOs;
 
-namespace API.Denunciantes
+namespace API.Localidades
 {
     internal class LocalidadApiLocalidad
     {
@@ -69,7 +70,7 @@ namespace API.Denunciantes
                 throw new Exception($"Timeout al obtener las localidades: {ex.Message}", ex);
             }
         }
-        
+
         public static async Task AddAsync(LocalidadDTO dto)
         {
             try
@@ -103,17 +104,17 @@ namespace API.Denunciantes
                     throw new Exception($"Error al actualizar la localidad. Status: {response.StatusCode}, Detalle: {errorContent}");
                 }
             }
-            catch (HttpRequestException ex) 
-            {            
+            catch (HttpRequestException ex)
+            {
                 throw new Exception($"Error de conexión al actualizar la localidad: {ex.Message}", ex);
             }
             catch (TaskCanceledException ex)
-            { 
+            {
                 throw new Exception($"Timeout al actualizar la Localidad: {ex.Message}", ex);
             }
 
         }
-        
+
         public static async Task DeleteAsync(int cod_loc)
         {
             try
@@ -137,9 +138,9 @@ namespace API.Denunciantes
             }
         }
 
-        
-    
-    
-    
+
+
+
+
     }
 }
