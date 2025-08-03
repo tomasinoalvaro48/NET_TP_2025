@@ -6,7 +6,6 @@
         ///  Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
-        private System.Windows.Forms.ErrorProvider errorProvider;
 
         /// <summary>
         ///  Clean up any resources being used.
@@ -29,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             codigoLabel = new Label();
             nombreLabel = new Label();
             telefonoLabel = new Label();
@@ -39,6 +39,8 @@
             direccionTextBox = new TextBox();
             aceptarButton = new Button();
             cancelarButton = new Button();
+            errorProvider = new ErrorProvider(components);
+            ((System.ComponentModel.ISupportInitialize)errorProvider).BeginInit();
             SuspendLayout();
             // 
             // codigoLabel
@@ -138,6 +140,10 @@
             cancelarButton.UseVisualStyleBackColor = true;
             cancelarButton.Click += cancelarButton_Click;
             // 
+            // errorProvider
+            // 
+            errorProvider.ContainerControl = this;
+            // 
             // DenuncianteDetalle
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -155,6 +161,7 @@
             Controls.Add(codigoLabel);
             Name = "DenuncianteDetalle";
             Text = "Denunciante";
+            ((System.ComponentModel.ISupportInitialize)errorProvider).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -171,5 +178,6 @@
         private TextBox direccionTextBox;
         private Button aceptarButton;
         private Button cancelarButton;
+        private ErrorProvider errorProvider;
     }
 }
