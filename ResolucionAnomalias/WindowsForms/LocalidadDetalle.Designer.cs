@@ -106,7 +106,6 @@
             Controls.Add(labelCodigoLoc);
             Name = "LocalidadDetalle";
             Text = "LocalidadDetalle";
-            Load += LocalidadDetalle_Load;
             ResumeLayout(false);
             PerformLayout();
         }
