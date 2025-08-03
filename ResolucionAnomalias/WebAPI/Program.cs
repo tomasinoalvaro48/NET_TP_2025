@@ -26,8 +26,11 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+//--------------------- Denucniante --------------------
+
 app.MapGet("/denunciantes/{cod_den}", (int cod_den) =>
 {
+
     DenuncianteService denuncianteService = new DenuncianteService();
 
     DenuncianteDTO dto = denuncianteService.Get(cod_den);
@@ -121,8 +124,7 @@ app.MapDelete("/denunciantes/{cod_den}", (int cod_den) =>
 .WithOpenApi();
 
 
-//-------------------------------------------------Localidad --------------------------------------------------------------------------------------------------------
-
+//--------------------- Localidad --------------------
 
 app.MapGet("/localidades/{id}", (int id) =>
 {
@@ -141,9 +143,6 @@ app.MapGet("/localidades/{id}", (int id) =>
 .Produces<LocalidadDTO>(StatusCodes.Status204NoContent)
 .Produces(StatusCodes.Status404NotFound)
 .WithOpenApi();
-
-
-
 
 app.MapGet("/localidades", () => {
     LocalidadService localidadService = new LocalidadService();
@@ -171,7 +170,6 @@ app.MapDelete("/localidades/{id}", (int id) =>
 .Produces(StatusCodes.Status200OK)
 .WithOpenApi();
 
-
 app.MapPost("/localidades", (LocalidadDTO dto) =>
 {
     try
@@ -189,11 +187,6 @@ app.MapPost("/localidades", (LocalidadDTO dto) =>
 .Produces<LocalidadDTO>(StatusCodes.Status200OK)
 .Produces(StatusCodes.Status400BadRequest)
 .WithOpenApi();
-
-
-
-
-
 
 app.MapPut("/localidades", (LocalidadDTO dto)=>
 {
@@ -221,7 +214,103 @@ app.MapPut("/localidades", (LocalidadDTO dto)=>
 
 
 
+//---------------- Tipo de Anomalia -------------------
+app.MapGet("/tipoanomalia/{cod_tipo}", (int cod_tipo) =>
+{
+
+    DenuncianteService denuncianteService = new DenuncianteService();
+
+    DenuncianteDTO dto = denuncianteService.Get(cod_tipo);
+
+    if (dto == null)
+    {
+        return Results.NotFound();
+    }
+
+    return Results.Ok(dto);
+})
+.WithName("GetTipoAnomalia")
+.Produces<TipoAnomaliaDTO>(StatusCodes.Status200OK)
+.Produces(StatusCodes.Status404NotFound)
+.WithOpenApi();
+
+app.MapGet("/tipoanomalia", () =>
+{
+    TipoAnomaliaService tipoService = new TipoAnomaliaService();
+
+    var dtos = tipoService.GetAll();
+
+    return Results.Ok(dtos);
+})
+.WithName("GetAllTipoAnomalia")
+.Produces<List<TipoAnomaliaDTO>>(StatusCodes.Status200OK)
+.WithOpenApi();
+
+app.MapPost("/tipoanomalia", (TipoAnomaliaDTO dto) =>
+{
+    try
+    {
+        TipoAnomaliaService tipoService = new TipoAnomaliaService();
+
+        TipoAnomaliaDTO tipoDTO = tipoService.Add(dto);
+
+        return Results.Created($"/tipoanomalia/{tipoDTO.Cod_anom}", tipoDTO);
+    }
+    catch (ArgumentException ex)
+    {
+        return Results.BadRequest(new { error = ex.Message });
+    }
+})
+.WithName("AddTipoAnomalia")
+.Produces<TipoAnomaliaDTO>(StatusCodes.Status201Created)
+.Produces(StatusCodes.Status400BadRequest)
+.WithOpenApi();
+
+app.MapPut("/tipoanomalia", (TipoAnomaliaDTO dto) =>
+{
+    try
+    {
+        TipoAnomaliaService tipoService = new TipoAnomaliaService();
+
+        var found = tipoService.Update(dto);
+
+        if (!found)
+        {
+            return Results.NotFound();
+        }
+
+        return Results.NoContent();
+    }
+    catch (ArgumentException ex)
+    {
+        return Results.BadRequest(new { error = ex.Message });
+    }
+})
+.WithName("UpdateTipoAnomalia")
+.Produces(StatusCodes.Status404NotFound)
+.Produces(StatusCodes.Status400BadRequest)
+.WithOpenApi();
+
+app.MapDelete("/tipoanomalia/{cod_tipo}", (int cod_tipo) =>
+{
+    TipoAnomaliaService tipoService = new TipoAnomaliaService();
+
+    var deleted = tipoService.Delete(cod_tipo);
+
+    if (!deleted)
+    {
+        return Results.NotFound();
+    }
+
+    return Results.NoContent();
+
+})
+.WithName("DeleteTipoAnomalia")
+.Produces(StatusCodes.Status204NoContent)
+.Produces(StatusCodes.Status404NotFound)
+.WithOpenApi();
 
 
+//--------------------- Run app --------------------
 
 app.Run();

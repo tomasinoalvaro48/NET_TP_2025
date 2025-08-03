@@ -13,11 +13,11 @@ using DTOs;
 
 namespace WindowsForms
 {
-    public enum FormMode
-    {
-        Add,
-        Update
-    }
+   // public enum FormMode
+    //{
+//Add,
+   //     Update
+    //}
     public partial class LocalidadDetalle : Form
     {
         private LocalidadDTO localidad;

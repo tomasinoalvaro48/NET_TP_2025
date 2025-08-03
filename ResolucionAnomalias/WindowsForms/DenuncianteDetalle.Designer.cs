@@ -6,6 +6,7 @@
         ///  Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
+        private System.Windows.Forms.ErrorProvider errorProvider;
 
         /// <summary>
         ///  Clean up any resources being used.
@@ -43,92 +44,99 @@
             // codigoLabel
             // 
             codigoLabel.AutoSize = true;
-            codigoLabel.Location = new Point(3
-                , 39);
+            codigoLabel.Location = new Point(24, 15);
+            codigoLabel.Margin = new Padding(2, 0, 2, 0);
             codigoLabel.Name = "codigoLabel";
             codigoLabel.Size = new Size(46, 15);
-            codigoLabel.TabIndex = 0;
+            codigoLabel.TabIndex = 11;
             codigoLabel.Text = "Código";
-            codigoLabel.Click += label1_Click;
             // 
             // nombreLabel
             // 
             nombreLabel.AutoSize = true;
-            nombreLabel.Location = new Point(37, 68);
+            nombreLabel.Location = new Point(24, 51);
+            nombreLabel.Margin = new Padding(2, 0, 2, 0);
             nombreLabel.Name = "nombreLabel";
             nombreLabel.Size = new Size(51, 15);
             nombreLabel.TabIndex = 1;
             nombreLabel.Text = "Nombre";
-            nombreLabel.Click += label2_Click;
             // 
             // telefonoLabel
             // 
             telefonoLabel.AutoSize = true;
-            telefonoLabel.Location = new Point(37, 97);
+            telefonoLabel.Location = new Point(24, 82);
+            telefonoLabel.Margin = new Padding(2, 0, 2, 0);
             telefonoLabel.Name = "telefonoLabel";
             telefonoLabel.Size = new Size(53, 15);
-            telefonoLabel.TabIndex = 2;
+            telefonoLabel.TabIndex = 5;
             telefonoLabel.Text = "Teléfono";
-            telefonoLabel.Click += label3_Click;
             // 
             // direccionLabel
             // 
             direccionLabel.AutoSize = true;
-            direccionLabel.Location = new Point(37, 130);
+            direccionLabel.Location = new Point(24, 119);
+            direccionLabel.Margin = new Padding(2, 0, 2, 0);
             direccionLabel.Name = "direccionLabel";
             direccionLabel.Size = new Size(57, 15);
-            direccionLabel.TabIndex = 3;
+            direccionLabel.TabIndex = 7;
             direccionLabel.Text = "Dirección";
-            direccionLabel.Click += label4_Click;
             // 
             // codigoTextBox
             // 
             codigoTextBox.BackColor = SystemColors.Control;
-            codigoTextBox.Location = new Point(106, 36);
+            codigoTextBox.Location = new Point(131, 15);
+            codigoTextBox.Margin = new Padding(2, 1, 2, 1);
             codigoTextBox.Name = "codigoTextBox";
-            codigoTextBox.Size = new Size(100, 23);
-            codigoTextBox.TabIndex = 5;
+            codigoTextBox.ReadOnly = true;
+            codigoTextBox.Size = new Size(110, 23);
+            codigoTextBox.TabIndex = 0;
+            codigoTextBox.TabStop = false;
             // 
             // nombreTextBox
             // 
-            nombreTextBox.Location = new Point(106, 65);
+            nombreTextBox.Location = new Point(131, 51);
+            nombreTextBox.Margin = new Padding(2, 1, 2, 1);
             nombreTextBox.Name = "nombreTextBox";
-            nombreTextBox.Size = new Size(100, 23);
-            nombreTextBox.TabIndex = 6;
+            nombreTextBox.Size = new Size(110, 23);
+            nombreTextBox.TabIndex = 0;
             // 
             // telefonoTextBox
             // 
-            telefonoTextBox.Location = new Point(106, 94);
+            telefonoTextBox.Location = new Point(131, 82);
+            telefonoTextBox.Margin = new Padding(2, 1, 2, 1);
             telefonoTextBox.Name = "telefonoTextBox";
-            telefonoTextBox.Size = new Size(100, 23);
-            telefonoTextBox.TabIndex = 7;
+            telefonoTextBox.Size = new Size(110, 23);
+            telefonoTextBox.TabIndex = 1;
             // 
             // direccionTextBox
             // 
-            direccionTextBox.Location = new Point(106, 127);
+            direccionTextBox.Location = new Point(131, 119);
+            direccionTextBox.Margin = new Padding(2, 1, 2, 1);
             direccionTextBox.Name = "direccionTextBox";
-            direccionTextBox.Size = new Size(100, 23);
+            direccionTextBox.Size = new Size(110, 23);
             direccionTextBox.TabIndex = 8;
             // 
             // aceptarButton
             // 
-            aceptarButton.Location = new Point(191, 179);
+            aceptarButton.Location = new Point(239, 199);
+            aceptarButton.Margin = new Padding(2, 1, 2, 1);
             aceptarButton.Name = "aceptarButton";
-            aceptarButton.Size = new Size(75, 23);
-            aceptarButton.TabIndex = 9;
+            aceptarButton.Size = new Size(81, 22);
+            aceptarButton.TabIndex = 2;
             aceptarButton.Text = "Aceptar";
             aceptarButton.UseVisualStyleBackColor = true;
-            aceptarButton.Click += button1_Click;
+            aceptarButton.Click += aceptarButton_Click;
             // 
             // cancelarButton
             // 
-            cancelarButton.Location = new Point(293, 179);
+            cancelarButton.Location = new Point(331, 199);
+            cancelarButton.Margin = new Padding(2, 1, 2, 1);
             cancelarButton.Name = "cancelarButton";
-            cancelarButton.Size = new Size(75, 23);
-            cancelarButton.TabIndex = 10;
+            cancelarButton.Size = new Size(81, 22);
+            cancelarButton.TabIndex = 3;
             cancelarButton.Text = "Cancelar";
             cancelarButton.UseVisualStyleBackColor = true;
-            cancelarButton.Click += button2_Click;
+            cancelarButton.Click += cancelarButton_Click;
             // 
             // DenuncianteDetalle
             // 
