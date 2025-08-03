@@ -10,8 +10,8 @@ namespace Data
         {
             Localidades = new List<Localidad>
             {
-                new Localidad(2500, "Santa Fe"),
-                new Localidad(2000, "Rosario")
+                new Localidad(1, 2500, "Santa Fe"),
+                new Localidad(2, 2000, "Rosario")
 
             };
         }

@@ -19,11 +19,11 @@ namespace API.Localidades
 
 
 
-        public static async Task<LocalidadDTO> GetAsync(int cod_loc)
+        public static async Task<LocalidadDTO> GetAsync(int id)
         {
             try
             {
-                HttpResponseMessage response = await httpClient.GetAsync("localidades/" + cod_loc);
+                HttpResponseMessage response = await httpClient.GetAsync("localidades/" + id);
                 if (response.IsSuccessStatusCode)
                 {
                     return await response.Content.ReadAsAsync<LocalidadDTO>();
@@ -31,16 +31,16 @@ namespace API.Localidades
                 else
                 {
                     string errorContent = await response.Content.ReadAsStringAsync();
-                    throw new Exception($"Error al obtener la loclidad con Código {cod_loc}. Status: {response.StatusCode}, Detalle: {errorContent}");
+                    throw new Exception($"Error al obtener la loclidad con Código {id}. Status: {response.StatusCode}, Detalle: {errorContent}");
                 }
             }
             catch (HttpRequestException ex)
             {
-                throw new Exception($"Error de conexión al obtener la localidad con Código {cod_loc}: {ex.Message}", ex);
+                throw new Exception($"Error de conexión al obtener la localidad con Código {id}: {ex.Message}", ex);
             }
             catch (TaskCanceledException ex)
             {
-                throw new Exception($"Timeout al obtener la localidad con Código {cod_loc}: {ex.Message}", ex);
+                throw new Exception($"Timeout al obtener la localidad con Código {id}: {ex.Message}", ex);
             }
 
         }
@@ -115,26 +115,26 @@ namespace API.Localidades
 
         }
 
-        public static async Task DeleteAsync(int cod_loc)
+        public static async Task DeleteAsync(int id)
         {
             try
             {
-                HttpResponseMessage response = await httpClient.DeleteAsync("localidades/" + cod_loc);
+                HttpResponseMessage response = await httpClient.DeleteAsync("localidades/" + id);
                 if (!response.IsSuccessStatusCode)
                 {
 
                     string errorContent = await response.Content.ReadAsStringAsync();
-                    throw new Exception($"Error al eliminar la localidad con Código {cod_loc}. Status: {response.StatusCode}, Detalle: {errorContent}");
+                    throw new Exception($"Error al eliminar la localidad con ID {id}. Status: {response.StatusCode}, Detalle: {errorContent}");
 
                 }
             }
             catch (HttpRequestException ex)
             {
-                throw new Exception($"Error de conexiónal eliminar la localidad con Código {cod_loc}: {ex.Message}", ex);
+                throw new Exception($"Error de conexiónal eliminar la localidad con ID {id}: {ex.Message}", ex);
             }
             catch (TaskCanceledException ex)
             {
-                throw new Exception($"Timeout al eliminar la localidad con Código {cod_loc}: {ex.Message}", ex);
+                throw new Exception($"Timeout al eliminar la localidad con ID {id}: {ex.Message}", ex);
             }
         }
     }

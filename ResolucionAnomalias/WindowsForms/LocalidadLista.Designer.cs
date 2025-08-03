@@ -48,6 +48,7 @@
             dataGridViewLocalidades.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridViewLocalidades.Size = new Size(713, 288);
             dataGridViewLocalidades.TabIndex = 0;
+            dataGridViewLocalidades.CellContentClick += dataGridViewLocalidades_CellContentClick;
             // 
             // buttonAgregarListLoc
             // 

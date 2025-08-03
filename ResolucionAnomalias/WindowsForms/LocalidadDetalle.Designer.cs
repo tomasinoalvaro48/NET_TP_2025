@@ -36,6 +36,8 @@
             errorProvider = new ErrorProvider(components);
             textBoxCodigoLoc = new TextBox();
             textBoxNombreLoc = new TextBox();
+            labelIdDetLoc = new Label();
+            textBoxIdDetLoc = new TextBox();
             ((System.ComponentModel.ISupportInitialize)errorProvider).BeginInit();
             SuspendLayout();
             // 
@@ -88,9 +90,6 @@
             textBoxCodigoLoc.Name = "textBoxCodigoLoc";
             textBoxCodigoLoc.Size = new Size(210, 27);
             textBoxCodigoLoc.TabIndex = 4;
-
-            //textBoxCodigoLoc.TextChanged += textBoxCodigoLoc_TextChanged;
-           
             // 
             // textBoxNombreLoc
             // 
@@ -99,11 +98,32 @@
             textBoxNombreLoc.Size = new Size(210, 27);
             textBoxNombreLoc.TabIndex = 4;
             // 
+            // labelIdDetLoc
+            // 
+            labelIdDetLoc.AutoSize = true;
+            labelIdDetLoc.Location = new Point(95, 78);
+            labelIdDetLoc.Name = "labelIdDetLoc";
+            labelIdDetLoc.Size = new Size(27, 20);
+            labelIdDetLoc.TabIndex = 5;
+            labelIdDetLoc.Text = "ID:";
+            // 
+            // textBoxIdDetLoc
+            // 
+            textBoxIdDetLoc.BackColor = SystemColors.ControlLight;
+            textBoxIdDetLoc.Location = new Point(183, 71);
+            textBoxIdDetLoc.Name = "textBoxIdDetLoc";
+            textBoxIdDetLoc.ReadOnly = true;
+            textBoxIdDetLoc.Size = new Size(210, 27);
+            textBoxIdDetLoc.TabIndex = 6;
+            textBoxIdDetLoc.TextChanged += textBoxIdDetLoc_TextChanged;
+            // 
             // LocalidadDetalle
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(613, 365);
+            Controls.Add(textBoxIdDetLoc);
+            Controls.Add(labelIdDetLoc);
             Controls.Add(textBoxNombreLoc);
             Controls.Add(textBoxCodigoLoc);
             Controls.Add(buttonCancelarLocDet);
@@ -126,5 +146,7 @@
         private TextBox textBoxCodigoLoc;
         private TextBox textBoxNombreLoc;
         private ErrorProvider errorProvider;
+        private Label labelIdDetLoc;
+        private TextBox textBoxIdDetLoc;
     }
 }

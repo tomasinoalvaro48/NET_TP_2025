@@ -23,7 +23,7 @@ namespace WindowsForms
 
             return localidad;
         }
-        
+
         private void agregarButton_Click(object sender, EventArgs e)
         {
             LocalidadDetalle localidadDetalle = new LocalidadDetalle();
@@ -44,7 +44,7 @@ namespace WindowsForms
             {
                 LocalidadDetalle localidadDetalle = new LocalidadDetalle();
 
-                int id = this.SelectedItem().Codigo;
+                int id = this.SelectedItem().ID;
 
                 LocalidadDTO localidad = await LocalidadApiLocalidad.GetAsync(id);
 
@@ -64,9 +64,9 @@ namespace WindowsForms
         {
             try
             {
-                int id = this.SelectedItem().Codigo;
+                int id = this.SelectedItem().ID;
 
-                var result = MessageBox.Show($"¿Está seguro que desea eliminar la localidad con coidgo {id}?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                var result = MessageBox.Show($"¿Está seguro que desea eliminar la localidad con ID {id}?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (result == DialogResult.Yes)
                 {
@@ -106,6 +106,11 @@ namespace WindowsForms
                 this.buttonEliminarListLoc.Enabled = false;
                 this.buttonModificarListLoc.Enabled = false;
             }
+        }
+
+        private void dataGridViewLocalidades_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

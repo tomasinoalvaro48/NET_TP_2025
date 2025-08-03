@@ -15,28 +15,28 @@ namespace Application.Services
 
         public LocalidadDTO add(LocalidadDTO dto)
         {
-            //int codigo_localidad = GentNextCodigoLocalidad();
-            Localidad localidad = new Localidad(dto.Codigo, dto.Nombre);
+            int id_localidad = GentNextIDLocalidad();
+            Localidad localidad = new Localidad(id_localidad, dto.Codigo, dto.Nombre);
             LocalidadInMemory.Localidades.Add(localidad);
-            dto.Codigo = localidad.Codigo;
+            dto.ID = localidad.ID;
             return dto;
         }
-        /*
-        internal int GentNextCodigoLocalidad()
+        
+        internal int GentNextIDLocalidad()
         {
-            int nextcodigo;
+            int nextID;
             if (LocalidadInMemory.Localidades.Count > 0)
             {
-                nextcodigo = LocalidadInMemory.Localidades.Max(x => x.Codigo) + 1;
+                nextID = LocalidadInMemory.Localidades.Max(x => x.ID) + 1;
             }
-            else { nextcodigo = 1; }
-            return nextcodigo;
+            else { nextID = 1; }
+            return nextID;
         }
-        */
+        
 
-        public bool delete(int codigo)
+        public bool delete(int id)
         {
-            Localidad? localidadToDelete = LocalidadInMemory.Localidades.Find(x => x.Codigo == codigo);
+            Localidad? localidadToDelete = LocalidadInMemory.Localidades.Find(x => x.ID == id);
             if (localidadToDelete != null)
             {
                 LocalidadInMemory.Localidades.Remove(localidadToDelete);
@@ -45,13 +45,14 @@ namespace Application.Services
             else { return false; }
         }
 
-        public LocalidadDTO Get(int codigo)
+        public LocalidadDTO Get(int id)
         {
-            Localidad? localidad = LocalidadInMemory.Localidades.Find(x => x.Codigo == codigo);
+            Localidad? localidad = LocalidadInMemory.Localidades.Find(x => x.ID == id);
             if (localidad != null)
             {
                 return new LocalidadDTO
                 {
+                    ID = localidad.ID,
                     Codigo = localidad.Codigo,
                     Nombre = localidad.Nombre
                 };
@@ -67,7 +68,8 @@ namespace Application.Services
         {
             return LocalidadInMemory.Localidades.Select(localidad => new LocalidadDTO
             {
-                Codigo=localidad.Codigo,
+                ID = localidad.ID,
+                Codigo = localidad.Codigo,
                 Nombre=localidad.Nombre
             }).ToList();
 
@@ -75,10 +77,10 @@ namespace Application.Services
 
         public bool Update(LocalidadDTO dto)
         {
-            Localidad? LocalidadToUpdate = LocalidadInMemory.Localidades.Find(x => x.Codigo == dto.Codigo);
+            Localidad? LocalidadToUpdate = LocalidadInMemory.Localidades.Find(x => x.ID == dto.ID);
             if (LocalidadToUpdate != null)
             {
-                LocalidadToUpdate.SetId(dto.Codigo);
+                LocalidadToUpdate.SetCodigo(dto.Codigo);
                 LocalidadToUpdate.SetNombre(dto.Nombre);
 
                 return true;

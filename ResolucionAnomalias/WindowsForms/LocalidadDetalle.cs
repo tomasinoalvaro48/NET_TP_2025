@@ -13,10 +13,10 @@ using DTOs;
 
 namespace WindowsForms
 {
-   // public enum FormMode
+    // public enum FormMode
     //{
-//Add,
-   //     Update
+    //Add,
+    //     Update
     //}
     public partial class LocalidadDetalle : Form
     {
@@ -99,6 +99,8 @@ namespace WindowsForms
             mode = value;
             if (mode == FormMode.Add)
             {
+                labelIdDetLoc.Visible = false;
+                textBoxIdDetLoc.Visible = false;
                 labelCodigoLoc.Visible = true;
                 textBoxCodigoLoc.Visible = true;
                 labelNombreLoc.Visible = true;
@@ -106,6 +108,8 @@ namespace WindowsForms
             }
             if (mode == FormMode.Update)
             {
+                labelIdDetLoc.Visible = true;
+                textBoxIdDetLoc.Visible = true;
                 labelCodigoLoc.Visible = true;
                 textBoxCodigoLoc.Visible = true;
                 labelNombreLoc.Visible = true;
@@ -136,6 +140,11 @@ namespace WindowsForms
         }
 
         private void textBoxCodigoLoc_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxIdDetLoc_TextChanged(object sender, EventArgs e)
         {
 
         }
