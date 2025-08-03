@@ -1,7 +1,4 @@
-using Domain.Model;
 using DTOs;
-using System.Text.RegularExpressions;
-using System.Windows.Forms;
 
 namespace WindowsForms
 {
@@ -57,13 +54,11 @@ namespace WindowsForms
 
                     if (this.Mode == FormMode.Update)
                     {
-                        //await DenuncianteApiDenunciante.UpdateAsync(this.Denunciante);
-                        await DenuncianteApiDenunciante.UpdateAsync(DenuncianteMapper.ToEntity(this.Denunciante));
+                        await DenuncianteApiDenunciante.UpdateAsync(this.Denunciante);
                     }
                     else
                     {
-                        //await DenuncianteApiDenunciante.AddAsync(this.Denunciante);
-                        await DenuncianteApiDenunciante.AddAsync(DenuncianteMapper.ToEntity(this.Denunciante));
+                        await DenuncianteApiDenunciante.AddAsync(this.Denunciante);
                     }
 
                     this.Close();
@@ -133,29 +128,5 @@ namespace WindowsForms
 
             return isValid;
         }
-    }
-}
-
-public static class DenuncianteMapper
-{
-    public static Domain.Model.Denunciante ToEntity(DTOs.DenuncianteDTO dto)
-    {
-        return new Domain.Model.Denunciante(
-            dto.Cod_den,
-            dto.Nombre_den,
-            dto.Telefono,
-            dto.Direccion_den
-        );
-    }
-
-    public static DTOs.DenuncianteDTO ToDTO(Domain.Model.Denunciante entity)
-    {
-        return new DTOs.DenuncianteDTO
-        {
-            Cod_den = entity.Cod_den,
-            Nombre_den = entity.Nombre_den,
-            Direccion_den = entity.Direccion_den,
-            Telefono = entity.Telefono
-        };
     }
 }

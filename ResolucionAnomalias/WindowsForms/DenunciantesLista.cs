@@ -1,13 +1,4 @@
 ﻿using DTOs;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace WindowsForms
 {
@@ -45,10 +36,7 @@ namespace WindowsForms
 
                 int cod_den = this.SelectedItem().Cod_den;
 
-                //DenuncianteDTO denunciante = await DenuncianteApiDenunciante.GetAsync(cod_den);
-
-                var entity = await DenuncianteApiDenunciante.GetAsync(cod_den);
-                DenuncianteDTO denunciante = DenuncianteMapper.ToDTO(entity);
+                DenuncianteDTO denunciante = await DenuncianteApiDenunciante.GetAsync(cod_den);
 
                 denuncianteDetalle.Mode = FormMode.Update;
                 denuncianteDetalle.Denunciante = denunciante;

@@ -1,11 +1,6 @@
-﻿using Domain.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using DTOs;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WindowsForms
 {
@@ -21,29 +16,29 @@ namespace WindowsForms
         }
 
 
-        public static async Task<Denunciante> GetAsync(int cod_den)
+        public static async Task<DenuncianteDTO> GetAsync(int cod_den)
         {
-            Denunciante denunciante = null;
+            DenuncianteDTO denunciante = null;
             HttpResponseMessage response = await httpClient.GetAsync("denunciantes/" + cod_den);
             if (response.IsSuccessStatusCode)
             {
-                denunciante = await response.Content.ReadAsAsync<Denunciante>();
+                denunciante = await response.Content.ReadAsAsync<DenuncianteDTO>();
             }
             return denunciante;
         }
 
-        public static async Task<IEnumerable<Denunciante>> GetAllAsync()
+        public static async Task<IEnumerable<DenuncianteDTO>> GetAllAsync()
         {
-            IEnumerable<Denunciante> denunciantes = null;
+            IEnumerable<DenuncianteDTO> denunciantes = null;
             HttpResponseMessage response = await httpClient.GetAsync("denunciantes");
             if (response.IsSuccessStatusCode)
             {
-                denunciantes = await response.Content.ReadAsAsync<IEnumerable<Denunciante>>();
+                denunciantes = await response.Content.ReadAsAsync<IEnumerable<DenuncianteDTO>>();
             }
             return denunciantes;
         }
 
-        public async static Task AddAsync(Denunciante denunciante)
+        public async static Task AddAsync(DenuncianteDTO denunciante)
         {
             HttpResponseMessage response = await httpClient.PostAsJsonAsync("denunciantes", denunciante);
             response.EnsureSuccessStatusCode();
@@ -55,7 +50,7 @@ namespace WindowsForms
             response.EnsureSuccessStatusCode();
         }
 
-        public static async Task UpdateAsync(Denunciante denunciante)
+        public static async Task UpdateAsync(DenuncianteDTO denunciante)
         {
             HttpResponseMessage response = await httpClient.PutAsJsonAsync("denunciantes", denunciante);
             response.EnsureSuccessStatusCode();
