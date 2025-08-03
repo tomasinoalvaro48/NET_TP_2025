@@ -39,59 +39,79 @@
             // 
             denunciantesDataGridView.AllowUserToOrderColumns = true;
             denunciantesDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            denunciantesDataGridView.Location = new Point(21, 18);
+            denunciantesDataGridView.Location = new Point(24, 24);
             denunciantesDataGridView.Margin = new Padding(2, 1, 2, 1);
             denunciantesDataGridView.MultiSelect = false;
             denunciantesDataGridView.Name = "denunciantesDataGridView";
             denunciantesDataGridView.ReadOnly = true;
             denunciantesDataGridView.RowHeadersWidth = 82;
             denunciantesDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            denunciantesDataGridView.Size = new Size(751, 270);
+            denunciantesDataGridView.Size = new Size(858, 360);
             denunciantesDataGridView.TabIndex = 0;
             // 
             // eliminarButton
             // 
-            eliminarButton.Location = new Point(506, 300);
+            eliminarButton.Location = new Point(578, 400);
             eliminarButton.Margin = new Padding(2, 1, 2, 1);
             eliminarButton.Name = "eliminarButton";
-            eliminarButton.Size = new Size(81, 22);
+            eliminarButton.Size = new Size(93, 29);
             eliminarButton.TabIndex = 2;
             eliminarButton.Text = "Eliminar";
             eliminarButton.UseVisualStyleBackColor = true;
+            eliminarButton.Click += eliminarButton_Click;
             // 
             // modificarButton
             // 
-            modificarButton.Location = new Point(598, 300);
+            modificarButton.Location = new Point(683, 400);
             modificarButton.Margin = new Padding(2, 1, 2, 1);
             modificarButton.Name = "modificarButton";
-            modificarButton.Size = new Size(81, 22);
+            modificarButton.Size = new Size(93, 29);
             modificarButton.TabIndex = 3;
             modificarButton.Text = "Modificar";
             modificarButton.UseVisualStyleBackColor = true;
+            modificarButton.Click += modificarButton_Click;
             // 
             // agregarButton
             // 
-            agregarButton.Location = new Point(691, 300);
+            agregarButton.Location = new Point(790, 400);
             agregarButton.Margin = new Padding(2, 1, 2, 1);
             agregarButton.Name = "agregarButton";
-            agregarButton.Size = new Size(81, 22);
+            agregarButton.Size = new Size(93, 29);
             agregarButton.TabIndex = 1;
             agregarButton.Text = "Agregar";
             agregarButton.UseVisualStyleBackColor = true;
+            agregarButton.Click += agregarButton_Click;
             // 
             // DenunciantesLista
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(738, 351);
+            ClientSize = new Size(843, 468);
             Controls.Add(agregarButton);
             Controls.Add(modificarButton);
             Controls.Add(eliminarButton);
             Controls.Add(denunciantesDataGridView);
+            Margin = new Padding(3, 4, 3, 4);
             Name = "DenunciantesLista";
             Text = "Denunciantes";
+            Load += Denunciantes_Load;
             ((System.ComponentModel.ISupportInitialize)denunciantesDataGridView).EndInit();
             ResumeLayout(false);
+        }
+
+        private void DenunciantesLista_Load(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void EliminarButton_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void ModificarButton_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion

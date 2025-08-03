@@ -13,7 +13,6 @@ namespace WindowsForms
             ApplicationConfiguration.Initialize();
             Application.Run(new DenunciantesLista());
             //Application.Run(new LocalidadLista());
-            //Application.Run(new LocalidadDetalle());
         }
     }
 }

@@ -104,7 +104,7 @@ namespace WindowsForms
         {
             bool isValid = true;
 
-            errorProvider.SetError(nombreTextBox, string.Empty);
+            errorProvider.SetError(nombreTextBox, string.Empty); /////--------------------------------------------------------------------------------------- Te topa al nombre como nulo
             errorProvider.SetError(telefonoTextBox, string.Empty);
             errorProvider.SetError(direccionTextBox, string.Empty);
 
