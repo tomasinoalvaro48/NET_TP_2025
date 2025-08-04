@@ -7,27 +7,144 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
+using DTOs;
+
 
 namespace WindowsForms
 {
+    // public enum FormMode
+    //{
+    //Add,
+    //     Update
+    //}
     public partial class TipoAnomaliaDetalle : Form
     {
+        private TipoAnomaliaDTO tipo;
+        private FormMode mode;
+
+        public TipoAnomaliaDTO Tipo
+        {
+            get { return tipo; }
+            set
+            {
+                tipo = value;
+                this.SetLocalidad();
+
+            }
+        }
+
+
+        public FormMode Mode
+        {
+            get
+            {
+                return mode;
+            }
+            set
+            {
+                SerFormMode(value);
+            }
+        }
+
         public TipoAnomaliaDetalle()
         {
             InitializeComponent();
+
+            Mode = FormMode.Add;
         }
 
-        private void TipoAnomaliaDetalle_Load(object sender, EventArgs e)
+        private async void aceptarButton_Click(object sender, EventArgs e)
+        {
+            if (this.ValidateTipo())
+            {
+                try
+                {
+
+                    this.Localidad.Codigo = int.Parse(textBoxCodigoLoc.Text);
+                    this.Localidad.Nombre = textBoxNombreLoc.Text;
+
+                    if (this.Mode == FormMode.Update)
+                    {
+                        await LocalidadApiLocalidad.UpdateAsync(this.Localidad);
+                    }
+                    else
+                    {
+                        await LocalidadApiLocalidad.AddAsync(this.Localidad);
+                    }
+
+                    this.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void cancelarButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+
+        private void SetLocalidad()
+        {
+            this.textBoxCodigoLoc.Text = this.Localidad.Codigo.ToString();
+            this.textBoxNombreLoc.Text = this.Localidad.Nombre;
+        }
+
+        private void SerFormMode(FormMode value)
+        {
+            mode = value;
+            if (mode == FormMode.Add)
+            {
+                labelIdDetLoc.Visible = false;
+                textBoxIdDetLoc.Visible = false;
+                labelCodigoLoc.Visible = true;
+                textBoxCodigoLoc.Visible = true;
+                labelNombreLoc.Visible = true;
+                textBoxNombreLoc.Visible = true;
+            }
+            if (mode == FormMode.Update)
+            {
+                labelIdDetLoc.Visible = true;
+                textBoxIdDetLoc.Visible = true;
+                labelCodigoLoc.Visible = true;
+                textBoxCodigoLoc.Visible = true;
+                labelNombreLoc.Visible = true;
+                textBoxNombreLoc.Visible = true;
+            }
+
+        }
+
+        private bool ValidateLocalidad()
+        {
+            bool valid = true;
+            errorProvider.SetError(textBoxCodigoLoc, string.Empty);
+            errorProvider.SetError(textBoxNombreLoc, string.Empty);
+
+            if (this.textBoxCodigoLoc.Text == string.Empty)
+            {
+                valid = false;
+                errorProvider.SetError(textBoxCodigoLoc, "El Codigo es Requerido");
+            }
+
+            if (this.textBoxNombreLoc.Text == string.Empty)
+            {
+                valid = false;
+                errorProvider.SetError(textBoxNombreLoc, "El Nombre es Requerido");
+            }
+
+            return valid;
+        }
+
+        private void textBoxCodigoLoc_TextChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void checkedListBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
+        private void textBoxIdDetLoc_TextChanged(object sender, EventArgs e)
         {
 
         }
