@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Net.Http.Headers;
+﻿using System.Net.Http.Headers;
 using System.Net.Http.Json;
-using System.Security.AccessControl;
 using DTOs;
 
 namespace API.TipoAnomalia
@@ -23,7 +21,7 @@ namespace API.TipoAnomalia
                 HttpResponseMessage response = await httpClient.GetAsync("tipoanomalia/" + cod_tipo);
                 if (response.IsSuccessStatusCode)
                 {
-                    return await response.Content.ReadAsAsync<TipoAnomaliaDTO>();
+                    return await response.Content.ReadFromJsonAsync<TipoAnomaliaDTO>();
                 }
                 else
                 {
@@ -48,7 +46,7 @@ namespace API.TipoAnomalia
                 HttpResponseMessage response = await httpClient.GetAsync("tipoanomalia");
                 if (response.IsSuccessStatusCode)
                 {
-                    return await response.Content.ReadAsAsync<IEnumerable<TipoAnomaliaDTO>>();
+                    return await response.Content.ReadFromJsonAsync<IEnumerable<TipoAnomaliaDTO>>();
                 }
                 else
                 {

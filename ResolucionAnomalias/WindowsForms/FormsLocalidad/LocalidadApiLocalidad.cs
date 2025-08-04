@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Domain.Model;
 using DTOs;
 
-namespace WindowsForms
+namespace WindowsForms.FormsLocalidad
 {
     public class LocalidadApiLocalidad
     {

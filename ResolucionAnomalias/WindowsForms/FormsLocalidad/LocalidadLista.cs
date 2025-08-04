@@ -1,5 +1,6 @@
 ﻿
 using DTOs;
+using WindowsForms.FormsLocalidad;
 
 namespace WindowsForms
 {

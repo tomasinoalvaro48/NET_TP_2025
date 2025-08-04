@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using DTOs;
+using WindowsForms.FormsLocalidad;
 
 
 namespace WindowsForms
@@ -87,10 +88,13 @@ namespace WindowsForms
             this.Close();
         }
 
-
         private void SetLocalidad()
         {
-            this.textBoxCodigoLoc.Text = this.Localidad.Codigo.ToString();
+            this.textBoxIdDetLoc.Text = this.Localidad.ID.ToString();
+            if (this.Mode == FormMode.Add && this.Localidad.Codigo == 0)
+                this.textBoxCodigoLoc.Text = string.Empty;
+            else
+                this.textBoxCodigoLoc.Text = this.Localidad.Codigo.ToString();
             this.textBoxNombreLoc.Text = this.Localidad.Nombre;
         }
 
@@ -127,13 +131,23 @@ namespace WindowsForms
             if (this.textBoxCodigoLoc.Text == string.Empty)
             {
                 valid = false;
-                errorProvider.SetError(textBoxCodigoLoc, "El Codigo es Requerido");
+                errorProvider.SetError(textBoxCodigoLoc, "El código es requerido");
+            }
+            else if (!Regex.IsMatch(textBoxCodigoLoc.Text, @"^\d+$"))
+            {
+                valid = false;
+                errorProvider.SetError(textBoxCodigoLoc, "El código no puede tener letras ni espacios");
             }
 
             if (this.textBoxNombreLoc.Text == string.Empty)
             {
                 valid = false;
-                errorProvider.SetError(textBoxNombreLoc, "El Nombre es Requerido");
+                errorProvider.SetError(textBoxNombreLoc, "El nombre es requerido");
+            }
+            else if (!Regex.IsMatch(textBoxNombreLoc.Text, @"^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$"))
+            {
+                valid = false;
+                errorProvider.SetError(textBoxNombreLoc, "El nombre no puede tener números");
             }
 
             return valid;

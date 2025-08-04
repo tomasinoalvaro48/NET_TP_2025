@@ -1,4 +1,6 @@
+using System.Text.RegularExpressions;
 using DTOs;
+using WindowsForms.FormsDenunciante;
 
 namespace WindowsForms
 {
@@ -49,7 +51,7 @@ namespace WindowsForms
                 try
                 {
                     this.Denunciante.Nombre_den = nombreTextBox.Text;
-                    this.Denunciante.Telefono = int.Parse(telefonoTextBox.Text);
+                    this.Denunciante.Telefono = telefonoTextBox.Text;
                     this.Denunciante.Direccion_den = direccionTextBox.Text;
 
                     if (this.Mode == FormMode.Update)
@@ -79,7 +81,7 @@ namespace WindowsForms
         {
             this.codigoTextBox.Text = this.Denunciante.Cod_den.ToString();
             this.nombreTextBox.Text = this.Denunciante.Nombre_den;
-            this.telefonoTextBox.Text = this.Denunciante.Telefono.ToString();
+            this.telefonoTextBox.Text = this.Denunciante.Telefono;
             this.direccionTextBox.Text = this.Denunciante.Direccion_den;
         }
 
@@ -104,26 +106,41 @@ namespace WindowsForms
         {
             bool isValid = true;
 
-            errorProvider.SetError(nombreTextBox, string.Empty); /////--------------------------------------------------------------------------------------- Te topa al nombre como nulo
+            errorProvider.SetError(nombreTextBox, string.Empty);
             errorProvider.SetError(telefonoTextBox, string.Empty);
             errorProvider.SetError(direccionTextBox, string.Empty);
 
             if (this.nombreTextBox.Text == string.Empty)
             {
                 isValid = false;
-                errorProvider.SetError(nombreTextBox, "El Nombre es Requerido");
+                errorProvider.SetError(nombreTextBox, "El nombre es requerido");
+            }
+            else if (!Regex.IsMatch(nombreTextBox.Text, @"^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$"))
+            {
+                isValid = false;
+                errorProvider.SetError(nombreTextBox, "El nombre no puede tener números");
             }
 
             if (this.telefonoTextBox.Text == string.Empty)
             {
                 isValid = false;
-                errorProvider.SetError(telefonoTextBox, "El Teléfono es Requerido");
+                errorProvider.SetError(telefonoTextBox, "El teléfono es requerido");
+            }
+            else if (!Regex.IsMatch(telefonoTextBox.Text, @"^\d+$"))
+            {
+                isValid = false;
+                errorProvider.SetError(telefonoTextBox, "El teléfono no puede tener letras ni espacios");
             }
 
             if (this.direccionTextBox.Text == string.Empty)
             {
                 isValid = false;
-                errorProvider.SetError(direccionTextBox, "La Dirección es Requerida");
+                errorProvider.SetError(direccionTextBox, "La dirección es requerida");
+            }
+            else if (!Regex.IsMatch(direccionTextBox.Text, @"^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+\d+(\s*[a-zA-Z]*)?$"))
+            {
+                isValid = false;
+                errorProvider.SetError(direccionTextBox, "Formato dirección: Calle + Altura");
             }
 
             return isValid;

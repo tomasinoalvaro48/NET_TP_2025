@@ -1,4 +1,5 @@
 ﻿using DTOs;
+using WindowsForms.FormsDenunciante;
 
 namespace WindowsForms
 {

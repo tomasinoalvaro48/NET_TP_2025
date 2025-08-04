@@ -4,10 +4,10 @@
     {
         public int Cod_den { get; private set; }
         public string Nombre_den { get; private set; }
-        public int Telefono { get; private set; }
+        public string Telefono { get; private set; }
         public string Direccion_den { get; private set; }
 
-        public Denunciante(int cod_den, string nombre_den, int telefono, string direccion_den)
+        public Denunciante(int cod_den, string nombre_den, string telefono, string direccion_den)
         {
             SetCod_den(cod_den);
             SetNombre_den(nombre_den);
@@ -29,9 +29,9 @@
             Nombre_den = nombre_den;
         }
 
-        public void SetTelefono(int telefono)
+        public void SetTelefono(string telefono)
         {
-            if (telefono == 0)
+            if (string.IsNullOrWhiteSpace(telefono))
                 throw new ArgumentException("El telefono no puede ser nulo o vacío.", nameof(telefono));
             Telefono = telefono;
         }   
