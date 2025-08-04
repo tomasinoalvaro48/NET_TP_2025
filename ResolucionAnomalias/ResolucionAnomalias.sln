@@ -17,8 +17,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API.Denunciantes", "API.Den
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsForms", "WindowsForms\WindowsForms.csproj", "{2881AC03-5DBF-4454-92AA-447F9DA8A4F9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API.TipoAnomalia", "API.TipoAnomalia\API.TipoAnomalia.csproj", "{FFBD5895-FDF6-4C44-A08F-7BCBEF399309}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API.Localidades", "API.Localidades\API.Localidades.csproj", "{64564F5E-B346-4A3E-BF5E-7CD23361AAC2}"
 EndProject
 Global
@@ -55,10 +53,6 @@ Global
 		{2881AC03-5DBF-4454-92AA-447F9DA8A4F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2881AC03-5DBF-4454-92AA-447F9DA8A4F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2881AC03-5DBF-4454-92AA-447F9DA8A4F9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FFBD5895-FDF6-4C44-A08F-7BCBEF399309}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FFBD5895-FDF6-4C44-A08F-7BCBEF399309}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FFBD5895-FDF6-4C44-A08F-7BCBEF399309}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FFBD5895-FDF6-4C44-A08F-7BCBEF399309}.Release|Any CPU.Build.0 = Release|Any CPU
 		{64564F5E-B346-4A3E-BF5E-7CD23361AAC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{64564F5E-B346-4A3E-BF5E-7CD23361AAC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{64564F5E-B346-4A3E-BF5E-7CD23361AAC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
