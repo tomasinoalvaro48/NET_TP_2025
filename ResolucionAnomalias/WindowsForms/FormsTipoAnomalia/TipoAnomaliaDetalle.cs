@@ -11,7 +11,7 @@ using System.Text.RegularExpressions;
 using DTOs;
 
 
-namespace WindowsForms
+namespace WindowsForms.FormsTipoAnomalia
 {
     // public enum FormMode
     //{
@@ -29,7 +29,7 @@ namespace WindowsForms
             set
             {
                 tipo = value;
-                this.SetLocalidad();
+                SetLocalidad();
 
             }
         }
@@ -64,7 +64,7 @@ namespace WindowsForms
                     this.Localidad.Codigo = int.Parse(textBoxCodigoLoc.Text);
                     this.Localidad.Nombre = textBoxNombreLoc.Text;
 
-                    if (this.Mode == FormMode.Update)
+                    if (Mode == FormMode.Update)
                     {
                         await LocalidadApiLocalidad.UpdateAsync(this.Localidad);
                     }
@@ -73,7 +73,7 @@ namespace WindowsForms
                         await LocalidadApiLocalidad.AddAsync(this.Localidad);
                     }
 
-                    this.Close();
+                    Close();
                 }
                 catch (Exception ex)
                 {
@@ -84,7 +84,7 @@ namespace WindowsForms
 
         private void cancelarButton_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
 
@@ -140,6 +140,11 @@ namespace WindowsForms
         }
 
         private void textBoxCodigoLoc_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void InitializeComponent()
         {
 
         }
