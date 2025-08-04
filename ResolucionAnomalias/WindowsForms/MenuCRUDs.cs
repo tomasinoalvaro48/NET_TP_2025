@@ -1,4 +1,6 @@
 ﻿using DTOs;
+using WindowsForms.FormsTipoAnomalia;
+
 
 namespace WindowsForms
 {
@@ -26,6 +28,13 @@ namespace WindowsForms
         private void CloseProgram_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void ButtonCRUDTipoAnomalia_Click(object sender, EventArgs e)
+        {
+            TipoAnomaliaLista tipoLista = new TipoAnomaliaLista();
+            //localidadLista.Activate();
+            tipoLista.ShowDialog();
         }
     }
 }

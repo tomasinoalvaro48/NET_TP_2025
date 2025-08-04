@@ -31,6 +31,7 @@
             EnterCRUDDenuncianteButton = new Button();
             EnterCRUDLocalidadButton = new Button();
             CloseProgramButton = new Button();
+            EnterCRUDTipoAnomaliaButton = new Button();
             SuspendLayout();
             // 
             // EnterCRUDDenuncianteButton
@@ -65,11 +66,22 @@
             CloseProgramButton.UseVisualStyleBackColor = true;
             CloseProgramButton.Click += CloseProgram_Click;
             // 
+            // EnterCRUDTipoAnomaliaButton
+            // 
+            EnterCRUDTipoAnomaliaButton.Location = new Point(242, 372);
+            EnterCRUDTipoAnomaliaButton.Name = "EnterCRUDTipoAnomaliaButton";
+            EnterCRUDTipoAnomaliaButton.Size = new Size(280, 91);
+            EnterCRUDTipoAnomaliaButton.TabIndex = 3;
+            EnterCRUDTipoAnomaliaButton.Text = "CRUD Tipo de Anomalia";
+            EnterCRUDTipoAnomaliaButton.UseVisualStyleBackColor = true;
+            EnterCRUDTipoAnomaliaButton.Click += ButtonCRUDTipoAnomalia_Click;
+            // 
             // MenuCRUDs
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1107, 638);
+            Controls.Add(EnterCRUDTipoAnomaliaButton);
             Controls.Add(CloseProgramButton);
             Controls.Add(EnterCRUDLocalidadButton);
             Controls.Add(EnterCRUDDenuncianteButton);
@@ -84,5 +96,6 @@
         private Button EnterCRUDDenuncianteButton;
         private Button EnterCRUDLocalidadButton;
         private Button CloseProgramButton;
+        private Button EnterCRUDTipoAnomaliaButton;
     }
 }

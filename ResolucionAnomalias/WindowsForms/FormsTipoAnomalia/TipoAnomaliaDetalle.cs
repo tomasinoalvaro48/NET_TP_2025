@@ -13,14 +13,10 @@ using DTOs;
 
 namespace WindowsForms.FormsTipoAnomalia
 {
-    // public enum FormMode
-    //{
-    //Add,
-    //     Update
-    //}
     public partial class TipoAnomaliaDetalle : Form
     {
         private TipoAnomaliaDTO tipo;
+        private Button button1;
         private FormMode mode;
 
         public TipoAnomaliaDTO Tipo
@@ -29,11 +25,10 @@ namespace WindowsForms.FormsTipoAnomalia
             set
             {
                 tipo = value;
-                SetLocalidad();
+                SetTipoAnomalia();
 
             }
         }
-
 
         public FormMode Mode
         {
@@ -43,7 +38,7 @@ namespace WindowsForms.FormsTipoAnomalia
             }
             set
             {
-                SerFormMode(value);
+                SetFormMode(value);
             }
         }
 
@@ -90,11 +85,11 @@ namespace WindowsForms.FormsTipoAnomalia
 
         private void SetLocalidad()
         {
-            this.textBoxCodigoLoc.Text = this.Localidad.Codigo.ToString();
-            this.textBoxNombreLoc.Text = this.Localidad.Nombre;
+            this.textBoxCodigoTipo.Text = this.Tipo.Cod_anom.ToString();
+            this.textBoxNombreTipo.Text = this.Tipo.Nombre_anom;
         }
 
-        private void SerFormMode(FormMode value)
+        private void SetFormMode(FormMode value)
         {
             mode = value;
             if (mode == FormMode.Add)
@@ -139,18 +134,26 @@ namespace WindowsForms.FormsTipoAnomalia
             return valid;
         }
 
-        private void textBoxCodigoLoc_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void InitializeComponent()
         {
-
-        }
-
-        private void textBoxIdDetLoc_TextChanged(object sender, EventArgs e)
-        {
+            button1 = new Button();
+            SuspendLayout();
+            // 
+            // button1
+            // 
+            button1.Location = new Point(760, 536);
+            button1.Name = "button1";
+            button1.Size = new Size(150, 46);
+            button1.TabIndex = 0;
+            button1.Text = "button1";
+            button1.UseVisualStyleBackColor = true;
+            // 
+            // TipoAnomaliaDetalle
+            // 
+            ClientSize = new Size(1010, 605);
+            Controls.Add(button1);
+            Name = "TipoAnomaliaDetalle";
+            ResumeLayout(false);
 
         }
     }
