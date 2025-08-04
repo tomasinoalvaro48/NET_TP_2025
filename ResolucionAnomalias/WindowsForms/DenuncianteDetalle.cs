@@ -49,7 +49,7 @@ namespace WindowsForms
                 try
                 {
                     this.Denunciante.Nombre_den = nombreTextBox.Text;
-                    this.Denunciante.Telefono = int.Parse(telefonoTextBox.Text);
+                    this.Denunciante.Telefono = telefonoTextBox.Text;
                     this.Denunciante.Direccion_den = direccionTextBox.Text;
 
                     if (this.Mode == FormMode.Update)
@@ -79,7 +79,7 @@ namespace WindowsForms
         {
             this.codigoTextBox.Text = this.Denunciante.Cod_den.ToString();
             this.nombreTextBox.Text = this.Denunciante.Nombre_den;
-            this.telefonoTextBox.Text = this.Denunciante.Telefono.ToString();
+            this.telefonoTextBox.Text = this.Denunciante.Telefono;
             this.direccionTextBox.Text = this.Denunciante.Direccion_den;
         }
 
@@ -104,26 +104,26 @@ namespace WindowsForms
         {
             bool isValid = true;
 
-            errorProvider.SetError(nombreTextBox, string.Empty); /////--------------------------------------------------------------------------------------- Te topa al nombre como nulo
+            errorProvider.SetError(nombreTextBox, string.Empty);
             errorProvider.SetError(telefonoTextBox, string.Empty);
             errorProvider.SetError(direccionTextBox, string.Empty);
 
             if (this.nombreTextBox.Text == string.Empty)
             {
                 isValid = false;
-                errorProvider.SetError(nombreTextBox, "El Nombre es Requerido");
+                errorProvider.SetError(nombreTextBox, "El Nombre es requerido");
             }
 
             if (this.telefonoTextBox.Text == string.Empty)
             {
                 isValid = false;
-                errorProvider.SetError(telefonoTextBox, "El Teléfono es Requerido");
+                errorProvider.SetError(telefonoTextBox, "El Teléfono es requerido");
             }
 
             if (this.direccionTextBox.Text == string.Empty)
             {
                 isValid = false;
-                errorProvider.SetError(direccionTextBox, "La Dirección es Requerida");
+                errorProvider.SetError(direccionTextBox, "La Dirección es requerida");
             }
 
             return isValid;
