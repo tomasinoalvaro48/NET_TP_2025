@@ -1,4 +1,5 @@
 ﻿using DTOs;
+using WindowsForms.FormsTipoAnomalia;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,7 +9,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using WindowsForms.FormsTipoAnomalia;
 
 namespace WindowsForms.FormsTipoAnomalia
 {
@@ -88,10 +88,10 @@ namespace WindowsForms.FormsTipoAnomalia
 
                 TipoAnomaliaDTO tipoNuevo = new TipoAnomaliaDTO();
 
-                TipoAnomaliaDetalle.Mode = FormMode.Add;
-                TipoAnomaliaDetalle.Tipo = tipoNuevo;
+                tipoDetalle.Mode = FormMode.Add;
+                tipoDetalle.Tipo = tipoNuevo;
 
-                TipoAnomaliaDetalle.ShowDialog();
+                tipoDetalle.ShowDialog();
 
                 this.GetAllAndLoad();
             }
@@ -111,16 +111,16 @@ namespace WindowsForms.FormsTipoAnomalia
 
                 TipoAnomaliaDTO tipo = await TipoAnomaliaApiTipoAnomalia.GetAsync(id);
 
-                TipoAnomaliaDetalle.Mode = FormMode.Update;
-                TipoAnomaliaDetalle.Tipo = tipo;
+                tipoDetalle.Mode = FormMode.Update;
+                tipoDetalle.Tipo = tipo;
 
-                TipoAnomaliaDetalle.ShowDialog();
+                tipoDetalle.ShowDialog();
 
                 this.GetAllAndLoad();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al cargar localidad para modificar: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error al cargar tipo de anomalia para modificar: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

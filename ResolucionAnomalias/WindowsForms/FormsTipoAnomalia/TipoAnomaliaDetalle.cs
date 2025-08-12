@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 using DTOs;
+using WindowsForms.FormsTipoAnomalia;
 
 
 namespace WindowsForms.FormsTipoAnomalia
@@ -16,7 +8,12 @@ namespace WindowsForms.FormsTipoAnomalia
     public partial class TipoAnomaliaDetalle : Form
     {
         private TipoAnomaliaDTO tipo;
-        private Button button1;
+        private Button buttonAceptarTipoDetalle;
+        private Button buttonCancelarTipoDetalle;
+        private Label LabelCodigoTipoDetalle;
+        private Label LabelNombreTipoDetalle;
+        private Label LabelDificultadTipoDetalle;
+        private TextBox TextBoxCodigoTipoDetalle;
         private FormMode mode;
 
         public TipoAnomaliaDTO Tipo
@@ -56,19 +53,19 @@ namespace WindowsForms.FormsTipoAnomalia
                 try
                 {
 
-                    this.Localidad.Codigo = int.Parse(textBoxCodigoLoc.Text);
-                    this.Localidad.Nombre = textBoxNombreLoc.Text;
+                    this.Tipo.Cod_anom = int.Parse(TextBoxCodigoTipoDetalle.Text);
+                    this.Tipo.Nombre_anom = TextBoxNombreTipoDetalle.Text;
 
                     if (Mode == FormMode.Update)
                     {
-                        await LocalidadApiLocalidad.UpdateAsync(this.Localidad);
+                        await TipoAnomaliaApiTipoAnomalia.UpdateAsync(this.Tipo);
                     }
                     else
                     {
-                        await LocalidadApiLocalidad.AddAsync(this.Localidad);
+                        await TipoAnomaliaApiTipoAnomalia.AddAsync(this.Tipo);
                     }
 
-                    Close();
+                    this.Close();
                 }
                 catch (Exception ex)
                 {
@@ -79,14 +76,15 @@ namespace WindowsForms.FormsTipoAnomalia
 
         private void cancelarButton_Click(object sender, EventArgs e)
         {
-            Close();
+            this.Close();
         }
 
 
-        private void SetLocalidad()
+        private void SetTipoAnomalia()
         {
-            this.textBoxCodigoTipo.Text = this.Tipo.Cod_anom.ToString();
-            this.textBoxNombreTipo.Text = this.Tipo.Nombre_anom;
+            this.TextBoxCodigoTipoDetalle.ReadOnly = true;
+            this.TextBoxCodigoTipoDetalle.Text = this.Tipo.Cod_anom.ToString();
+            this.TextBoxNombreTipoDetalle.Text = this.Tipo.Nombre_anom;
         }
 
         private void SetFormMode(FormMode value)
@@ -94,67 +92,44 @@ namespace WindowsForms.FormsTipoAnomalia
             mode = value;
             if (mode == FormMode.Add)
             {
-                labelIdDetLoc.Visible = false;
-                textBoxIdDetLoc.Visible = false;
-                labelCodigoLoc.Visible = true;
-                textBoxCodigoLoc.Visible = true;
-                labelNombreLoc.Visible = true;
-                textBoxNombreLoc.Visible = true;
+                LabelCodigoTipoDetalle.Visible = false;
+                TextBoxCodigoTipoDetalle.Visible = false;
+                LabelNombreTipoDetalle.Visible = true;
+                TextBoxNombreTipoDetalle.Visible = true;
+                LabelDificultadTipoDetalle.Visible = true;
+                ComboDificultadTipoDetalle.Visible = true;
             }
             if (mode == FormMode.Update)
             {
-                labelIdDetLoc.Visible = true;
-                textBoxIdDetLoc.Visible = true;
-                labelCodigoLoc.Visible = true;
-                textBoxCodigoLoc.Visible = true;
-                labelNombreLoc.Visible = true;
-                textBoxNombreLoc.Visible = true;
+                LabelCodigoTipoDetalle.Visible = true;
+                TextBoxCodigoTipoDetalle.Visible = true;
+                LabelNombreTipoDetalle.Visible = true;
+                TextBoxNombreTipoDetalle.Visible = true;
+                LabelDificultadTipoDetalle.Visible = true;
+                ComboDificultadTipoDetalle.Visible = true;
             }
 
         }
-
-        private bool ValidateLocalidad()
+        private bool ValidateTipo()
         {
             bool valid = true;
-            errorProvider.SetError(textBoxCodigoLoc, string.Empty);
-            errorProvider.SetError(textBoxNombreLoc, string.Empty);
+            errorProvider.SetError(TextBoxNombreTipoDetalle, string.Empty);
+            errorProvider.SetError(ComboDificultadTipoDetalle, string.Empty);
 
-            if (this.textBoxCodigoLoc.Text == string.Empty)
+            if (this.TextBoxNombreTipoDetalle.Text == string.Empty)
             {
                 valid = false;
-                errorProvider.SetError(textBoxCodigoLoc, "El Codigo es Requerido");
+                errorProvider.SetError(TextBoxNombreTipoDetalle, "El nombre es Requerido");
             }
 
-            if (this.textBoxNombreLoc.Text == string.Empty)
+            if (this.ComboDificultadTipoDetalle.Text == string.Empty)
             {
                 valid = false;
-                errorProvider.SetError(textBoxNombreLoc, "El Nombre es Requerido");
+                errorProvider.SetError(ComboDificultadTipoDetalle, "La dificultad es Requerida");
             }
 
             return valid;
         }
 
-        private void InitializeComponent()
-        {
-            button1 = new Button();
-            SuspendLayout();
-            // 
-            // button1
-            // 
-            button1.Location = new Point(760, 536);
-            button1.Name = "button1";
-            button1.Size = new Size(150, 46);
-            button1.TabIndex = 0;
-            button1.Text = "button1";
-            button1.UseVisualStyleBackColor = true;
-            // 
-            // TipoAnomaliaDetalle
-            // 
-            ClientSize = new Size(1010, 605);
-            Controls.Add(button1);
-            Name = "TipoAnomaliaDetalle";
-            ResumeLayout(false);
-
-        }
     }
 }
