@@ -218,9 +218,9 @@ app.MapPut("/localidades", (LocalidadDTO dto)=>
 app.MapGet("/tipoanomalia/{cod_tipo}", (int cod_tipo) =>
 {
 
-    DenuncianteService denuncianteService = new DenuncianteService();
+    TipoAnomaliaService tipoService = new TipoAnomaliaService();
 
-    DenuncianteDTO dto = denuncianteService.Get(cod_tipo);
+    TipoAnomaliaDTO dto = tipoService.Get(cod_tipo);
 
     if (dto == null)
     {

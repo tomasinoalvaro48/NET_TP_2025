@@ -29,9 +29,6 @@
         private void InitializeComponent()
         {
             dataGridViewTiposAnomalia = new DataGridView();
-            Cod_anom = new DataGridViewTextBoxColumn();
-            Nombre = new DataGridViewTextBoxColumn();
-            Dif_anom = new DataGridViewTextBoxColumn();
             buttonEliminarListTipo = new Button();
             buttonModificarListTipo = new Button();
             buttonAgregarListTipoAnomalia = new Button();
@@ -43,40 +40,12 @@
             dataGridViewTiposAnomalia.AllowUserToAddRows = false;
             dataGridViewTiposAnomalia.AllowUserToDeleteRows = false;
             dataGridViewTiposAnomalia.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewTiposAnomalia.Columns.AddRange(new DataGridViewColumn[] { Cod_anom, Nombre, Dif_anom });
             dataGridViewTiposAnomalia.Location = new Point(42, 37);
             dataGridViewTiposAnomalia.Name = "dataGridViewTiposAnomalia";
             dataGridViewTiposAnomalia.ReadOnly = true;
             dataGridViewTiposAnomalia.RowHeadersWidth = 82;
-            dataGridViewTiposAnomalia.Size = new Size(824, 388);
+            dataGridViewTiposAnomalia.Size = new Size(903, 433);
             dataGridViewTiposAnomalia.TabIndex = 0;
-            // 
-            // Cod_anom
-            // 
-            Cod_anom.Frozen = true;
-            Cod_anom.HeaderText = "Código";
-            Cod_anom.MinimumWidth = 10;
-            Cod_anom.Name = "Cod_anom";
-            Cod_anom.ReadOnly = true;
-            Cod_anom.Width = 200;
-            // 
-            // Nombre
-            // 
-            Nombre.Frozen = true;
-            Nombre.HeaderText = "Nombre_anom";
-            Nombre.MinimumWidth = 10;
-            Nombre.Name = "Nombre";
-            Nombre.ReadOnly = true;
-            Nombre.Width = 200;
-            // 
-            // Dif_anom
-            // 
-            Dif_anom.Frozen = true;
-            Dif_anom.HeaderText = "Dificultad";
-            Dif_anom.MinimumWidth = 10;
-            Dif_anom.Name = "Dif_anom";
-            Dif_anom.ReadOnly = true;
-            Dif_anom.Width = 200;
             // 
             // buttonEliminarListTipo
             // 
@@ -121,7 +90,8 @@
             Controls.Add(buttonAgregarListTipoAnomalia);
             Controls.Add(dataGridViewTiposAnomalia);
             Name = "TipoAnomaliaLista";
-            Text = "Form1";
+            Text = "Lista Tipo de Anomalía";
+            Load += TipoAnomalia_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridViewTiposAnomalia).EndInit();
             ResumeLayout(false);
         }
@@ -129,9 +99,6 @@
         #endregion
 
         private DataGridView dataGridViewTiposAnomalia;
-        private DataGridViewTextBoxColumn Cod_anom;
-        private DataGridViewTextBoxColumn Nombre;
-        private DataGridViewTextBoxColumn Dif_anom;
         private Button buttonEliminarListTipo;
         private Button buttonModificarListTipo;
         private Button buttonAgregarListTipoAnomalia;

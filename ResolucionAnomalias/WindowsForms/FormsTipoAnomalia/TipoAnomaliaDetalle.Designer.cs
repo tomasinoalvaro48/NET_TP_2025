@@ -29,6 +29,7 @@ namespace WindowsForms.FormsTipoAnomalia
 
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             buttonAceptarTipoDetalle = new Button();
             buttonCancelarTipoDetalle = new Button();
             LabelCodigoTipoDetalle = new Label();
@@ -37,6 +38,10 @@ namespace WindowsForms.FormsTipoAnomalia
             TextBoxCodigoTipoDetalle = new TextBox();
             TextBoxNombreTipoDetalle = new TextBox();
             ComboDificultadTipoDetalle = new ComboBox();
+            errorProvider = new ErrorProvider(components);
+            tipoAnomaliaBindingSource = new BindingSource(components);
+            ((System.ComponentModel.ISupportInitialize)errorProvider).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)tipoAnomaliaBindingSource).BeginInit();
             SuspendLayout();
             // 
             // buttonAceptarTipoDetalle
@@ -103,7 +108,7 @@ namespace WindowsForms.FormsTipoAnomalia
             // 
             // ComboDificultadTipoDetalle
             // 
-            ComboDificultadTipoDetalle.AllowDrop = true;
+            ComboDificultadTipoDetalle.DropDownStyle = ComboBoxStyle.DropDownList;
             ComboDificultadTipoDetalle.FlatStyle = FlatStyle.Popup;
             ComboDificultadTipoDetalle.ForeColor = SystemColors.WindowFrame;
             ComboDificultadTipoDetalle.FormattingEnabled = true;
@@ -113,7 +118,15 @@ namespace WindowsForms.FormsTipoAnomalia
             ComboDificultadTipoDetalle.Name = "ComboDificultadTipoDetalle";
             ComboDificultadTipoDetalle.Size = new Size(242, 40);
             ComboDificultadTipoDetalle.TabIndex = 7;
-            ComboDificultadTipoDetalle.Text = "Seleccionar";
+            ComboDificultadTipoDetalle.Tag = "";
+            // 
+            // errorProvider
+            // 
+            errorProvider.ContainerControl = this;
+            // 
+            // tipoAnomaliaBindingSource
+            // 
+            tipoAnomaliaBindingSource.DataSource = typeof(Domain.Model.TipoAnomalia);
             // 
             // TipoAnomaliaDetalle
             // 
@@ -128,9 +141,10 @@ namespace WindowsForms.FormsTipoAnomalia
             Controls.Add(buttonAceptarTipoDetalle);
             Name = "TipoAnomaliaDetalle";
             Text = "Detalle Tipo de Anomalía";
+            ((System.ComponentModel.ISupportInitialize)errorProvider).EndInit();
+            ((System.ComponentModel.ISupportInitialize)tipoAnomaliaBindingSource).EndInit();
             ResumeLayout(false);
             PerformLayout();
-
         }
 
         #endregion
@@ -147,5 +161,6 @@ namespace WindowsForms.FormsTipoAnomalia
         private System.Windows.Forms.ErrorProvider errorProvider;
         private TextBox TextBoxNombreTipoDetalle;
         private ComboBox ComboDificultadTipoDetalle;
+        private BindingSource tipoAnomaliaBindingSource;
     }
 }

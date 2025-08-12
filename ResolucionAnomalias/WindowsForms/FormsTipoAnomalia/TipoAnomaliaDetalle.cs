@@ -5,6 +5,12 @@ using WindowsForms.FormsTipoAnomalia;
 
 namespace WindowsForms.FormsTipoAnomalia
 {
+    public enum FormMode
+    {
+        Add,
+        Update
+    }
+
     public partial class TipoAnomaliaDetalle : Form
     {
         private TipoAnomaliaDTO tipo;
@@ -16,13 +22,14 @@ namespace WindowsForms.FormsTipoAnomalia
         private TextBox TextBoxCodigoTipoDetalle;
         private FormMode mode;
 
+
         public TipoAnomaliaDTO Tipo
         {
             get { return tipo; }
             set
             {
                 tipo = value;
-                SetTipoAnomalia();
+                this.SetTipoAnomalia();
 
             }
         }
@@ -55,6 +62,7 @@ namespace WindowsForms.FormsTipoAnomalia
 
                     this.Tipo.Cod_anom = int.Parse(TextBoxCodigoTipoDetalle.Text);
                     this.Tipo.Nombre_anom = TextBoxNombreTipoDetalle.Text;
+                    this.Tipo.Dif_anom = ComboDificultadTipoDetalle.Text;
 
                     if (Mode == FormMode.Update)
                     {
@@ -82,9 +90,9 @@ namespace WindowsForms.FormsTipoAnomalia
 
         private void SetTipoAnomalia()
         {
-            this.TextBoxCodigoTipoDetalle.ReadOnly = true;
             this.TextBoxCodigoTipoDetalle.Text = this.Tipo.Cod_anom.ToString();
             this.TextBoxNombreTipoDetalle.Text = this.Tipo.Nombre_anom;
+            this.ComboDificultadTipoDetalle.Text = this.Tipo.Dif_anom;
         }
 
         private void SetFormMode(FormMode value)
@@ -101,8 +109,8 @@ namespace WindowsForms.FormsTipoAnomalia
             }
             if (mode == FormMode.Update)
             {
-                LabelCodigoTipoDetalle.Visible = true;
-                TextBoxCodigoTipoDetalle.Visible = true;
+                LabelCodigoTipoDetalle.Visible = false;
+                TextBoxCodigoTipoDetalle.Visible = false;
                 LabelNombreTipoDetalle.Visible = true;
                 TextBoxNombreTipoDetalle.Visible = true;
                 LabelDificultadTipoDetalle.Visible = true;

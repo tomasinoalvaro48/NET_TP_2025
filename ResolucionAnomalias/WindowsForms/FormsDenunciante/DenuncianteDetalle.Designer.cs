@@ -164,6 +164,8 @@
             ((System.ComponentModel.ISupportInitialize)errorProvider).EndInit();
             ResumeLayout(false);
             PerformLayout();
+            errorProvider = new ErrorProvider();
+            errorProvider.ContainerControl = this;
         }
 
         #endregion

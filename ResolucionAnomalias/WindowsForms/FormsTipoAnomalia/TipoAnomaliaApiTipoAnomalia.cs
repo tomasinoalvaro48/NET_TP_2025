@@ -20,22 +20,24 @@ namespace WindowsForms.FormsTipoAnomalia
         {
             TipoAnomaliaDTO tipo = null;
             HttpResponseMessage response = await httpClient.GetAsync("tipoanomalia/" + cod_tipo);
+            var json = await response.Content.ReadAsStringAsync();
+            Console.WriteLine(json); // Verifica el contenido recibido
             if (response.IsSuccessStatusCode)
             {
-                tipo = await response.Content.ReadAsAsync<TipoAnomaliaDTO>();
+                tipo = await response.Content.ReadFromJsonAsync<TipoAnomaliaDTO>();
             }
             return tipo;
         }
 
         public static async Task<IEnumerable<TipoAnomaliaDTO>> GetAllAsync()
         {
-            IEnumerable<TipoAnomaliaDTO> tipo = null;
+            IEnumerable<TipoAnomaliaDTO> tipos = null;
             HttpResponseMessage response = await httpClient.GetAsync("tipoanomalia");
             if (response.IsSuccessStatusCode)
             {
-                tipo = await response.Content.ReadAsAsync<IEnumerable<TipoAnomaliaDTO>>();
+                tipos = await response.Content.ReadFromJsonAsync<IEnumerable<TipoAnomaliaDTO>>();
             }
-            return tipo;
+            return tipos;
         }
 
         public async static Task AddAsync(TipoAnomaliaDTO tipo)
