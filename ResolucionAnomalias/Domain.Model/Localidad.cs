@@ -15,7 +15,7 @@ namespace Domain.Model
 
         
 
-
+        public Localidad() { }
         public Localidad(int id, int codigo, string nombre)
         {
             SetId(id);

@@ -175,7 +175,7 @@ app.MapPost("/localidades", (LocalidadDTO dto) =>
     try
     {
         LocalidadService localidadService = new LocalidadService();
-        LocalidadDTO localidadDTO = localidadService.add(dto);
+        LocalidadDTO localidadDTO = localidadService.Add(dto);
         return Results.Created($"/localidad/{localidadDTO.ID}", localidadDTO);
     }
     catch (ArgumentException ex)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,43 +13,41 @@ namespace Application.Services
     public class LocalidadService
     {
 
-
-        public LocalidadDTO add(LocalidadDTO dto)
+        
+        public LocalidadDTO Add(LocalidadDTO dto)
         {
-            int id_localidad = GentNextIDLocalidad();
-            Localidad localidad = new Localidad(id_localidad, dto.Codigo, dto.Nombre);
-            LocalidadInMemory.Localidades.Add(localidad);
+            var localidadRepository = new LocalidadRepository();
+
+            if (localidadRepository.CodigoExists(dto.Codigo))
+            {
+                throw new ArgumentException($"Ya existe una localidad con el código {dto.Codigo}.");
+            }
+
+            Localidad localidad = new Localidad(0, dto.Codigo, dto.Nombre);
+            localidadRepository.Add(localidad);
+
             dto.ID = localidad.ID;
+
             return dto;
         }
-        
-        internal int GentNextIDLocalidad()
-        {
-            int nextID;
-            if (LocalidadInMemory.Localidades.Count > 0)
-            {
-                nextID = LocalidadInMemory.Localidades.Max(x => x.ID) + 1;
-            }
-            else { nextID = 1; }
-            return nextID;
-        }
+
         
 
         public bool delete(int id)
         {
-            Localidad? localidadToDelete = LocalidadInMemory.Localidades.Find(x => x.ID == id);
-            if (localidadToDelete != null)
-            {
-                LocalidadInMemory.Localidades.Remove(localidadToDelete);
-                return true;
-            }
-            else { return false; }
+            var localidadRepository = new LocalidadRepository();
+            return localidadRepository.Delete(id);
         }
 
         public LocalidadDTO Get(int id)
         {
-            Localidad? localidad = LocalidadInMemory.Localidades.Find(x => x.ID == id);
-            if (localidad != null)
+            var localidadRepository = new LocalidadRepository();
+            Localidad? localidad = localidadRepository.GetById(id);
+            if (localidad == null)
+            {
+                return null;
+            }
+            else
             {
                 return new LocalidadDTO
                 {
@@ -56,39 +55,35 @@ namespace Application.Services
                     Codigo = localidad.Codigo,
                     Nombre = localidad.Nombre
                 };
+
             }
-            else
-            {
-                return null;
-            }
-            
         }
 
         public IEnumerable<LocalidadDTO> GetAll()
         {
-            return LocalidadInMemory.Localidades.Select(localidad => new LocalidadDTO
-            {
-                ID = localidad.ID,
-                Codigo = localidad.Codigo,
-                Nombre=localidad.Nombre
-            }).ToList();
+            var localidadRepository = new LocalidadRepository();
+            var localidades = localidadRepository.GetAll();
 
+            return localidades.Select(l => new LocalidadDTO
+            {
+                ID= l.ID,
+                Nombre = l.Nombre,
+                Codigo = l.Codigo,
+            }).ToList();
         }
 
         public bool Update(LocalidadDTO dto)
         {
-            Localidad? LocalidadToUpdate = LocalidadInMemory.Localidades.Find(x => x.ID == dto.ID);
-            if (LocalidadToUpdate != null)
-            {
-                LocalidadToUpdate.SetCodigo(dto.Codigo);
-                LocalidadToUpdate.SetNombre(dto.Nombre);
 
-                return true;
-            }
-            else
+            var localidadRespository = new LocalidadRepository();
+
+            if (localidadRespository.CodigoExists(dto.Codigo,dto.ID))
             {
-                return false;
+                throw new ArgumentException($"Ya existe otro cliente con el Codigo '{dto.Codigo}' .");
             }
+            Localidad localidadToUpdate = new Localidad(dto.ID,dto.Codigo ,dto.Nombre);
+            return localidadRespository.Update(localidadToUpdate);
+            
         }
     }
 }
