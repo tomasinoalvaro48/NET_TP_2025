@@ -1,5 +1,6 @@
 ﻿using DTOs;
 using WindowsForms.FormsTipoAnomalia;
+using WindowsForms.FormsZona;
 
 
 namespace WindowsForms
@@ -35,6 +36,12 @@ namespace WindowsForms
             TipoAnomaliaLista tipoLista = new TipoAnomaliaLista();
             //localidadLista.Activate();
             tipoLista.ShowDialog();
+        }
+
+        private void btnCrudZona_Click(object sender, EventArgs e)
+        {
+            ZonaLista zonaLista = new ZonaLista();
+            zonaLista.ShowDialog();
         }
     }
 }

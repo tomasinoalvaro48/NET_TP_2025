@@ -9,6 +9,8 @@ namespace Data
     {
         public DbSet<Localidad> Localidades { get; set; }
 
+        public DbSet<Zona> Zonas { get; set; }
+
         internal TPIContext()
         {
             this.Database.EnsureCreated();
@@ -41,6 +43,33 @@ namespace Data
                 entity.Property(e => e.Nombre).IsRequired().HasMaxLength(100);
 
                 entity.HasIndex(e => e.Codigo).IsUnique();
+
+            });
+
+            modelBuilder.Entity<Zona>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+
+                entity.Property(e => e.Id)
+                    .ValueGeneratedOnAdd();
+
+                entity.Property(e => e.Nombre)
+                    .IsRequired()
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.LocalidadId)
+                    .IsRequired()
+                    .HasField("_localidadId");
+
+                entity.Navigation(e => e.Localidad)
+                    .HasField("_localidad");
+
+                entity.HasIndex(e => e.Nombre)
+                    .IsUnique();
+
+                entity.HasOne(e => e.Localidad)
+                    .WithMany()
+                    .HasForeignKey(e => e.LocalidadId);
 
             });
 

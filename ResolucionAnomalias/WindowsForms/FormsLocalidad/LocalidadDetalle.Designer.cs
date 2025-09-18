@@ -31,14 +31,15 @@
             components = new System.ComponentModel.Container();
             labelCodigoLoc = new Label();
             labelNombreLoc = new Label();
+            errorProvider = new ErrorProvider(components);
             buttonAceptarDetLoc = new Button();
             buttonCancelarLocDet = new Button();
-            errorProvider = new ErrorProvider(components);
             textBoxCodigoLoc = new TextBox();
             textBoxNombreLoc = new TextBox();
             labelIdDetLoc = new Label();
             textBoxIdDetLoc = new TextBox();
             ((System.ComponentModel.ISupportInitialize)errorProvider).BeginInit();
+
             SuspendLayout();
             // 
             // labelCodigoLoc
@@ -78,10 +79,6 @@
             buttonCancelarLocDet.Text = "Cancelar";
             buttonCancelarLocDet.UseVisualStyleBackColor = true;
             buttonCancelarLocDet.Click += cancelarButton_Click;
-            // 
-            // errorProvider
-            // 
-            errorProvider.ContainerControl = this;
             // 
             // textBoxCodigoLoc
             // 
@@ -132,7 +129,6 @@
             Controls.Add(labelCodigoLoc);
             Name = "LocalidadDetalle";
             Text = "Localidad";
-            ((System.ComponentModel.ISupportInitialize)errorProvider).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -145,8 +141,8 @@
         private Button buttonCancelarLocDet;
         private TextBox textBoxCodigoLoc;
         private TextBox textBoxNombreLoc;
-        private ErrorProvider errorProvider;
         private Label labelIdDetLoc;
         private TextBox textBoxIdDetLoc;
+        private ErrorProvider errorProvider;
     }
 }
