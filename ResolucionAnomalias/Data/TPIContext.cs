@@ -11,6 +11,8 @@ namespace Data
 
         public DbSet<Zona> Zonas { get; set; }
 
+        public DbSet<Denunciante> Denunciantes { get; set; }
+
         internal TPIContext()
         {
             this.Database.EnsureCreated();
@@ -73,6 +75,31 @@ namespace Data
                     .WithMany()
                     .HasForeignKey(e => e.LocalidadId);
 
+            });
+
+            modelBuilder.Entity<Denunciante>(entity =>
+            {
+                entity.HasKey(e => e.Cod_den);
+
+                entity.Property(e => e.Cod_den)
+                    .ValueGeneratedOnAdd();
+
+                entity.Property(e => e.Nombre_den)
+                    .IsRequired()
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.Telefono)
+                    .IsRequired()
+                    .HasMaxLength(20);
+
+                entity.Property(e => e.Direccion_den)
+                    .IsRequired()
+                    .HasMaxLength(100);
+
+                entity.HasData(
+                    new { Cod_den = 1, Nombre_den = "Juan Pepe", Telefono = "3413123456", Direccion_den = "Corrientes 1400" },
+                    new { Cod_den = 2, Nombre_den = "Ana Maria", Telefono = "3415456789", Direccion_den = "Santa Fe 2000" }
+                );
             });
 
         }
