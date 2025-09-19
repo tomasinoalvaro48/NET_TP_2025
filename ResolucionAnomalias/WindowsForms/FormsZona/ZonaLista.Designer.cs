@@ -41,7 +41,7 @@
             dataGridViewZonas.Location = new Point(81, 47);
             dataGridViewZonas.Name = "dataGridViewZonas";
             dataGridViewZonas.RowHeadersWidth = 51;
-            dataGridViewZonas.Size = new Size(635, 301);
+            dataGridViewZonas.Size = new Size(700, 301);
             dataGridViewZonas.TabIndex = 0;
             // 
             // btnAgregar

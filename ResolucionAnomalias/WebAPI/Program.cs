@@ -389,7 +389,7 @@ app.MapPut("/zonas", (ZonaDTO dto) =>
 .Produces(StatusCodes.Status400BadRequest)
 .WithOpenApi();
 
-app.MapDelete("/clientes/{id}", (int id)=>
+app.MapDelete("/zonas/{id}", (int id)=>
 {
     ZonaService zonaService = new ZonaService();
 

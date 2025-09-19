@@ -10,6 +10,7 @@ namespace WindowsForms.FormsZona
         public ZonaLista()
         {
             InitializeComponent();
+            ConfigurarColumas();
         }
 
         private void ZonaLista_Load(object sender, EventArgs e)
@@ -26,6 +27,46 @@ namespace WindowsForms.FormsZona
         }
 
 
+
+        private void ConfigurarColumas()
+        {
+            this.dataGridViewZonas.AutoGenerateColumns = false;
+            
+
+            this.dataGridViewZonas.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "Id",
+                HeaderText = "Id",
+                DataPropertyName = "Id",
+                Width = 150
+            });
+
+            this.dataGridViewZonas.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "Nombre",
+                HeaderText = "Nombre",
+                DataPropertyName = "Nombre",
+                Width = 150
+            });
+
+            
+            this.dataGridViewZonas.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "NombreLocalidad ",
+                HeaderText = "Nombre Localidad",
+                DataPropertyName = "LocalidadNombre",
+                Width = 180
+            });
+
+            this.dataGridViewZonas.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "CodigoLocalidad",
+                HeaderText = "Codigo Localidad",
+                DataPropertyName = "LocalidadCodigo",
+                Width = 180
+            });
+
+        }
 
 
 

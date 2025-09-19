@@ -40,6 +40,7 @@ namespace Domain.Model
         {
             SetId(id);
             SetNombre(nombre);
+            SetLocalidadId(localidadId);
 
         }
         public void SetId(int id)

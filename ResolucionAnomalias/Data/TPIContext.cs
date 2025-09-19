@@ -38,6 +38,8 @@ namespace Data
             {
                 entity.HasKey(e => e.ID);
 
+                entity.Property(e=> e.ID).ValueGeneratedOnAdd();
+
                 entity.Property(e => e.Codigo).IsRequired();
 
                 entity.Property(e => e.Nombre).IsRequired().HasMaxLength(100);

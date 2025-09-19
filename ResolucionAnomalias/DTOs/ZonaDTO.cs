@@ -12,6 +12,7 @@ namespace DTOs
         public string Nombre { get; set; }
         public int LocalidadId { set; get; }
         public string? LocalidadCodigo { set; get; }
+        public string? LocalidadNombre { set; get; }   
 
     }
 }

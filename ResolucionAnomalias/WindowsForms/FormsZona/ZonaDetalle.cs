@@ -56,7 +56,7 @@ namespace WindowsForms.FormsZona
                 var localidades = await LocalidadApiLocalidad.GetAllAsync();
                 comboBoxLocalidad.DataSource = localidades.ToList();
                 comboBoxLocalidad.DisplayMember = "Nombre";
-                comboBoxLocalidad.ValueMember = "Id";
+                comboBoxLocalidad.ValueMember = "ID";
                 comboBoxLocalidad.SelectedIndex = -1;
             }
             catch (Exception ex)
@@ -68,13 +68,9 @@ namespace WindowsForms.FormsZona
         private void SetZona()
         {
             this.textBoxId.Text = this.Zona.Id.ToString();
-            this.textBoxNombre.Text = this.Zona.Nombre.ToString();
+            this.textBoxNombre.Text = this.Zona.Nombre;
             this.comboBoxLocalidad.SelectedValue = this.Zona.LocalidadId;
-            /*
-            if (comboBoxLocalidad.DataSource != null)
-            {
-                comboBoxLocalidad.SelectedValue = this.Zona.LocalidadId;
-            }*/
+
         }
 
 

@@ -59,6 +59,8 @@ namespace Application.Services
                 Id = zona.Id,
                 Nombre = zona.Nombre,
                 LocalidadId = zona.LocalidadId,
+                LocalidadCodigo = zona.Localidad?.Codigo.ToString(),
+                LocalidadNombre = zona.Localidad?.Nombre
             }).ToList();
         }
 
@@ -69,7 +71,7 @@ namespace Application.Services
 
             //FALTA VALIDAR QUE PARA ESA LOCALIDAD NO SE PUEDA AGREGAR DOS ZONAS IGUALES
 
-            Zona zona = new Zona(0, dto.Nombre, dto.LocalidadId);
+            Zona zona = new Zona(dto.Id, dto.Nombre, dto.LocalidadId);
 
             return zonaRepository.Update(zona);
 
