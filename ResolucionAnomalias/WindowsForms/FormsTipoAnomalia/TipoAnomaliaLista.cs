@@ -29,10 +29,9 @@ namespace WindowsForms.FormsTipoAnomalia
 
                 if (this.dataGridViewTiposAnomalia.Rows.Count > 0)
                 {
-                    this.dataGridViewTiposAnomalia.Rows[0].Selected = true;
                     this.dataGridViewTiposAnomalia.Refresh();
                     this.buttonEliminarListTipo.Enabled = true;
-                    this.buttonEliminarListTipo.Enabled = true;
+                    this.buttonModificarListTipo.Enabled = true;
                 }
                 else
                 {

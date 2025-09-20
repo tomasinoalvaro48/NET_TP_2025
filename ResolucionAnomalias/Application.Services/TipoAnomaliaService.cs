@@ -7,78 +7,62 @@ namespace Application.Services
     public class TipoAnomaliaService
     {
 
-        public int GetNextCod_Tipo()
+        public TipoAnomaliaDTO Get(int cod_anom)
         {
-            int nextCod_tipo;
-            if (TipoAnomaliaInMemory.TiposAnomalia.Count > 0)
+            var tipoRepository = new TipoAnomaliaRepository();
+            TipoAnomalia tipo = tipoRepository.GetById(cod_anom);
+            if (tipo == null)
             {
-                nextCod_tipo = TipoAnomaliaInMemory.TiposAnomalia.Max(x => x.Cod_anom) + 1;
+                return null;
             }
             else
             {
-                nextCod_tipo = 1;
+                return new TipoAnomaliaDTO
+                {
+                    Cod_anom = tipo.Cod_anom,
+                    Nombre_anom = tipo.Nombre_anom,
+                    Dif_anom = tipo.Dif_anom
+                };
+
             }
-            return nextCod_tipo;
         }
-        public TipoAnomaliaDTO Get(int cod_anom)
+
+        public IEnumerable<TipoAnomalia> GetAll()
         {
-            TipoAnomalia? tipo = TipoAnomaliaInMemory.TiposAnomalia.Find(x => x.Cod_anom == cod_anom);
+            TipoAnomaliaRepository tipoRepository = new TipoAnomaliaRepository();
+            IEnumerable<TipoAnomalia> tipos = tipoRepository.GetAll();
+            return tipos;
+        }
+        public TipoAnomaliaDTO Add(TipoAnomaliaDTO tipo)
+        {
+            TipoAnomaliaRepository tipoRepository = new TipoAnomaliaRepository();
 
-            if (tipo == null)
-                return null;
-
-            return new TipoAnomaliaDTO
+            if(tipoRepository.NombreExists(tipo.Nombre_anom))
             {
-                Cod_anom = tipo.Cod_anom,
-                Nombre_anom = tipo.Nombre_anom,
-                Dif_anom = tipo.Dif_anom
-            };
-        }
+                throw new ArgumentException($"Ya existe un tipo de anomalía con el código {tipo.Cod_anom}.");
+            }
 
-        public IEnumerable<TipoAnomaliaDTO> GetAll()
-        {
-            return TipoAnomaliaInMemory.TiposAnomalia.Select(tipo => new TipoAnomaliaDTO
-            {
-                Cod_anom = tipo.Cod_anom,
-                Nombre_anom = tipo.Nombre_anom,
-                Dif_anom = tipo.Dif_anom
-            }).ToList();
-        }
-        public TipoAnomaliaDTO Add(TipoAnomaliaDTO dto)
-        {
-            var cod_tipo = GetNextCod_Tipo();
-            TipoAnomalia tipo = new TipoAnomalia(cod_tipo, dto.Nombre_anom, dto.Dif_anom);
-            TipoAnomaliaInMemory.TiposAnomalia.Add(tipo);
-            dto.Cod_anom = tipo.Cod_anom;
-            return dto;
+            TipoAnomalia ntipo = new TipoAnomalia(tipo.Cod_anom, tipo.Nombre_anom, tipo.Dif_anom);
+            tipoRepository.Add(ntipo);
+
+            return tipo;
         }
         public bool Delete(int cod_anom)
         {
-            TipoAnomalia? tipoToDelete = TipoAnomaliaInMemory.TiposAnomalia.Find(x => x.Cod_anom == cod_anom);
-            if (tipoToDelete != null)
-            {
-                TipoAnomaliaInMemory.TiposAnomalia.Remove(tipoToDelete);
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            TipoAnomaliaRepository tipoRepository = new TipoAnomaliaRepository();
+            return tipoRepository.Delete(cod_anom);
         }
 
         public bool Update(TipoAnomaliaDTO tipo)
         {
-            TipoAnomalia? tipoToUpdate = TipoAnomaliaInMemory.TiposAnomalia.Find(x => x.Cod_anom == tipo.Cod_anom);
-            if (tipoToUpdate != null)
+            TipoAnomaliaRepository tipoRepository = new TipoAnomaliaRepository();
+
+            if(tipoRepository.NombreExists(tipo.Nombre_anom, tipo.Cod_anom))
             {
-                tipoToUpdate.SetNombre_anom(tipo.Nombre_anom);
-                tipoToUpdate.SetDif_anom(tipo.Dif_anom);
-                return true;
+                throw new ArgumentException($"Ya existe un tipo de anomalía con el código {tipo.Cod_anom}.");
             }
-            else
-            {
-                return false;
-            }
+            TipoAnomalia tipoToUpdate = new TipoAnomalia(tipo.Cod_anom, tipo.Nombre_anom, tipo.Dif_anom);
+            return tipoRepository.Update(tipoToUpdate);
         }
     }
 }
