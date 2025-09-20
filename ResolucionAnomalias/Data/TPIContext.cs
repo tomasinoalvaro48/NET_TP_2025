@@ -7,8 +7,8 @@ namespace Data
 {
     public class TPIContext : DbContext
     {
+        public DbSet<TipoAnomalia> TipoAnomalias { get; set; }
         public DbSet<Localidad> Localidades { get; set; }
-
         public DbSet<Zona> Zonas { get; set; }
 
         public DbSet<Denunciante> Denunciantes { get; set; }
@@ -35,6 +35,18 @@ namespace Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<TipoAnomalia>(entity =>
+            {
+                entity.HasKey(e => e.Cod_anom);
+                
+                entity.Property(e => e.Cod_anom).ValueGeneratedOnAdd();
+
+                entity.Property(e => e.Nombre_anom).IsRequired().HasMaxLength(100);
+
+                entity.HasIndex(e => e.Nombre_anom).IsUnique();
+
+                entity.Property(e => e.Dif_anom).IsRequired();
+            });
 
             modelBuilder.Entity<Localidad>(entity =>
             {

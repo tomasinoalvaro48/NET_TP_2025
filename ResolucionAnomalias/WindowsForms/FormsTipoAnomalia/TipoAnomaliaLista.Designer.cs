@@ -39,6 +39,8 @@
             // 
             dataGridViewTiposAnomalia.AllowUserToAddRows = false;
             dataGridViewTiposAnomalia.AllowUserToDeleteRows = false;
+            dataGridViewTiposAnomalia.SelectionMode = DataGridViewSelectionMode.FullRowSelect; 
+            dataGridViewTiposAnomalia.MultiSelect = false;
             dataGridViewTiposAnomalia.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewTiposAnomalia.Location = new Point(42, 37);
             dataGridViewTiposAnomalia.Name = "dataGridViewTiposAnomalia";

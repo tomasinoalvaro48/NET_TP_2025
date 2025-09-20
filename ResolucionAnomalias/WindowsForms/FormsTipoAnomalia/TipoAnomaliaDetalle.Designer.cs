@@ -112,7 +112,7 @@ namespace WindowsForms.FormsTipoAnomalia
             ComboDificultadTipoDetalle.FlatStyle = FlatStyle.Popup;
             ComboDificultadTipoDetalle.ForeColor = SystemColors.WindowFrame;
             ComboDificultadTipoDetalle.FormattingEnabled = true;
-            ComboDificultadTipoDetalle.Items.AddRange(new object[] { "facil", "medio", "dificil" });
+            ComboDificultadTipoDetalle.Items.AddRange(new object[] { 1, 2, 3 });
             ComboDificultadTipoDetalle.Location = new Point(328, 270);
             ComboDificultadTipoDetalle.MaxDropDownItems = 3;
             ComboDificultadTipoDetalle.Name = "ComboDificultadTipoDetalle";

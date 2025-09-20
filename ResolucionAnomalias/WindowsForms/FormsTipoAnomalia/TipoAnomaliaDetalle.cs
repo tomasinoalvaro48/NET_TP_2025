@@ -62,7 +62,7 @@ namespace WindowsForms.FormsTipoAnomalia
 
                     this.Tipo.Cod_anom = int.Parse(TextBoxCodigoTipoDetalle.Text);
                     this.Tipo.Nombre_anom = TextBoxNombreTipoDetalle.Text;
-                    this.Tipo.Dif_anom = ComboDificultadTipoDetalle.Text;
+                    this.Tipo.Dif_anom = int.Parse(ComboDificultadTipoDetalle.Text);
 
                     if (Mode == FormMode.Update)
                     {
@@ -92,7 +92,7 @@ namespace WindowsForms.FormsTipoAnomalia
         {
             this.TextBoxCodigoTipoDetalle.Text = this.Tipo.Cod_anom.ToString();
             this.TextBoxNombreTipoDetalle.Text = this.Tipo.Nombre_anom;
-            this.ComboDificultadTipoDetalle.Text = this.Tipo.Dif_anom;
+            this.ComboDificultadTipoDetalle.Text = this.Tipo.Dif_anom.ToString();
         }
 
         private void SetFormMode(FormMode value)
