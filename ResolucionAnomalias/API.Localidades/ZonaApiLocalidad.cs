@@ -2,10 +2,9 @@
 using System.Net.Http.Headers;
 
 
-
 namespace API.Localidades
 {
-    internal class ZonaApiLocalidad
+    public class ZonaApiLocalidad
     {
         private static HttpClient client = new HttpClient();
         static ZonaApiLocalidad()

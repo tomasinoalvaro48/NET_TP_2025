@@ -8,8 +8,8 @@ namespace Data
     public class TPIContext : DbContext
     {
         public DbSet<Localidad> Localidades { get; set; }
-
         public DbSet<Zona> Zonas { get; set; }
+        public DbSet<Usuario> Usuarios { get; set; }
 
         public DbSet<Denunciante> Denunciantes { get; set; }
 
@@ -75,6 +75,44 @@ namespace Data
                     .WithMany()
                     .HasForeignKey(e => e.LocalidadId);
 
+            });
+
+            modelBuilder.Entity<Usuario>(entity =>
+            {
+                entity.HasKey(e => e.Cod_usu);
+
+                entity.Property(e => e.Cod_usu)
+                    .ValueGeneratedOnAdd();
+
+                entity.Property(e => e.Nombre_usu)
+                    .IsRequired()
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.Email_usu)
+                    .IsRequired()
+                    .HasMaxLength(100);
+
+                entity.HasIndex(e => e.Email_usu)
+                    .IsUnique();
+
+                entity.Property(e => e.Passw_usu)
+                    .IsRequired()
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.Tipo_usu)
+                    .IsRequired()
+                    .HasMaxLength(20);
+
+                entity.Property(e => e.ZonaId)
+                    .IsRequired()
+                    .HasField("_zonaId");
+
+                entity.Navigation(e => e.Zona)
+                    .HasField("_zona");
+
+                entity.HasOne(e => e.Zona)
+                    .WithMany()
+                    .HasForeignKey(e => e.ZonaId);
             });
 
             modelBuilder.Entity<Denunciante>(entity =>

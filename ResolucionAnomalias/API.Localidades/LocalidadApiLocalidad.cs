@@ -1,5 +1,4 @@
-﻿
-using System.Collections;
+﻿using System.Collections;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Security.AccessControl;
@@ -7,7 +6,7 @@ using DTOs;
 
 namespace API.Localidades
 {
-    internal class LocalidadApiLocalidad
+    public class LocalidadApiLocalidad
     {
         private static HttpClient httpClient = new HttpClient();
         static LocalidadApiLocalidad()
