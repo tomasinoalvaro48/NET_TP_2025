@@ -2,17 +2,16 @@
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 
-namespace API.Localidades
+namespace API.Clients
 {
-    public class ZonaApiLocalidad
+    public class ZonaApiClient
     {
         private static HttpClient client = new HttpClient();
-        static ZonaApiLocalidad()
+        static ZonaApiClient()
         {
             client.BaseAddress = new Uri("http://localhost:5183/");
             client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(
-                new MediaTypeWithQualityHeaderValue("application/json"));
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
         public static async Task<ZonaDTO> GetAsync(int id)

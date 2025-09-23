@@ -1,5 +1,5 @@
 ﻿using DTOs;
-using WindowsForms.FormsTipoAnomalia;
+using API.Clients;
 
 namespace WindowsForms.FormsTipoAnomalia
 {
@@ -15,7 +15,7 @@ namespace WindowsForms.FormsTipoAnomalia
             try
             {
                 this.dataGridViewTiposAnomalia.DataSource = null;
-                this.dataGridViewTiposAnomalia.DataSource = await TipoAnomaliaApiTipoAnomalia.GetAllAsync();
+                this.dataGridViewTiposAnomalia.DataSource = await TipoAnomaliaApiClient.GetAllAsync();
 
                 if (this.dataGridViewTiposAnomalia.Rows.Count > 0)
                 {
@@ -61,7 +61,7 @@ namespace WindowsForms.FormsTipoAnomalia
 
                 if (result == DialogResult.Yes)
                 {
-                    await TipoAnomaliaApiTipoAnomalia.DeleteAsync(id);
+                    await TipoAnomaliaApiClient.DeleteAsync(id);
                     this.GetAllAndLoad();
                 }
             }
@@ -100,7 +100,7 @@ namespace WindowsForms.FormsTipoAnomalia
 
                 int id = this.SelectedItem().Cod_anom;
 
-                TipoAnomaliaDTO tipo = await TipoAnomaliaApiTipoAnomalia.GetAsync(id);
+                TipoAnomaliaDTO tipo = await TipoAnomaliaApiClient.GetAsync(id);
 
                 tipoDetalle.Mode = FormMode.Update;
                 tipoDetalle.Tipo = tipo;

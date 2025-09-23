@@ -1,4 +1,5 @@
 ﻿using DTOs;
+using API.Clients;
 
 namespace WindowsForms.FormsUsuario
 {
@@ -88,7 +89,7 @@ namespace WindowsForms.FormsUsuario
             try
             {
                 this.usuariosDataGridView.DataSource = null;
-                this.usuariosDataGridView.DataSource = await UsuarioApiLocalidad.GetAllAsync();
+                this.usuariosDataGridView.DataSource = await UsuarioApiClient.GetAllAsync();
 
                 if (this.usuariosDataGridView.Rows.Count > 0)
                 {
@@ -134,7 +135,7 @@ namespace WindowsForms.FormsUsuario
 
                 if (result == DialogResult.Yes)
                 {
-                    await UsuarioApiLocalidad.DeleteAsync(id);
+                    await UsuarioApiClient.DeleteAsync(id);
                     this.GetAllAndLoad();
                 }
             }
@@ -153,7 +154,7 @@ namespace WindowsForms.FormsUsuario
 
                 int id = this.SelectedItem().Cod_usu;
 
-                UsuarioDTO usuario = await UsuarioApiLocalidad.GetAsync(id);
+                UsuarioDTO usuario = await UsuarioApiClient.GetAsync(id);
 
                 usuarioDetalle.Mode = FormMode.Update;
 

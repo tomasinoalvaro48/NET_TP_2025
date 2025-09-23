@@ -1,5 +1,5 @@
 ﻿using DTOs;
-using WindowsForms.FormsTipoAnomalia;
+using API.Clients;
 
 namespace WindowsForms.FormsTipoAnomalia
 {
@@ -61,11 +61,11 @@ namespace WindowsForms.FormsTipoAnomalia
 
                     if (Mode == FormMode.Update)
                     {
-                        await TipoAnomaliaApiTipoAnomalia.UpdateAsync(this.Tipo);
+                        await TipoAnomaliaApiClient.UpdateAsync(this.Tipo);
                     }
                     else
                     {
-                        await TipoAnomaliaApiTipoAnomalia.AddAsync(this.Tipo);
+                        await TipoAnomaliaApiClient.AddAsync(this.Tipo);
                     }
 
                     this.Close();

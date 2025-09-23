@@ -1,6 +1,6 @@
 using System.Text.RegularExpressions;
 using DTOs;
-using WindowsForms.FormsDenunciante;
+using API.Clients;
 
 namespace WindowsForms
 {
@@ -40,7 +40,6 @@ namespace WindowsForms
         public DenuncianteDetalle()
         {
             InitializeComponent();
-
             Mode = FormMode.Add;
         }
 
@@ -56,11 +55,11 @@ namespace WindowsForms
 
                     if (this.Mode == FormMode.Update)
                     {
-                        await DenuncianteApiDenunciante.UpdateAsync(this.Denunciante);
+                        await DenuncianteApiClient.UpdateAsync(this.Denunciante);
                     }
                     else
                     {
-                        await DenuncianteApiDenunciante.AddAsync(this.Denunciante);
+                        await DenuncianteApiClient.AddAsync(this.Denunciante);
                     }
 
                     this.Close();

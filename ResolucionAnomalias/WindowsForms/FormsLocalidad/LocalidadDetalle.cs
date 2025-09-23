@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 using DTOs;
-using WindowsForms.FormsLocalidad;
+using API.Clients;
 
 namespace WindowsForms
 {
@@ -39,7 +39,6 @@ namespace WindowsForms
         public LocalidadDetalle()
         {
             InitializeComponent();
-
             Mode = FormMode.Add;
         }
 
@@ -55,11 +54,11 @@ namespace WindowsForms
 
                     if (this.Mode == FormMode.Update)
                     {
-                        await LocalidadApiLocalidad.UpdateAsync(this.Localidad);
+                        await LocalidadApiClient.UpdateAsync(this.Localidad);
                     }
                     else
                     {
-                        await LocalidadApiLocalidad.AddAsync(this.Localidad);
+                        await LocalidadApiClient.AddAsync(this.Localidad);
                     }
 
                     this.Close();

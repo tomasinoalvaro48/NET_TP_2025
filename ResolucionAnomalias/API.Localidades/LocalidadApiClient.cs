@@ -2,23 +2,23 @@
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 
-namespace API.Localidades
+namespace API.Clients
 {
-    public class LocalidadApiLocalidad
+    public class LocalidadApiClient
     {
-        private static HttpClient httpClient = new HttpClient();
-        static LocalidadApiLocalidad()
+        private static HttpClient client = new HttpClient();
+        static LocalidadApiClient()
         {
-            httpClient.BaseAddress = new Uri("http://localhost:5183/");
-            httpClient.DefaultRequestHeaders.Accept.Clear();
-            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            client.BaseAddress = new Uri("http://localhost:5183/");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
         public static async Task<LocalidadDTO> GetAsync(int id)
         {
             try
             {
-                HttpResponseMessage response = await httpClient.GetAsync("localidades/" + id);
+                HttpResponseMessage response = await client.GetAsync("localidades/" + id);
                 if (response.IsSuccessStatusCode)
                 {
                     return await response.Content.ReadAsAsync<LocalidadDTO>();
@@ -44,7 +44,7 @@ namespace API.Localidades
         {
             try
             {
-                HttpResponseMessage response = await httpClient.GetAsync("localidades");
+                HttpResponseMessage response = await client.GetAsync("localidades");
                 if (response.IsSuccessStatusCode)
                 {
                     return await response.Content.ReadAsAsync<IEnumerable<LocalidadDTO>>();
@@ -69,7 +69,7 @@ namespace API.Localidades
         {
             try
             {
-                HttpResponseMessage response = await httpClient.PostAsJsonAsync("localidades", dto);
+                HttpResponseMessage response = await client.PostAsJsonAsync("localidades", dto);
                 if (!response.IsSuccessStatusCode)
                 {
                     string errorContent = await response.Content.ReadAsStringAsync();
@@ -90,7 +90,7 @@ namespace API.Localidades
         {
             try
             {
-                HttpResponseMessage response = await httpClient.PutAsJsonAsync("localidades", dto);
+                HttpResponseMessage response = await client.PutAsJsonAsync("localidades", dto);
                 if (!response.IsSuccessStatusCode)
                 {
                     string errorContent = await response.Content.ReadAsStringAsync();
@@ -112,7 +112,7 @@ namespace API.Localidades
         {
             try
             {
-                HttpResponseMessage response = await httpClient.DeleteAsync("localidades/" + id);
+                HttpResponseMessage response = await client.DeleteAsync("localidades/" + id);
                 if (!response.IsSuccessStatusCode)
                 {
                     string errorContent = await response.Content.ReadAsStringAsync();

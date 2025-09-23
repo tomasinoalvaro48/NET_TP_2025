@@ -1,5 +1,5 @@
 ﻿using DTOs;
-using WindowsForms.FormsLocalidad;
+using API.Clients;
 
 namespace WindowsForms
 {
@@ -46,7 +46,7 @@ namespace WindowsForms
 
                 int id = this.SelectedItem().ID;
 
-                LocalidadDTO localidad = await LocalidadApiLocalidad.GetAsync(id);
+                LocalidadDTO localidad = await LocalidadApiClient.GetAsync(id);
 
                 localidadDetalle.Mode = FormMode.Update;
                 localidadDetalle.Localidad = localidad;
@@ -71,7 +71,7 @@ namespace WindowsForms
 
                 if (result == DialogResult.Yes)
                 {
-                    await LocalidadApiLocalidad.DeleteAsync(id);
+                    await LocalidadApiClient.DeleteAsync(id);
                     this.GetAllAndLoad();
                 }
             }
@@ -86,7 +86,7 @@ namespace WindowsForms
             try
             {
                 this.dataGridViewLocalidades.DataSource = null;
-                this.dataGridViewLocalidades.DataSource = await LocalidadApiLocalidad.GetAllAsync();
+                this.dataGridViewLocalidades.DataSource = await LocalidadApiClient.GetAllAsync();
 
                 if (this.dataGridViewLocalidades.Rows.Count > 0)
                 {

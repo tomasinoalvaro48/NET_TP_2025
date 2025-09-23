@@ -1,7 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 using DTOs;
-using WindowsForms.FormsLocalidad;
-using WindowsForms.FormsZona;
+using API.Clients;
 
 namespace WindowsForms.FormsUsuario
 {
@@ -53,7 +52,7 @@ namespace WindowsForms.FormsUsuario
         {
             try
             {
-                var localidades = await LocalidadApiLocalidad.GetAllAsync();
+                var localidades = await LocalidadApiClient.GetAllAsync();
                 localidadComboBox.DataSource = localidades.ToList();
                 localidadComboBox.DisplayMember = "Nombre";
                 localidadComboBox.ValueMember = "ID";
@@ -69,7 +68,7 @@ namespace WindowsForms.FormsUsuario
         {
             try
             {
-                var zonas = await ZonaApiLocalidad.GetAllAsync();
+                var zonas = await ZonaApiClient.GetAllAsync();
                 zonaComboBox.DataSource = zonas.ToList();
                 zonaComboBox.DisplayMember = "Nombre";
                 zonaComboBox.ValueMember = "ID";
@@ -183,11 +182,11 @@ namespace WindowsForms.FormsUsuario
 
                     if (this.Mode == FormMode.Update)
                     {
-                        await UsuarioApiLocalidad.UpdateAsync(this.usuario);
+                        await UsuarioApiClient.UpdateAsync(this.usuario);
                     }
                     else
                     {
-                        await UsuarioApiLocalidad.AddAsync(this.usuario);
+                        await UsuarioApiClient.AddAsync(this.usuario);
                     }
                     this.Close();
                 }

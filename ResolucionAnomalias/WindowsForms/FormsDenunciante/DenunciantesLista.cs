@@ -1,5 +1,5 @@
 ﻿using DTOs;
-using WindowsForms.FormsDenunciante;
+using API.Clients;
 
 namespace WindowsForms
 {
@@ -37,7 +37,7 @@ namespace WindowsForms
 
                 int cod_den = this.SelectedItem().Cod_den;
 
-                DenuncianteDTO denunciante = await DenuncianteApiDenunciante.GetAsync(cod_den);
+                DenuncianteDTO denunciante = await DenuncianteApiClient.GetAsync(cod_den);
 
                 denuncianteDetalle.Mode = FormMode.Update;
                 denuncianteDetalle.Denunciante = denunciante;
@@ -62,7 +62,7 @@ namespace WindowsForms
 
                 if (result == DialogResult.Yes)
                 {
-                    await DenuncianteApiDenunciante.DeleteAsync(cod_den);
+                    await DenuncianteApiClient.DeleteAsync(cod_den);
                     this.GetAllAndLoad();
                 }
             }
@@ -77,7 +77,7 @@ namespace WindowsForms
             try
             {
                 this.denunciantesDataGridView.DataSource = null;
-                this.denunciantesDataGridView.DataSource = await DenuncianteApiDenunciante.GetAllAsync();
+                this.denunciantesDataGridView.DataSource = await DenuncianteApiClient.GetAllAsync();
 
                 if (this.denunciantesDataGridView.Rows.Count > 0)
                 {

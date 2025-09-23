@@ -1,5 +1,5 @@
 ﻿using DTOs;
-using WindowsForms.FormsLocalidad;
+using API.Clients;
 
 namespace WindowsForms.FormsZona
 {
@@ -66,7 +66,7 @@ namespace WindowsForms.FormsZona
             try
             {
                 this.dataGridViewZonas.DataSource = null;
-                this.dataGridViewZonas.DataSource = await ZonaApiLocalidad.GetAllAsync();
+                this.dataGridViewZonas.DataSource = await ZonaApiClient.GetAllAsync();
 
                 if (this.dataGridViewZonas.Rows.Count > 0)
                 {
@@ -112,7 +112,7 @@ namespace WindowsForms.FormsZona
 
                 if (result == DialogResult.Yes)
                 {
-                    await ZonaApiLocalidad.DeleteAsync(id);
+                    await ZonaApiClient.DeleteAsync(id);
                     this.GetAllAndLoad();
                 }
             }
@@ -131,7 +131,7 @@ namespace WindowsForms.FormsZona
 
                 int id = this.SelectedItem().Id;
 
-                ZonaDTO zona = await ZonaApiLocalidad.GetAsync(id);
+                ZonaDTO zona = await ZonaApiClient.GetAsync(id);
 
                 zonaDetalle.Mode = FormMode.Update;
 

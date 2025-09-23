@@ -1,5 +1,5 @@
 ﻿using DTOs;
-using WindowsForms.FormsLocalidad;
+using API.Clients;
 
 namespace WindowsForms.FormsZona
 {
@@ -41,7 +41,7 @@ namespace WindowsForms.FormsZona
         {
             try
             {
-                var localidades = await LocalidadApiLocalidad.GetAllAsync();
+                var localidades = await LocalidadApiClient.GetAllAsync();
                 comboBoxLocalidad.DataSource = localidades.ToList();
                 comboBoxLocalidad.DisplayMember = "Nombre";
                 comboBoxLocalidad.ValueMember = "ID";
@@ -113,11 +113,11 @@ namespace WindowsForms.FormsZona
                     this.zona.LocalidadId = (int)comboBoxLocalidad.SelectedValue;
                     if(this.Mode == FormMode.Update)
                     {
-                        await ZonaApiLocalidad.UpdateAsync(this.zona);
+                        await ZonaApiClient.UpdateAsync(this.zona);
                     }
                     else
                     {
-                        await ZonaApiLocalidad.AddAsync(this.zona);
+                        await ZonaApiClient.AddAsync(this.zona);
                     }
                     this.Close();
                 }
