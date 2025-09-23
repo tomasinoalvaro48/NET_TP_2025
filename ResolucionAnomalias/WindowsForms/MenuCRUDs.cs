@@ -1,5 +1,6 @@
 ﻿using DTOs;
 using WindowsForms.FormsTipoAnomalia;
+using WindowsForms.FormsUsuario;
 using WindowsForms.FormsZona;
 
 
@@ -42,6 +43,13 @@ namespace WindowsForms
         {
             ZonaLista zonaLista = new ZonaLista();
             zonaLista.ShowDialog();
+        }
+
+        private void ButtonCRUDUsuario_Click(object sender, EventArgs e)
+        {
+            UsuarioLista usuarioLista = new UsuarioLista();
+            //usuarioLista.Activate();
+            usuarioLista.ShowDialog();
         }
     }
 }
