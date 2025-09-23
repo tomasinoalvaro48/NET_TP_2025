@@ -15,7 +15,6 @@ namespace WindowsForms.FormsDenunciante
                 new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
-
         public static async Task<DenuncianteDTO> GetAsync(int cod_den)
         {
             DenuncianteDTO denunciante = null;

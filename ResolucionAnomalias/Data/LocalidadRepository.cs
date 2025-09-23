@@ -12,7 +12,6 @@ namespace Data
         public IEnumerable<Localidad> GetAll()
         {
             using var context = CreateContext();
-            
             return context.Localidades.OrderBy(p=>p.Codigo).ToList();
         }
 
@@ -35,7 +34,6 @@ namespace Data
             }
             return false;
         }
-
 
         public Localidad? GetById(int id)
         {
@@ -67,7 +65,5 @@ namespace Data
             }
             return query.Any();
         }
-
-
     }
 }

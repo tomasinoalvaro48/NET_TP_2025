@@ -1,5 +1,4 @@
 using Application.Services;
-using Domain.Model;
 using DTOs;
 
 var builder = WebApplication.CreateBuilder(args);

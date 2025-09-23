@@ -1,6 +1,6 @@
 ﻿using DTOs;
 using System.Net.Http.Headers;
-
+using System.Net.Http.Json;
 
 namespace API.Localidades
 {
@@ -132,9 +132,5 @@ namespace API.Localidades
                 throw new Exception($"Timeout al actualizar zona con Id {zona.Id}: {ex.Message}", ex);
             }
         }
-
-
-
-
     }
 }

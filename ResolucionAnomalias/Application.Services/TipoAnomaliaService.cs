@@ -6,7 +6,6 @@ namespace Application.Services
 {
     public class TipoAnomaliaService
     {
-
         public TipoAnomaliaDTO Get(int cod_anom)
         {
             var tipoRepository = new TipoAnomaliaRepository();
@@ -23,7 +22,6 @@ namespace Application.Services
                     Nombre_anom = tipo.Nombre_anom,
                     Dif_anom = tipo.Dif_anom
                 };
-
             }
         }
 
@@ -33,6 +31,7 @@ namespace Application.Services
             IEnumerable<TipoAnomalia> tipos = tipoRepository.GetAll();
             return tipos;
         }
+
         public TipoAnomaliaDTO Add(TipoAnomaliaDTO tipo)
         {
             TipoAnomaliaRepository tipoRepository = new TipoAnomaliaRepository();
@@ -47,6 +46,7 @@ namespace Application.Services
 
             return tipo;
         }
+
         public bool Delete(int cod_anom)
         {
             TipoAnomaliaRepository tipoRepository = new TipoAnomaliaRepository();

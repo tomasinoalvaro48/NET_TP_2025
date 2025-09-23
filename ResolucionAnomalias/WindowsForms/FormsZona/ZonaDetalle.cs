@@ -1,20 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Text.RegularExpressions;
-using DTOs;
-using WindowsForms;
+﻿using DTOs;
 using WindowsForms.FormsLocalidad;
 
 namespace WindowsForms.FormsZona
 {
-
     public enum FormMode
     {
         Add,
@@ -23,7 +11,6 @@ namespace WindowsForms.FormsZona
 
     public partial class ZonaDetalle : Form
     {
-
         private ZonaDTO zona;
         private FormMode mode;
 
@@ -42,6 +29,7 @@ namespace WindowsForms.FormsZona
             get { return mode; }
             set { SetFormMode(value); }
         }
+
         public ZonaDetalle()
         {
             InitializeComponent();
@@ -72,7 +60,6 @@ namespace WindowsForms.FormsZona
             this.comboBoxLocalidad.SelectedValue = this.Zona.LocalidadId;
 
         }
-
 
         private void SetFormMode(FormMode value)
         {
@@ -110,10 +97,6 @@ namespace WindowsForms.FormsZona
             }
             return isValid;
         }
-
-
-
-
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {

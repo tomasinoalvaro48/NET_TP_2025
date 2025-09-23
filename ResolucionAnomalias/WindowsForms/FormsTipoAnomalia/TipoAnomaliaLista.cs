@@ -1,14 +1,5 @@
 ﻿using DTOs;
 using WindowsForms.FormsTipoAnomalia;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace WindowsForms.FormsTipoAnomalia
 {
@@ -17,7 +8,6 @@ namespace WindowsForms.FormsTipoAnomalia
         public TipoAnomaliaLista()
         {
             InitializeComponent();
-
         }
 
         private async void GetAllAndLoad()

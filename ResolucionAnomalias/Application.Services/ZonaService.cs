@@ -18,7 +18,6 @@ namespace Application.Services
             dto.Id = zona.Id;
 
             return dto;
-
         }
 
         public bool Delete(int id)
@@ -26,7 +25,6 @@ namespace Application.Services
             var zonaRepository = new ZonaRepository();
             return zonaRepository.Delete(id);
         }
-
 
         public ZonaDTO Get(int id) 
         {
@@ -37,7 +35,6 @@ namespace Application.Services
             {
                 return null;
             }
-
             else
             {
                 return new ZonaDTO
@@ -64,7 +61,6 @@ namespace Application.Services
             }).ToList();
         }
 
-
         public bool Update(ZonaDTO dto)
         {
             var zonaRepository = new ZonaRepository();
@@ -74,9 +70,6 @@ namespace Application.Services
             Zona zona = new Zona(dto.Id, dto.Nombre, dto.LocalidadId);
 
             return zonaRepository.Update(zona);
-
         }
-
-
     }
 }

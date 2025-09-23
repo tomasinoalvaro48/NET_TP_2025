@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.SqlTypes;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Data;
+﻿using Data;
 using Domain.Model;
 using DTOs;
 
@@ -12,8 +6,6 @@ namespace Application.Services
 {
     public class LocalidadService
     {
-
-        
         public LocalidadDTO Add(LocalidadDTO dto)
         {
             var localidadRepository = new LocalidadRepository();
@@ -30,8 +22,6 @@ namespace Application.Services
 
             return dto;
         }
-
-        
 
         public bool delete(int id)
         {
@@ -55,7 +45,6 @@ namespace Application.Services
                     Codigo = localidad.Codigo,
                     Nombre = localidad.Nombre
                 };
-
             }
         }
 
@@ -74,7 +63,6 @@ namespace Application.Services
 
         public bool Update(LocalidadDTO dto)
         {
-
             var localidadRespository = new LocalidadRepository();
 
             if (localidadRespository.CodigoExists(dto.Codigo,dto.ID))
@@ -83,7 +71,6 @@ namespace Application.Services
             }
             Localidad localidadToUpdate = new Localidad(dto.ID,dto.Codigo ,dto.Nombre);
             return localidadRespository.Update(localidadToUpdate);
-            
         }
     }
 }

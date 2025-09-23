@@ -1,6 +1,5 @@
 ﻿using Domain.Model;
 using Microsoft.EntityFrameworkCore;
-using System.Data.SqlClient;
 
 namespace Data
 {
@@ -41,8 +40,6 @@ namespace Data
                 .FirstOrDefault(e => e.Id == id);
         }
 
-
-
         public IEnumerable<Zona> GetAll()
         {
             using var context = CreateContext();
@@ -65,5 +62,4 @@ namespace Data
             return false;
         }
     }
-
 }

@@ -1,5 +1,4 @@
-﻿using DTOs;
-using WindowsForms.FormsTipoAnomalia;
+﻿using WindowsForms.FormsTipoAnomalia;
 using WindowsForms.FormsUsuario;
 using WindowsForms.FormsZona;
 

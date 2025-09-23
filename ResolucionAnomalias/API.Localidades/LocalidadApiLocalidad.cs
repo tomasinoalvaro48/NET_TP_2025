@@ -1,8 +1,6 @@
-﻿using System.Collections;
+﻿using DTOs;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
-using System.Security.AccessControl;
-using DTOs;
 
 namespace API.Localidades
 {
@@ -15,8 +13,6 @@ namespace API.Localidades
             httpClient.DefaultRequestHeaders.Accept.Clear();
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
-
-
 
         public static async Task<LocalidadDTO> GetAsync(int id)
         {
@@ -43,7 +39,6 @@ namespace API.Localidades
             }
 
         }
-
 
         public static async Task<IEnumerable<LocalidadDTO>> GetAllAsync()
         {
@@ -91,7 +86,6 @@ namespace API.Localidades
             }
         }
 
-
         public static async Task UpdateAsync(LocalidadDTO dto)
         {
             try
@@ -121,10 +115,8 @@ namespace API.Localidades
                 HttpResponseMessage response = await httpClient.DeleteAsync("localidades/" + id);
                 if (!response.IsSuccessStatusCode)
                 {
-
                     string errorContent = await response.Content.ReadAsStringAsync();
                     throw new Exception($"Error al eliminar la localidad con ID {id}. Status: {response.StatusCode}, Detalle: {errorContent}");
-
                 }
             }
             catch (HttpRequestException ex)

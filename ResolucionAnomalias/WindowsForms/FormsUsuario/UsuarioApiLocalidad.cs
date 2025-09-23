@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using DTOs;
 using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
-using Domain.Model;
-using DTOs;
+using System.Net.Http.Json;
 
 namespace WindowsForms.FormsUsuario
 {
     public class UsuarioApiLocalidad
     {
         private static HttpClient client = new HttpClient();
-
         static UsuarioApiLocalidad()
         {
             client.BaseAddress = new Uri("http://localhost:5183/");

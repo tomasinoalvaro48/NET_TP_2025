@@ -1,5 +1,4 @@
-﻿
-using DTOs;
+﻿using DTOs;
 using WindowsForms.FormsLocalidad;
 
 namespace WindowsForms
@@ -61,6 +60,7 @@ namespace WindowsForms
                 MessageBox.Show($"Error al cargar localidad para modificar: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         private async void eliminarButton_Click(object sender, EventArgs e)
         {
             try
@@ -80,7 +80,6 @@ namespace WindowsForms
                 MessageBox.Show($"Error al eliminar la localidad: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
 
         private async void GetAllAndLoad()
         {

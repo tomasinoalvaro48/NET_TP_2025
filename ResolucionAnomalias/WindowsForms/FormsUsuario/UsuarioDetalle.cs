@@ -1,18 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Text.RegularExpressions;
 using DTOs;
 using WindowsForms.FormsLocalidad;
 using WindowsForms.FormsZona;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace WindowsForms.FormsUsuario
 {
@@ -42,6 +31,7 @@ namespace WindowsForms.FormsUsuario
             get { return mode; }
             set { SetFormMode(value); }
         }
+
         public UsuarioDetalle()
         {
             InitializeComponent();
@@ -102,7 +92,6 @@ namespace WindowsForms.FormsUsuario
             this.localidadComboBox.SelectedValue = this.Usuario.LocalidadId;
             this.zonaComboBox.SelectedValue = this.Usuario.ZonaId;
         }
-
 
         private void SetFormMode(FormMode value)
         {

@@ -1,6 +1,4 @@
 ﻿using Domain.Model;
-using Microsoft.EntityFrameworkCore;
-using System.Data.SqlClient;
 
 namespace Data
 {

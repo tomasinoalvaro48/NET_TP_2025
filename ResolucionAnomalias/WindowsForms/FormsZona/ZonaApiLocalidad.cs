@@ -1,13 +1,12 @@
-﻿using System.Net.Http.Headers;
+﻿using DTOs;
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
-using DTOs;
 
 namespace WindowsForms.FormsZona
 {
     public class ZonaApiLocalidad
     {
         private static HttpClient client = new HttpClient();
-
         static ZonaApiLocalidad()
         {
             client.BaseAddress = new Uri("http://localhost:5183/");

@@ -1,7 +1,5 @@
-﻿using System.Text.RegularExpressions;
-using DTOs;
+﻿using DTOs;
 using WindowsForms.FormsTipoAnomalia;
-
 
 namespace WindowsForms.FormsTipoAnomalia
 {
@@ -21,7 +19,6 @@ namespace WindowsForms.FormsTipoAnomalia
         private Label LabelDificultadTipoDetalle;
         private TextBox TextBoxCodigoTipoDetalle;
         private FormMode mode;
-
 
         public TipoAnomaliaDTO Tipo
         {
@@ -49,7 +46,6 @@ namespace WindowsForms.FormsTipoAnomalia
         public TipoAnomaliaDetalle()
         {
             InitializeComponent();
-
             Mode = FormMode.Add;
         }
 
@@ -59,7 +55,6 @@ namespace WindowsForms.FormsTipoAnomalia
             {
                 try
                 {
-
                     this.Tipo.Cod_anom = int.Parse(TextBoxCodigoTipoDetalle.Text);
                     this.Tipo.Nombre_anom = TextBoxNombreTipoDetalle.Text;
                     this.Tipo.Dif_anom = int.Parse(ComboDificultadTipoDetalle.Text);
@@ -86,7 +81,6 @@ namespace WindowsForms.FormsTipoAnomalia
         {
             this.Close();
         }
-
 
         private void SetTipoAnomalia()
         {
@@ -116,8 +110,8 @@ namespace WindowsForms.FormsTipoAnomalia
                 LabelDificultadTipoDetalle.Visible = true;
                 ComboDificultadTipoDetalle.Visible = true;
             }
-
         }
+
         private bool ValidateTipo()
         {
             bool valid = true;
@@ -138,6 +132,5 @@ namespace WindowsForms.FormsTipoAnomalia
 
             return valid;
         }
-
     }
 }

@@ -15,7 +15,6 @@ namespace WindowsForms.FormsTipoAnomalia
                 new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
-
         public static async Task<TipoAnomaliaDTO> GetAsync(int cod_tipo)
         {
             TipoAnomaliaDTO tipo = null;

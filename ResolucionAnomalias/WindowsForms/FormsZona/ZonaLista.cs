@@ -1,6 +1,4 @@
-﻿using Domain.Model;
-using DTOs;
-using WindowsForms;
+﻿using DTOs;
 using WindowsForms.FormsLocalidad;
 
 namespace WindowsForms.FormsZona
@@ -18,7 +16,6 @@ namespace WindowsForms.FormsZona
             this.GetAllAndLoad();
         }
 
-
         private ZonaDTO SelectedItem()
         {
             ZonaDTO zona;
@@ -26,12 +23,9 @@ namespace WindowsForms.FormsZona
             return zona;
         }
 
-
-
         private void ConfigurarColumas()
         {
             this.dataGridViewZonas.AutoGenerateColumns = false;
-            
 
             this.dataGridViewZonas.Columns.Add(new DataGridViewTextBoxColumn
             {
@@ -65,10 +59,7 @@ namespace WindowsForms.FormsZona
                 DataPropertyName = "LocalidadCodigo",
                 Width = 180
             });
-
         }
-
-
 
         private async void GetAllAndLoad()
         {

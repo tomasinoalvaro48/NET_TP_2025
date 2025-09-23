@@ -1,6 +1,6 @@
-﻿using System.Net.Http.Headers;
+﻿using DTOs;
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
-using DTOs;
 
 namespace WindowsForms.FormsLocalidad
 {
@@ -14,7 +14,6 @@ namespace WindowsForms.FormsLocalidad
             client.DefaultRequestHeaders.Accept.Add(
                 new MediaTypeWithQualityHeaderValue("application/json"));
         }
-
 
         public static async Task<LocalidadDTO> GetAsync(int id)
         {
@@ -57,4 +56,3 @@ namespace WindowsForms.FormsLocalidad
         }
     }
 }
-

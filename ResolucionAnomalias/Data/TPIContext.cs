@@ -1,7 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Domain.Model;
+﻿using Domain.Model;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-
 
 namespace Data
 {
@@ -11,7 +10,6 @@ namespace Data
         public DbSet<Localidad> Localidades { get; set; }
         public DbSet<Zona> Zonas { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
-
         public DbSet<Denunciante> Denunciantes { get; set; }
 
         internal TPIContext()
@@ -152,8 +150,6 @@ namespace Data
                     new { Cod_den = 2, Nombre_den = "Ana Maria", Telefono = "3415456789", Direccion_den = "Santa Fe 2000" }
                 );
             });
-
         }
-
     }
 }

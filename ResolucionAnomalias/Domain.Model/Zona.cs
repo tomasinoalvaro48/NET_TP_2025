@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-
-namespace Domain.Model
+﻿namespace Domain.Model
 {
     public class Zona
     {
@@ -43,6 +36,7 @@ namespace Domain.Model
             SetLocalidadId(localidadId);
 
         }
+
         public void SetId(int id)
         {
             if (id < 0)
@@ -56,7 +50,6 @@ namespace Domain.Model
                 throw new ArgumentException("El nombre no puede ser nulo o vacío.", nameof(nombre));
             Nombre = nombre;
         }
-
 
         public void SetLocalidadId(int localidadId)
         {

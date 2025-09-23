@@ -1,21 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Domain.Model
+﻿namespace Domain.Model
 {
     public class Localidad
     {
-
         public int ID { get; private set; }
         public int Codigo { get; private set; }
         public string Nombre { get; private set; }
 
-        
-
         public Localidad() { }
+
         public Localidad(int id, int codigo, string nombre)
         {
             SetId(id);
