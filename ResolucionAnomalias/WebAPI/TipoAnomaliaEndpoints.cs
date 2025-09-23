@@ -9,7 +9,6 @@ namespace WebAPI
         {
             app.MapGet("/tipoanomalia/{cod_tipo}", (int cod_tipo) =>
             {
-
                 TipoAnomaliaService tipoService = new TipoAnomaliaService();
 
                 TipoAnomaliaDTO dto = tipoService.Get(cod_tipo);

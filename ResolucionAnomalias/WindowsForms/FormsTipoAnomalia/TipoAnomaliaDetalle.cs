@@ -121,13 +121,13 @@ namespace WindowsForms.FormsTipoAnomalia
             if (this.TextBoxNombreTipoDetalle.Text == string.Empty)
             {
                 valid = false;
-                errorProvider.SetError(TextBoxNombreTipoDetalle, "El nombre es Requerido");
+                errorProvider.SetError(TextBoxNombreTipoDetalle, "El nombre es requerido");
             }
 
             if (this.ComboDificultadTipoDetalle.Text == string.Empty)
             {
                 valid = false;
-                errorProvider.SetError(ComboDificultadTipoDetalle, "La dificultad es Requerida");
+                errorProvider.SetError(ComboDificultadTipoDetalle, "La dificultad es requerida");
             }
 
             return valid;

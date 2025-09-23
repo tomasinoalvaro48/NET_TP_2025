@@ -9,7 +9,6 @@ namespace WebAPI
         {
             app.MapGet("/denunciantes/{cod_den}", (int cod_den) =>
             {
-
                 DenuncianteService denuncianteService = new DenuncianteService();
 
                 DenuncianteDTO dto = denuncianteService.Get(cod_den);

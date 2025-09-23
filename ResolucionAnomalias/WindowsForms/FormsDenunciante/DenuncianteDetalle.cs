@@ -136,7 +136,7 @@ namespace WindowsForms
                 isValid = false;
                 errorProvider.SetError(direccionTextBox, "La dirección es requerida");
             }
-            else if (!Regex.IsMatch(direccionTextBox.Text, @"^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+\d+(\s*[a-zA-Z]*)?$"))
+            else if (!Regex.IsMatch(direccionTextBox.Text, @"^(?=.*\d)[0-9a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$"))
             {
                 isValid = false;
                 errorProvider.SetError(direccionTextBox, "Formato dirección: Calle + Altura");

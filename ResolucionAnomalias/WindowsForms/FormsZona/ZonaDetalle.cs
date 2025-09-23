@@ -87,8 +87,7 @@ namespace WindowsForms.FormsZona
             if (this.textBoxNombre.Text == string.Empty)
             {
                 isValid = false;
-                errorProvider.SetError(textBoxNombre, "eL NOMBRE es requerido");
-
+                errorProvider.SetError(textBoxNombre, "El nombre es requerido");
             }
             if (this.comboBoxLocalidad.SelectedValue == null)
             {

@@ -25,7 +25,6 @@ namespace WebAPI
             .Produces(StatusCodes.Status404NotFound)
             .WithOpenApi();
 
-
             app.MapGet("/usuarios", () =>
             {
                 UsuarioService usuarioService = new UsuarioService();

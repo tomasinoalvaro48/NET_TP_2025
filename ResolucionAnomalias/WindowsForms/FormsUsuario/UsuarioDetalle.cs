@@ -123,28 +123,34 @@ namespace WindowsForms.FormsUsuario
             {
                 isValid = false;
                 errorProvider.SetError(nombreTextBox, "El nombre es requerido");
-
+            }
+            else if (!Regex.IsMatch(nombreTextBox.Text, @"^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$"))
+            {
+                isValid = false;
+                errorProvider.SetError(nombreTextBox, "El nombre no puede tener números");
             }
 
             if (this.emailTextBox.Text == string.Empty || !Regex.IsMatch(emailTextBox.Text, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
             {
                 isValid = false;
                 errorProvider.SetError(emailTextBox, "Debe ingresar un email válido");
-
             }
 
             if (this.contraseniaTextBox.Text == string.Empty)
             {
                 isValid = false;
                 errorProvider.SetError(contraseniaTextBox, "La contraseña es requerida");
-
+            }
+            else if (contraseniaTextBox.Text.Length < 6)
+            {
+                isValid = false;
+                errorProvider.SetError(contraseniaTextBox, "La contraseña debe tener mínimo 6 caracteres");
             }
 
             if (tipoComboBox.SelectedItem == null)
             {
                 isValid = false;
                 errorProvider.SetError(tipoComboBox, "Debe seleccionar un tipo de usuario");
-
             }
 
             if (localidadComboBox.SelectedValue == null)

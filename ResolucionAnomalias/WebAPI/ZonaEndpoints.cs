@@ -25,7 +25,6 @@ namespace WebAPI
             .Produces(StatusCodes.Status404NotFound)
             .WithOpenApi();
 
-
             app.MapGet("/zonas", () =>
             {
                 ZonaService zonaService = new ZonaService();
