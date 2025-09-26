@@ -2,7 +2,7 @@
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 
-namespace API.Clients
+namespace API.Clients.EntitiesClients
 {
     public class UsuarioApiClient
     {

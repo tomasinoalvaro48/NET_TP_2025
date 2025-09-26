@@ -1,5 +1,5 @@
 ﻿using DTOs;
-using API.Clients;
+using API.Clients.EntitiesClients;
 
 namespace WindowsForms.FormsUsuario
 {
