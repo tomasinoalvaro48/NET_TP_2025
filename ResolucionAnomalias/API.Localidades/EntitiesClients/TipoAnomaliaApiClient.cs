@@ -68,7 +68,7 @@ namespace API.Clients.EntitiesClients
         {
             try
             {
-                HttpResponseMessage response = await client.PostAsJsonAsync("tipopanomalia", tipo);
+                HttpResponseMessage response = await client.PostAsJsonAsync("tipoanomalia", tipo);
                 if (!response.IsSuccessStatusCode)
                 {
                     string errorContent = await response.Content.ReadAsStringAsync();
@@ -89,7 +89,7 @@ namespace API.Clients.EntitiesClients
         {
             try
             {
-                HttpResponseMessage response = await client.DeleteAsync("denunciantes/" + cod_tipo);
+                HttpResponseMessage response = await client.DeleteAsync("tipoanomalia/" + cod_tipo);
                 if (!response.IsSuccessStatusCode)
                 {
                     string errorContent = await response.Content.ReadAsStringAsync();
@@ -110,7 +110,7 @@ namespace API.Clients.EntitiesClients
         {
             try
             {
-                HttpResponseMessage response = await client.PutAsJsonAsync("denunciantes", tipo);
+                HttpResponseMessage response = await client.PutAsJsonAsync("tipoanomalia", tipo);
                 if (!response.IsSuccessStatusCode)
                 {
                     string errorContent = await response.Content.ReadAsStringAsync();
