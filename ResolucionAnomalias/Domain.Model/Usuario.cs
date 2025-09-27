@@ -86,6 +86,12 @@ namespace Domain.Model
             return Regex.IsMatch(email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$");
         }
 
+        public bool ValidarContrasenia(string password)
+        {
+            if (string.IsNullOrWhiteSpace(password)) return false;
+            return true;
+        }
+
         public void SetZonaId(int zonaId)
         {
             if (zonaId <= 0)

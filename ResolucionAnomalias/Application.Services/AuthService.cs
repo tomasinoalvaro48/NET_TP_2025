@@ -23,12 +23,12 @@ namespace Application.Services
 
         public async Task<LoginResponse?> LoginAsync(LoginRequest request)
         {
-            if (string.IsNullOrWhiteSpace(request.Username) || string.IsNullOrWhiteSpace(request.Password))
+            if (string.IsNullOrWhiteSpace(request.Email) || string.IsNullOrWhiteSpace(request.Password))
                 return null;
 
-            var usuario = usuarioRepository.GetByUsername(request.Username);
+            var usuario = usuarioRepository.GetByEmail(request.Email);
 
-            if (usuario == null || !usuario.ValidatePassword(request.Password))
+            if (usuario == null || !usuario.ValidarContrasenia(request.Password))
                 return null;
 
             var token = GenerateJwtToken(usuario);
@@ -38,7 +38,7 @@ namespace Application.Services
             {
                 Token = token,
                 ExpiresAt = expiresAt,
-                Username = usuario.Username
+                Email = usuario.Email_usu
             };
         }
 
@@ -54,9 +54,9 @@ namespace Application.Services
 
             var claims = new[]
             {
-                new Claim(ClaimTypes.NameIdentifier, usuario.Id.ToString()),
-                new Claim(ClaimTypes.Name, usuario.Username),
-                new Claim(ClaimTypes.Email, usuario.Email),
+                new Claim(ClaimTypes.NameIdentifier, usuario.Cod_usu.ToString()),
+                new Claim(ClaimTypes.Name, usuario.Nombre_usu),
+                new Claim(ClaimTypes.Email, usuario.Email_usu),
                 new Claim("jti", Guid.NewGuid().ToString())
             };
 

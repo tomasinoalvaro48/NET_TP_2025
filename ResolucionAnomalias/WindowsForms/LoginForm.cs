@@ -68,5 +68,13 @@ namespace WindowsForms
 
             return isValid;
         }
+
+        private void signinButton_Click(object sender, EventArgs e)
+        { 
+            SigninForm signinForm = new SigninForm();
+            this.Hide();
+            signinForm.ShowDialog();
+            this.Show();
+        }
     }
 }
