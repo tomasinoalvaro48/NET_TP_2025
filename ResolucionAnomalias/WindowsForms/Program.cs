@@ -14,6 +14,8 @@ namespace WindowsForms
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
+            
+            // Iniciar la aplicación con el loop de autenticación
             Task.Run(async () => await MainAsync()).GetAwaiter().GetResult();
         }
 

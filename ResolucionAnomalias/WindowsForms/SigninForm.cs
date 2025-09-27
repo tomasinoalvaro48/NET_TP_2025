@@ -10,11 +10,11 @@ namespace WindowsForms
             InitializeComponent();
             cargarDetalleDenunciante();
         }
-        
+
         private void cargarDetalleDenunciante()
         {
             UsuarioDetalle usuDetalle = new UsuarioDetalle();
-            
+
             UsuarioDTO usuarioNuevo = new UsuarioDTO();
 
             usuDetalle.Mode = (FormsUsuario.FormMode)FormMode.Add;

@@ -4,20 +4,13 @@ using System.Net.Http.Json;
 
 namespace API.Clients.EntitiesClients
 {
-    public class UsuarioApiClient
+    public class UsuarioApiClient : BaseApiClient
     {
-        private static HttpClient client = new HttpClient();
-        static UsuarioApiClient()
-        {
-            client.BaseAddress = new Uri("http://localhost:5183/");
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-        }
-
         public static async Task<UsuarioDTO> GetAsync(int id)
         {
             try
             {
+                using var client = await CreateHttpClientAsync();
                 HttpResponseMessage response = await client.GetAsync("usuarios/" + id);
 
                 if (response.IsSuccessStatusCode)
@@ -44,6 +37,7 @@ namespace API.Clients.EntitiesClients
         {
             try
             {
+                using var client = await CreateHttpClientAsync();
                 HttpResponseMessage response = await client.GetAsync("usuarios");
 
                 if (response.IsSuccessStatusCode)
@@ -70,6 +64,7 @@ namespace API.Clients.EntitiesClients
         {
             try
             {
+                using var client = await CreateHttpClientAsync();
                 HttpResponseMessage response = await client.PostAsJsonAsync("usuarios", usuario);
 
                 if (!response.IsSuccessStatusCode)
@@ -92,6 +87,7 @@ namespace API.Clients.EntitiesClients
         {
             try
             {
+                using var client = await CreateHttpClientAsync();
                 HttpResponseMessage response = await client.DeleteAsync("usuarios/" + id);
 
                 if (!response.IsSuccessStatusCode)
@@ -114,6 +110,7 @@ namespace API.Clients.EntitiesClients
         {
             try
             {
+                using var client = await CreateHttpClientAsync();
                 HttpResponseMessage response = await client.PutAsJsonAsync("usuarios", usuario);
 
                 if (!response.IsSuccessStatusCode)

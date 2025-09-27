@@ -4,20 +4,13 @@ using System.Net.Http.Json;
 
 namespace API.Clients.EntitiesClients
 {
-    public class ZonaApiClient
+    public class ZonaApiClient : BaseApiClient
     {
-        private static HttpClient client = new HttpClient();
-        static ZonaApiClient()
-        {
-            client.BaseAddress = new Uri("http://localhost:5183/");
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-        }
-
         public static async Task<ZonaDTO> GetAsync(int id)
         {
             try
             {
+                using var client = await CreateHttpClientAsync();
                 HttpResponseMessage response = await client.GetAsync("zonas/" + id);
 
                 if (response.IsSuccessStatusCode)
@@ -44,6 +37,7 @@ namespace API.Clients.EntitiesClients
         {
             try
             {
+                using var client = await CreateHttpClientAsync();
                 HttpResponseMessage response = await client.GetAsync("zonas");
 
                 if (response.IsSuccessStatusCode)
@@ -70,6 +64,7 @@ namespace API.Clients.EntitiesClients
         {
             try
             {
+                using var client = await CreateHttpClientAsync();
                 HttpResponseMessage response = await client.PostAsJsonAsync("zonas", zona);
 
                 if (!response.IsSuccessStatusCode)
@@ -92,6 +87,7 @@ namespace API.Clients.EntitiesClients
         {
             try
             {
+                using var client = await CreateHttpClientAsync();
                 HttpResponseMessage response = await client.DeleteAsync("zonas/" + id);
 
                 if (!response.IsSuccessStatusCode)
@@ -114,6 +110,7 @@ namespace API.Clients.EntitiesClients
         {
             try
             {
+                using var client = await CreateHttpClientAsync();
                 HttpResponseMessage response = await client.PutAsJsonAsync("zonas", zona);
 
                 if (!response.IsSuccessStatusCode)

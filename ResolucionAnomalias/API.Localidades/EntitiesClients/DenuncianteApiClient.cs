@@ -4,20 +4,13 @@ using System.Net.Http.Json;
 
 namespace API.Clients.EntitiesClients
 {
-    public class DenuncianteApiClient
+    public class DenuncianteApiClient : BaseApiClient
     {
-        private static HttpClient client = new HttpClient();
-        static DenuncianteApiClient()
-        {
-            client.BaseAddress = new Uri("http://localhost:5183/");
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-        }
-
         public static async Task<DenuncianteDTO> GetAsync(int cod_den)
         {
             try
             {
+                using var client = await CreateHttpClientAsync();
                 HttpResponseMessage response = await client.GetAsync("denunciantes/" + cod_den);
                 if (response.IsSuccessStatusCode)
                 {
@@ -43,6 +36,7 @@ namespace API.Clients.EntitiesClients
         {
             try
             {
+                using var client = await CreateHttpClientAsync();
                 HttpResponseMessage response = await client.GetAsync("denunciantes");
                 if (response.IsSuccessStatusCode)
                 {
@@ -68,6 +62,7 @@ namespace API.Clients.EntitiesClients
         {
             try
             {
+                using var client = await CreateHttpClientAsync();
                 HttpResponseMessage response = await client.PostAsJsonAsync("denunciantes", denunciante);
                 if (!response.IsSuccessStatusCode)
                 {
@@ -89,6 +84,7 @@ namespace API.Clients.EntitiesClients
         {
             try
             {
+                using var client = await CreateHttpClientAsync();
                 HttpResponseMessage response = await client.DeleteAsync("denunciantes/" + cod_den);
                 if (!response.IsSuccessStatusCode)
                 {
@@ -110,6 +106,7 @@ namespace API.Clients.EntitiesClients
         {
             try
             {
+                using var client = await CreateHttpClientAsync();
                 HttpResponseMessage response = await client.PutAsJsonAsync("denunciantes", denunciante);
                 if (!response.IsSuccessStatusCode)
                 {
