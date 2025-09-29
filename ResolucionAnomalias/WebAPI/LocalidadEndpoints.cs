@@ -32,7 +32,8 @@ namespace WebAPI
             })
             .WithName("GetAllLocalidades")
             .Produces<List<LocalidadDTO>>(StatusCodes.Status200OK)
-            .WithOpenApi();
+            .WithOpenApi()
+            .AllowAnonymous();
 
             app.MapDelete("/localidades/{id}", (int id) =>
             {

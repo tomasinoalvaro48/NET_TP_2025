@@ -43,11 +43,16 @@ namespace WindowsForms.FormsZona
             ((System.ComponentModel.ISupportInitialize)errorProvider).BeginInit();
             SuspendLayout();
             // 
+            // errorProvider
+            // 
+            errorProvider.ContainerControl = this;
+            // 
             // btnAceptar
             // 
-            btnAceptar.Location = new Point(443, 294);
+            btnAceptar.Location = new Point(720, 470);
+            btnAceptar.Margin = new Padding(5, 5, 5, 5);
             btnAceptar.Name = "btnAceptar";
-            btnAceptar.Size = new Size(94, 29);
+            btnAceptar.Size = new Size(153, 46);
             btnAceptar.TabIndex = 0;
             btnAceptar.Text = "Aceptar";
             btnAceptar.UseVisualStyleBackColor = true;
@@ -55,9 +60,10 @@ namespace WindowsForms.FormsZona
             // 
             // btnCancelar
             // 
-            btnCancelar.Location = new Point(206, 294);
+            btnCancelar.Location = new Point(335, 470);
+            btnCancelar.Margin = new Padding(5, 5, 5, 5);
             btnCancelar.Name = "btnCancelar";
-            btnCancelar.Size = new Size(94, 29);
+            btnCancelar.Size = new Size(153, 46);
             btnCancelar.TabIndex = 1;
             btnCancelar.Text = "Cancelar";
             btnCancelar.UseVisualStyleBackColor = true;
@@ -66,59 +72,66 @@ namespace WindowsForms.FormsZona
             // labelId
             // 
             labelId.AutoSize = true;
-            labelId.Location = new Point(206, 103);
+            labelId.Location = new Point(335, 165);
+            labelId.Margin = new Padding(5, 0, 5, 0);
             labelId.Name = "labelId";
-            labelId.Size = new Size(27, 20);
+            labelId.Size = new Size(42, 32);
             labelId.TabIndex = 2;
             labelId.Text = "ID:";
             // 
             // labelNombre
             // 
             labelNombre.AutoSize = true;
-            labelNombre.Location = new Point(206, 149);
+            labelNombre.Location = new Point(335, 238);
+            labelNombre.Margin = new Padding(5, 0, 5, 0);
             labelNombre.Name = "labelNombre";
-            labelNombre.Size = new Size(67, 20);
+            labelNombre.Size = new Size(107, 32);
             labelNombre.TabIndex = 3;
             labelNombre.Text = "Nombre:";
             // 
             // textBoxId
             // 
             textBoxId.BackColor = SystemColors.ControlLight;
-            textBoxId.Location = new Point(352, 96);
+            textBoxId.Location = new Point(572, 154);
+            textBoxId.Margin = new Padding(5, 5, 5, 5);
             textBoxId.Name = "textBoxId";
             textBoxId.ReadOnly = true;
-            textBoxId.Size = new Size(185, 27);
+            textBoxId.Size = new Size(298, 39);
             textBoxId.TabIndex = 5;
             // 
             // textBoxNombre
             // 
-            textBoxNombre.Location = new Point(352, 146);
+            textBoxNombre.Location = new Point(572, 234);
+            textBoxNombre.Margin = new Padding(5, 5, 5, 5);
             textBoxNombre.Name = "textBoxNombre";
-            textBoxNombre.Size = new Size(185, 27);
+            textBoxNombre.Size = new Size(298, 39);
             textBoxNombre.TabIndex = 6;
             // 
             // labelIdLocalidad
             // 
             labelIdLocalidad.AutoSize = true;
-            labelIdLocalidad.Location = new Point(206, 197);
+            labelIdLocalidad.Location = new Point(335, 315);
+            labelIdLocalidad.Margin = new Padding(5, 0, 5, 0);
             labelIdLocalidad.Name = "labelIdLocalidad";
-            labelIdLocalidad.Size = new Size(74, 20);
+            labelIdLocalidad.Size = new Size(114, 32);
             labelIdLocalidad.TabIndex = 8;
             labelIdLocalidad.Text = "Localidad";
             // 
             // comboBoxLocalidad
             // 
+            comboBoxLocalidad.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxLocalidad.FormattingEnabled = true;
-            comboBoxLocalidad.Location = new Point(352, 197);
+            comboBoxLocalidad.Location = new Point(572, 315);
+            comboBoxLocalidad.Margin = new Padding(5, 5, 5, 5);
             comboBoxLocalidad.Name = "comboBoxLocalidad";
-            comboBoxLocalidad.Size = new Size(185, 28);
+            comboBoxLocalidad.Size = new Size(298, 40);
             comboBoxLocalidad.TabIndex = 9;
             // 
             // ZonaDetalle
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 420);
+            ClientSize = new Size(1300, 672);
             Controls.Add(comboBoxLocalidad);
             Controls.Add(labelIdLocalidad);
             Controls.Add(textBoxNombre);
@@ -127,11 +140,10 @@ namespace WindowsForms.FormsZona
             Controls.Add(labelId);
             Controls.Add(btnCancelar);
             Controls.Add(btnAceptar);
+            Margin = new Padding(5, 5, 5, 5);
             Name = "ZonaDetalle";
             Text = "Zona";
             ((System.ComponentModel.ISupportInitialize)errorProvider).EndInit();
-
-            //Load += ZonaDetalle_Load;
             ResumeLayout(false);
             PerformLayout();
         }

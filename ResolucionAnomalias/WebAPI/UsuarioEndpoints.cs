@@ -80,7 +80,8 @@ namespace WebAPI
             .WithName("UpdateUsuario")
             .Produces(StatusCodes.Status404NotFound)
             .Produces(StatusCodes.Status400BadRequest)
-            .WithOpenApi();
+            .WithOpenApi()
+            .AllowAnonymous();
 
             app.MapDelete("/usuarios/{id}", (int id) =>
             {

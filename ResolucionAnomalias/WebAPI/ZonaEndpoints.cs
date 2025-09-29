@@ -35,7 +35,8 @@ namespace WebAPI
             })
             .WithName("GetAllZonas")
             .Produces<List<ZonaDTO>>(StatusCodes.Status200OK)
-            .WithOpenApi();
+            .WithOpenApi()
+            .AllowAnonymous();
 
             app.MapPost("/zonas", (ZonaDTO dto) =>
             {

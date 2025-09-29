@@ -84,13 +84,13 @@
             // 
             // tituloLabel
             // 
-            tituloLabel.AutoSize = true;
+            tituloLabel.Anchor = AnchorStyles.Top;
             tituloLabel.BorderStyle = BorderStyle.FixedSingle;
-            tituloLabel.Location = new Point(340, 35);
+            tituloLabel.Location = new Point(268, 40);
             tituloLabel.Name = "tituloLabel";
-            tituloLabel.Size = new Size(184, 34);
+            tituloLabel.Size = new Size(311, 34);
             tituloLabel.TabIndex = 5;
-            tituloLabel.Text = "Inicio de Sesión";
+            tituloLabel.Text = "Inicio de Sesión de Cazador";
             tituloLabel.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // errorProvider
