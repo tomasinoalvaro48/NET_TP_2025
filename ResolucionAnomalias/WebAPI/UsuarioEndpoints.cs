@@ -55,7 +55,8 @@ namespace WebAPI
             .WithName("AddUsuario")
             .Produces<UsuarioDTO>(StatusCodes.Status201Created)
             .Produces(StatusCodes.Status400BadRequest)
-            .WithOpenApi();
+            .WithOpenApi()
+            .AllowAnonymous();
 
             app.MapPut("/usuarios", (UsuarioDTO dto) =>
             {
@@ -80,8 +81,7 @@ namespace WebAPI
             .WithName("UpdateUsuario")
             .Produces(StatusCodes.Status404NotFound)
             .Produces(StatusCodes.Status400BadRequest)
-            .WithOpenApi()
-            .AllowAnonymous();
+            .WithOpenApi();
 
             app.MapDelete("/usuarios/{id}", (int id) =>
             {
