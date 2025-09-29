@@ -59,6 +59,11 @@ namespace Data
 
                 entity.HasIndex(e => e.Codigo).IsUnique();
 
+                entity.HasData(
+                    new { ID = 1, Codigo = 2000, Nombre = "Rosario" },
+                    new { ID = 2, Codigo = 2001, Nombre = "Bs As" }
+                );
+
             });
 
             modelBuilder.Entity<Zona>(entity =>
@@ -85,6 +90,12 @@ namespace Data
                 entity.HasOne(e => e.Localidad)
                     .WithMany()
                     .HasForeignKey(e => e.LocalidadId);
+
+                entity.HasData(
+                    new { Id = 1, Nombre = "Centro", LocalidadId = 1, LocalidadCodigo = "2000", LocalidadNombre = "Rosario" },
+                    new { Id = 2, Nombre = "Sur", LocalidadId = 1, LocalidadCodigo = "2000", LocalidadNombre = "Rosario" },
+                    new { Id = 3, Nombre = "Norte", LocalidadId = 2, LocalidadCodigo = "2001", LocalidadNombre = "Bs As" }
+                );
 
             });
 
