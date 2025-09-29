@@ -71,6 +71,7 @@
             // zonaComboBox
             // 
             zonaComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            zonaComboBox.Enabled = false;
             zonaComboBox.FormattingEnabled = true;
             zonaComboBox.Location = new Point(230, 381);
             zonaComboBox.Margin = new Padding(6);
@@ -87,6 +88,7 @@
             localidadComboBox.Name = "localidadComboBox";
             localidadComboBox.Size = new Size(327, 40);
             localidadComboBox.TabIndex = 24;
+            localidadComboBox.SelectedIndexChanged += localidadSeleccionada;
             // 
             // contraseniaTextBox
             // 

@@ -7,12 +7,11 @@ namespace WebAPI
     {
         public static void MapZonaEndpoints(this WebApplication app)
         {
+
             app.MapGet("/zonas/{id}", (int id) =>
             {
                 ZonaService zonaService = new ZonaService();
-
                 ZonaDTO dto = zonaService.Get(id);
-
                 if (dto == null)
                 {
                     return Results.NotFound();
@@ -25,25 +24,44 @@ namespace WebAPI
             .Produces(StatusCodes.Status404NotFound)
             .WithOpenApi();
 
+
+
+
             app.MapGet("/zonas", () =>
             {
                 ZonaService zonaService = new ZonaService();
-
                 var dtos = zonaService.GetAll();
 
                 return Results.Ok(dtos);
             })
             .WithName("GetAllZonas")
             .Produces<List<ZonaDTO>>(StatusCodes.Status200OK)
+            .WithOpenApi();
+
+
+
+            // Get Zonas by Localidad
+            app.MapGet("/zonas/localidad/{id_loc}", (int id_loc) =>
+            {
+                ZonaService zonaService = new ZonaService();
+                var dtos = zonaService.GetByLocalidad(id_loc);
+
+                return Results.Ok(dtos);
+            })
+            .WithName("GetZonasLoc")
+            .Produces<ZonaDTO>(StatusCodes.Status200OK)
+            .Produces(StatusCodes.Status404NotFound)
             .WithOpenApi()
             .AllowAnonymous();
+
+
+
 
             app.MapPost("/zonas", (ZonaDTO dto) =>
             {
                 try
                 {
                     ZonaService zonaService = new ZonaService();
-
                     ZonaDTO zonaDTO = zonaService.Add(dto);
 
                     return Results.Created($"/zonas/{zonaDTO.Id}", zonaDTO);
@@ -58,14 +76,15 @@ namespace WebAPI
             .Produces(StatusCodes.Status400BadRequest)
             .WithOpenApi();
 
+
+
+
             app.MapPut("/zonas", (ZonaDTO dto) =>
             {
                 try
                 {
                     ZonaService zonaService = new ZonaService();
-
                     var found = zonaService.Update(dto);
-
                     if (!found)
                     {
                         return Results.NotFound();
@@ -83,12 +102,13 @@ namespace WebAPI
             .Produces(StatusCodes.Status400BadRequest)
             .WithOpenApi();
 
+
+
+
             app.MapDelete("/zonas/{id}", (int id) =>
             {
                 ZonaService zonaService = new ZonaService();
-
                 var deleted = zonaService.Delete(id);
-
                 if (!deleted)
                 {
                     return Results.NotFound();

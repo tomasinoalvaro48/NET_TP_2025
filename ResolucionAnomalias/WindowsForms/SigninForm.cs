@@ -1,42 +1,23 @@
 ﻿using API.Clients.EntitiesClients;
-using Domain.Model;
 using DTOs;
 using System.Text.RegularExpressions;
-using System.Windows.Forms;
 
 namespace WindowsForms
 {
     public partial class SigninForm : Form
     {
-        private UsuarioDTO usuario;
+        public UsuarioDTO Usuario { get; set; }
         public SigninForm()
         {
             InitializeComponent();
+            Usuario = new UsuarioDTO();
             LoadLocalidades();
-            LoadZonas();
-        }
-        public UsuarioDTO Usuario
-        {
-            get { return usuario; }
-            set
-            {
-                usuario = value;
-                this.SetUsuario();
-            }
-        }
-        private void SetUsuario()
-        {
-            this.nombreTextBox.Text = this.Usuario.Nombre_usu;
-            this.emailTextBox.Text = this.Usuario.Email_usu;
-            this.contraseniaTextBox.Text = this.Usuario.Passw_usu;
-
-            this.localidadComboBox.SelectedValue = this.Usuario.LocalidadId;
-            this.zonaComboBox.SelectedValue = this.Usuario.ZonaId;
         }
         private async void LoadLocalidades()
         {
             try
             {
+                zonaComboBox.Enabled = false;
                 var localidades = await LocalidadApiClient.GetAllAsync();
                 localidadComboBox.DataSource = localidades.ToList();
                 localidadComboBox.DisplayMember = "Nombre";
@@ -48,21 +29,7 @@ namespace WindowsForms
                 MessageBox.Show($"Error al cargar localidades: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        private async void LoadZonas()
-        {
-            try
-            {
-                var zonas = await ZonaApiClient.GetAllAsync();
-                zonaComboBox.DataSource = zonas.ToList();
-                zonaComboBox.DisplayMember = "Nombre";
-                zonaComboBox.ValueMember = "ID";
-                zonaComboBox.SelectedIndex = -1;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al cargar zonas: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
+
         private bool ValidateUsuario()
         {
             bool isValid = true;
@@ -125,20 +92,41 @@ namespace WindowsForms
             {
                 try
                 {
-                    this.usuario.Nombre_usu = nombreTextBox.Text;
-                    this.usuario.Email_usu = emailTextBox.Text;
-                    this.usuario.Passw_usu = contraseniaTextBox.Text;
-                    this.usuario.Tipo_usu = "Cazador";
-                    this.usuario.LocalidadId = (int)localidadComboBox.SelectedValue;
-                    this.usuario.ZonaId = (int)zonaComboBox.SelectedValue;
-                    
-                    await UsuarioApiClient.AddAsync(this.usuario);
+                    this.Usuario.Nombre_usu = nombreTextBox.Text;
+                    this.Usuario.Email_usu = emailTextBox.Text;
+                    this.Usuario.Passw_usu = contraseniaTextBox.Text;
+                    this.Usuario.Tipo_usu = "Cazador";
+                    this.Usuario.LocalidadId = (int)localidadComboBox.SelectedValue;
+                    this.Usuario.ZonaId = (int)zonaComboBox.SelectedValue;
+
+                    await UsuarioApiClient.AddAsync(this.Usuario);
                     this.Close();
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+            }
+        }
+
+        private async void localidadSeleccionada(object sender, EventArgs e)
+        {
+            try { 
+                if (localidadComboBox.SelectedValue == null || localidadComboBox.SelectedIndex == -1)
+                    return; // No hay selección válida todavía
+
+                // A veces SelectedValue devuelve DataRowView
+                if (localidadComboBox.SelectedValue is int localidadId)
+                {
+                    var zonas = await ZonaApiClient.GetByLocalidadAsync(localidadId);
+                    zonaComboBox.DataSource = zonas.ToList();
+                    zonaComboBox.DisplayMember = "Nombre";
+                    zonaComboBox.ValueMember = "ID";
+                    zonaComboBox.SelectedIndex = -1;
+                    zonaComboBox.Enabled = true;
+                }
+            } catch (Exception ex) {
+            MessageBox.Show($"Error al cargar zonas: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

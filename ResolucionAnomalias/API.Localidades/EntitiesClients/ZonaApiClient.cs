@@ -60,6 +60,33 @@ namespace API.Clients.EntitiesClients
             }
         }
 
+        // Obtener zonas por Id de localidad
+        public static async Task<IEnumerable<ZonaDTO>> GetByLocalidadAsync(int id_loc)
+        {
+            try
+            {
+                using var client = await CreateHttpClientAsync();
+                HttpResponseMessage response = await client.GetAsync($"zonas/localidad/{id_loc}");
+                if (response.IsSuccessStatusCode)
+                {
+                    return await response.Content.ReadAsAsync<IEnumerable<ZonaDTO>>();
+                }
+                else
+                {
+                    string errorContent = await response.Content.ReadAsStringAsync();
+                    throw new Exception($"Error al obtener zonas para localidad con Id {id_loc}. Status: {response.StatusCode}, Detalle: {errorContent}");
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new Exception($"Error de conexión al obtener zonas para localidad con Id {id_loc}: {ex.Message}", ex);
+            }
+            catch (TaskCanceledException ex)
+            {
+                throw new Exception($"Timeout al obtener zonas para localidad con Id {id_loc}: {ex.Message}", ex);
+            }
+        }
+
         public async static Task AddAsync(ZonaDTO zona)
         {
             try
