@@ -63,6 +63,7 @@
             contraseniaTextBox.Name = "contraseniaTextBox";
             contraseniaTextBox.Size = new Size(200, 39);
             contraseniaTextBox.TabIndex = 2;
+            contraseniaTextBox.UseSystemPasswordChar = true;
             // 
             // textBoxUsuarioLabel
             // 
