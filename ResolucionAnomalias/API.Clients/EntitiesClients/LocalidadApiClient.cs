@@ -4,13 +4,20 @@ using System.Net.Http.Json;
 
 namespace API.Clients.EntitiesClients
 {
-    public class LocalidadApiClient : BaseApiClient
+    public class LocalidadApiClient
     {
+        private static HttpClient client = new HttpClient();
+        static LocalidadApiClient()
+        {
+            client.BaseAddress = new Uri("http://localhost:5183/");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        }
+
         public static async Task<LocalidadDTO> GetAsync(int id)
         {
             try
             {
-                using var client = await CreateHttpClientAsync();
                 HttpResponseMessage response = await client.GetAsync("localidades/" + id);
                 if (response.IsSuccessStatusCode)
                 {
@@ -37,7 +44,6 @@ namespace API.Clients.EntitiesClients
         {
             try
             {
-                using var client = await CreateHttpClientAsync();
                 HttpResponseMessage response = await client.GetAsync("localidades");
                 if (response.IsSuccessStatusCode)
                 {
@@ -63,7 +69,6 @@ namespace API.Clients.EntitiesClients
         {
             try
             {
-                using var client = await CreateHttpClientAsync();
                 HttpResponseMessage response = await client.PostAsJsonAsync("localidades", dto);
                 if (!response.IsSuccessStatusCode)
                 {
@@ -85,7 +90,6 @@ namespace API.Clients.EntitiesClients
         {
             try
             {
-                using var client = await CreateHttpClientAsync();
                 HttpResponseMessage response = await client.PutAsJsonAsync("localidades", dto);
                 if (!response.IsSuccessStatusCode)
                 {
@@ -108,7 +112,6 @@ namespace API.Clients.EntitiesClients
         {
             try
             {
-                using var client = await CreateHttpClientAsync();
                 HttpResponseMessage response = await client.DeleteAsync("localidades/" + id);
                 if (!response.IsSuccessStatusCode)
                 {

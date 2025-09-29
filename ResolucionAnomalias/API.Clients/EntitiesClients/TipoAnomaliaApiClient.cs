@@ -4,13 +4,20 @@ using System.Net.Http.Json;
 
 namespace API.Clients.EntitiesClients
 {
-    public class TipoAnomaliaApiClient : BaseApiClient
+    public class TipoAnomaliaApiClient
     {
+        private static HttpClient client = new HttpClient();
+        static TipoAnomaliaApiClient()
+        {
+            client.BaseAddress = new Uri("http://localhost:5183/");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        }
+
         public static async Task<TipoAnomaliaDTO> GetAsync(int cod_tipo)
         {
             try
             {
-                using var client = await CreateHttpClientAsync();
                 HttpResponseMessage response = await client.GetAsync("tipoanomalia/" + cod_tipo);
                 if (response.IsSuccessStatusCode)
                 {
@@ -36,7 +43,6 @@ namespace API.Clients.EntitiesClients
         {
             try
             {
-                using var client = await CreateHttpClientAsync();
                 HttpResponseMessage response = await client.GetAsync("tipoanomalia");
                 if (response.IsSuccessStatusCode)
                 {
@@ -62,7 +68,6 @@ namespace API.Clients.EntitiesClients
         {
             try
             {
-                using var client = await CreateHttpClientAsync();
                 HttpResponseMessage response = await client.PostAsJsonAsync("tipoanomalia", tipo);
                 if (!response.IsSuccessStatusCode)
                 {
@@ -84,7 +89,6 @@ namespace API.Clients.EntitiesClients
         {
             try
             {
-                using var client = await CreateHttpClientAsync();
                 HttpResponseMessage response = await client.DeleteAsync("tipoanomalia/" + cod_tipo);
                 if (!response.IsSuccessStatusCode)
                 {
@@ -106,7 +110,6 @@ namespace API.Clients.EntitiesClients
         {
             try
             {
-                using var client = await CreateHttpClientAsync();
                 HttpResponseMessage response = await client.PutAsJsonAsync("tipoanomalia", tipo);
                 if (!response.IsSuccessStatusCode)
                 {

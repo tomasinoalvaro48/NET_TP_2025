@@ -40,6 +40,7 @@ namespace Data
                 .FirstOrDefault(e => e.Id == id);
         }
 
+        // Buscar todas las Zonas
         public IEnumerable<Zona> GetAll()
         {
             using var context = CreateContext();
@@ -60,6 +61,21 @@ namespace Data
 
             }
             return false;
+        }
+
+        public IEnumerable<Zona> GetByLocalidad(int id_loc)
+        {
+            using var context = CreateContext();
+            return context.Zonas.Include(e => e.Localidad)
+                .Where(c => c.LocalidadId == id_loc)
+                .ToList();
+        }
+
+        public bool NombreExists(int id_loc, string nom)
+        {
+            using var context = CreateContext();
+            var query = context.Zonas.Where(c => c.LocalidadId == id_loc && c.Nombre.ToLower() == nom.ToLower());
+            return query.Any();
         }
     }
 }

@@ -75,5 +75,11 @@ namespace Data
             }
             return query.Any();
         }
+
+        public Usuario? GetByEmail(string email)
+        {
+            using var context = CreateContext();
+            return context.Usuarios.FirstOrDefault(c => c.Email_usu.ToLower() == email.ToLower());
+        }
     }
 }

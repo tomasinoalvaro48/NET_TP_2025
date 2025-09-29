@@ -31,7 +31,7 @@ namespace API.Auth.WindowsForms
         {
             var request = new LoginRequest
             {
-                Username = username,
+                Email = username,
                 Password = password
             };
 
@@ -43,7 +43,7 @@ namespace API.Auth.WindowsForms
             {
                 _currentToken = response.Token;
                 _tokenExpiration = response.ExpiresAt;
-                _currentUsername = response.Username;
+                _currentUsername = response.Email;
 
                 AuthenticationStateChanged?.Invoke(true);
                 return true;

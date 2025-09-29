@@ -55,7 +55,8 @@ namespace WebAPI
             .WithName("AddUsuario")
             .Produces<UsuarioDTO>(StatusCodes.Status201Created)
             .Produces(StatusCodes.Status400BadRequest)
-            .WithOpenApi();
+            .WithOpenApi()
+            .AllowAnonymous();
 
             app.MapPut("/usuarios", (UsuarioDTO dto) =>
             {

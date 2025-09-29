@@ -36,12 +36,13 @@
             textBoxContraseniaLabel = new Label();
             tituloLabel = new Label();
             errorProvider = new ErrorProvider(components);
+            signinButton = new Button();
             ((System.ComponentModel.ISupportInitialize)errorProvider).BeginInit();
             SuspendLayout();
             // 
             // loginButton
             // 
-            loginButton.Location = new Point(329, 350);
+            loginButton.Location = new Point(333, 321);
             loginButton.Name = "loginButton";
             loginButton.Size = new Size(193, 46);
             loginButton.TabIndex = 0;
@@ -83,13 +84,13 @@
             // 
             // tituloLabel
             // 
-            tituloLabel.AutoSize = true;
+            tituloLabel.Anchor = AnchorStyles.Top;
             tituloLabel.BorderStyle = BorderStyle.FixedSingle;
-            tituloLabel.Location = new Point(340, 35);
+            tituloLabel.Location = new Point(268, 40);
             tituloLabel.Name = "tituloLabel";
-            tituloLabel.Size = new Size(184, 34);
+            tituloLabel.Size = new Size(311, 34);
             tituloLabel.TabIndex = 5;
-            tituloLabel.Text = "Inicio de Sesión";
+            tituloLabel.Text = "Inicio de Sesión de Cazador";
             tituloLabel.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // errorProvider
@@ -97,11 +98,22 @@
             errorProvider.BlinkStyle = ErrorBlinkStyle.NeverBlink;
             errorProvider.ContainerControl = this;
             // 
+            // signinButton
+            // 
+            signinButton.Location = new Point(638, 392);
+            signinButton.Name = "signinButton";
+            signinButton.Size = new Size(150, 46);
+            signinButton.TabIndex = 6;
+            signinButton.Text = "Registrarse";
+            signinButton.UseVisualStyleBackColor = true;
+            signinButton.Click += signinButton_Click;
+            // 
             // LoginForm
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(signinButton);
             Controls.Add(tituloLabel);
             Controls.Add(textBoxContraseniaLabel);
             Controls.Add(textBoxUsuarioLabel);
@@ -124,5 +136,6 @@
         private Label textBoxContraseniaLabel;
         private Label tituloLabel;
         private ErrorProvider errorProvider;
+        private Button signinButton;
     }
 }
