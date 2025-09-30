@@ -28,7 +28,7 @@ namespace Application.Services
 
             var usuario = usuarioRepository.GetByEmail(request.Email);
 
-            if (usuario == null || !usuario.ValidarContrasenia(request.Password))
+            if (usuario == null || usuario.Passw_usu != request.Password)
                 return null;
 
             var token = GenerateJwtToken(usuario);
