@@ -10,10 +10,12 @@ namespace Application.Services
         {
             var pedidoAgregacionRepository = new PedidoAgregacionRepository();
 
-            PedidoAgregacion pedidoAgregacion = new PedidoAgregacion(0, dto.Descripcion_pedido_agreg, dto.Dificultad_pedido_agreg, dto.Estado_pedido_agreg);
+            var estado = "pendiente";
+            PedidoAgregacion pedidoAgregacion = new PedidoAgregacion(0, dto.Descripcion_pedido_agreg, dto.Dificultad_pedido_agreg, estado);
             pedidoAgregacionRepository.Add(pedidoAgregacion);
 
             dto.Id_pedido_agreg = pedidoAgregacion.Id_pedido_agreg;
+            dto.Estado_pedido_agreg = pedidoAgregacion.Estado_pedido_agreg;
 
             return dto;
         }
