@@ -52,40 +52,40 @@
             idLabel.AutoSize = true;
             idLabel.Location = new Point(82, 46);
             idLabel.Name = "idLabel";
-            idLabel.Size = new Size(20, 15);
+            idLabel.Size = new Size(79, 15);
             idLabel.TabIndex = 0;
-            idLabel.Text = "Id:";
+            idLabel.Text = "Id del pedido:";
             // 
             // descripcionLabel
             // 
             descripcionLabel.AutoSize = true;
             descripcionLabel.Location = new Point(82, 94);
             descripcionLabel.Name = "descripcionLabel";
-            descripcionLabel.Size = new Size(72, 15);
+            descripcionLabel.Size = new Size(152, 15);
             descripcionLabel.TabIndex = 1;
-            descripcionLabel.Text = "Descripción:";
+            descripcionLabel.Text = "Descripción de la anomalía:";
             // 
             // dificultadLabel
             // 
             dificultadLabel.AutoSize = true;
             dificultadLabel.Location = new Point(82, 149);
             dificultadLabel.Name = "dificultadLabel";
-            dificultadLabel.Size = new Size(61, 15);
+            dificultadLabel.Size = new Size(141, 15);
             dificultadLabel.TabIndex = 2;
-            dificultadLabel.Text = "Dificultad:";
+            dificultadLabel.Text = "Dificultad de la anomalía:";
             // 
             // estadoLabel
             // 
             estadoLabel.AutoSize = true;
             estadoLabel.Location = new Point(82, 205);
             estadoLabel.Name = "estadoLabel";
-            estadoLabel.Size = new Size(45, 15);
+            estadoLabel.Size = new Size(104, 15);
             estadoLabel.TabIndex = 3;
-            estadoLabel.Text = "Estado:";
+            estadoLabel.Text = "Estado del pedido:";
             // 
             // idTextBox
             // 
-            idTextBox.Location = new Point(182, 46);
+            idTextBox.Location = new Point(191, 38);
             idTextBox.Name = "idTextBox";
             idTextBox.ReadOnly = true;
             idTextBox.Size = new Size(100, 23);
@@ -93,7 +93,7 @@
             // 
             // descripcionTextBox
             // 
-            descripcionTextBox.Location = new Point(182, 94);
+            descripcionTextBox.Location = new Point(255, 91);
             descripcionTextBox.Name = "descripcionTextBox";
             descripcionTextBox.Size = new Size(330, 23);
             descripcionTextBox.TabIndex = 5;
@@ -120,7 +120,7 @@
             // 
             // estadoTextBox
             // 
-            estadoTextBox.Location = new Point(182, 197);
+            estadoTextBox.Location = new Point(229, 202);
             estadoTextBox.Name = "estadoTextBox";
             estadoTextBox.ReadOnly = true;
             estadoTextBox.Size = new Size(161, 23);
@@ -131,7 +131,7 @@
             dificultadComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             dificultadComboBox.FormattingEnabled = true;
             dificultadComboBox.Items.AddRange(new object[] { "1", "2", "3" });
-            dificultadComboBox.Location = new Point(182, 149);
+            dificultadComboBox.Location = new Point(255, 149);
             dificultadComboBox.Name = "dificultadComboBox";
             dificultadComboBox.Size = new Size(121, 23);
             dificultadComboBox.TabIndex = 10;
@@ -152,7 +152,7 @@
             Controls.Add(descripcionLabel);
             Controls.Add(idLabel);
             Name = "PedidoAgregacionDetalle";
-            Text = "PedidoAgregacionDetalle";
+            Text = "Pedido de agregacion de anomalía";
             ((System.ComponentModel.ISupportInitialize)errorProvider).EndInit();
             ResumeLayout(false);
             PerformLayout();
