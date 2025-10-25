@@ -1,6 +1,6 @@
 ﻿namespace WindowsForms
 {
-    partial class SigninForm
+    partial class SigninCazadorForm
     {
         /// <summary>
         /// Required designer variable.

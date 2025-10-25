@@ -1,14 +1,16 @@
 ﻿using System.Text.RegularExpressions;
 using DTOs;
 using API.Clients.EntitiesClients;
+using API.Clients;
 
 namespace WindowsForms
 {
-    // public enum FormMode
-    //{
-    //Add,
-    //     Update
-    //}
+    public enum FormMode
+    {
+        Add,
+        Update
+    }
+
     public partial class LocalidadDetalle : Form
     {
         private LocalidadDTO localidad;
@@ -40,6 +42,8 @@ namespace WindowsForms
         {
             InitializeComponent();
             Mode = FormMode.Add;
+
+            ValidarPermisos();
         }
 
         private async void aceptarButton_Click(object sender, EventArgs e)
@@ -139,6 +143,18 @@ namespace WindowsForms
 
             return valid;
         }
+
+        private async void ValidarPermisos()
+        {
+            var user = await AuthServiceProvider.Instance.GetCurrentUserAsync();
+
+            if (user.Tipo_usu != "Operador" && user.Tipo_usu != "Cazador")
+            {
+                MessageBox.Show("No tenés permisos para editar Localidades", "Acceso denegado");
+                this.Close();
+            }
+        }
+
 
         private void textBoxCodigoLoc_TextChanged(object sender, EventArgs e)
         {

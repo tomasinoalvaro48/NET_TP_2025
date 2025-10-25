@@ -4,17 +4,11 @@ using WindowsForms.FormsZona;
 
 namespace WindowsForms
 {
-    public partial class MenuCRUDs : Form
+    public partial class MenuOperador : Form
     {
-        public MenuCRUDs()
+        public MenuOperador()
         {
             InitializeComponent();
-        }
-
-        private void ButtonCRUDDenunciante_Click(object sender, EventArgs e)
-        {
-            DenunciantesLista denuncianteLista = new DenunciantesLista();
-            denuncianteLista.ShowDialog();
         }
 
         private void ButtonCRUDLocalidad_Click(object sender, EventArgs e)

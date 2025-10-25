@@ -4,30 +4,13 @@ using System.Text.RegularExpressions;
 
 namespace WindowsForms
 {
-    public partial class SigninForm : Form
+    public partial class SigninDenuncianteForm : Form
     {
         public UsuarioDTO Usuario { get; set; }
-        public SigninForm()
+        public SigninDenuncianteForm()
         {
             InitializeComponent();
             Usuario = new UsuarioDTO();
-            LoadLocalidades();
-        }
-        private async void LoadLocalidades()
-        {
-            try
-            {
-                zonaComboBox.Enabled = false;
-                var localidades = await LocalidadApiClient.GetAllAsync();
-                localidadComboBox.DataSource = localidades.ToList();
-                localidadComboBox.DisplayMember = "Nombre";
-                localidadComboBox.ValueMember = "ID";
-                localidadComboBox.SelectedIndex = -1;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al cargar localidades: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
         }
 
         private bool ValidateUsuario()
@@ -36,8 +19,6 @@ namespace WindowsForms
             errorProvider.SetError(nombreTextBox, string.Empty);
             errorProvider.SetError(emailTextBox, string.Empty);
             errorProvider.SetError(contraseniaTextBox, string.Empty);
-            errorProvider.SetError(localidadComboBox, string.Empty);
-            errorProvider.SetError(zonaComboBox, string.Empty);
 
             if (this.nombreTextBox.Text == string.Empty)
             {
@@ -67,18 +48,6 @@ namespace WindowsForms
                 errorProvider.SetError(contraseniaTextBox, "La contraseña debe tener mínimo 6 caracteres");
             }
 
-            if (localidadComboBox.SelectedValue == null)
-            {
-                isValid = false;
-                errorProvider.SetError(localidadComboBox, "Debe seleccionar una localidad");
-            }
-
-            if (zonaComboBox.SelectedValue == null)
-            {
-                isValid = false;
-                errorProvider.SetError(zonaComboBox, "Debe seleccionar una zona");
-            }
-
             return isValid;
         }
         private void cancelarButton_Click(object sender, EventArgs e)
@@ -95,9 +64,7 @@ namespace WindowsForms
                     this.Usuario.Nombre_usu = nombreTextBox.Text;
                     this.Usuario.Email_usu = emailTextBox.Text;
                     this.Usuario.Passw_usu = contraseniaTextBox.Text;
-                    this.Usuario.Tipo_usu = "Cazador";
-                    this.Usuario.LocalidadId = (int)localidadComboBox.SelectedValue;
-                    this.Usuario.ZonaId = (int)zonaComboBox.SelectedValue;
+                    this.Usuario.Tipo_usu = "Denunciante";
 
                     await UsuarioApiClient.AddAsync(this.Usuario);
                     this.Close();
@@ -106,27 +73,6 @@ namespace WindowsForms
                 {
                     MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-            }
-        }
-
-        private async void localidadSeleccionada(object sender, EventArgs e)
-        {
-            try { 
-                if (localidadComboBox.SelectedValue == null || localidadComboBox.SelectedIndex == -1)
-                    return; // No hay selección válida todavía
-
-                // A veces SelectedValue devuelve DataRowView
-                if (localidadComboBox.SelectedValue is int localidadId)
-                {
-                    var zonas = await ZonaApiClient.GetByLocalidadAsync(localidadId);
-                    zonaComboBox.DataSource = zonas.ToList();
-                    zonaComboBox.DisplayMember = "Nombre";
-                    zonaComboBox.ValueMember = "ID";
-                    zonaComboBox.SelectedIndex = -1;
-                    zonaComboBox.Enabled = true;
-                }
-            } catch (Exception ex) {
-            MessageBox.Show($"Error al cargar zonas: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

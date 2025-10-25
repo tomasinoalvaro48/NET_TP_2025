@@ -1,5 +1,6 @@
 ﻿using DTOs;
 using API.Clients.EntitiesClients;
+using API.Clients;
 
 namespace WindowsForms.FormsZona
 {
@@ -35,6 +36,8 @@ namespace WindowsForms.FormsZona
             InitializeComponent();
             LoadLocalidades();
             mode = FormMode.Add;
+
+            ValidarPermisos();
         }
 
         private async void LoadLocalidades()
@@ -124,6 +127,17 @@ namespace WindowsForms.FormsZona
                 {
                     MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+            }
+        }
+
+        private async void ValidarPermisos()
+        {
+            var user = await AuthServiceProvider.Instance.GetCurrentUserAsync();
+
+            if (user.Tipo_usu != "Operador" && user.Tipo_usu != "Cazador")
+            {
+                MessageBox.Show("No tenés permisos para editar Zonas", "Acceso denegado");
+                this.Close();
             }
         }
     }

@@ -1,6 +1,6 @@
 ﻿namespace WindowsForms
 {
-    partial class MenuCRUDs
+    partial class MenuOperador
     {
         /// <summary>
         /// Required designer variable.
@@ -28,24 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            EnterCRUDDenuncianteButton = new Button();
             EnterCRUDLocalidadButton = new Button();
             CloseProgramButton = new Button();
             EnterCRUDTipoAnomaliaButton = new Button();
             btnCrudZona = new Button();
             EnterCRUDUsuarioButton = new Button();
             SuspendLayout();
-            // 
-            // EnterCRUDDenuncianteButton
-            // 
-            EnterCRUDDenuncianteButton.Location = new Point(41, 36);
-            EnterCRUDDenuncianteButton.Margin = new Padding(2);
-            EnterCRUDDenuncianteButton.Name = "EnterCRUDDenuncianteButton";
-            EnterCRUDDenuncianteButton.Size = new Size(150, 43);
-            EnterCRUDDenuncianteButton.TabIndex = 0;
-            EnterCRUDDenuncianteButton.Text = "CRUD Denunciante";
-            EnterCRUDDenuncianteButton.UseVisualStyleBackColor = true;
-            EnterCRUDDenuncianteButton.Click += ButtonCRUDDenunciante_Click;
             // 
             // EnterCRUDLocalidadButton
             // 
@@ -62,7 +50,7 @@
             // 
             CloseProgramButton.AutoSize = true;
             CloseProgramButton.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            CloseProgramButton.Location = new Point(406, 213);
+            CloseProgramButton.Location = new Point(338, 190);
             CloseProgramButton.Margin = new Padding(2);
             CloseProgramButton.Name = "CloseProgramButton";
             CloseProgramButton.Size = new Size(104, 25);
@@ -95,7 +83,7 @@
             // 
             // EnterCRUDUsuarioButton
             // 
-            EnterCRUDUsuarioButton.Location = new Point(130, 158);
+            EnterCRUDUsuarioButton.Location = new Point(41, 36);
             EnterCRUDUsuarioButton.Margin = new Padding(2);
             EnterCRUDUsuarioButton.Name = "EnterCRUDUsuarioButton";
             EnterCRUDUsuarioButton.Size = new Size(150, 43);
@@ -104,27 +92,24 @@
             EnterCRUDUsuarioButton.UseVisualStyleBackColor = true;
             EnterCRUDUsuarioButton.Click += ButtonCRUDUsuario_Click;
             // 
-            // MenuCRUDs
+            // MenuOperador
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(517, 246);
+            ClientSize = new Size(463, 238);
             Controls.Add(EnterCRUDUsuarioButton);
             Controls.Add(btnCrudZona);
             Controls.Add(EnterCRUDTipoAnomaliaButton);
             Controls.Add(CloseProgramButton);
             Controls.Add(EnterCRUDLocalidadButton);
-            Controls.Add(EnterCRUDDenuncianteButton);
             Margin = new Padding(2);
-            Name = "MenuCRUDs";
-            Text = "Menu de CRUDs";
+            Name = "MenuOperador";
+            Text = "Menu Operador";
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-
-        private Button EnterCRUDDenuncianteButton;
         private Button EnterCRUDLocalidadButton;
         private Button CloseProgramButton;
         private Button EnterCRUDTipoAnomaliaButton;

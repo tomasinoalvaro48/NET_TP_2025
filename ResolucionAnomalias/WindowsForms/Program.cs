@@ -37,9 +37,16 @@ namespace WindowsForms
                         return;
                     }
                 }
+                var user = await authService.GetCurrentUserAsync();
                 try
                 {
-                    Application.Run(new MenuCRUDs());
+                    if (user.Tipo_usu == "Operador")
+                        Application.Run(new MenuOperador());
+                    else if (user.Tipo_usu == "Cazador")
+                        Application.Run(new MenuCazador());
+                    else if (user.Tipo_usu == "Denunciante")
+                        Application.Run(new MenuDenunciante());
+
                     break; // La aplicación se cerró normalmente
                 }
                 catch (UnauthorizedAccessException ex)

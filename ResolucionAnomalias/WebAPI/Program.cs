@@ -56,7 +56,6 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.MapAuthEndpoints();
-app.MapDenuncianteEndpoints();
 app.MapTipoAnomaliaEndpoints();
 app.MapLocalidadEndpoints();
 app.MapZonaEndpoints();
