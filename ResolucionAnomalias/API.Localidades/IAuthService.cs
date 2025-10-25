@@ -13,5 +13,6 @@ namespace API.Clients
         Task LogoutAsync();
         Task CheckTokenExpirationAsync();
         public Task<UsuarioDTO?> GetCurrentUserAsync();
+        void ClearSession();
     }
 }

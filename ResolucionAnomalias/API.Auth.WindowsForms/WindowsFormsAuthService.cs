@@ -87,5 +87,14 @@ namespace API.Auth.WindowsForms
                 await LogoutAsync();
             }
         }
+
+        public void ClearSession()
+        {
+            _currentToken = null;
+            _currentUsername = null;
+            _cachedUser = null;
+            _tokenExpiration = default;
+        }
+
     }
 }

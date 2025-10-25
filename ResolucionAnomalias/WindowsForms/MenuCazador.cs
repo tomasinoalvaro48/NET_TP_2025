@@ -1,4 +1,5 @@
-﻿using WindowsForms.FormsTipoAnomalia;
+﻿using API.Clients;
+using WindowsForms.FormsTipoAnomalia;
 using WindowsForms.FormsUsuario;
 using WindowsForms.FormsZona;
 
@@ -35,9 +36,17 @@ namespace WindowsForms
             usuarioLista.ShowDialog();
         }
 
-        private void CloseProgram_Click(object sender, EventArgs e)
+        private async void logoutButton_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            await AuthServiceProvider.Instance.LogoutAsync();
+            AuthServiceProvider.Instance.ClearSession();
+
+            this.Hide();
+
+            var login = new LoginForm();
+            login.ShowDialog();
+
+            this.Close();
         }
     }
 }

@@ -31,7 +31,7 @@
             EnterCRUDLocalidadButton = new Button();
             btnCrudZona = new Button();
             label1 = new Label();
-            CloseProgramButton = new Button();
+            logoutButton = new Button();
             EnterCRUDUsuarioButton = new Button();
             EnterCRUDTipoAnomaliaButton = new Button();
             label2 = new Label();
@@ -66,15 +66,15 @@
             label1.TabIndex = 2;
             label1.Text = "(menu temporal hasta que agreguemos el pedido)";
             // 
-            // CloseProgramButton
+            // logoutButton
             // 
-            CloseProgramButton.Location = new Point(372, 275);
-            CloseProgramButton.Name = "CloseProgramButton";
-            CloseProgramButton.Size = new Size(131, 23);
-            CloseProgramButton.TabIndex = 3;
-            CloseProgramButton.Text = "Cerrar programa";
-            CloseProgramButton.UseVisualStyleBackColor = true;
-            CloseProgramButton.Click += CloseProgram_Click;
+            logoutButton.Location = new Point(372, 275);
+            logoutButton.Name = "logoutButton";
+            logoutButton.Size = new Size(131, 23);
+            logoutButton.TabIndex = 3;
+            logoutButton.Text = "Cerrar sesión";
+            logoutButton.UseVisualStyleBackColor = true;
+            logoutButton.Click += logoutButton_Click;
             // 
             // EnterCRUDUsuarioButton
             // 
@@ -113,7 +113,7 @@
             Controls.Add(label2);
             Controls.Add(EnterCRUDTipoAnomaliaButton);
             Controls.Add(EnterCRUDUsuarioButton);
-            Controls.Add(CloseProgramButton);
+            Controls.Add(logoutButton);
             Controls.Add(label1);
             Controls.Add(btnCrudZona);
             Controls.Add(EnterCRUDLocalidadButton);
@@ -128,7 +128,7 @@
         private Button EnterCRUDLocalidadButton;
         private Button btnCrudZona;
         private Label label1;
-        private Button CloseProgramButton;
+        private Button logoutButton;
         private Button EnterCRUDUsuarioButton;
         private Button EnterCRUDTipoAnomaliaButton;
         private Label label2;
