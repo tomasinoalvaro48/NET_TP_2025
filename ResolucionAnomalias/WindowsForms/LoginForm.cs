@@ -23,20 +23,8 @@ namespace WindowsForms
 
                     if (success)
                     {
-                        var auth = AuthServiceProvider.Instance;
-                        var user = await auth.GetCurrentUserAsync();
-
+                        this.DialogResult = DialogResult.OK;
                         this.Hide();
-
-                        if (user.Tipo_usu == "Operador")
-                            new MenuOperador().ShowDialog();
-                        else if (user.Tipo_usu == "Cazador")
-                            new MenuCazador().ShowDialog();
-                        else if (user.Tipo_usu == "Denunciante")
-                            new MenuDenunciante().ShowDialog();
-
-                        //this.DialogResult = DialogResult.OK;
-                        this.Close();
                     }
                     else
                     {
@@ -95,6 +83,11 @@ namespace WindowsForms
             this.Hide();
             signinDenuncianteForm.ShowDialog();
             this.Show();
+        }
+
+        private void CloseProgram_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

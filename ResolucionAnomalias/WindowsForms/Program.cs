@@ -46,8 +46,6 @@ namespace WindowsForms
                         Application.Run(new MenuCazador());
                     else if (user.Tipo_usu == "Denunciante")
                         Application.Run(new MenuDenunciante());
-
-                    break; // La aplicación se cerró normalmente
                 }
                 catch (UnauthorizedAccessException ex)
                 {

@@ -38,6 +38,7 @@
             errorProvider = new ErrorProvider(components);
             signinCazadorButton = new Button();
             signinDenuncianteButton = new Button();
+            CloseProgramButton = new Button();
             ((System.ComponentModel.ISupportInitialize)errorProvider).BeginInit();
             SuspendLayout();
             // 
@@ -93,7 +94,7 @@
             // 
             tituloLabel.Anchor = AnchorStyles.Top;
             tituloLabel.BorderStyle = BorderStyle.FixedSingle;
-            tituloLabel.Location = new Point(150, 19);
+            tituloLabel.Location = new Point(159, 19);
             tituloLabel.Margin = new Padding(2, 0, 2, 0);
             tituloLabel.Name = "tituloLabel";
             tituloLabel.Size = new Size(168, 17);
@@ -108,10 +109,10 @@
             // 
             // signinCazadorButton
             // 
-            signinCazadorButton.Location = new Point(313, 259);
+            signinCazadorButton.Location = new Point(255, 232);
             signinCazadorButton.Margin = new Padding(2, 1, 2, 1);
             signinCazadorButton.Name = "signinCazadorButton";
-            signinCazadorButton.Size = new Size(184, 22);
+            signinCazadorButton.Size = new Size(190, 36);
             signinCazadorButton.TabIndex = 6;
             signinCazadorButton.Text = "Registrarse como cazador";
             signinCazadorButton.UseVisualStyleBackColor = true;
@@ -119,19 +120,30 @@
             // 
             // signinDenuncianteButton
             // 
-            signinDenuncianteButton.Location = new Point(12, 258);
+            signinDenuncianteButton.Location = new Point(22, 232);
             signinDenuncianteButton.Name = "signinDenuncianteButton";
-            signinDenuncianteButton.Size = new Size(191, 23);
+            signinDenuncianteButton.Size = new Size(194, 36);
             signinDenuncianteButton.TabIndex = 7;
             signinDenuncianteButton.Text = "Registrarse como denunciante";
             signinDenuncianteButton.UseVisualStyleBackColor = true;
             signinDenuncianteButton.Click += signinDenuncianteButton_Click;
             // 
+            // CloseProgramButton
+            // 
+            CloseProgramButton.Location = new Point(372, 289);
+            CloseProgramButton.Name = "CloseProgramButton";
+            CloseProgramButton.Size = new Size(143, 23);
+            CloseProgramButton.TabIndex = 8;
+            CloseProgramButton.Text = "Cerrar programa";
+            CloseProgramButton.UseVisualStyleBackColor = true;
+            CloseProgramButton.Click += CloseProgram_Click;
+            // 
             // LoginForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(508, 291);
+            ClientSize = new Size(527, 324);
+            Controls.Add(CloseProgramButton);
             Controls.Add(signinDenuncianteButton);
             Controls.Add(signinCazadorButton);
             Controls.Add(tituloLabel);
@@ -159,5 +171,6 @@
         private ErrorProvider errorProvider;
         private Button signinCazadorButton;
         private Button signinDenuncianteButton;
+        private Button CloseProgramButton;
     }
 }

@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             EnterCRUDLocalidadButton = new Button();
-            CloseProgramButton = new Button();
+            logoutButton = new Button();
             EnterCRUDTipoAnomaliaButton = new Button();
             btnCrudZona = new Button();
             EnterCRUDUsuarioButton = new Button();
@@ -46,18 +46,18 @@
             EnterCRUDLocalidadButton.UseVisualStyleBackColor = true;
             EnterCRUDLocalidadButton.Click += ButtonCRUDLocalidad_Click;
             // 
-            // CloseProgramButton
+            // logoutButton
             // 
-            CloseProgramButton.AutoSize = true;
-            CloseProgramButton.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            CloseProgramButton.Location = new Point(338, 190);
-            CloseProgramButton.Margin = new Padding(2);
-            CloseProgramButton.Name = "CloseProgramButton";
-            CloseProgramButton.Size = new Size(104, 25);
-            CloseProgramButton.TabIndex = 2;
-            CloseProgramButton.Text = "Cerrar Programa";
-            CloseProgramButton.UseVisualStyleBackColor = true;
-            CloseProgramButton.Click += CloseProgram_Click;
+            logoutButton.AutoSize = true;
+            logoutButton.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            logoutButton.Location = new Point(338, 190);
+            logoutButton.Margin = new Padding(2);
+            logoutButton.Name = "logoutButton";
+            logoutButton.Size = new Size(85, 25);
+            logoutButton.TabIndex = 2;
+            logoutButton.Text = "Cerrar sesión";
+            logoutButton.UseVisualStyleBackColor = true;
+            logoutButton.Click += logoutButton_Click;
             // 
             // EnterCRUDTipoAnomaliaButton
             // 
@@ -100,7 +100,7 @@
             Controls.Add(EnterCRUDUsuarioButton);
             Controls.Add(btnCrudZona);
             Controls.Add(EnterCRUDTipoAnomaliaButton);
-            Controls.Add(CloseProgramButton);
+            Controls.Add(logoutButton);
             Controls.Add(EnterCRUDLocalidadButton);
             Margin = new Padding(2);
             Name = "MenuOperador";
@@ -111,7 +111,7 @@
 
         #endregion
         private Button EnterCRUDLocalidadButton;
-        private Button CloseProgramButton;
+        private Button logoutButton;
         private Button EnterCRUDTipoAnomaliaButton;
         private Button btnCrudZona;
         private Button EnterCRUDUsuarioButton;

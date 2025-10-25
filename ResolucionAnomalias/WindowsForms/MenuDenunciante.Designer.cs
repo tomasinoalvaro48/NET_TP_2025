@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             EnterCRUDTipoAnomaliaButton = new Button();
-            CloseProgramButton = new Button();
+            logoutButton = new Button();
             label1 = new Label();
             EnterCRUDLocalidadButton = new Button();
             btnCrudZona = new Button();
@@ -47,15 +47,15 @@
             EnterCRUDTipoAnomaliaButton.UseVisualStyleBackColor = true;
             EnterCRUDTipoAnomaliaButton.Click += ButtonCRUDTipoAnomalia_Click;
             // 
-            // CloseProgramButton
+            // logoutButton
             // 
-            CloseProgramButton.Location = new Point(359, 227);
-            CloseProgramButton.Name = "CloseProgramButton";
-            CloseProgramButton.Size = new Size(135, 23);
-            CloseProgramButton.TabIndex = 1;
-            CloseProgramButton.Text = "Cerrar programa";
-            CloseProgramButton.UseVisualStyleBackColor = true;
-            CloseProgramButton.Click += CloseProgram_Click;
+            logoutButton.Location = new Point(359, 227);
+            logoutButton.Name = "logoutButton";
+            logoutButton.Size = new Size(135, 23);
+            logoutButton.TabIndex = 1;
+            logoutButton.Text = "Cerrar sesión";
+            logoutButton.UseVisualStyleBackColor = true;
+            logoutButton.Click += logoutButton_Click;
             // 
             // label1
             // 
@@ -115,7 +115,7 @@
             Controls.Add(btnCrudZona);
             Controls.Add(EnterCRUDLocalidadButton);
             Controls.Add(label1);
-            Controls.Add(CloseProgramButton);
+            Controls.Add(logoutButton);
             Controls.Add(EnterCRUDTipoAnomaliaButton);
             Name = "MenuDenunciante";
             Text = "Menu Denunciante";
@@ -126,7 +126,7 @@
         #endregion
 
         private Button EnterCRUDTipoAnomaliaButton;
-        private Button CloseProgramButton;
+        private Button logoutButton;
         private Label label1;
         private Button EnterCRUDLocalidadButton;
         private Button btnCrudZona;
