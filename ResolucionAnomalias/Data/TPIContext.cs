@@ -10,6 +10,7 @@ namespace Data
         public DbSet<Localidad> Localidades { get; set; }
         public DbSet<Zona> Zonas { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<PedidoAgregacion> PedidosAgregacion { get; set; }
 
         internal TPIContext()
         {
@@ -146,6 +147,19 @@ namespace Data
                         ZonaId = 1
                     }
                 );
+            });
+
+            modelBuilder.Entity<PedidoAgregacion>(entity =>
+            {
+                entity.HasKey(e => e.Id_pedido_agreg);
+
+                entity.Property(e => e.Id_pedido_agreg).ValueGeneratedOnAdd();
+
+                entity.Property(e => e.Descripcion_pedido_agreg).IsRequired().HasMaxLength(200);
+
+                entity.Property(e => e.Dificultad_pedido_agreg).IsRequired();
+
+                entity.Property(e => e.Estado_pedido_agreg).IsRequired().HasMaxLength(50);
             });
         }
     }
