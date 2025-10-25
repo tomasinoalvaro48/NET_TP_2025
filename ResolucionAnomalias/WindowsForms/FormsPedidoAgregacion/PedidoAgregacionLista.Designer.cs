@@ -45,31 +45,31 @@
             // 
             // agregarButton
             // 
-            agregarButton.Location = new Point(701, 353);
+            agregarButton.Location = new Point(663, 353);
             agregarButton.Name = "agregarButton";
-            agregarButton.Size = new Size(75, 23);
+            agregarButton.Size = new Size(113, 23);
             agregarButton.TabIndex = 1;
-            agregarButton.Text = "Agregar";
+            agregarButton.Text = "Nuevo pedido";
             agregarButton.UseVisualStyleBackColor = true;
             agregarButton.Click += agregarButton_Click;
             // 
             // modificarButton
             // 
-            modificarButton.Location = new Point(582, 353);
+            modificarButton.Location = new Point(499, 353);
             modificarButton.Name = "modificarButton";
-            modificarButton.Size = new Size(75, 23);
+            modificarButton.Size = new Size(125, 23);
             modificarButton.TabIndex = 2;
-            modificarButton.Text = "Modificar";
+            modificarButton.Text = "Modificar pedido";
             modificarButton.UseVisualStyleBackColor = true;
             modificarButton.Click += modificarButton_Click;
             // 
             // eliminarButton
             // 
-            eliminarButton.Location = new Point(451, 353);
+            eliminarButton.Location = new Point(341, 353);
             eliminarButton.Name = "eliminarButton";
-            eliminarButton.Size = new Size(75, 23);
+            eliminarButton.Size = new Size(121, 23);
             eliminarButton.TabIndex = 3;
-            eliminarButton.Text = "Eliminar";
+            eliminarButton.Text = "Eliminar pedido";
             eliminarButton.UseVisualStyleBackColor = true;
             eliminarButton.Click += eliminarButton_Click;
             // 
@@ -83,7 +83,7 @@
             Controls.Add(agregarButton);
             Controls.Add(pedidosAgregacionDataGridView);
             Name = "PedidoAgregacionLista";
-            Text = "Pedidos de Agregacion";
+            Text = "Pedidos de agregacion de anomalías";
             Load += PedidosAgregacion_Load;
             ((System.ComponentModel.ISupportInitialize)pedidosAgregacionDataGridView).EndInit();
             ResumeLayout(false);

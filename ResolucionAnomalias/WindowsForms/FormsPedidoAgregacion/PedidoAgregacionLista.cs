@@ -9,6 +9,7 @@ namespace WindowsForms.FormsPedidoAgregacion
         public PedidoAgregacionLista()
         {
             InitializeComponent();
+            ConfigurarColumas();
         }
 
         private async void PedidosAgregacion_Load(object sender, EventArgs e)
@@ -24,6 +25,44 @@ namespace WindowsForms.FormsPedidoAgregacion
             pedidoAgregacion = (PedidoAgregacionDTO)pedidosAgregacionDataGridView.SelectedRows[0].DataBoundItem;
 
             return pedidoAgregacion;
+        }
+
+        private void ConfigurarColumas()
+        {
+            this.pedidosAgregacionDataGridView.AutoGenerateColumns = false;
+
+            this.pedidosAgregacionDataGridView.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "Id_pedido_agreg",
+                HeaderText = "Id del pedido",
+                DataPropertyName = "Id_pedido_agreg",
+                Width = 150
+            });
+
+            this.pedidosAgregacionDataGridView.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "Descripcion_pedido_agreg",
+                HeaderText = "Descripción de la anomalía",
+                DataPropertyName = "Descripcion_pedido_agreg",
+                Width = 150
+            });
+
+
+            this.pedidosAgregacionDataGridView.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "Dificultad_pedido_agreg",
+                HeaderText = "Dificultad de la anomalía",
+                DataPropertyName = "Dificultad_pedido_agreg",
+                Width = 150
+            });
+
+            this.pedidosAgregacionDataGridView.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "Estado_pedido_agreg",
+                HeaderText = "Estado del pedido",
+                DataPropertyName = "Estado_pedido_agreg",
+                Width = 150
+            });
         }
 
         private void agregarButton_Click(object sender, EventArgs e)
