@@ -1,5 +1,6 @@
 ﻿using DTOs;
 using API.Clients.EntitiesClients;
+using API.Clients;
 
 namespace WindowsForms.FormsUsuario
 {
@@ -11,8 +12,9 @@ namespace WindowsForms.FormsUsuario
             ConfigurarColumas();
         }
 
-        private void UsuarioLista_Load(object sender, EventArgs e)
+        private async void UsuarioLista_Load(object sender, EventArgs e)
         {
+            await ValidarPermisosAsync();
             this.GetAllAndLoad();
         }
 
@@ -167,6 +169,17 @@ namespace WindowsForms.FormsUsuario
             catch (Exception ex)
             {
                 MessageBox.Show($"Error al cargar usuario para modificar: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private async Task ValidarPermisosAsync()
+        {
+            var user = await AuthServiceProvider.Instance.GetCurrentUserAsync();
+
+            if (user.Tipo_usu != "Operador")
+            {
+                MessageBox.Show("No tenés permisos para acceder a Usuarios", "Acceso denegado");
+                this.Close();
             }
         }
     }

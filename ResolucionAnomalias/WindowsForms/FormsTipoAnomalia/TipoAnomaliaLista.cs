@@ -1,5 +1,6 @@
 ﻿using DTOs;
 using API.Clients.EntitiesClients;
+using API.Clients;
 
 namespace WindowsForms.FormsTipoAnomalia
 {
@@ -37,8 +38,9 @@ namespace WindowsForms.FormsTipoAnomalia
             }
         }
 
-        private void TipoAnomalia_Load(object sender, EventArgs e)
+        private async void TipoAnomalia_Load(object sender, EventArgs e)
         {
+            await ValidarPermisosAsync();
             this.GetAllAndLoad();
         }
 
@@ -112,6 +114,17 @@ namespace WindowsForms.FormsTipoAnomalia
             catch (Exception ex)
             {
                 MessageBox.Show($"Error al cargar tipo de anomalia para modificar: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private async Task ValidarPermisosAsync()
+        {
+            var user = await AuthServiceProvider.Instance.GetCurrentUserAsync();
+
+            if (user.Tipo_usu != "Operador" && user.Tipo_usu != "Denunciante")
+            {
+                MessageBox.Show("No tenés permisos para acceder a Anomalías", "Acceso denegado");
+                this.Close();
             }
         }
     }

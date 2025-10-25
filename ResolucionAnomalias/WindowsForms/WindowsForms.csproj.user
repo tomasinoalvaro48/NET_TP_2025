@@ -14,12 +14,6 @@
     <Compile Update="LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="FormsDenunciante\DenuncianteDetalle.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="FormsDenunciante\DenunciantesLista.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Update="FormsTipoAnomalia\TipoAnomaliaLista.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -38,7 +32,13 @@
     <Compile Update="FormsZona\ZonaLista.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="MenuCRUDs.cs">
+    <Compile Update="MenuCazador.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="MenuDenunciante.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="MenuOperador.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="FormsLocalidad\LocalidadDetalle.cs">
@@ -47,7 +47,10 @@
     <Compile Update="FormsLocalidad\LocalidadLista.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="SigninForm.cs">
+    <Compile Update="SigninCazadorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="SigninDenuncianteForm.cs">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>

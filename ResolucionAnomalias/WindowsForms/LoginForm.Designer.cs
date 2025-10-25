@@ -36,15 +36,17 @@
             textBoxContraseniaLabel = new Label();
             tituloLabel = new Label();
             errorProvider = new ErrorProvider(components);
-            signinButton = new Button();
+            signinCazadorButton = new Button();
+            signinDenuncianteButton = new Button();
             ((System.ComponentModel.ISupportInitialize)errorProvider).BeginInit();
             SuspendLayout();
             // 
             // loginButton
             // 
-            loginButton.Location = new Point(333, 321);
+            loginButton.Location = new Point(179, 150);
+            loginButton.Margin = new Padding(2, 1, 2, 1);
             loginButton.Name = "loginButton";
-            loginButton.Size = new Size(193, 46);
+            loginButton.Size = new Size(104, 22);
             loginButton.TabIndex = 0;
             loginButton.Text = "Iniciar Sesión";
             loginButton.UseVisualStyleBackColor = true;
@@ -52,34 +54,38 @@
             // 
             // usuarioTextBox
             // 
-            usuarioTextBox.Location = new Point(333, 141);
+            usuarioTextBox.Location = new Point(179, 66);
+            usuarioTextBox.Margin = new Padding(2, 1, 2, 1);
             usuarioTextBox.Name = "usuarioTextBox";
-            usuarioTextBox.Size = new Size(200, 39);
+            usuarioTextBox.Size = new Size(110, 23);
             usuarioTextBox.TabIndex = 1;
             // 
             // contraseniaTextBox
             // 
-            contraseniaTextBox.Location = new Point(333, 244);
+            contraseniaTextBox.Location = new Point(179, 114);
+            contraseniaTextBox.Margin = new Padding(2, 1, 2, 1);
             contraseniaTextBox.Name = "contraseniaTextBox";
-            contraseniaTextBox.Size = new Size(200, 39);
+            contraseniaTextBox.Size = new Size(110, 23);
             contraseniaTextBox.TabIndex = 2;
             contraseniaTextBox.UseSystemPasswordChar = true;
             // 
             // textBoxUsuarioLabel
             // 
             textBoxUsuarioLabel.AutoSize = true;
-            textBoxUsuarioLabel.Location = new Point(340, 107);
+            textBoxUsuarioLabel.Location = new Point(183, 50);
+            textBoxUsuarioLabel.Margin = new Padding(2, 0, 2, 0);
             textBoxUsuarioLabel.Name = "textBoxUsuarioLabel";
-            textBoxUsuarioLabel.Size = new Size(99, 32);
+            textBoxUsuarioLabel.Size = new Size(33, 15);
             textBoxUsuarioLabel.TabIndex = 3;
-            textBoxUsuarioLabel.Text = "Usuario:";
+            textBoxUsuarioLabel.Text = "Mail:";
             // 
             // textBoxContraseniaLabel
             // 
             textBoxContraseniaLabel.AutoSize = true;
-            textBoxContraseniaLabel.Location = new Point(333, 209);
+            textBoxContraseniaLabel.Location = new Point(179, 98);
+            textBoxContraseniaLabel.Margin = new Padding(2, 0, 2, 0);
             textBoxContraseniaLabel.Name = "textBoxContraseniaLabel";
-            textBoxContraseniaLabel.Size = new Size(139, 32);
+            textBoxContraseniaLabel.Size = new Size(70, 15);
             textBoxContraseniaLabel.TabIndex = 4;
             textBoxContraseniaLabel.Text = "Contraseña:";
             // 
@@ -87,11 +93,12 @@
             // 
             tituloLabel.Anchor = AnchorStyles.Top;
             tituloLabel.BorderStyle = BorderStyle.FixedSingle;
-            tituloLabel.Location = new Point(268, 40);
+            tituloLabel.Location = new Point(150, 19);
+            tituloLabel.Margin = new Padding(2, 0, 2, 0);
             tituloLabel.Name = "tituloLabel";
-            tituloLabel.Size = new Size(311, 34);
+            tituloLabel.Size = new Size(168, 17);
             tituloLabel.TabIndex = 5;
-            tituloLabel.Text = "Inicio de Sesión de Cazador";
+            tituloLabel.Text = "Iniciar Sesión";
             tituloLabel.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // errorProvider
@@ -99,28 +106,41 @@
             errorProvider.BlinkStyle = ErrorBlinkStyle.NeverBlink;
             errorProvider.ContainerControl = this;
             // 
-            // signinButton
+            // signinCazadorButton
             // 
-            signinButton.Location = new Point(638, 392);
-            signinButton.Name = "signinButton";
-            signinButton.Size = new Size(150, 46);
-            signinButton.TabIndex = 6;
-            signinButton.Text = "Registrarse";
-            signinButton.UseVisualStyleBackColor = true;
-            signinButton.Click += signinButton_Click;
+            signinCazadorButton.Location = new Point(313, 259);
+            signinCazadorButton.Margin = new Padding(2, 1, 2, 1);
+            signinCazadorButton.Name = "signinCazadorButton";
+            signinCazadorButton.Size = new Size(184, 22);
+            signinCazadorButton.TabIndex = 6;
+            signinCazadorButton.Text = "Registrarse como cazador";
+            signinCazadorButton.UseVisualStyleBackColor = true;
+            signinCazadorButton.Click += signinCazadorButton_Click;
+            // 
+            // signinDenuncianteButton
+            // 
+            signinDenuncianteButton.Location = new Point(12, 258);
+            signinDenuncianteButton.Name = "signinDenuncianteButton";
+            signinDenuncianteButton.Size = new Size(191, 23);
+            signinDenuncianteButton.TabIndex = 7;
+            signinDenuncianteButton.Text = "Registrarse como denunciante";
+            signinDenuncianteButton.UseVisualStyleBackColor = true;
+            signinDenuncianteButton.Click += signinDenuncianteButton_Click;
             // 
             // LoginForm
             // 
-            AutoScaleDimensions = new SizeF(13F, 32F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
-            Controls.Add(signinButton);
+            ClientSize = new Size(508, 291);
+            Controls.Add(signinDenuncianteButton);
+            Controls.Add(signinCazadorButton);
             Controls.Add(tituloLabel);
             Controls.Add(textBoxContraseniaLabel);
             Controls.Add(textBoxUsuarioLabel);
             Controls.Add(contraseniaTextBox);
             Controls.Add(usuarioTextBox);
             Controls.Add(loginButton);
+            Margin = new Padding(2, 1, 2, 1);
             Name = "LoginForm";
             Text = "Resolución de Anomalías - Inicio de Sesión";
             ((System.ComponentModel.ISupportInitialize)errorProvider).EndInit();
@@ -137,6 +157,7 @@
         private Label textBoxContraseniaLabel;
         private Label tituloLabel;
         private ErrorProvider errorProvider;
-        private Button signinButton;
+        private Button signinCazadorButton;
+        private Button signinDenuncianteButton;
     }
 }

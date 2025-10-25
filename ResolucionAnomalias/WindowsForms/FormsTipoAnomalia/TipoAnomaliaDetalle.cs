@@ -1,5 +1,6 @@
 ﻿using DTOs;
 using API.Clients.EntitiesClients;
+using API.Clients;
 
 namespace WindowsForms.FormsTipoAnomalia
 {
@@ -47,6 +48,8 @@ namespace WindowsForms.FormsTipoAnomalia
         {
             InitializeComponent();
             Mode = FormMode.Add;
+
+            ValidarPermisos();
         }
 
         private async void aceptarButton_Click(object sender, EventArgs e)
@@ -131,6 +134,17 @@ namespace WindowsForms.FormsTipoAnomalia
             }
 
             return valid;
+        }
+
+        private async void ValidarPermisos()
+        {
+            var user = await AuthServiceProvider.Instance.GetCurrentUserAsync();
+
+            if (user.Tipo_usu != "Operador" && user.Tipo_usu != "Denunciante")
+            {
+                MessageBox.Show("No tenés permisos para editar Anomalías", "Acceso denegado");
+                this.Close();
+            }
         }
     }
 }

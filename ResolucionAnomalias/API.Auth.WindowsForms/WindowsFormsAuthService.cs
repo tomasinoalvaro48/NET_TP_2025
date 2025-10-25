@@ -1,4 +1,6 @@
 ﻿using API.Clients;
+using API.Clients.EntitiesClients;
+using DTOs;
 
 namespace API.Auth.WindowsForms
 {
@@ -7,6 +9,7 @@ namespace API.Auth.WindowsForms
         private static string? _currentToken;
         private static DateTime _tokenExpiration;
         private static string? _currentUsername;
+        private UsuarioDTO? _cachedUser;
 
         public event Action<bool>? AuthenticationStateChanged;
 
@@ -50,6 +53,22 @@ namespace API.Auth.WindowsForms
             }
 
             return false;
+        }
+
+        public async Task<UsuarioDTO?> GetCurrentUserAsync()
+        {
+            if (_cachedUser != null)
+                return _cachedUser;
+
+            var username = await GetUsernameAsync();
+
+            if (string.IsNullOrEmpty(username))
+                return null;
+
+            var usuarios = await UsuarioApiClient.GetAllAsync();
+            _cachedUser = usuarios.FirstOrDefault(u => u.Email_usu.Equals(username, StringComparison.OrdinalIgnoreCase));
+
+            return _cachedUser;
         }
 
         public async Task LogoutAsync()

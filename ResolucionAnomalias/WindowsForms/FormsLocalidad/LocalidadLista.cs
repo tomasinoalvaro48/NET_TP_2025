@@ -1,5 +1,6 @@
 ﻿using DTOs;
 using API.Clients.EntitiesClients;
+using API.Clients;
 
 namespace WindowsForms
 {
@@ -10,8 +11,9 @@ namespace WindowsForms
             InitializeComponent();
         }
 
-        private void Localidades_Load(object sender, EventArgs e)
+        private async void Localidades_Load(object sender, EventArgs e)
         {
+            await ValidarPermisosAsync();
             this.GetAllAndLoad();
         }
 
@@ -107,6 +109,18 @@ namespace WindowsForms
                 this.buttonModificarListLoc.Enabled = false;
             }
         }
+
+        private async Task ValidarPermisosAsync()
+        {
+            var user = await AuthServiceProvider.Instance.GetCurrentUserAsync();
+
+            if (user.Tipo_usu != "Operador" && user.Tipo_usu != "Cazador")
+            {
+                MessageBox.Show("No tenés permisos para acceder a Localidades", "Acceso denegado");
+                this.Close();
+            }
+        }
+
 
         private void dataGridViewLocalidades_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {

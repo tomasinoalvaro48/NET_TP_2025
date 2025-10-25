@@ -1,6 +1,7 @@
 ﻿using System.Text.RegularExpressions;
 using DTOs;
 using API.Clients.EntitiesClients;
+using API.Clients;
 
 namespace WindowsForms.FormsUsuario
 {
@@ -38,6 +39,8 @@ namespace WindowsForms.FormsUsuario
             LoadLocalidades();
             LoadZonas();
             mode = FormMode.Add;
+
+            ValidarPermisos();
         }
 
         private void LoadTiposUsuario()
@@ -45,6 +48,7 @@ namespace WindowsForms.FormsUsuario
             tipoComboBox.Items.Clear();
             tipoComboBox.Items.Add("Operador");
             tipoComboBox.Items.Add("Cazador");
+            tipoComboBox.Items.Add("Denunciante");
             tipoComboBox.SelectedIndex = -1;
         }
 
@@ -200,6 +204,17 @@ namespace WindowsForms.FormsUsuario
                 {
                     MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+            }
+        }
+
+        private async void ValidarPermisos()
+        {
+            var user = await AuthServiceProvider.Instance.GetCurrentUserAsync();
+
+            if (user.Tipo_usu != "Operador")
+            {
+                MessageBox.Show("No tenés permisos para editar Usuarios", "Acceso denegado");
+                this.Close();
             }
         }
     }

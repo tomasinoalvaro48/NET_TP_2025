@@ -10,10 +10,10 @@ namespace Domain.Model
         public string Passw_usu { get; set; }
         public string Tipo_usu { get; set; }
 
-        private int _zonaId;
+        private int? _zonaId;
         private Zona? _zona;
 
-        public int ZonaId
+        public int? ZonaId
         {
             get => _zona?.Id ?? _zonaId;
             private set => _zonaId = value;
@@ -25,23 +25,27 @@ namespace Domain.Model
             private set
             {
                 _zona = value;
-                if (value != null && _zonaId != value.Id)
-                {
-                    _zonaId = value.Id;
-                }
+                _zonaId = value?.Id;
             }
         }
 
         public Usuario() { }
 
-        public Usuario(int cod_usu, string nombre_usu, string email_usu, string passw_usu, string tipo_usu, int zonaId)
+        public Usuario(int cod_usu, string nombre_usu, string email_usu, string passw_usu, string tipo_usu, int? zonaId = null)
         {
             SetCod_usu(cod_usu);
             SetNombre_usu(nombre_usu);
             SetEmail_usu(email_usu);
             SetPassw_usu(passw_usu);
             SetTipo_usu(tipo_usu);
-            SetZonaId(zonaId);
+            if (tipo_usu != "Denunciante" && zonaId.HasValue)
+            {
+                SetZonaId(zonaId.Value);
+            }
+            else
+            {
+                _zonaId = null;
+            }
         }
 
         public void SetCod_usu(int cod_usu)
@@ -92,10 +96,13 @@ namespace Domain.Model
             return true;
         }
 
-        public void SetZonaId(int zonaId)
+        public void SetZonaId(int? zonaId)
         {
-            if (zonaId <= 0)
+            if (zonaId.HasValue && zonaId <= 0)
+            {
                 throw new ArgumentException("El Id de la zona debe ser mayor que 0.", nameof(zonaId));
+            }
+
             _zonaId = zonaId;
 
             if (_zona != null && _zona.Id != zonaId)
@@ -104,11 +111,10 @@ namespace Domain.Model
             }
         }
 
-        public void SetZona(Zona zona)
+        public void SetZona(Zona? zona)
         {
-            ArgumentNullException.ThrowIfNull(zona);
             _zona = zona;
-            _zonaId = zona.Id;
+            _zonaId = zona?.Id;
         }
     }
 }
