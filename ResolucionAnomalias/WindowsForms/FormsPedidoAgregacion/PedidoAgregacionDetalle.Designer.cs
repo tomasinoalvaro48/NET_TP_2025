@@ -36,10 +36,10 @@
             estadoLabel = new Label();
             idTextBox = new TextBox();
             descripcionTextBox = new TextBox();
-            dificultadTextBox = new TextBox();
-            estadoTextBox = new TextBox();
             aceptarButton = new Button();
             cancelarButton = new Button();
+            estadoTextBox = new TextBox();
+            dificultadComboBox = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)errorProvider).BeginInit();
             SuspendLayout();
             // 
@@ -98,20 +98,6 @@
             descripcionTextBox.Size = new Size(330, 23);
             descripcionTextBox.TabIndex = 5;
             // 
-            // dificultadTextBox
-            // 
-            dificultadTextBox.Location = new Point(182, 149);
-            dificultadTextBox.Name = "dificultadTextBox";
-            dificultadTextBox.Size = new Size(112, 23);
-            dificultadTextBox.TabIndex = 6;
-            // 
-            // estadoTextBox
-            // 
-            estadoTextBox.Location = new Point(182, 197);
-            estadoTextBox.Name = "estadoTextBox";
-            estadoTextBox.Size = new Size(161, 23);
-            estadoTextBox.TabIndex = 7;
-            // 
             // aceptarButton
             // 
             aceptarButton.Location = new Point(437, 269);
@@ -132,15 +118,33 @@
             cancelarButton.UseVisualStyleBackColor = true;
             cancelarButton.Click += cancelarButton_Click;
             // 
+            // estadoTextBox
+            // 
+            estadoTextBox.Location = new Point(182, 197);
+            estadoTextBox.Name = "estadoTextBox";
+            estadoTextBox.ReadOnly = true;
+            estadoTextBox.Size = new Size(161, 23);
+            estadoTextBox.TabIndex = 7;
+            // 
+            // dificultadComboBox
+            // 
+            dificultadComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            dificultadComboBox.FormattingEnabled = true;
+            dificultadComboBox.Items.AddRange(new object[] { "1", "2", "3" });
+            dificultadComboBox.Location = new Point(182, 149);
+            dificultadComboBox.Name = "dificultadComboBox";
+            dificultadComboBox.Size = new Size(121, 23);
+            dificultadComboBox.TabIndex = 10;
+            // 
             // PedidoAgregacionDetalle
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(706, 364);
+            Controls.Add(dificultadComboBox);
             Controls.Add(cancelarButton);
             Controls.Add(aceptarButton);
             Controls.Add(estadoTextBox);
-            Controls.Add(dificultadTextBox);
             Controls.Add(descripcionTextBox);
             Controls.Add(idTextBox);
             Controls.Add(estadoLabel);
@@ -159,13 +163,13 @@
         private ErrorProvider errorProvider;
         private Button cancelarButton;
         private Button aceptarButton;
-        private TextBox estadoTextBox;
-        private TextBox dificultadTextBox;
         private TextBox descripcionTextBox;
         private TextBox idTextBox;
         private Label estadoLabel;
         private Label dificultadLabel;
         private Label descripcionLabel;
         private Label idLabel;
+        private ComboBox dificultadComboBox;
+        private TextBox estadoTextBox;
     }
 }

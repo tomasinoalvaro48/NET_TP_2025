@@ -54,8 +54,7 @@ namespace WindowsForms.FormsPedidoAgregacion
                 try
                 {
                     this.PedidoAgregacion.Descripcion_pedido_agreg = descripcionTextBox.Text;
-                    this.PedidoAgregacion.Dificultad_pedido_agreg = int.Parse(dificultadTextBox.Text);
-                    this.PedidoAgregacion.Estado_pedido_agreg = estadoTextBox.Text;
+                    this.PedidoAgregacion.Dificultad_pedido_agreg = int.Parse(dificultadComboBox.SelectedItem.ToString());
 
                     if (this.Mode == FormMode.Update)
                     {
@@ -63,6 +62,7 @@ namespace WindowsForms.FormsPedidoAgregacion
                     }
                     else
                     {
+                        this.PedidoAgregacion.Estado_pedido_agreg = "Pendiente";
                         await PedidoAgregacionApiClient.AddAsync(this.PedidoAgregacion);
                     }
 
@@ -84,7 +84,7 @@ namespace WindowsForms.FormsPedidoAgregacion
         {
             this.idTextBox.Text = this.PedidoAgregacion.Id_pedido_agreg.ToString();
             this.descripcionTextBox.Text = this.PedidoAgregacion.Descripcion_pedido_agreg;
-            this.dificultadTextBox.Text = this.PedidoAgregacion.Dificultad_pedido_agreg.ToString();
+            this.dificultadComboBox.SelectedItem = this.PedidoAgregacion.Dificultad_pedido_agreg.ToString();
             this.estadoTextBox.Text = this.PedidoAgregacion.Estado_pedido_agreg;
         }
 
@@ -98,9 +98,9 @@ namespace WindowsForms.FormsPedidoAgregacion
                 descripcionLabel.Visible = true;
                 descripcionTextBox.Visible = true;
                 dificultadLabel.Visible = true;
-                dificultadTextBox.Visible = true;
-                estadoLabel.Visible = true;
-                estadoTextBox.Visible = true;
+                dificultadComboBox.Visible = true;
+                estadoLabel.Visible = false;
+                estadoTextBox.Visible = false;
             }
             if (mode == FormMode.Update)
             {
@@ -109,7 +109,7 @@ namespace WindowsForms.FormsPedidoAgregacion
                 descripcionLabel.Visible = true;
                 descripcionTextBox.Visible = true;
                 dificultadLabel.Visible = true;
-                dificultadTextBox.Visible = true;
+                dificultadComboBox.Visible = true;
                 estadoLabel.Visible = true;
                 estadoTextBox.Visible = true;
             }
@@ -120,8 +120,7 @@ namespace WindowsForms.FormsPedidoAgregacion
         {
             bool valid = true;
             errorProvider.SetError(descripcionTextBox, string.Empty);
-            errorProvider.SetError(dificultadTextBox, string.Empty);
-            errorProvider.SetError(estadoTextBox, string.Empty);
+            errorProvider.SetError(dificultadComboBox, string.Empty);
 
             if (this.descripcionTextBox.Text == string.Empty)
             {
@@ -129,26 +128,10 @@ namespace WindowsForms.FormsPedidoAgregacion
                 errorProvider.SetError(descripcionTextBox, "La descripcíón es requerida");
             }
 
-            if (this.dificultadTextBox.Text == string.Empty)
+            if (dificultadComboBox.SelectedItem == null)
             {
                 valid = false;
-                errorProvider.SetError(dificultadTextBox, "La dificultad es requerida");
-            }
-            else if (!Regex.IsMatch(dificultadTextBox.Text, @"^\d+$"))
-            {
-                valid = false;
-                errorProvider.SetError(dificultadTextBox, "La dificultad no puede tener letras ni espacios");
-            }
-
-            if (this.estadoTextBox.Text == string.Empty)
-            {
-                valid = false;
-                errorProvider.SetError(estadoTextBox, "El estado es requerido");
-            }
-            else if (!Regex.IsMatch(estadoTextBox.Text, @"^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$"))
-            {
-                valid = false;
-                errorProvider.SetError(estadoTextBox, "El estado no puede tener números");
+                errorProvider.SetError(dificultadComboBox, "La dificultad es requerida");
             }
 
             return valid;
