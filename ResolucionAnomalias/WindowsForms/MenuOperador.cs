@@ -1,4 +1,5 @@
 ﻿using API.Clients;
+using WindowsForms.FormsPedidoAgregacion;
 using WindowsForms.FormsTipoAnomalia;
 using WindowsForms.FormsUsuario;
 using WindowsForms.FormsZona;
@@ -34,6 +35,12 @@ namespace WindowsForms
         {
             UsuarioLista usuarioLista = new UsuarioLista();
             usuarioLista.ShowDialog();
+        }
+
+        private void pedidoAgregacionButton_Click(object sender, EventArgs e)
+        {
+            PedidoAgregacionLista pedidoAgregacionLista = new PedidoAgregacionLista();
+            pedidoAgregacionLista.ShowDialog();
         }
 
         private async void logoutButton_Click(object sender, EventArgs e)

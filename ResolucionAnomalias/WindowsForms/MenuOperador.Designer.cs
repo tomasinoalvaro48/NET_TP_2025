@@ -33,6 +33,7 @@
             EnterCRUDTipoAnomaliaButton = new Button();
             btnCrudZona = new Button();
             EnterCRUDUsuarioButton = new Button();
+            pedidoAgregacionButton = new Button();
             SuspendLayout();
             // 
             // EnterCRUDLocalidadButton
@@ -50,7 +51,7 @@
             // 
             logoutButton.AutoSize = true;
             logoutButton.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            logoutButton.Location = new Point(338, 190);
+            logoutButton.Location = new Point(382, 248);
             logoutButton.Margin = new Padding(2);
             logoutButton.Name = "logoutButton";
             logoutButton.Size = new Size(85, 25);
@@ -92,11 +93,22 @@
             EnterCRUDUsuarioButton.UseVisualStyleBackColor = true;
             EnterCRUDUsuarioButton.Click += ButtonCRUDUsuario_Click;
             // 
+            // pedidoAgregacionButton
+            // 
+            pedidoAgregacionButton.Location = new Point(143, 159);
+            pedidoAgregacionButton.Name = "pedidoAgregacionButton";
+            pedidoAgregacionButton.Size = new Size(150, 43);
+            pedidoAgregacionButton.TabIndex = 6;
+            pedidoAgregacionButton.Text = "CRUD Pedido de Agregacion";
+            pedidoAgregacionButton.UseVisualStyleBackColor = true;
+            pedidoAgregacionButton.Click += pedidoAgregacionButton_Click;
+            // 
             // MenuOperador
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(463, 238);
+            ClientSize = new Size(478, 284);
+            Controls.Add(pedidoAgregacionButton);
             Controls.Add(EnterCRUDUsuarioButton);
             Controls.Add(btnCrudZona);
             Controls.Add(EnterCRUDTipoAnomaliaButton);
@@ -115,5 +127,6 @@
         private Button EnterCRUDTipoAnomaliaButton;
         private Button btnCrudZona;
         private Button EnterCRUDUsuarioButton;
+        private Button pedidoAgregacionButton;
     }
 }

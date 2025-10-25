@@ -10,6 +10,7 @@ namespace Data
         public DbSet<Localidad> Localidades { get; set; }
         public DbSet<Zona> Zonas { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<PedidoAgregacion> PedidosAgregacion { get; set; }
 
         public DbSet<PedidoResolucion> PedidosResolucion { get; set; }
 
@@ -148,100 +149,6 @@ namespace Data
                         ZonaId = 1
                     }
                 );
-            });
-
-
-            modelBuilder.Entity<PedidoResolucion>(entity =>
-            {
-                entity.HasKey(e => e.Id);
-
-                entity.Property(e => e.Id)
-                    .ValueGeneratedOnAdd();
-
-                entity.Property(e => e.Fecha)
-                    .IsRequired();
-
-                entity.Property(e => e.Direccion)
-                    .IsRequired()
-                    .HasMaxLength(100);
-
-                entity.Property(e => e.Descripcion)
-                    .HasMaxLength(500);
-
-                entity.Property(e => e.Estado)
-                    .IsRequired()
-                    .HasMaxLength(20);
-
-                entity.Property(e => e.Comentario)
-                    .HasMaxLength(500);
-
-                entity.Property(e => e.Dificultad)
-                    .IsRequired();
-
-
-
-
-                entity.Property(e => e.ZonaId)
-                    .IsRequired()
-                    .HasField("_zonaId");
-
-                entity.Navigation(e => e.Zona)
-                    .HasField("_zona");
-
-                entity.HasOne(e => e.Zona)
-                    .WithMany()
-                    .HasForeignKey(e => e.ZonaId);
-
-
-
-
-                entity.Property(e => e.CazadorId)
-                    .IsRequired()
-                    .HasField("_cazadorId");
-
-                entity.Navigation(e => e.Cazador)
-                    .HasField("_cazador");
-
-                entity.HasOne(e => e.Cazador)
-                    .WithMany()
-                    .HasForeignKey(e => e.CazadorId);
-
-
-
-
-                entity.Property(e => e.DenuncianteId)
-                    .IsRequired()
-                    .HasField("_denuncianteId");
-
-                entity.Navigation(e => e.Denunciante)
-                    .HasField("_denunciante");
-
-                entity.HasOne(e => e.Denunciante)
-                    .WithMany()
-                    .HasForeignKey(e => e.DenuncianteId);
-
-
-
-
-                entity.OwnsMany(e => e.AnomaliaPedidos, anomalia =>
-                {
-                    anomalia.WithOwner().HasForeignKey(a => a.PedidoId);
-
-                    anomalia.Property(a => a.TipoAnomaliaId)
-                        .IsRequired()
-                        .HasField("_tipoAnomaliaId");
-
-                    anomalia.Navigation(a => a.TipoAnomalia)
-                        .HasField("_tipoAnomalia");
-
-                    anomalia.HasOne(a => a.TipoAnomalia)
-                        .WithMany()
-                        .HasForeignKey(a => a.TipoAnomaliaId);
-
-                    anomalia.ToTable("AnomaliaPedido");
-                });
-
-
             });
         }
     }

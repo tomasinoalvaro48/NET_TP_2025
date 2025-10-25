@@ -35,6 +35,7 @@
             EnterCRUDUsuarioButton = new Button();
             EnterCRUDTipoAnomaliaButton = new Button();
             label2 = new Label();
+            pedidoAgregacionButton = new Button();
             SuspendLayout();
             // 
             // EnterCRUDLocalidadButton
@@ -68,7 +69,7 @@
             // 
             // logoutButton
             // 
-            logoutButton.Location = new Point(372, 275);
+            logoutButton.Location = new Point(391, 326);
             logoutButton.Name = "logoutButton";
             logoutButton.Size = new Size(131, 23);
             logoutButton.TabIndex = 3;
@@ -101,15 +102,26 @@
             label2.AutoSize = true;
             label2.Location = new Point(12, 52);
             label2.Name = "label2";
-            label2.Size = new Size(316, 15);
+            label2.Size = new Size(403, 15);
             label2.TabIndex = 6;
-            label2.Text = "(por ahora solo tiene permitido acceder a localidad y zona)";
+            label2.Text = "(por ahora solo tiene permitido acceder a localidad y zona, y pedido_agreg)";
+            // 
+            // pedidoAgregacionButton
+            // 
+            pedidoAgregacionButton.Location = new Point(173, 243);
+            pedidoAgregacionButton.Name = "pedidoAgregacionButton";
+            pedidoAgregacionButton.Size = new Size(146, 49);
+            pedidoAgregacionButton.TabIndex = 7;
+            pedidoAgregacionButton.Text = "CRUD Pedido de Agregacion";
+            pedidoAgregacionButton.UseVisualStyleBackColor = true;
+            pedidoAgregacionButton.Click += pedidoAgregacionButton_Click;
             // 
             // MenuCazador
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(529, 310);
+            ClientSize = new Size(534, 361);
+            Controls.Add(pedidoAgregacionButton);
             Controls.Add(label2);
             Controls.Add(EnterCRUDTipoAnomaliaButton);
             Controls.Add(EnterCRUDUsuarioButton);
@@ -132,5 +144,6 @@
         private Button EnterCRUDUsuarioButton;
         private Button EnterCRUDTipoAnomaliaButton;
         private Label label2;
+        private Button pedidoAgregacionButton;
     }
 }
