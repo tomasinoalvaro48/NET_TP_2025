@@ -1,4 +1,5 @@
 ﻿using Domain.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace Data
 {
@@ -9,48 +10,48 @@ namespace Data
             return new TPIContext();
         }
 
-        public IEnumerable<PedidoAgregacion> GetAll()
+        public async Task<IEnumerable<PedidoAgregacion>> GetAllAsync()
         {
             using var context = CreateContext();
-            return context.PedidosAgregacion.OrderBy(p => p.Id_pedido_agreg).ToList();
+            return await context.PedidosAgregacion.OrderBy(p => p.Id_pedido_agreg).ToListAsync();
         }
 
-        public void Add(PedidoAgregacion pedidoAgregacion)
+        public async Task AddAsync(PedidoAgregacion pedidoAgregacion)
         {
             using var context = CreateContext();
-            context.PedidosAgregacion.Add(pedidoAgregacion);
-            context.SaveChanges();
+            await context.PedidosAgregacion.AddAsync(pedidoAgregacion);
+            await context.SaveChangesAsync();
         }
 
-        public bool Delete(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
             using var context = CreateContext();
-            var pedidoAgregacion = context.PedidosAgregacion.Find(id);
+            var pedidoAgregacion = await context.PedidosAgregacion.FindAsync(id);
             if (pedidoAgregacion != null)
             {
                 context.PedidosAgregacion.Remove(pedidoAgregacion);
-                context.SaveChanges();
+                await context.SaveChangesAsync();
                 return true;
             }
             return false;
         }
 
-        public PedidoAgregacion? GetById(int id)
+        public async Task<PedidoAgregacion?> GetAsync(int id)
         {
             using var context = CreateContext();
-            return context.PedidosAgregacion.FirstOrDefault(c => c.Id_pedido_agreg == id);
+            return await context.PedidosAgregacion.FirstOrDefaultAsync(c => c.Id_pedido_agreg == id);
         }
 
-        public bool Update(PedidoAgregacion pedidoAgregacion)
+        public async Task<bool> UpdateAsync(PedidoAgregacion pedidoAgregacion)
         {
             using var context = CreateContext();
-            var existingPedidoAgregacion = context.PedidosAgregacion.Find(pedidoAgregacion.Id_pedido_agreg);
+            var existingPedidoAgregacion = await context.PedidosAgregacion.FindAsync(pedidoAgregacion.Id_pedido_agreg);
             if (existingPedidoAgregacion != null)
             {
                 existingPedidoAgregacion.SetDescripcion(pedidoAgregacion.Descripcion_pedido_agreg);
                 existingPedidoAgregacion.SetDificultad(pedidoAgregacion.Dificultad_pedido_agreg);
                 existingPedidoAgregacion.SetEstado(pedidoAgregacion.Estado_pedido_agreg);
-                context.SaveChanges();
+                await context.SaveChangesAsync();
                 return true;
             }
             return false;

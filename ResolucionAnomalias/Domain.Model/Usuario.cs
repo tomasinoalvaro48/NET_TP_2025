@@ -1,14 +1,16 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Security.Cryptography;
+using System.Text.RegularExpressions;
 
 namespace Domain.Model
 {
     public class Usuario
     {
-        public int Cod_usu { get; set; }
-        public string Nombre_usu { get; set; }
-        public string Email_usu { get; set; }
-        public string Passw_usu { get; set; }
-        public string Tipo_usu { get; set; }
+        public int Cod_usu { get; private set; }
+        public string Nombre_usu { get; private set; }
+        public string Email_usu { get; private set; }
+        public string Passw_usu { get; private set; }
+        public string Salt { get; private set; }
+        public string Tipo_usu { get; private set; }
 
         private int? _zonaId;
         private Zona? _zona;
@@ -73,7 +75,12 @@ namespace Domain.Model
         {
             if (string.IsNullOrWhiteSpace(passw_usu))
                 throw new ArgumentException("La contraseña no puede ser nula o vacía.", nameof(passw_usu));
-            Passw_usu = passw_usu;
+
+            if (passw_usu.Length < 6)
+                throw new ArgumentException("La contraseña debe tener al menos 6 caracteres.", nameof(passw_usu));
+
+            Salt = GenerateSalt();
+            Passw_usu = HashPassword(passw_usu, Salt);
         }
 
         public void SetTipo_usu(string tipo_usu)
@@ -90,10 +97,26 @@ namespace Domain.Model
             return Regex.IsMatch(email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$");
         }
 
-        public bool ValidarContrasenia(string password)
+        public bool ValidatePassword(string password)
         {
-            if (string.IsNullOrWhiteSpace(password)) return false;
-            return true;
+            if (string.IsNullOrWhiteSpace(password))
+                return false;
+            string hashedInput = HashPassword(password, Salt);
+            return Passw_usu == hashedInput;
+        }
+
+        private static string GenerateSalt()
+        {
+            byte[] saltBytes = new byte[32];
+            RandomNumberGenerator.Fill(saltBytes);
+            return Convert.ToBase64String(saltBytes);
+        }
+
+        private static string HashPassword(string password, string salt)
+        {
+            using var pbkdf2 = new Rfc2898DeriveBytes(password, Convert.FromBase64String(salt), 10000, HashAlgorithmName.SHA256);
+            byte[] hashBytes = pbkdf2.GetBytes(32);
+            return Convert.ToBase64String(hashBytes);
         }
 
         public void SetZonaId(int? zonaId)

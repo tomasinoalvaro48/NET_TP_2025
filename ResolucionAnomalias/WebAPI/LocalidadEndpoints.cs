@@ -7,11 +7,11 @@ namespace WebAPI
     {
         public static void MapLocalidadEndpoints(this WebApplication app)
         {
-            app.MapGet("/localidades/{id}", (int id) =>
+            app.MapGet("/localidades/{id}", async (int id) =>
             {
                 LocalidadService localidadService = new LocalidadService();
 
-                var dto = localidadService.Get(id);
+                var dto = await localidadService.GetAsync(id);
 
                 if (dto == null)
                 {
@@ -25,9 +25,9 @@ namespace WebAPI
             .Produces(StatusCodes.Status404NotFound)
             .WithOpenApi();
 
-            app.MapGet("/localidades", () => {
+            app.MapGet("/localidades", async () => {
                 LocalidadService localidadService = new LocalidadService();
-                var dto = localidadService.GetAll();
+                var dto = await localidadService.GetAllAsync();
                 return Results.Ok(dto);
             })
             .WithName("GetAllLocalidades")
@@ -35,10 +35,10 @@ namespace WebAPI
             .WithOpenApi()
             .AllowAnonymous();
 
-            app.MapDelete("/localidades/{id}", (int id) =>
+            app.MapDelete("/localidades/{id}", async (int id) =>
             {
                 LocalidadService localidadService = new LocalidadService();
-                bool rta = localidadService.delete(id);
+                bool rta = await localidadService.DeleteAsync(id);
                 if (rta)
                 {
                     return Results.Ok();
@@ -52,12 +52,12 @@ namespace WebAPI
             .Produces(StatusCodes.Status200OK)
             .WithOpenApi();
 
-            app.MapPost("/localidades", (LocalidadDTO dto) =>
+            app.MapPost("/localidades", async (LocalidadDTO dto) =>
             {
                 try
                 {
                     LocalidadService localidadService = new LocalidadService();
-                    LocalidadDTO localidadDTO = localidadService.Add(dto);
+                    LocalidadDTO localidadDTO = await localidadService.AddAsync(dto);
                     return Results.Created($"/localidad/{localidadDTO.ID}", localidadDTO);
                 }
                 catch (ArgumentException ex)
@@ -70,12 +70,12 @@ namespace WebAPI
             .Produces(StatusCodes.Status400BadRequest)
             .WithOpenApi();
 
-            app.MapPut("/localidades", (LocalidadDTO dto) =>
+            app.MapPut("/localidades", async (LocalidadDTO dto) =>
             {
                 try
                 {
                     LocalidadService localidadService = new LocalidadService();
-                    var found = localidadService.Update(dto);
+                    var found = await localidadService.UpdateAsync(dto);
 
                     if (!found)
                     {

@@ -7,11 +7,10 @@ namespace WebAPI
     {
         public static void MapZonaEndpoints(this WebApplication app)
         {
-
-            app.MapGet("/zonas/{id}", (int id) =>
+            app.MapGet("/zonas/{id}", async (int id) =>
             {
                 ZonaService zonaService = new ZonaService();
-                ZonaDTO dto = zonaService.Get(id);
+                ZonaDTO dto = await zonaService.GetAsync(id);
                 if (dto == null)
                 {
                     return Results.NotFound();
@@ -25,12 +24,10 @@ namespace WebAPI
             .WithOpenApi();
 
 
-
-
-            app.MapGet("/zonas", () =>
+            app.MapGet("/zonas", async () =>
             {
                 ZonaService zonaService = new ZonaService();
-                var dtos = zonaService.GetAll();
+                var dtos = await zonaService.GetAllAsync();
 
                 return Results.Ok(dtos);
             })
@@ -39,12 +36,11 @@ namespace WebAPI
             .WithOpenApi();
 
 
-
             // Get Zonas by Localidad
-            app.MapGet("/zonas/localidad/{id_loc}", (int id_loc) =>
+            app.MapGet("/zonas/localidad/{id_loc}", async (int id_loc) =>
             {
                 ZonaService zonaService = new ZonaService();
-                var dtos = zonaService.GetByLocalidad(id_loc);
+                var dtos = await zonaService.GetByLocalidadAsync(id_loc);
 
                 return Results.Ok(dtos);
             })
@@ -55,14 +51,12 @@ namespace WebAPI
             .AllowAnonymous();
 
 
-
-
-            app.MapPost("/zonas", (ZonaDTO dto) =>
+            app.MapPost("/zonas", async (ZonaDTO dto) =>
             {
                 try
                 {
                     ZonaService zonaService = new ZonaService();
-                    ZonaDTO zonaDTO = zonaService.Add(dto);
+                    ZonaDTO zonaDTO = await zonaService.AddAsync(dto);
 
                     return Results.Created($"/zonas/{zonaDTO.Id}", zonaDTO);
                 }
@@ -77,14 +71,12 @@ namespace WebAPI
             .WithOpenApi();
 
 
-
-
-            app.MapPut("/zonas", (ZonaDTO dto) =>
+            app.MapPut("/zonas", async (ZonaDTO dto) =>
             {
                 try
                 {
                     ZonaService zonaService = new ZonaService();
-                    var found = zonaService.Update(dto);
+                    var found = await zonaService.UpdateAsync(dto);
                     if (!found)
                     {
                         return Results.NotFound();
@@ -103,12 +95,10 @@ namespace WebAPI
             .WithOpenApi();
 
 
-
-
-            app.MapDelete("/zonas/{id}", (int id) =>
+            app.MapDelete("/zonas/{id}", async (int id) =>
             {
                 ZonaService zonaService = new ZonaService();
-                var deleted = zonaService.Delete(id);
+                var deleted = await zonaService.DeleteAsync(id);
                 if (!deleted)
                 {
                     return Results.NotFound();

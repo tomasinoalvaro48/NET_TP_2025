@@ -6,33 +6,33 @@ namespace Application.Services
 {
     public class LocalidadService
     {
-        public LocalidadDTO Add(LocalidadDTO dto)
+        public async Task<LocalidadDTO> AddAsync(LocalidadDTO dto)
         {
             var localidadRepository = new LocalidadRepository();
 
-            if (localidadRepository.CodigoExists(dto.Codigo))
+            if (await localidadRepository.CodigoExistsAsync(dto.Codigo))
             {
                 throw new ArgumentException($"Ya existe una localidad con el código {dto.Codigo}.");
             }
 
             Localidad localidad = new Localidad(0, dto.Codigo, dto.Nombre);
-            localidadRepository.Add(localidad);
+            await localidadRepository.AddAsync(localidad);
 
             dto.ID = localidad.ID;
 
             return dto;
         }
 
-        public bool delete(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
             var localidadRepository = new LocalidadRepository();
-            return localidadRepository.Delete(id);
+            return await localidadRepository.DeleteAsync(id);
         }
 
-        public LocalidadDTO Get(int id)
+        public async Task<LocalidadDTO> GetAsync(int id)
         {
             var localidadRepository = new LocalidadRepository();
-            Localidad? localidad = localidadRepository.GetById(id);
+            Localidad? localidad = await localidadRepository.GetAsync(id);
             if (localidad == null)
             {
                 return null;
@@ -48,10 +48,10 @@ namespace Application.Services
             }
         }
 
-        public IEnumerable<LocalidadDTO> GetAll()
+        public async Task<IEnumerable<LocalidadDTO>> GetAllAsync()
         {
             var localidadRepository = new LocalidadRepository();
-            var localidades = localidadRepository.GetAll();
+            var localidades = await localidadRepository.GetAllAsync();
 
             return localidades.Select(l => new LocalidadDTO
             {
@@ -61,16 +61,16 @@ namespace Application.Services
             }).ToList();
         }
 
-        public bool Update(LocalidadDTO dto)
+        public async Task<bool> UpdateAsync(LocalidadDTO dto)
         {
             var localidadRespository = new LocalidadRepository();
 
-            if (localidadRespository.CodigoExists(dto.Codigo,dto.ID))
+            if (await localidadRespository.CodigoExistsAsync(dto.Codigo,dto.ID))
             {
                 throw new ArgumentException($"Ya existe otro cliente con el Codigo '{dto.Codigo}' .");
             }
             Localidad localidadToUpdate = new Localidad(dto.ID,dto.Codigo ,dto.Nombre);
-            return localidadRespository.Update(localidadToUpdate);
+            return await localidadRespository.UpdateAsync(localidadToUpdate);
         }
     }
 }

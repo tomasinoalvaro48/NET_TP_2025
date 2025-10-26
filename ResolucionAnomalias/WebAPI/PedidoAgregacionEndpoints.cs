@@ -7,11 +7,11 @@ namespace WebAPI
     {
         public static void MapPedidoAgregacionEndpoints(this WebApplication app)
         {
-            app.MapGet("/pedidosAgregacion/{id}", (int id) =>
+            app.MapGet("/pedidosAgregacion/{id}", async (int id) =>
             {
                 PedidoAgregacionService pedidoAgregacionService = new PedidoAgregacionService();
 
-                var dto = pedidoAgregacionService.Get(id);
+                var dto = await pedidoAgregacionService.GetAsync(id);
 
                 if (dto == null)
                 {
@@ -25,9 +25,9 @@ namespace WebAPI
             .Produces(StatusCodes.Status404NotFound)
             .WithOpenApi();
 
-            app.MapGet("/pedidosAgregacion", () => {
+            app.MapGet("/pedidosAgregacion", async () => {
                 PedidoAgregacionService pedidoAgregacionService = new PedidoAgregacionService();
-                var dto = pedidoAgregacionService.GetAll();
+                var dto = await pedidoAgregacionService.GetAllAsync();
                 return Results.Ok(dto);
             })
             .WithName("GetAllPedidosAgregacion")
@@ -35,10 +35,10 @@ namespace WebAPI
             .WithOpenApi()
             .AllowAnonymous();
 
-            app.MapDelete("/pedidosAgregacion/{id}", (int id) =>
+            app.MapDelete("/pedidosAgregacion/{id}", async (int id) =>
             {
                 PedidoAgregacionService pedidoAgregacionService = new PedidoAgregacionService();
-                bool rta = pedidoAgregacionService.delete(id);
+                bool rta = await pedidoAgregacionService.DeleteAsync(id);
                 if (rta)
                 {
                     return Results.Ok();
@@ -52,12 +52,12 @@ namespace WebAPI
             .Produces(StatusCodes.Status200OK)
             .WithOpenApi();
 
-            app.MapPost("/pedidosAgregacion", (PedidoAgregacionDTO dto) =>
+            app.MapPost("/pedidosAgregacion", async (PedidoAgregacionDTO dto) =>
             {
                 try
                 {
                     PedidoAgregacionService pedidoAgregacionService = new PedidoAgregacionService();
-                    PedidoAgregacionDTO pedidoAgregacionDTO = pedidoAgregacionService.Add(dto);
+                    PedidoAgregacionDTO pedidoAgregacionDTO = await pedidoAgregacionService.AddAsync(dto);
                     return Results.Created($"/pedidoAgregacion/{pedidoAgregacionDTO.Id_pedido_agreg}", pedidoAgregacionDTO);
                 }
                 catch (ArgumentException ex)
@@ -70,12 +70,12 @@ namespace WebAPI
             .Produces(StatusCodes.Status400BadRequest)
             .WithOpenApi();
 
-            app.MapPut("/pedidosAgregacion", (PedidoAgregacionDTO dto) =>
+            app.MapPut("/pedidosAgregacion", async (PedidoAgregacionDTO dto) =>
             {
                 try
                 {
                     PedidoAgregacionService pedidoAgregacionService = new PedidoAgregacionService();
-                    var found = pedidoAgregacionService.Update(dto);
+                    var found = await pedidoAgregacionService.UpdateAsync(dto);
 
                     if (!found)
                     {
