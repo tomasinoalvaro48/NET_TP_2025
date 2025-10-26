@@ -8,18 +8,10 @@
 
         public Localidad() { }
 
-        public Localidad(int id, int codigo, string nombre)
+        public Localidad(int codigo, string nombre)
         {
-            SetId(id);
             SetCodigo(codigo);
             SetNombre(nombre);
-        }
-
-        public void SetId(int id)
-        {
-            if (id < 0)
-                throw new ArgumentException("El Id debe ser mayor que 0.", nameof(id));
-            ID = id;
         }
 
         public void SetCodigo(int codigo)

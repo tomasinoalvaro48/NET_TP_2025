@@ -15,7 +15,7 @@ namespace Application.Services
                 throw new ArgumentException($"Ya existe un usuario con el Email '{createDto.Email_usu}'.");
             }
 
-            Usuario usuario = new Usuario(0, createDto.Nombre_usu, createDto.Email_usu, createDto.Passw_usu, createDto.Tipo_usu, createDto.ZonaId);
+            Usuario usuario = new Usuario(createDto.Nombre_usu, createDto.Email_usu, createDto.Passw_usu, createDto.Tipo_usu, createDto.ZonaId);
             
             await usuarioRepository.AddAsync(usuario);
 

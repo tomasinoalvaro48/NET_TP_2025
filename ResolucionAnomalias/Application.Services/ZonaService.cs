@@ -9,7 +9,7 @@ namespace Application.Services
         public async Task<ZonaDTO> AddAsync(ZonaDTO dto)
         {
             var zonaRepository = new ZonaRepository();
-            Zona zona = new Zona(0, dto.Nombre, dto.LocalidadId);
+            Zona zona = new Zona(dto.Nombre, dto.LocalidadId);
             if (await zonaRepository.NombreExistsAsync(dto.LocalidadId, dto.Nombre))
             {
                 throw new ArgumentException($"Ya existe una Zona con el Nombre: '{dto.Nombre}' para esa Localidad.");
@@ -63,11 +63,20 @@ namespace Application.Services
         public async Task<bool> UpdateAsync(ZonaDTO dto)
         {
             var zonaRepository = new ZonaRepository();
+
             if (await zonaRepository.NombreExistsAsync(dto.LocalidadId, dto.Nombre))
             {
                 throw new ArgumentException($"Ya existe una Zona con el Nombre: '{dto.Nombre}' para esa Localidad.");
             }
-            Zona zona = new Zona(dto.Id, dto.Nombre, dto.LocalidadId);
+
+            var zona = await zonaRepository.GetAsync(dto.Id);
+            
+            if (zona == null)
+                return false;
+
+            zona.SetNombre(dto.Nombre);
+            zona.SetLocalidadId(dto.LocalidadId);
+
             return await zonaRepository.UpdateAsync(zona);
         }
 
