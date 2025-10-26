@@ -36,13 +36,19 @@
             EnterCRUDTipoAnomaliaButton = new Button();
             label2 = new Label();
             pedidoAgregacionButton = new Button();
+            menuStripCazador = new MenuStrip();
+            toolStripMenuItemMasAjustes = new ToolStripMenuItem();
+            cerrarSesionToolStripMenuItem = new ToolStripMenuItem();
+            realizarPedidoAgregacionToolStripMenuItem = new ToolStripMenuItem();
+            menuStripCazador.SuspendLayout();
             SuspendLayout();
             // 
             // EnterCRUDLocalidadButton
             // 
-            EnterCRUDLocalidadButton.Location = new Point(264, 90);
+            EnterCRUDLocalidadButton.Location = new Point(321, 401);
+            EnterCRUDLocalidadButton.Margin = new Padding(6);
             EnterCRUDLocalidadButton.Name = "EnterCRUDLocalidadButton";
-            EnterCRUDLocalidadButton.Size = new Size(146, 49);
+            EnterCRUDLocalidadButton.Size = new Size(271, 105);
             EnterCRUDLocalidadButton.TabIndex = 0;
             EnterCRUDLocalidadButton.Text = "CRUD Localidad";
             EnterCRUDLocalidadButton.UseVisualStyleBackColor = true;
@@ -50,9 +56,10 @@
             // 
             // btnCrudZona
             // 
-            btnCrudZona.Location = new Point(264, 168);
+            btnCrudZona.Location = new Point(604, 401);
+            btnCrudZona.Margin = new Padding(6);
             btnCrudZona.Name = "btnCrudZona";
-            btnCrudZona.Size = new Size(146, 49);
+            btnCrudZona.Size = new Size(271, 105);
             btnCrudZona.TabIndex = 1;
             btnCrudZona.Text = "CRUD Zona";
             btnCrudZona.UseVisualStyleBackColor = true;
@@ -61,17 +68,19 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(12, 28);
+            label1.Location = new Point(22, 160);
+            label1.Margin = new Padding(6, 0, 6, 0);
             label1.Name = "label1";
-            label1.Size = new Size(272, 15);
+            label1.Size = new Size(552, 32);
             label1.TabIndex = 2;
             label1.Text = "(menu temporal hasta que agreguemos el pedido)";
             // 
             // logoutButton
             // 
-            logoutButton.Location = new Point(391, 326);
+            logoutButton.Location = new Point(876, 706);
+            logoutButton.Margin = new Padding(6);
             logoutButton.Name = "logoutButton";
-            logoutButton.Size = new Size(131, 23);
+            logoutButton.Size = new Size(187, 49);
             logoutButton.TabIndex = 3;
             logoutButton.Text = "Cerrar sesión";
             logoutButton.UseVisualStyleBackColor = true;
@@ -79,9 +88,10 @@
             // 
             // EnterCRUDUsuarioButton
             // 
-            EnterCRUDUsuarioButton.Location = new Point(73, 90);
+            EnterCRUDUsuarioButton.Location = new Point(38, 401);
+            EnterCRUDUsuarioButton.Margin = new Padding(6);
             EnterCRUDUsuarioButton.Name = "EnterCRUDUsuarioButton";
-            EnterCRUDUsuarioButton.Size = new Size(146, 49);
+            EnterCRUDUsuarioButton.Size = new Size(271, 105);
             EnterCRUDUsuarioButton.TabIndex = 4;
             EnterCRUDUsuarioButton.Text = "CRUD Usuario";
             EnterCRUDUsuarioButton.UseVisualStyleBackColor = true;
@@ -89,9 +99,10 @@
             // 
             // EnterCRUDTipoAnomaliaButton
             // 
-            EnterCRUDTipoAnomaliaButton.Location = new Point(73, 168);
+            EnterCRUDTipoAnomaliaButton.Location = new Point(38, 518);
+            EnterCRUDTipoAnomaliaButton.Margin = new Padding(6);
             EnterCRUDTipoAnomaliaButton.Name = "EnterCRUDTipoAnomaliaButton";
-            EnterCRUDTipoAnomaliaButton.Size = new Size(146, 49);
+            EnterCRUDTipoAnomaliaButton.Size = new Size(271, 105);
             EnterCRUDTipoAnomaliaButton.TabIndex = 5;
             EnterCRUDTipoAnomaliaButton.Text = "CRUD Tipo de Anomalia";
             EnterCRUDTipoAnomaliaButton.UseVisualStyleBackColor = true;
@@ -100,27 +111,62 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(12, 52);
+            label2.Location = new Point(22, 202);
+            label2.Margin = new Padding(6, 0, 6, 0);
             label2.Name = "label2";
-            label2.Size = new Size(403, 15);
+            label2.Size = new Size(818, 32);
             label2.TabIndex = 6;
             label2.Text = "(por ahora solo tiene permitido acceder a localidad y zona, y pedido_agreg)";
             // 
             // pedidoAgregacionButton
             // 
-            pedidoAgregacionButton.Location = new Point(173, 243);
+            pedidoAgregacionButton.Location = new Point(321, 518);
+            pedidoAgregacionButton.Margin = new Padding(6);
             pedidoAgregacionButton.Name = "pedidoAgregacionButton";
-            pedidoAgregacionButton.Size = new Size(146, 49);
+            pedidoAgregacionButton.Size = new Size(271, 105);
             pedidoAgregacionButton.TabIndex = 7;
             pedidoAgregacionButton.Text = "CRUD Pedido de Agregacion";
             pedidoAgregacionButton.UseVisualStyleBackColor = true;
             pedidoAgregacionButton.Click += pedidoAgregacionButton_Click;
             // 
+            // menuStripCazador
+            // 
+            menuStripCazador.ImageScalingSize = new Size(32, 32);
+            menuStripCazador.Items.AddRange(new ToolStripItem[] { toolStripMenuItemMasAjustes, realizarPedidoAgregacionToolStripMenuItem });
+            menuStripCazador.Location = new Point(0, 0);
+            menuStripCazador.Name = "menuStripCazador";
+            menuStripCazador.Size = new Size(1078, 40);
+            menuStripCazador.TabIndex = 9;
+            menuStripCazador.Text = "menuStripCazador";
+            // 
+            // toolStripMenuItemMasAjustes
+            // 
+            toolStripMenuItemMasAjustes.Alignment = ToolStripItemAlignment.Right;
+            toolStripMenuItemMasAjustes.DropDownItems.AddRange(new ToolStripItem[] { cerrarSesionToolStripMenuItem });
+            toolStripMenuItemMasAjustes.Name = "toolStripMenuItemMasAjustes";
+            toolStripMenuItemMasAjustes.Size = new Size(161, 36);
+            toolStripMenuItemMasAjustes.Text = "Más Ajustes";
+            // 
+            // cerrarSesionToolStripMenuItem
+            // 
+            cerrarSesionToolStripMenuItem.Name = "cerrarSesionToolStripMenuItem";
+            cerrarSesionToolStripMenuItem.Size = new Size(359, 44);
+            cerrarSesionToolStripMenuItem.Text = "Cerrar Sesión";
+            cerrarSesionToolStripMenuItem.Click += cerrarSesionToolStripMenuItem_Click;
+            // 
+            // realizarPedidoAgregacionToolStripMenuItem
+            // 
+            realizarPedidoAgregacionToolStripMenuItem.Name = "realizarPedidoAgregacionToolStripMenuItem";
+            realizarPedidoAgregacionToolStripMenuItem.Size = new Size(357, 36);
+            realizarPedidoAgregacionToolStripMenuItem.Text = "Realizar Pedido de Agregación";
+            realizarPedidoAgregacionToolStripMenuItem.Click += realizarPedidoAgregacionToolStripMenuItem_Click;
+            // 
             // MenuCazador
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(534, 361);
+            ClientSize = new Size(1078, 770);
+            Controls.Add(menuStripCazador);
             Controls.Add(pedidoAgregacionButton);
             Controls.Add(label2);
             Controls.Add(EnterCRUDTipoAnomaliaButton);
@@ -129,8 +175,11 @@
             Controls.Add(label1);
             Controls.Add(btnCrudZona);
             Controls.Add(EnterCRUDLocalidadButton);
+            Margin = new Padding(6);
             Name = "MenuCazador";
             Text = "Menu Cazador";
+            menuStripCazador.ResumeLayout(false);
+            menuStripCazador.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -145,5 +194,9 @@
         private Button EnterCRUDTipoAnomaliaButton;
         private Label label2;
         private Button pedidoAgregacionButton;
+        private MenuStrip menuStripCazador;
+        private ToolStripMenuItem toolStripMenuItemMasAjustes;
+        private ToolStripMenuItem cerrarSesionToolStripMenuItem;
+        private ToolStripMenuItem realizarPedidoAgregacionToolStripMenuItem;
     }
 }

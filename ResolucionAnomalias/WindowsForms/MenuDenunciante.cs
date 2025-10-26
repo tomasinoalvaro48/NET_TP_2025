@@ -48,5 +48,23 @@ namespace WindowsForms
 
             this.Close();
         }
+
+        private async void cerrarSesionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            await AuthServiceProvider.Instance.LogoutAsync();
+            AuthServiceProvider.Instance.ClearSession();
+
+            this.Hide();
+
+            var login = new LoginForm();
+            login.ShowDialog();
+
+            this.Close();
+        }
+
+        private void realizarPedidoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

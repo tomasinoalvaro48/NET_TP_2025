@@ -35,13 +35,19 @@
             btnCrudZona = new Button();
             EnterCRUDUsuarioButton = new Button();
             label2 = new Label();
+            menuStripDenunciante = new MenuStrip();
+            toolStripMenuItemMasAjustes = new ToolStripMenuItem();
+            cerrarSesionToolStripMenuItem = new ToolStripMenuItem();
+            realizarPedidoToolStripMenuItem = new ToolStripMenuItem();
+            menuStripDenunciante.SuspendLayout();
             SuspendLayout();
             // 
             // EnterCRUDTipoAnomaliaButton
             // 
-            EnterCRUDTipoAnomaliaButton.Location = new Point(37, 142);
+            EnterCRUDTipoAnomaliaButton.Location = new Point(69, 303);
+            EnterCRUDTipoAnomaliaButton.Margin = new Padding(6);
             EnterCRUDTipoAnomaliaButton.Name = "EnterCRUDTipoAnomaliaButton";
-            EnterCRUDTipoAnomaliaButton.Size = new Size(168, 50);
+            EnterCRUDTipoAnomaliaButton.Size = new Size(312, 107);
             EnterCRUDTipoAnomaliaButton.TabIndex = 0;
             EnterCRUDTipoAnomaliaButton.Text = "CRUD Tipo de Anomalia";
             EnterCRUDTipoAnomaliaButton.UseVisualStyleBackColor = true;
@@ -49,9 +55,10 @@
             // 
             // logoutButton
             // 
-            logoutButton.Location = new Point(359, 227);
+            logoutButton.Location = new Point(667, 484);
+            logoutButton.Margin = new Padding(6);
             logoutButton.Name = "logoutButton";
-            logoutButton.Size = new Size(135, 23);
+            logoutButton.Size = new Size(251, 49);
             logoutButton.TabIndex = 1;
             logoutButton.Text = "Cerrar sesión";
             logoutButton.UseVisualStyleBackColor = true;
@@ -60,17 +67,19 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(19, 19);
+            label1.Location = new Point(35, 72);
+            label1.Margin = new Padding(6, 0, 6, 0);
             label1.Name = "label1";
-            label1.Size = new Size(272, 15);
+            label1.Size = new Size(552, 32);
             label1.TabIndex = 2;
             label1.Text = "(menu temporal hasta que agreguemos el pedido)";
             // 
             // EnterCRUDLocalidadButton
             // 
-            EnterCRUDLocalidadButton.Location = new Point(220, 78);
+            EnterCRUDLocalidadButton.Location = new Point(409, 166);
+            EnterCRUDLocalidadButton.Margin = new Padding(6);
             EnterCRUDLocalidadButton.Name = "EnterCRUDLocalidadButton";
-            EnterCRUDLocalidadButton.Size = new Size(168, 50);
+            EnterCRUDLocalidadButton.Size = new Size(312, 107);
             EnterCRUDLocalidadButton.TabIndex = 3;
             EnterCRUDLocalidadButton.Text = "CRUD Localidad";
             EnterCRUDLocalidadButton.UseVisualStyleBackColor = true;
@@ -78,9 +87,10 @@
             // 
             // btnCrudZona
             // 
-            btnCrudZona.Location = new Point(220, 142);
+            btnCrudZona.Location = new Point(409, 303);
+            btnCrudZona.Margin = new Padding(6);
             btnCrudZona.Name = "btnCrudZona";
-            btnCrudZona.Size = new Size(168, 50);
+            btnCrudZona.Size = new Size(312, 107);
             btnCrudZona.TabIndex = 4;
             btnCrudZona.Text = "CRUD Zona";
             btnCrudZona.UseVisualStyleBackColor = true;
@@ -88,9 +98,10 @@
             // 
             // EnterCRUDUsuarioButton
             // 
-            EnterCRUDUsuarioButton.Location = new Point(37, 78);
+            EnterCRUDUsuarioButton.Location = new Point(69, 166);
+            EnterCRUDUsuarioButton.Margin = new Padding(6);
             EnterCRUDUsuarioButton.Name = "EnterCRUDUsuarioButton";
-            EnterCRUDUsuarioButton.Size = new Size(168, 50);
+            EnterCRUDUsuarioButton.Size = new Size(312, 107);
             EnterCRUDUsuarioButton.TabIndex = 5;
             EnterCRUDUsuarioButton.Text = "CRUD Usuario";
             EnterCRUDUsuarioButton.UseVisualStyleBackColor = true;
@@ -99,17 +110,51 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(20, 40);
+            label2.Location = new Point(35, 119);
+            label2.Margin = new Padding(6, 0, 6, 0);
             label2.Name = "label2";
-            label2.Size = new Size(306, 15);
+            label2.Size = new Size(618, 32);
             label2.TabIndex = 6;
             label2.Text = "(por ahora solo tiene permitido acceder a tipo_anomalia)";
             // 
+            // menuStripDenunciante
+            // 
+            menuStripDenunciante.ImageScalingSize = new Size(32, 32);
+            menuStripDenunciante.Items.AddRange(new ToolStripItem[] { toolStripMenuItemMasAjustes, realizarPedidoToolStripMenuItem });
+            menuStripDenunciante.Location = new Point(0, 0);
+            menuStripDenunciante.Name = "menuStripDenunciante";
+            menuStripDenunciante.Size = new Size(1138, 42);
+            menuStripDenunciante.TabIndex = 8;
+            menuStripDenunciante.Text = "menuStripDenunciante";
+            // 
+            // toolStripMenuItemMasAjustes
+            // 
+            toolStripMenuItemMasAjustes.Alignment = ToolStripItemAlignment.Right;
+            toolStripMenuItemMasAjustes.DropDownItems.AddRange(new ToolStripItem[] { cerrarSesionToolStripMenuItem });
+            toolStripMenuItemMasAjustes.Name = "toolStripMenuItemMasAjustes";
+            toolStripMenuItemMasAjustes.Size = new Size(161, 38);
+            toolStripMenuItemMasAjustes.Text = "Más Ajustes";
+            // 
+            // cerrarSesionToolStripMenuItem
+            // 
+            cerrarSesionToolStripMenuItem.Name = "cerrarSesionToolStripMenuItem";
+            cerrarSesionToolStripMenuItem.Size = new Size(359, 44);
+            cerrarSesionToolStripMenuItem.Text = "Cerrar Sesión";
+            cerrarSesionToolStripMenuItem.Click += cerrarSesionToolStripMenuItem_Click;
+            // 
+            // realizarPedidoToolStripMenuItem
+            // 
+            realizarPedidoToolStripMenuItem.Name = "realizarPedidoToolStripMenuItem";
+            realizarPedidoToolStripMenuItem.Size = new Size(195, 38);
+            realizarPedidoToolStripMenuItem.Text = "Realizar Pedido";
+            realizarPedidoToolStripMenuItem.Click += realizarPedidoToolStripMenuItem_Click;
+            // 
             // MenuDenunciante
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(506, 262);
+            ClientSize = new Size(1138, 559);
+            Controls.Add(menuStripDenunciante);
             Controls.Add(label2);
             Controls.Add(EnterCRUDUsuarioButton);
             Controls.Add(btnCrudZona);
@@ -117,8 +162,11 @@
             Controls.Add(label1);
             Controls.Add(logoutButton);
             Controls.Add(EnterCRUDTipoAnomaliaButton);
+            Margin = new Padding(6);
             Name = "MenuDenunciante";
             Text = "Menu Denunciante";
+            menuStripDenunciante.ResumeLayout(false);
+            menuStripDenunciante.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -132,5 +180,9 @@
         private Button btnCrudZona;
         private Button EnterCRUDUsuarioButton;
         private Label label2;
+        private MenuStrip menuStripDenunciante;
+        private ToolStripMenuItem toolStripMenuItemMasAjustes;
+        private ToolStripMenuItem cerrarSesionToolStripMenuItem;
+        private ToolStripMenuItem realizarPedidoToolStripMenuItem;
     }
 }
