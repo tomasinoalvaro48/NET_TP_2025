@@ -55,5 +55,24 @@ namespace WindowsForms
 
             this.Close();
         }
+
+        private void realizarPedidoAgregacionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PedidoAgregacionLista pedidoAgregacionLista = new PedidoAgregacionLista();
+            pedidoAgregacionLista.ShowDialog();
+        }
+
+        private async void cerrarSesionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            await AuthServiceProvider.Instance.LogoutAsync();
+            AuthServiceProvider.Instance.ClearSession();
+
+            this.Hide();
+
+            var login = new LoginForm();
+            login.ShowDialog();
+
+            this.Close();
+        }
     }
 }

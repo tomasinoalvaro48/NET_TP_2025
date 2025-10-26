@@ -55,5 +55,48 @@ namespace WindowsForms
 
             this.Close();
         }
+
+        private void usuariosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UsuarioLista usuarioLista = new UsuarioLista();
+            usuarioLista.ShowDialog();
+        }
+
+        private void tiposDeAnomaliasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TipoAnomaliaLista tipoLista = new TipoAnomaliaLista();
+            tipoLista.ShowDialog();
+        }
+
+        private void localidadesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LocalidadLista localidadLista = new LocalidadLista();
+            localidadLista.ShowDialog();
+        }
+
+        private void zonasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ZonaLista zonaLista = new ZonaLista();
+            zonaLista.ShowDialog();
+        }
+
+        private void pedidosDeAgregacionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PedidoAgregacionLista pedidoAgregacionLista = new PedidoAgregacionLista();
+            pedidoAgregacionLista.ShowDialog();
+        }
+
+        private async void cerrarSesionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            await AuthServiceProvider.Instance.LogoutAsync();
+            AuthServiceProvider.Instance.ClearSession();
+
+            this.Hide();
+
+            var login = new LoginForm();
+            login.ShowDialog();
+
+            this.Close();
+        }
     }
 }
