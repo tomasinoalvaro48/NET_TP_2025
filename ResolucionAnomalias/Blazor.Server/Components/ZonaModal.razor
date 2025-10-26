@@ -1,0 +1,208 @@
+﻿@using DTOs
+@using API.Clients
+@using API.Clients.EntitiesClients;
+@inject IJSRuntime JSRuntime
+
+@if (showModal)
+{
+    <div class="modal fade show d-block" tabindex="-1" style="background-color: rgba(0,0,0,0.5);">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        @if (mode == FormMode.Add)
+                        {
+                            <text>Agregar</text>
+                        }
+                        else
+                        {
+                            <text>Editar</text>
+                        }
+                    </h5>
+                    <button type="button" class="btn-close" @onclick="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <EditForm Model="currentZona" OnValidSubmit="HandleValidSubmit">
+                        <DataAnnotationsValidator />
+
+                        @if (mode == FormMode.Update)
+                        {
+                            <div class="mb-3">
+                                <label class="form-label">Id</label>
+                                <input type="text" class="form-control" value="@currentZona.Id" readonly />
+                            </div>
+                        }
+
+                        <div class="mb-3">
+                            <label class="form-label">Nombre *</label>
+                            <InputText @bind-Value="currentZona.Nombre" class="form-control" />
+                            @if (validationErrors.ContainsKey("Nombre"))
+                            {
+                                <div class="text-danger small">@validationErrors["Nombre"]</div>
+                            }
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Localidad *</label>
+                            <InputSelect @bind-Value="currentZona.LocalidadId" class="form-select">
+                                <option value="0">Seleccionar Localidad</option>
+                                @if (localidades != null)
+                                {
+                                    @foreach (var localidad in localidades)
+                                    {
+                                        <option value="@localidad.ID">@localidad.Nombre</option>
+                                    }
+                                }
+                            </InputSelect>
+                            @if (validationErrors.ContainsKey("Localidad"))
+                            {
+                                <div class="text-danger small">@validationErrors["Localidad"]</div>
+                            }
+                        </div>
+
+                        @if (!string.IsNullOrEmpty(errorMessage))
+                        {
+                            <div class="alert alert-danger">
+                                @errorMessage
+                            </div>
+                        }
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" @onclick="Close">Cancelar</button>
+                            <button type="submit" class="btn btn-primary" disabled="@saving">
+                                @if (saving)
+                                {
+                                    <span class="spinner-border spinner-border-sm me-2"></span>
+                                }
+                                @(mode == FormMode.Add ? "Agregar" : "Actualizar")
+                            </button>
+                        </div>
+                    </EditForm>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter] public EventCallback OnZonaChanged { get; set; }
+
+    private bool showModal = false;
+    private FormMode mode = FormMode.Add;
+    private ZonaDTO currentZona = new ZonaDTO();
+    private bool saving = false;
+    private string errorMessage = string.Empty;
+    private Dictionary<string, string> validationErrors = new Dictionary<string, string>();
+    private List<LocalidadDTO>? localidades;
+
+    public enum FormMode
+    {
+        Add,
+        Update
+    }
+
+    public async Task ShowAddModal()
+    {
+        mode = FormMode.Add;
+        currentZona = new ZonaDTO();
+        await LoadLocalidades();
+        ClearValidationErrors();
+        showModal = true;
+        StateHasChanged();
+    }
+
+    public async Task ShowEditModal(ZonaDTO zona)
+    {
+        mode = FormMode.Update;
+        currentZona = new ZonaDTO
+            {
+                Id = zona.Id,
+                Nombre = zona.Nombre,
+                LocalidadId = zona.LocalidadId,
+                LocalidadCodigo = zona.LocalidadCodigo,
+                LocalidadNombre = zona.LocalidadNombre
+            };
+        await LoadLocalidades();
+        ClearValidationErrors();
+        showModal = true;
+        StateHasChanged();
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        if (!ValidateZona())
+            return;
+
+        try
+        {
+            saving = true;
+            errorMessage = string.Empty;
+
+            if (mode == FormMode.Add)
+            {
+                await ZonaApiClient.AddAsync(currentZona);
+            }
+            else
+            {
+                await ZonaApiClient.UpdateAsync(currentZona);
+            }
+
+            await OnZonaChanged.InvokeAsync();
+            Close();
+        }
+        catch (Exception ex)
+        {
+            errorMessage = ex.Message;
+        }
+        finally
+        {
+            saving = false;
+        }
+    }
+
+    private bool ValidateZona()
+    {
+        ClearValidationErrors();
+        bool isValid = true;
+
+        if (string.IsNullOrWhiteSpace(currentZona.Nombre))
+        {
+            validationErrors["Nombre"] = "El nombre es requerido";
+            isValid = false;
+        }
+
+        if (currentZona.LocalidadId <= 0)
+        {
+            validationErrors["Localidad"] = "Debe seleccionar una localidad";
+            isValid = false;
+        }
+
+        StateHasChanged();
+        return isValid;
+    }
+
+    private void ClearValidationErrors()
+    {
+        validationErrors.Clear();
+        errorMessage = string.Empty;
+    }
+
+    private async Task LoadLocalidades()
+    {
+        try
+        {
+            localidades = (await LocalidadApiClient.GetAllAsync())?.ToList();
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Error al cargar localidades: {ex.Message}";
+        }
+    }
+
+    private void Close()
+    {
+        showModal = false;
+        ClearValidationErrors();
+        StateHasChanged();
+    }
+}

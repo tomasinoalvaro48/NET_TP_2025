@@ -1,5 +1,183 @@
-﻿<h3>PedidoAgregacionModal</h3>
+﻿@using DTOs
+@using API.Clients
+@using API.Clients.EntitiesClients;
+@inject IJSRuntime JSRuntime
+
+@if (showModal)
+{
+    <div class="modal fade show d-block" tabindex="-1" style="background-color: rgba(0,0,0,0.5);">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        @(mode == FormMode.Add ? "Agregar Pedido Agregacion" : "Editar Pedido Agregacion")
+                    </h5>
+                    <button type="button" class="btn-close" @onclick="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <EditForm Model="currentPedidoAgregacion" OnValidSubmit="HandleValidSubmit">
+                        <DataAnnotationsValidator />
+
+                        @if (mode == FormMode.Update)
+                        {
+                            <div class="mb-3">
+                                <label class="form-label">Id_pedido_agreg</label>
+                                <input type="text" class="form-control" value="@currentPedidoAgregacion.Id_pedido_agreg" readonly />
+                            </div>
+                        }
+
+                        <div class="mb-3">
+                            <label class="form-label">Descripcion_pedido_agreg *</label>
+                            <InputText @bind-Value="currentPedidoAgregacion.Descripcion_pedido_agreg" class="form-control" />
+                            @if (validationErrors.ContainsKey("Descripcion_pedido_agreg"))
+                            {
+                                <div class="text-danger small">@validationErrors["Descripcion_pedido_agreg"]</div>
+                            }
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Dificultad_pedido_agreg *</label>
+                            <InputNumber @bind-Value="currentPedidoAgregacion.Dificultad_pedido_agreg" class="form-control" />
+                            @if (validationErrors.ContainsKey("Dificultad_pedido_agreg"))
+                            {
+                                <div class="text-danger small">@validationErrors["Dificultad_pedido_agreg"]</div>
+                            }
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Estado_pedido_agreg *</label>
+                            <InputText @bind-Value="currentPedidoAgregacion.Estado_pedido_agreg" class="form-control" />
+                            @if (validationErrors.ContainsKey("Estado_pedido_agreg"))
+                            {
+                                <div class="text-danger small">@validationErrors["Estado_pedido_agreg"]</div>
+                            }
+                        </div>
+
+                        @if (!string.IsNullOrEmpty(errorMessage))
+                        {
+                            <div class="alert alert-danger">
+                                @errorMessage
+                            </div>
+                        }
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" @onclick="Close">Cancelar</button>
+                            <button type="submit" class="btn btn-primary" disabled="@saving">
+                                @(saving ? "Guardando..." : mode == FormMode.Add ? "Agregar" : "Actualizar")
+                            </button>
+                        </div>
+                    </EditForm>
+                </div>
+            </div>
+        </div>
+    </div>
+}
 
 @code {
+    [Parameter] public EventCallback OnPedidoAgregacionChanged { get; set; }
 
+    private bool showModal = false;
+    private FormMode mode = FormMode.Add;
+    private PedidoAgregacionDTO currentPedidoAgregacion = new();
+    private bool saving = false;
+    private string errorMessage = string.Empty;
+    private Dictionary<string, string> validationErrors = new();
+
+    public enum FormMode
+    {
+        Add,
+        Update
+    }
+
+    public Task ShowAddModal()
+    {
+        mode = FormMode.Add;
+        currentPedidoAgregacion = new PedidoAgregacionDTO();
+        ClearValidationErrors();
+        showModal = true;
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    public Task ShowEditModal(PedidoAgregacionDTO pedido_agregacion)
+    {
+        mode = FormMode.Update;
+        currentPedidoAgregacion = new PedidoAgregacionDTO
+            {
+                Id_pedido_agreg = pedido_agregacion.Id_pedido_agreg,
+                Descripcion_pedido_agreg = pedido_agregacion.Descripcion_pedido_agreg,
+                Dificultad_pedido_agreg = pedido_agregacion.Dificultad_pedido_agreg,
+                Estado_pedido_agreg = pedido_agregacion.Estado_pedido_agreg
+            };
+        ClearValidationErrors();
+        showModal = true;
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        if (!Validate())
+            return;
+
+        try
+        {
+            saving = true;
+            errorMessage = string.Empty;
+
+            if (mode == FormMode.Add)
+                await PedidoAgregacionApiClient.AddAsync(currentPedidoAgregacion);
+            else
+                await PedidoAgregacionApiClient.UpdateAsync(currentPedidoAgregacion);
+
+            await OnPedidoAgregacionChanged.InvokeAsync();
+            Close();
+        }
+        catch (Exception ex)
+        {
+            errorMessage = ex.Message;
+        }
+        finally
+        {
+            saving = false;
+        }
+    }
+
+    private bool Validate()
+    {
+        ClearValidationErrors();
+        bool isValid = true;
+
+        if (string.IsNullOrWhiteSpace(currentPedidoAgregacion.Descripcion_pedido_agreg))
+        {
+            validationErrors["Descripcion_pedido_agreg"] = "La descripción es requerida";
+            isValid = false;
+        }
+
+        if (currentPedidoAgregacion.Dificultad_pedido_agreg <= 0)
+        {
+            validationErrors["Dificultad_pedido_agreg"] = "La dificultad debe ser mayor que 0";
+            isValid = false;
+        
+        if (string.IsNullOrWhiteSpace(currentPedidoAgregacion.Estado_pedido_agreg))
+        {
+            validationErrors["Estado_pedido_agreg"] = "El estado es requerido";
+            isValid = false;
+        }
+
+        StateHasChanged();
+        return isValid;
+    }
+
+    private void ClearValidationErrors()
+    {
+        validationErrors.Clear();
+        errorMessage = string.Empty;
+    }
+
+    private void Close()
+    {
+        showModal = false;
+        StateHasChanged();
+    }
 }
