@@ -99,6 +99,23 @@ namespace WebAPI
             .Produces(StatusCodes.Status204NoContent)
             .Produces(StatusCodes.Status404NotFound)
             .WithOpenApi();
+
+            app.MapGet("/usuarios/criteria", (string texto) =>
+            {
+                UsuarioService usuarioService = new UsuarioService();
+                try
+                {
+                    var criteria = new CriteriaDTO { Texto = texto };
+                    var usuarios = usuarioService.GetByCriteria(criteria);
+                    return Results.Ok(usuarios);
+                }
+                catch (Exception ex)
+                {
+                    return Results.BadRequest(new { error = ex.Message });
+                }
+            })
+            .WithName("GetUsuariosByCriteria")
+            .WithOpenApi();
         }
     }
 }

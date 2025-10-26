@@ -128,5 +128,33 @@ namespace API.Clients.EntitiesClients
                 throw new Exception($"Timeout al actualizar usuario con Id {usuario.Cod_usu}: {ex.Message}", ex);
             }
         }
+        public static async Task<IEnumerable<UsuarioDTO>> GetByCriteriaAsync(string texto)
+        {
+            try
+            {
+                using var usu = await CreateHttpClientAsync();
+                HttpResponseMessage response = await usu.GetAsync($"usuarios/criteria?texto={Uri.EscapeDataString(texto)}");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var usuarios = await response.Content.ReadFromJsonAsync<IEnumerable<UsuarioDTO>>();
+                    return usuarios ?? new List<UsuarioDTO>();
+                }
+                else
+                {
+                    string errorContent = await response.Content.ReadAsStringAsync();
+                    throw new Exception($"Error al buscar usuarios. Status: {response.StatusCode}, Detalle: {errorContent}");
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new Exception($"Error de conexión al buscar usuarios: {ex.Message}", ex);
+            }
+            catch (TaskCanceledException ex)
+            {
+                throw new Exception($"Timeout al buscar usuarios: {ex.Message}", ex);
+            }
+
+        }
     }
 }

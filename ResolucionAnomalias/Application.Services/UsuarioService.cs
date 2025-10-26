@@ -86,5 +86,30 @@ namespace Application.Services
             Usuario usuario = new Usuario(dto.Cod_usu, dto.Nombre_usu, dto.Email_usu, dto.Passw_usu, dto.Tipo_usu, dto.ZonaId);
             return usuarioRepository.Update(usuario);
         }
+
+        public IEnumerable<UsuarioDTO> GetByCriteria(CriteriaDTO criteriaDTO)
+        {
+            // Mapear DTO a Domain Model
+            var criteria = new UsuarioCriteria(criteriaDTO.Texto);
+
+            // Llamar al repositorio
+            var usuarioRepository = new UsuarioRepository();
+            var clientes = usuarioRepository.GetByCriteria(criteria);
+
+            // Mapear Domain Model a DTO
+            return clientes.Select(usuario => new UsuarioDTO
+            {
+                Cod_usu = usuario.Cod_usu,
+                Nombre_usu = usuario.Nombre_usu,
+                Email_usu = usuario.Email_usu,
+                Passw_usu = usuario.Passw_usu,
+                Tipo_usu = usuario.Tipo_usu,
+                ZonaId = usuario.ZonaId,
+                ZonaNombre = usuario.Zona?.Nombre,
+                LocalidadId = usuario.Zona?.LocalidadId ?? 0,
+                LocalidadCodigo = usuario.Zona?.Localidad?.Codigo.ToString(),
+                LocalidadNombre = usuario.Zona?.Localidad?.Nombre
+            });
+        }
     }
 }

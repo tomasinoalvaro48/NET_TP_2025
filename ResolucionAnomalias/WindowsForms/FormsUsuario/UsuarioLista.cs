@@ -182,5 +182,47 @@ namespace WindowsForms.FormsUsuario
                 this.Close();
             }
         }
+
+        private void BuscarButton_Click(object sender, EventArgs e)
+        {
+            string texto = this.buscarTextBox.Text.Trim();
+            this.GetByCriteriaAndLoad(texto);
+        }
+
+        private async void GetByCriteriaAndLoad(string texto = "")
+        {
+            this.usuariosDataGridView.DataSource = null;
+
+            IEnumerable<UsuarioDTO> clientes;
+            if (string.IsNullOrWhiteSpace(texto))
+            {
+                clientes = await UsuarioApiClient.GetAllAsync();
+            }
+            else
+            {
+                clientes = await UsuarioApiClient.GetByCriteriaAsync(texto);
+            }
+
+            this.usuariosDataGridView.DataSource = clientes;
+
+            // Solo manejar Enabled/Disabled si los botones son visibles (tienen permisos)
+            bool canUpdate = modificarButton.Tag is bool updatePermission && updatePermission;
+            bool canDelete = eliminarButton.Tag is bool deletePermission && deletePermission;
+
+            if (this.usuariosDataGridView.Rows.Count > 0)
+            {
+                this.usuariosDataGridView.Rows[0].Selected = true;
+
+                // Solo habilitar si tiene permisos Y hay elementos
+                if (canDelete) this.eliminarButton.Enabled = true;
+                if (canUpdate) this.modificarButton.Enabled = true;
+            }
+            else
+            {
+                // Solo deshabilitar si son visibles
+                if (canDelete) this.eliminarButton.Enabled = false;
+                if (canUpdate) this.modificarButton.Enabled = false;
+            }
+        }
     }
 }

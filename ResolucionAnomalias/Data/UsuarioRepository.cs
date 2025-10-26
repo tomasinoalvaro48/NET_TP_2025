@@ -81,5 +81,19 @@ namespace Data
             using var context = CreateContext();
             return context.Usuarios.FirstOrDefault(c => c.Email_usu.ToLower() == email.ToLower());
         }
+
+
+        public IEnumerable<Usuario> GetByCriteria(UsuarioCriteria criteria)
+        {
+            using var context = CreateContext();
+            var searchText = criteria.Texto.ToLower();
+            
+            return context.Usuarios
+                .Include(c => c.Zona)
+                .ThenInclude(z => z.Localidad)
+                .Where(u => u.Nombre_usu.ToLower().Contains(searchText) || 
+                            u.Email_usu.ToLower().Contains(searchText))
+                .ToList();
+        }
     }
 }
