@@ -26,11 +26,27 @@
                 </NavLink>
             </div>
         }
+        @if (canReadZonas)
+        {
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="zonas">
+                    <span class="oi oi-map"></span> Zonas
+                </NavLink>
+            </div>
+        }
         @if (canReadTiposAnomalia)
         {
             <div class="nav-item px-3">
                 <NavLink class="nav-link" href="tipos_anomalia">
                     <span class="oi oi-map"></span> TiposAnomalia
+                </NavLink>
+            </div>
+        }
+        @if (canReadPedidosAgregacion)
+        {
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="pedidos_agregacion">
+                    <span class="oi oi-map"></span> PedidosAgregacion
                 </NavLink>
             </div>
         }
@@ -40,7 +56,9 @@
 @code {
     private bool collapseNavMenu = true;
     private bool canReadLocalidades = false;
+    private bool canReadZonas = false;
     private bool canReadTiposAnomalia = false;
+    private bool canReadPedidosAgregacion = false;
 
     private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 
@@ -58,14 +76,20 @@
         if (isAuthenticated)
         {
             //canReadLocalidades = await AuthService.HasPermissionAsync("localidades.leer");
+            //canReadZonas = await AuthService.HasPermissionAsync("zonas.leer");
             //canReadTiposAnomalia = await AuthService.HasPermissionAsync("tipos_anomalia.leer");
+            //canReadPedidosAgregacion = await AuthService.HasPermissionAsync("pedidos_agregacion.leer");
             canReadLocalidades = true;
+            canReadZonas = true;
             canReadTiposAnomalia = true;
+            canReadPedidosAgregacion = true;
         }
         else
         {
             canReadLocalidades = false;
+            canReadZonas = false;
             canReadTiposAnomalia = false;
+            canReadPedidosAgregacion = false;
         }
         StateHasChanged();
     }

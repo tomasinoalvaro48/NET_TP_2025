@@ -1,0 +1,116 @@
+﻿@page "/pedidosAgregacion"
+@using DTOs
+@using API.Clients
+@using API.Clients.EntitiesClients;
+@using Blazor.Server.Components
+@inject IJSRuntime JSRuntime
+@inject IAuthService AuthService
+@inject NavigationManager Navigation
+
+<PageTitle>PedidosAgregacion</PageTitle>
+
+<div class="container-fluid">
+    <h3>PedidosAgregacion</h3>
+
+    @if (canAdd)
+    {
+        <button class="btn btn-primary mb-3" @onclick="OpenAddModal">
+            + Agregar
+        </button>
+    }
+
+    @if (pedidos_agregacion == null)
+    {
+        <p>Cargando...</p>
+    }
+    else
+    {
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Id_pedido_agreg</th>
+                    <th>Descripcion_pedido_agreg</th>
+                    <th>Dificultad_pedido_agreg</th>
+                    <th>Estado_pedido_agreg</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var pa in pedidos_agregacion)
+                {
+                    <tr>
+                        <td>@pa.Id_pedido_agreg</td>
+                        <td>@pa.Descripcion_pedido_agreg</td>
+                        <td>@pa.Dificultad_pedido_agreg</td>
+                        <td>@pa.Estado_pedido_agreg</td>
+                        <td>
+                            @if (canUpdate)
+                            {
+                                <button class="btn btn-sm btn-outline-primary me-1" @onclick="() => OpenEditModal(pa)">Editar</button>
+                            }
+                            @if (canDelete)
+                            {
+                                <button class="btn btn-sm btn-outline-danger" @onclick="() => ConfirmDelete(pa)">Eliminar</button>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+
+<PedidoAgregacionModal @ref="pedidoAgregacionModal" OnPedidoAgregacionChanged="LoadPedidosAgregacion" />
+
+@code {
+    private List<PedidoAgregacionDTO>? pedidos_agregacion;
+    private PedidoAgregacionModal pedidoAgregacionModal = null!;
+
+    private bool canRead, canAdd, canUpdate, canDelete;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            if (!await AuthService.IsAuthenticatedAsync())
+            {
+                Navigation.NavigateTo("/login");
+                return;
+            }
+
+            await LoadPermissions();
+
+            if (canRead)
+                await LoadPedidosAgregacion();
+
+            StateHasChanged();
+        }
+    }
+
+    private async Task LoadPermissions()
+    {
+        canRead = await AuthService.HasPermissionAsync("pedidos_agregacion.leer");
+        canAdd = await AuthService.HasPermissionAsync("pedidos_agregacion.agregar");
+        canUpdate = await AuthService.HasPermissionAsync("pedidos_agregacion.actualizar");
+        canDelete = await AuthService.HasPermissionAsync("pedidos_agregacion.eliminar");
+    }
+
+    private async Task LoadPedidosAgregacion()
+    {
+        pedidos_agregacion = (await PedidoAgregacionApiClient.GetAllAsync())?.ToList();
+    }
+
+    private Task OpenAddModal() => pedidoAgregacionModal.ShowAddModal();
+
+    private Task OpenEditModal(PedidoAgregacionDTO pa) => pedidoAgregacionModal.ShowEditModal(pa);
+
+    private async Task ConfirmDelete(PedidoAgregacionDTO pa)
+    {
+        var confirm = await JSRuntime.InvokeAsync<bool>("confirm", $"¿Eliminar {pa.Descripcion_pedido_agreg}?");
+        if (confirm)
+        {
+            await PedidoAgregacionApiClient.DeleteAsync(pa.Id_pedido_agreg);
+            await LoadPedidosAgregacion();
+        }
+    }
+}

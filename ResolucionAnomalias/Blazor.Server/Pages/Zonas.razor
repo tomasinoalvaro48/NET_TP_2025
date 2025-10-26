@@ -1,0 +1,201 @@
+﻿@page "/zonas"
+@using DTOs
+@using API.Clients
+@using API.Clients.EntitiesClients;
+@using Blazor.Server.Components
+@inject IJSRuntime JSRuntime
+@inject IAuthService AuthService
+@inject NavigationManager Navigation
+
+<PageTitle>Zonas</PageTitle>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <h3>Zonas</h3>
+            
+            @if (!string.IsNullOrEmpty(errorMessage))
+            {
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    @errorMessage
+                    <button type="button" class="btn-close" @onclick="() => errorMessage = string.Empty"></button>
+                </div>
+            }
+            
+            @if (!string.IsNullOrEmpty(successMessage))
+            {
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    @successMessage
+                    <button type="button" class="btn-close" @onclick="() => successMessage = string.Empty"></button>
+                </div>
+            }
+
+            @if (canAdd)
+            {
+                <div class="mb-3">
+                    <button class="btn btn-primary" @onclick="OpenAddModal">
+                        <i class="fas fa-plus"></i> Agregar
+                    </button>
+                </div>
+            }
+
+            @if (loading)
+            {
+                <div class="d-flex justify-content-center">
+                    <div class="spinner-border" role="status">
+                        <span class="visually-hidden">Cargando...</span>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Id</th>
+                                <th>Nombre</th>
+                                <th>Localidad</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (zonas != null && zonas.Any())
+                            {
+                                @foreach (var zona in zonas)
+                                {
+                                    <tr>
+                                        <td>@zona.Id</td>
+                                        <td>@zona.Nombre</td>
+                                        <td>@zona.LocalidadNombre</td>
+                                        <td>
+                                            @if (canUpdate)
+                                            {
+                                                <button class="btn btn-sm btn-outline-primary me-1" @onclick="() => OpenEditModal(zona)">
+                                                    <i class="fas fa-edit"></i> Editar
+                                                </button>
+                                            }
+                                            @if (canDelete)
+                                            {
+                                                <button class="btn btn-sm btn-outline-danger" @onclick="() => ConfirmDelete(zona)">
+                                                    <i class="fas fa-trash"></i> Eliminar
+                                                </button>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<ZonaModal @ref="zonaModal" OnZonaChanged="LoadZonas" />
+
+@code {
+    private List<ZonaDTO>? zonas;
+    private bool loading = true;
+    private string errorMessage = string.Empty;
+    private string successMessage = string.Empty;
+    private ZonaModal zonaModal = null!;
+    
+    // Permisos de autorización
+    private bool canRead = false;
+    private bool canAdd = false;
+    private bool canUpdate = false;
+    private bool canDelete = false;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            // Verificar autenticación antes de cargar datos
+            var isAuthenticated = await AuthService.IsAuthenticatedAsync();
+            if (!isAuthenticated)
+            {
+                Navigation.NavigateTo("/login");
+                return;
+            }
+
+            // Verificar permisos
+            await LoadPermissions();
+            
+            // Solo cargar datos si tiene permiso de lectura
+            if (canRead)
+            {
+                await LoadZonas();
+            }
+            else
+            {
+                errorMessage = "No tiene permisos para ver zonas.";
+            }
+            
+            StateHasChanged();
+        }
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    private async Task LoadPermissions()
+    {
+        canRead = await AuthService.HasPermissionAsync("zonas.leer");
+        canAdd = await AuthService.HasPermissionAsync("zonas.agregar");
+        canUpdate = await AuthService.HasPermissionAsync("zonas.actualizar");
+        canDelete = await AuthService.HasPermissionAsync("zonas.eliminar");
+    }
+
+    private async Task LoadZonas()
+    {
+        try
+        {
+            loading = true;
+            zonas = (await ZonaApiClient.GetAllAsync())?.ToList();
+            successMessage = string.Empty;
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Error al cargar zonas: {ex.Message}";
+        }
+        finally
+        {
+            loading = false;
+        }
+    }
+
+    private async Task OpenAddModal()
+    {
+        await zonaModal.ShowAddModal();
+    }
+
+    private async Task OpenEditModal(ZonaDTO zona)
+    {
+        await zonaModal.ShowEditModal(zona);
+    }
+
+    private async Task ConfirmDelete(ZonaDTO zona)
+    {
+        var confirm = await JSRuntime.InvokeAsync<bool>("confirm", 
+            $"¿Está seguro que desea eliminar la zona {zona.Nombre}?");
+        
+        if (confirm)
+        {
+            await DeleteZona(zona.Id);
+        }
+    }
+
+    private async Task DeleteZona(int id)
+    {
+        try
+        {
+            await ZonaApiClient.DeleteAsync(id);
+            successMessage = "Zona eliminada exitosamente.";
+            await LoadZonas();
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Error al eliminar zona: {ex.Message}";
+        }
+    }
+}
