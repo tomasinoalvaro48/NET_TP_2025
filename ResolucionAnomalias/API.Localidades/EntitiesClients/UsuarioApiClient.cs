@@ -61,7 +61,7 @@ namespace API.Clients.EntitiesClients
             }
         }
 
-        public async static Task AddAsync(UsuarioDTO usuario)
+        public async static Task AddAsync(UsuarioCreateDTO usuario)
         {
             try
             {
@@ -107,7 +107,7 @@ namespace API.Clients.EntitiesClients
             }
         }
 
-        public static async Task UpdateAsync(UsuarioDTO usuario)
+        public static async Task UpdateAsync(UsuarioUpdateDTO usuario)
         {
             try
             {
