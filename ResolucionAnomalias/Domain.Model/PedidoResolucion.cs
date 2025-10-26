@@ -75,8 +75,8 @@ namespace Domain.Model
 
         public int CazadorId
         {
-            get => _denunciante?.Cod_usu ?? _denuncianteId;
-            private set => _denuncianteId = value;
+            get => _cazador?.Cod_usu ?? _cazadorId;
+            private set => _cazadorId = value;
         }
 
 
@@ -99,9 +99,7 @@ namespace Domain.Model
 
 
 
-        public PedidoResolucion()
-        {
-        }
+        public PedidoResolucion(){}
 
         public PedidoResolucion(int id, DateTime fecha, string direccion, string descripcion, string estado, string comentario, int dificultad, int zonaId, int denuncianteId, int cazadorId)
         {

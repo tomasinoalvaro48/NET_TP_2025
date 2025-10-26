@@ -204,13 +204,13 @@ namespace Data
 
                 entity.HasOne(e => e.Zona)
                     .WithMany()
-                    .HasForeignKey(e => e.ZonaId);
+                    .HasForeignKey(e => e.ZonaId)
+                    .OnDelete(DeleteBehavior.Restrict);
 
 
 
 
                 entity.Property(e => e.CazadorId)
-                    .IsRequired()
                     .HasField("_cazadorId");
 
                 entity.Navigation(e => e.Cazador)
@@ -218,7 +218,8 @@ namespace Data
 
                 entity.HasOne(e => e.Cazador)
                     .WithMany()
-                    .HasForeignKey(e => e.CazadorId);
+                    .HasForeignKey(e => e.CazadorId)
+                    .OnDelete(DeleteBehavior.Restrict);
 
 
 
@@ -228,11 +229,12 @@ namespace Data
                     .HasField("_denuncianteId");
 
                 entity.Navigation(e => e.Denunciante)
-                    .HasField("_Denunciante");
+                    .HasField("_denunciante");
 
                 entity.HasOne(e => e.Denunciante)
                     .WithMany()
-                    .HasForeignKey(e => e.DenuncianteId);
+                    .HasForeignKey(e => e.DenuncianteId)
+                    .OnDelete(DeleteBehavior.Restrict);
 
 
 
@@ -250,7 +252,8 @@ namespace Data
 
                     anomalia.HasOne(a => a.TipoAnomalia)
                         .WithMany()
-                        .HasForeignKey(a => a.TipoAnomaliaId);
+                        .HasForeignKey(a => a.TipoAnomaliaId)
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     anomalia.ToTable("AnomaliaPedido");
                 });
