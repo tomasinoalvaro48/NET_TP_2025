@@ -1,6 +1,7 @@
 ﻿using API.Clients;
 using API.Clients.EntitiesClients;
 using DTOs;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace API.Auth.WindowsForms
 {
@@ -85,6 +86,29 @@ namespace API.Auth.WindowsForms
             if (!string.IsNullOrEmpty(_currentToken) && DateTime.UtcNow >= _tokenExpiration)
             {
                 await LogoutAsync();
+            }
+        }
+
+        public async Task<bool> HasPermissionAsync(string permission)
+        {
+            var token = await GetTokenAsync();
+            if (string.IsNullOrEmpty(token))
+                return false;
+
+            try
+            {
+                var handler = new JwtSecurityTokenHandler();
+                var jsonToken = handler.ReadJwtToken(token);
+
+                var permissionClaims = jsonToken.Claims
+                    .Where(c => c.Type == "permission")
+                    .Select(c => c.Value);
+
+                return permissionClaims.Contains(permission);
+            }
+            catch
+            {
+                return false;
             }
         }
 

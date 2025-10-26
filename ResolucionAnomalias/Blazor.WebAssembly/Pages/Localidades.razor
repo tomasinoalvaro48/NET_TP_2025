@@ -1,0 +1,195 @@
+﻿@page "/localidades"
+@using DTOs
+@using API.Clients
+@using API.Clients.EntitiesClients;
+@using Blazor.WebAssembly.Components
+@inject IJSRuntime JSRuntime
+@inject IAuthService AuthService
+@inject NavigationManager Navigation
+
+<PageTitle>Localidades</PageTitle>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <h3>Localidades</h3>
+            
+            @if (!string.IsNullOrEmpty(errorMessage))
+            {
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    @errorMessage
+                    <button type="button" class="btn-close" @onclick="() => errorMessage = string.Empty"></button>
+                </div>
+            }
+            
+            @if (!string.IsNullOrEmpty(successMessage))
+            {
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    @successMessage
+                    <button type="button" class="btn-close" @onclick="() => successMessage = string.Empty"></button>
+                </div>
+            }
+
+            @if (canAdd)
+            {
+                <div class="mb-3">
+                    <button class="btn btn-primary" @onclick="OpenAddModal">
+                        <i class="fas fa-plus"></i> Agregar
+                    </button>
+                </div>
+            }
+
+            @if (loading)
+            {
+                <div class="d-flex justify-content-center">
+                    <div class="spinner-border" role="status">
+                        <span class="visually-hidden">Cargando...</span>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>ID</th>
+                                <th>Codigo</th>
+                                <th>Nombre</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (localidades != null && localidades.Any())
+                            {
+                                @foreach (var localidad in localidades)
+                                {
+                                    <tr>
+                                        <td>@localidad.ID</td>
+                                        <td>@localidad.Codigo</td>
+                                        <td>@localidad.Nombre</td>
+                                        <td>
+                                            @if (canUpdate)
+                                            {
+                                                <button class="btn btn-sm btn-outline-primary me-1" @onclick="() => OpenEditModal(localidad)">
+                                                    <i class="fas fa-edit"></i> Editar
+                                                </button>
+                                            }
+                                            @if (canDelete)
+                                            {
+                                                <button class="btn btn-sm btn-outline-danger" @onclick="() => ConfirmDelete(localidad)">
+                                                    <i class="fas fa-trash"></i> Eliminar
+                                                </button>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<LocalidadModal @ref="localidadModal" OnLocalidadChanged="LoadLocalidades" />
+
+@code {
+    private List<LocalidadDTO>? localidades;
+    private bool loading = true;
+    private string errorMessage = string.Empty;
+    private string successMessage = string.Empty;
+    private LocalidadModal localidadModal = null!;
+    
+    // Permisos de autorización
+    private bool canRead = false;
+    private bool canAdd = false;
+    private bool canUpdate = false;
+    private bool canDelete = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var isAuthenticated = await AuthService.IsAuthenticatedAsync();
+        if (!isAuthenticated)
+        {
+            Navigation.NavigateTo("/login");
+            return;
+        }
+
+        // Verificar permisos
+        await LoadPermissions();
+        
+        // Solo cargar datos si tiene permiso de lectura
+        if (canRead)
+        {
+            await LoadLocalidades();
+        }
+        else
+        {
+            errorMessage = "No tiene permisos para ver localidades.";
+            loading = false;
+        }
+    }
+
+    private async Task LoadPermissions()
+    {
+        canRead = await AuthService.HasPermissionAsync("localidades.leer");
+        canAdd = await AuthService.HasPermissionAsync("localidades.agregar");
+        canUpdate = await AuthService.HasPermissionAsync("localidades.actualizar");
+        canDelete = await AuthService.HasPermissionAsync("localidades.eliminar");
+    }
+
+    private async Task LoadLocalidades()
+    {
+        try
+        {
+            loading = true;
+            localidades = (await LocalidadApiClient.GetAllAsync())?.ToList();
+            successMessage = string.Empty;
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Error al cargar localidades: {ex.Message}";
+        }
+        finally
+        {
+            loading = false;
+        }
+    }
+
+    private async Task OpenAddModal()
+    {
+        await localidadModal.ShowAddModal();
+    }
+
+    private async Task OpenEditModal(LocalidadDTO localidad)
+    {
+        await localidadModal.ShowEditModal(localidad);
+    }
+
+    private async Task ConfirmDelete(LocalidadDTO localidad)
+    {
+        var confirm = await JSRuntime.InvokeAsync<bool>("confirm", 
+            $"¿Está seguro que desea eliminar el localidad {localidad.Codigo} {localidad.Nombre}?");
+        
+        if (confirm)
+        {
+            await DeleteLocalidad(localidad.ID);
+        }
+    }
+
+    private async Task DeleteLocalidad(int id)
+    {
+        try
+        {
+            await LocalidadApiClient.DeleteAsync(id);
+            successMessage = "Localidad eliminada exitosamente.";
+            await LoadLocalidades();
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Error al eliminar localidad: {ex.Message}";
+        }
+    }
+}
