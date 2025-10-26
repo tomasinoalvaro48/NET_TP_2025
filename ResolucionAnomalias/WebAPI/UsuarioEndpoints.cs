@@ -37,7 +37,7 @@ namespace WebAPI
             .Produces<List<UsuarioDTO>>(StatusCodes.Status200OK)
             .WithOpenApi();
 
-            app.MapPost("/usuarios", async (UsuarioDTO dto) =>
+            app.MapPost("/usuarios", async (UsuarioCreateDTO dto) =>
             {
                 try
                 {
@@ -58,7 +58,7 @@ namespace WebAPI
             .WithOpenApi()
             .AllowAnonymous();
 
-            app.MapPut("/usuarios", async (UsuarioDTO dto) =>
+            app.MapPut("/usuarios", async (UsuarioUpdateDTO dto) =>
             {
                 try
                 {
