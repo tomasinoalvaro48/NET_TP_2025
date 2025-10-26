@@ -1,0 +1,114 @@
+﻿@page "/tipoanomalia"
+@using DTOs
+@using API.Clients
+@using API.Clients.EntitiesClients;
+@using Blazor.Server.Components
+@inject IJSRuntime JSRuntime
+@inject IAuthService AuthService
+@inject NavigationManager Navigation
+
+<PageTitle>TiposAnomalia</PageTitle>
+
+<div class="container-fluid">
+    <h3>TiposAnomalia</h3>
+
+    @if (canAdd)
+    {
+        <button class="btn btn-primary mb-3" @onclick="OpenAddModal">
+            + Agregar
+        </button>
+    }
+
+    @if (tipos_anomalia == null)
+    {
+        <p>Cargando...</p>
+    }
+    else
+    {
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Código</th>
+                    <th>Nombre</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var ta in tipos_anomalia)
+                {
+                    <tr>
+                        <td>@ta.Cod_anom</td>
+                        <td>@ta.Nombre_anom</td>
+                        <td>@ta.Dif_anom</td>
+                        <td>
+                            @if (canUpdate)
+                            {
+                                <button class="btn btn-sm btn-outline-primary me-1" @onclick="() => OpenEditModal(ta)">Editar</button>
+                            }
+                            @if (canDelete)
+                            {
+                                <button class="btn btn-sm btn-outline-danger" @onclick="() => ConfirmDelete(ta)">Eliminar</button>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+
+<TipoAnomaliaModal @ref="tipoAnomaliaModal" OnTipoAnomaliaChanged="LoadTiposAnomalia" />
+
+@code {
+    private List<TipoAnomaliaDTO>? tipos_anomalia;
+    private TipoAnomaliaModal tipoAnomaliaModal = null!;
+
+    private bool canRead, canAdd, canUpdate, canDelete;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            if (!await AuthService.IsAuthenticatedAsync())
+            {
+                Navigation.NavigateTo("/login");
+                return;
+            }
+
+            await LoadPermissions();
+
+            if (canRead)
+                await LoadTiposAnomalia();
+
+            StateHasChanged();
+        }
+    }
+
+    private async Task LoadPermissions()
+    {
+        canRead = await AuthService.HasPermissionAsync("tipos_anomalia.leer");
+        canAdd = await AuthService.HasPermissionAsync("tipos_anomalia.agregar");
+        canUpdate = await AuthService.HasPermissionAsync("tipos_anomalia.actualizar");
+        canDelete = await AuthService.HasPermissionAsync("tipos_anomalia.eliminar");
+    }
+
+    private async Task LoadTiposAnomalia()
+    {
+        tipos_anomalia = (await TipoAnomaliaApiClient.GetAllAsync())?.ToList();
+    }
+
+    private Task OpenAddModal() => tipoAnomaliaModal.ShowAddModal();
+
+    private Task OpenEditModal(TipoAnomaliaDTO ta) => tipoAnomaliaModal.ShowEditModal(ta);
+
+    private async Task ConfirmDelete(TipoAnomaliaDTO ta)
+    {
+        var confirm = await JSRuntime.InvokeAsync<bool>("confirm", $"¿Eliminar {ta.Nombre_anom}?");
+        if (confirm)
+        {
+            await TipoAnomaliaApiClient.DeleteAsync(ta.Cod_anom);
+            await LoadTiposAnomalia();
+        }
+    }
+}
