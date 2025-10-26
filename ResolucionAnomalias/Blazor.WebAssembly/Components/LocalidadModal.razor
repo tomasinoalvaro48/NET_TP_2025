@@ -1,0 +1,182 @@
+﻿@using DTOs
+@using API.Clients
+@using API.Clients.EntitiesClients;
+@inject IJSRuntime JSRuntime
+
+@if (showModal)
+{
+    <div class="modal fade show d-block" tabindex="-1" style="background-color: rgba(0,0,0,0.5);">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        @if (mode == FormMode.Add)
+                        {
+                            <text>Agregar</text>
+                        }
+                        else
+                        {
+                            <text>Editar</text>
+                        }
+                    </h5>
+                    <button type="button" class="btn-close" @onclick="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <EditForm Model="currentLocalidad" OnValidSubmit="HandleValidSubmit">
+                        <DataAnnotationsValidator />
+
+                        @if (mode == FormMode.Update)
+                        {
+                            <div class="mb-3">
+                                <label class="form-label">ID</label>
+                                <input type="text" class="form-control" value="@currentLocalidad.ID" readonly />
+                            </div>
+                        }
+
+                        <div class="mb-3">
+                            <label class="form-label">Codigo *</label>
+                            <InputNumber @bind-Value="currentLocalidad.Codigo" class="form-control" />
+                            @if (validationErrors.ContainsKey("Codigo"))
+                            {
+                                <div class="text-danger small">@validationErrors["Codigo"]</div>
+                            }
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Nombre *</label>
+                            <InputText @bind-Value="currentLocalidad.Nombre" class="form-control" />
+                            @if (validationErrors.ContainsKey("Nombre"))
+                            {
+                                <div class="text-danger small">@validationErrors["Nombre"]</div>
+                            }
+                        </div>
+
+                        @if (!string.IsNullOrEmpty(errorMessage))
+                        {
+                            <div class="alert alert-danger">
+                                @errorMessage
+                            </div>
+                        }
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" @onclick="Close">Cancelar</button>
+                            <button type="submit" class="btn btn-primary" disabled="@saving">
+                                @if (saving)
+                                {
+                                    <span class="spinner-border spinner-border-sm me-2"></span>
+                                }
+                                @(mode == FormMode.Add ? "Agregar" : "Actualizar")
+                            </button>
+                        </div>
+                    </EditForm>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter] public EventCallback OnLocalidadChanged { get; set; }
+
+    private bool showModal = false;
+    private FormMode mode = FormMode.Add;
+    private LocalidadDTO currentLocalidad = new LocalidadDTO();
+    private bool saving = false;
+    private string errorMessage = string.Empty;
+    private Dictionary<string, string> validationErrors = new Dictionary<string, string>();
+
+    public enum FormMode
+    {
+        Add,
+        Update
+    }
+
+    public async Task ShowAddModal()
+    {
+        mode = FormMode.Add;
+        currentLocalidad = new LocalidadDTO();
+        ClearValidationErrors();
+        showModal = true;
+        StateHasChanged();
+    }
+
+    public async Task ShowEditModal(LocalidadDTO localidad)
+    {
+        mode = FormMode.Update;
+        currentLocalidad = new LocalidadDTO
+            {
+                ID = localidad.ID,
+                Codigo = localidad.Codigo,
+                Nombre = localidad.Nombre
+            };
+        ClearValidationErrors();
+        showModal = true;
+        StateHasChanged();
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        if (!ValidateLocalidad())
+            return;
+
+        try
+        {
+            saving = true;
+            errorMessage = string.Empty;
+
+            if (mode == FormMode.Add)
+            {
+                await LocalidadApiClient.AddAsync(currentLocalidad);
+            }
+            else
+            {
+                await LocalidadApiClient.UpdateAsync(currentLocalidad);
+            }
+
+            await OnLocalidadChanged.InvokeAsync();
+            Close();
+        }
+        catch (Exception ex)
+        {
+            errorMessage = ex.Message;
+        }
+        finally
+        {
+            saving = false;
+        }
+    }
+
+    private bool ValidateLocalidad()
+    {
+        ClearValidationErrors();
+        bool isValid = true;
+
+        if (currentLocalidad.Codigo <= 0)
+        {
+            validationErrors["Codigo"] = "El código es requerido";
+            isValid = false;
+        }
+
+        if (string.IsNullOrWhiteSpace(currentLocalidad.Nombre))
+        {
+            validationErrors["Nombre"] = "El nombre es requerido";
+            isValid = false;
+        }
+
+        StateHasChanged();
+        return isValid;
+    }
+
+    private void ClearValidationErrors()
+    {
+        validationErrors.Clear();
+        errorMessage = string.Empty;
+    }
+
+    private void Close()
+    {
+        showModal = false;
+        ClearValidationErrors();
+        StateHasChanged();
+    }
+}
