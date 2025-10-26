@@ -6,11 +6,11 @@ namespace WindowsForms
 {
     public partial class SigninDenuncianteForm : Form
     {
-        public UsuarioDTO Usuario { get; set; }
+        //public UsuarioDTO Usuario { get; set; }
         public SigninDenuncianteForm()
         {
             InitializeComponent();
-            Usuario = new UsuarioDTO();
+            //Usuario = new UsuarioDTO();
         }
 
         private bool ValidateUsuario()
@@ -61,12 +61,15 @@ namespace WindowsForms
             {
                 try
                 {
-                    this.Usuario.Nombre_usu = nombreTextBox.Text;
-                    this.Usuario.Email_usu = emailTextBox.Text;
-                    this.Usuario.Passw_usu = contraseniaTextBox.Text;
-                    this.Usuario.Tipo_usu = "Denunciante";
+                    var dto = new UsuarioCreateDTO
+                    {
+                        Nombre_usu = nombreTextBox.Text,
+                        Email_usu = emailTextBox.Text,
+                        Passw_usu = contraseniaTextBox.Text,
+                        Tipo_usu = "Denunciante"
+                    };
 
-                    await UsuarioApiClient.AddAsync(this.Usuario);
+                    await UsuarioApiClient.AddAsync(dto);
                     this.Close();
                 }
                 catch (Exception ex)

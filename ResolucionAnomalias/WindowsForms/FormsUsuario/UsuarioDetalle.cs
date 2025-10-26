@@ -89,7 +89,7 @@ namespace WindowsForms.FormsUsuario
             this.idTextBox.Text = this.Usuario.Cod_usu.ToString();
             this.nombreTextBox.Text = this.Usuario.Nombre_usu;
             this.emailTextBox.Text = this.Usuario.Email_usu;
-            this.contraseniaTextBox.Text = this.Usuario.Passw_usu;
+            //this.contraseniaTextBox.Text = this.Usuario.Passw_usu;
             this.tipoComboBox.SelectedItem = this.Usuario.Tipo_usu;
 
             this.localidadComboBox.SelectedValue = this.Usuario.LocalidadId;
@@ -183,20 +183,32 @@ namespace WindowsForms.FormsUsuario
             {
                 try
                 {
-                    this.usuario.Nombre_usu = nombreTextBox.Text;
-                    this.usuario.Email_usu = emailTextBox.Text;
-                    this.usuario.Passw_usu = contraseniaTextBox.Text;
-                    this.usuario.Tipo_usu = tipoComboBox.SelectedItem.ToString();
-                    this.usuario.LocalidadId = (int)localidadComboBox.SelectedValue;
-                    this.usuario.ZonaId = (int)zonaComboBox.SelectedValue;
-
                     if (this.Mode == FormMode.Update)
                     {
-                        await UsuarioApiClient.UpdateAsync(this.usuario);
+                        var dto = new UsuarioUpdateDTO
+                        {
+                            Cod_usu = usuario.Cod_usu,
+                            Nombre_usu = nombreTextBox.Text,
+                            Email_usu = emailTextBox.Text,
+                            Passw_usu = contraseniaTextBox.Text,
+                            Tipo_usu = tipoComboBox.SelectedItem.ToString(),
+                            ZonaId = (int)zonaComboBox.SelectedValue
+                        };
+
+                        await UsuarioApiClient.UpdateAsync(dto);
                     }
                     else
                     {
-                        await UsuarioApiClient.AddAsync(this.usuario);
+                        var dto = new UsuarioCreateDTO
+                        {
+                            Nombre_usu = nombreTextBox.Text,
+                            Email_usu = emailTextBox.Text,
+                            Passw_usu = contraseniaTextBox.Text,
+                            Tipo_usu = tipoComboBox.SelectedItem.ToString(),
+                            ZonaId = (int)zonaComboBox.SelectedValue
+                        };
+
+                        await UsuarioApiClient.AddAsync(dto);
                     }
                     this.Close();
                 }
