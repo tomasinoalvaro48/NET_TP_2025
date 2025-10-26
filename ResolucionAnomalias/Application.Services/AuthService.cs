@@ -26,9 +26,9 @@ namespace Application.Services
             if (string.IsNullOrWhiteSpace(request.Email) || string.IsNullOrWhiteSpace(request.Password))
                 return null;
 
-            var usuario = usuarioRepository.GetByEmail(request.Email);
+            var usuario = await usuarioRepository.GetByEmailAsync(request.Email);
 
-            if (usuario == null || usuario.Passw_usu != request.Password)
+            if (usuario == null || !usuario.ValidatePassword(request.Password))
                 return null;
 
             var token = GenerateJwtToken(usuario);

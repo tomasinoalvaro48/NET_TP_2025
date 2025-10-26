@@ -6,9 +6,8 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
-builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHttpLogging(o => { });
@@ -37,12 +36,20 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services.AddAuthorization(options =>
 {
-    /*options.AddPolicy("LocalidadesLeer", policy => policy.RequireClaim("permission", "localidades.leer"));
-    options.AddPolicy("LocalidadesAgregar", policy => policy.RequireClaim("permission", "localidades.agregar"));
-    options.AddPolicy("LocalidadesActualizar", policy => policy.RequireClaim("permission", "localidades.actualizar"));
-    options.AddPolicy("LocalidadesEliminar", policy => policy.RequireClaim("permission", "localidades.eliminar"));*/
-
     options.FallbackPolicy = options.DefaultPolicy;
+});
+
+// Add CORS for Blazor WebAssembly
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowBlazorWasm",
+        policy =>
+        {
+            policy.WithOrigins("https://localhost:7170", "http://localhost:5076", "https://localhost:7000")
+                  .AllowAnyHeader()
+                  .AllowAnyMethod()
+                  .AllowCredentials();
+        });
 });
 
 var app = builder.Build();
@@ -52,14 +59,21 @@ if (app.Environment.IsDevelopment())
 {
   app.UseSwagger();
   app.UseSwaggerUI();
+  app.UseHttpLogging();
 }
 
 app.UseHttpsRedirection();
 
+// Use CORS
+app.UseCors("AllowBlazorWasm");
+
+// Use Authentication & Authorization
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
 
+// Map endpoints
 app.MapAuthEndpoints();
 app.MapTipoAnomaliaEndpoints();
 app.MapLocalidadEndpoints();
@@ -67,7 +81,5 @@ app.MapZonaEndpoints();
 app.MapUsuarioEndpoints();
 app.MapPedidoAgregacionEndpoints();
 app.MapPedidoResolucionEndpoints();
-
-//--------------------- Run app --------------------
 
 app.Run();

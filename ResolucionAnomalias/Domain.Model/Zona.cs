@@ -2,8 +2,8 @@
 {
     public class Zona
     {
-        public int Id { get; set; }
-        public string Nombre { get; set; }
+        public int Id { get; private set; }
+        public string Nombre { get; private set; }
 
         private int _localidadId;
         private Localidad? _localidad;

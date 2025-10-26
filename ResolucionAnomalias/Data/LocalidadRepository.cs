@@ -1,4 +1,5 @@
 ﻿using Domain.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace Data
 {
@@ -9,61 +10,61 @@ namespace Data
             return new TPIContext();
         }
 
-        public IEnumerable<Localidad> GetAll()
+        public async Task<IEnumerable<Localidad>> GetAllAsync()
         {
             using var context = CreateContext();
-            return context.Localidades.OrderBy(p=>p.Codigo).ToList();
+            return await context.Localidades.OrderBy(p=>p.Codigo).ToListAsync();
         }
 
-        public void Add(Localidad localidad)
+        public async Task AddAsync(Localidad localidad)
         {
             using var context = CreateContext();
-            context.Localidades.Add(localidad);
-            context.SaveChanges();
+            await context.Localidades.AddAsync(localidad);
+            await context.SaveChangesAsync();
         }
 
-        public bool Delete(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
             using var context = CreateContext();
-            var localidad = context.Localidades.Find(id);
+            var localidad = await context.Localidades.FindAsync(id);
             if (localidad != null)
             {
                 context.Localidades.Remove(localidad);
-                context.SaveChanges();
+                await context.SaveChangesAsync();
                 return true;
             }
             return false;
         }
 
-        public Localidad? GetById(int id)
+        public async Task<Localidad?> GetAsync(int id)
         {
             using var context = CreateContext();
-            return context.Localidades.FirstOrDefault(c=> c.ID == id);
+            return await context.Localidades.FirstOrDefaultAsync(c=> c.ID == id);
         }
 
-        public bool Update(Localidad localidad)
+        public async Task<bool> UpdateAsync(Localidad localidad)
         {
             using var context = CreateContext();
-            var existingLocalidad = context.Localidades.Find(localidad.ID);
+            var existingLocalidad = await context.Localidades.FindAsync(localidad.ID);
             if (existingLocalidad != null)
             {
                 existingLocalidad.SetCodigo(localidad.Codigo);
                 existingLocalidad.SetNombre(localidad.Nombre);
-                context.SaveChanges();
+                await context.SaveChangesAsync();
                 return true ;
             }
             return false;   
         }
 
-        public bool CodigoExists(int codigo, int? excludeId = null)
+        public async Task<bool> CodigoExistsAsync(int codigo, int? excludeId = null)
         {
             using var context = CreateContext();
             var query = context.Localidades.Where(c=>c.Codigo == codigo);
-            if(excludeId.HasValue)
+            if (excludeId.HasValue)
             {
                 query = query.Where(c=> c.ID != excludeId.Value);
             }
-            return query.Any();
+            return await query.AnyAsync();
         }
     }
 }

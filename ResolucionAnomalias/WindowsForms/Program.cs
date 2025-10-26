@@ -55,5 +55,21 @@ namespace WindowsForms
                 }
             }
         }
+
+        private static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
+        {
+            if (e.Exception is UnauthorizedAccessException)
+            {
+                MessageBox.Show("Su sesión ha expirado. Debe volver a autenticarse.", "Sesión Expirada",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                Application.Restart();
+            }
+            else
+            {
+                MessageBox.Show($"Error inesperado: {e.Exception.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }

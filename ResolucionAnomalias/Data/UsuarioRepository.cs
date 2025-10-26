@@ -10,48 +10,48 @@ namespace Data
             return new TPIContext();
         }
 
-        public void Add(Usuario usuario)
+        public async Task AddAsync(Usuario usuario)
         {
             using var context = CreateContext();
-            context.Usuarios.Add(usuario);
-            context.SaveChanges();
+            await context.Usuarios.AddAsync(usuario);
+            await context.SaveChangesAsync();
         }
 
-        public bool Delete(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
             using var context = CreateContext();
-            var usuario = context.Usuarios.Find(id);
+            var usuario = await context.Usuarios.FindAsync(id);
             if (usuario != null)
             {
                 context.Usuarios.Remove(usuario);
-                context.SaveChanges();
+                await context.SaveChangesAsync();
                 return true;
             }
             return false;
         }
 
-        public Usuario? Get(int id)
+        public async Task<Usuario?> GetAsync(int id)
         {
             using var context = CreateContext();
-            return context.Usuarios
+            return await context.Usuarios
                 .Include(c => c.Zona)
                 .ThenInclude(z => z.Localidad)
-                .FirstOrDefault(c => c.Cod_usu == id);
+                .FirstOrDefaultAsync(c => c.Cod_usu == id);
         }
 
-        public IEnumerable<Usuario> GetAll()
+        public async Task<IEnumerable<Usuario>> GetAllAsync()
         {
             using var context = CreateContext();
-            return context.Usuarios
+            return await context.Usuarios
                 .Include(c => c.Zona)
                 .ThenInclude(z => z.Localidad)
-                .ToList();
+                .ToListAsync();
         }
 
-        public bool Update(Usuario usuario)
+        public async Task<bool> UpdateAsync(Usuario usuario)
         {
             using var context = CreateContext();
-            var existingUsuario = context.Usuarios.Find(usuario.Cod_usu);
+            var existingUsuario = await context.Usuarios.FindAsync(usuario.Cod_usu);
             if (existingUsuario != null)
             {
                 existingUsuario.SetNombre_usu(usuario.Nombre_usu);
@@ -59,13 +59,13 @@ namespace Data
                 existingUsuario.SetPassw_usu(usuario.Passw_usu);
                 existingUsuario.SetTipo_usu(usuario.Tipo_usu);
                 existingUsuario.SetZonaId(usuario.ZonaId);
-                context.SaveChanges();
+                await context.SaveChangesAsync();
                 return true;
             }
             return false;
         }
 
-        public bool EmailExists(string email, int? excludeId = null)
+        public async Task<bool> EmailExistsAsync(string email, int? excludeId = null)
         {
             using var context = CreateContext();
             var query = context.Usuarios.Where(c => c.Email_usu.ToLower() == email.ToLower());
@@ -73,27 +73,26 @@ namespace Data
             {
                 query = query.Where(c => c.Cod_usu != excludeId.Value);
             }
-            return query.Any();
+            return await query.AnyAsync();
         }
 
-        public Usuario? GetByEmail(string email)
+        public async Task<Usuario?> GetByEmailAsync(string email)
         {
             using var context = CreateContext();
-            return context.Usuarios.FirstOrDefault(c => c.Email_usu.ToLower() == email.ToLower());
+            return await context.Usuarios.FirstOrDefaultAsync(c => c.Email_usu.ToLower() == email.ToLower());
         }
 
-
-        public IEnumerable<Usuario> GetByCriteria(UsuarioCriteria criteria)
+        public async Task<IEnumerable<Usuario>> GetByCriteriaAsync(UsuarioCriteria criteria)
         {
             using var context = CreateContext();
             var searchText = criteria.Texto.ToLower();
             
-            return context.Usuarios
+            return await context.Usuarios
                 .Include(c => c.Zona)
                 .ThenInclude(z => z.Localidad)
                 .Where(u => u.Nombre_usu.ToLower().Contains(searchText) || 
                             u.Email_usu.ToLower().Contains(searchText))
-                .ToList();
+                .ToListAsync();
         }
     }
 }

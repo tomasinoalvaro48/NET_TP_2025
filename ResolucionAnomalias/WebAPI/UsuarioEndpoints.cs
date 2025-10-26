@@ -7,11 +7,11 @@ namespace WebAPI
     {
         public static void MapUsuarioEndpoints(this WebApplication app)
         {
-            app.MapGet("/usuarios/{id}", (int id) =>
+            app.MapGet("/usuarios/{id}", async (int id) =>
             {
                 UsuarioService usuarioService = new UsuarioService();
 
-                UsuarioDTO dto = usuarioService.Get(id);
+                UsuarioDTO dto = await usuarioService.GetAsync(id);
 
                 if (dto == null)
                 {
@@ -25,11 +25,11 @@ namespace WebAPI
             .Produces(StatusCodes.Status404NotFound)
             .WithOpenApi();
 
-            app.MapGet("/usuarios", () =>
+            app.MapGet("/usuarios", async () =>
             {
                 UsuarioService usuarioService = new UsuarioService();
 
-                var dtos = usuarioService.GetAll();
+                var dtos = await usuarioService.GetAllAsync();
 
                 return Results.Ok(dtos);
             })
@@ -37,13 +37,13 @@ namespace WebAPI
             .Produces<List<UsuarioDTO>>(StatusCodes.Status200OK)
             .WithOpenApi();
 
-            app.MapPost("/usuarios", (UsuarioDTO dto) =>
+            app.MapPost("/usuarios", async (UsuarioDTO dto) =>
             {
                 try
                 {
                     UsuarioService usuarioService = new UsuarioService();
 
-                    UsuarioDTO usuarioDTO = usuarioService.Add(dto);
+                    UsuarioDTO usuarioDTO = await usuarioService.AddAsync(dto);
 
                     return Results.Created($"/usuarios/{usuarioDTO.Cod_usu}", usuarioDTO);
                 }
@@ -58,13 +58,13 @@ namespace WebAPI
             .WithOpenApi()
             .AllowAnonymous();
 
-            app.MapPut("/usuarios", (UsuarioDTO dto) =>
+            app.MapPut("/usuarios", async (UsuarioDTO dto) =>
             {
                 try
                 {
                     UsuarioService usuarioService = new UsuarioService();
 
-                    var found = usuarioService.Update(dto);
+                    var found = await usuarioService.UpdateAsync(dto);
 
                     if (!found)
                     {
@@ -83,11 +83,11 @@ namespace WebAPI
             .Produces(StatusCodes.Status400BadRequest)
             .WithOpenApi();
 
-            app.MapDelete("/usuarios/{id}", (int id) =>
+            app.MapDelete("/usuarios/{id}", async (int id) =>
             {
                 UsuarioService usuarioService = new UsuarioService();
 
-                var deleted = usuarioService.Delete(id);
+                var deleted = await usuarioService.DeleteAsync(id);
 
                 if (!deleted)
                 {
@@ -100,13 +100,13 @@ namespace WebAPI
             .Produces(StatusCodes.Status404NotFound)
             .WithOpenApi();
 
-            app.MapGet("/usuarios/criteria", (string texto) =>
+            app.MapGet("/usuarios/criteria", async (string texto) =>
             {
                 UsuarioService usuarioService = new UsuarioService();
                 try
                 {
                     var criteria = new CriteriaDTO { Texto = texto };
-                    var usuarios = usuarioService.GetByCriteria(criteria);
+                    var usuarios = await usuarioService.GetByCriteriaAsync(criteria);
                     return Results.Ok(usuarios);
                 }
                 catch (Exception ex)

@@ -10,21 +10,21 @@ namespace Data
             return new TPIContext();
         }
 
-        public void Add(Zona zona)
+        public async Task AddAsync(Zona zona)
         {
             using var context = CreateContext();
-            context.Zonas.Add(zona);
-            context.SaveChanges();
+            await context.Zonas.AddAsync(zona);
+            await context.SaveChangesAsync();
         }
 
-        public bool Delete(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
             using var context = CreateContext();
-            var cliente = context.Zonas.Find(id);
+            var cliente = await context.Zonas.FindAsync(id);
             if (cliente != null)
             {
                 context.Zonas.Remove(cliente);
-                context.SaveChanges();
+                await context.SaveChangesAsync();
                 return true;
             }
             else
@@ -33,49 +33,49 @@ namespace Data
             };
         }
 
-        public Zona? Get(int id)
+        public async Task<Zona?> GetAsync(int id)
         {
             using var context = CreateContext();
-            return context.Zonas.Include(e => e.Localidad)
-                .FirstOrDefault(e => e.Id == id);
+            return await context.Zonas.Include(e => e.Localidad)
+                .FirstOrDefaultAsync(e => e.Id == id);
         }
 
         // Buscar todas las Zonas
-        public IEnumerable<Zona> GetAll()
+        public async Task<IEnumerable<Zona>> GetAllAsync()
         {
             using var context = CreateContext();
-            return context.Zonas.Include(e => e.Localidad).ToList();
+            return await context.Zonas.Include(e => e.Localidad).ToListAsync();
         }
 
-        public bool Update(Zona zona)
+        public async Task<bool> UpdateAsync(Zona zona)
         {
             using var context = CreateContext();
-            var existingZona = context.Zonas.Find(zona.Id);
+            var existingZona = await context.Zonas.FindAsync(zona.Id);
             if (existingZona != null)
             {
                 existingZona.SetNombre(zona.Nombre);
                 existingZona.SetLocalidadId(zona.LocalidadId);
 
-                context.SaveChanges();
+                await context.SaveChangesAsync();
                 return true;
 
             }
             return false;
         }
 
-        public IEnumerable<Zona> GetByLocalidad(int id_loc)
+        public async Task<IEnumerable<Zona>> GetByLocalidadAsync(int id_loc)
         {
             using var context = CreateContext();
-            return context.Zonas.Include(e => e.Localidad)
+            return await context.Zonas.Include(e => e.Localidad)
                 .Where(c => c.LocalidadId == id_loc)
-                .ToList();
+                .ToListAsync();
         }
 
-        public bool NombreExists(int id_loc, string nom)
+        public async Task<bool> NombreExistsAsync(int id_loc, string nom)
         {
             using var context = CreateContext();
             var query = context.Zonas.Where(c => c.LocalidadId == id_loc && c.Nombre.ToLower() == nom.ToLower());
-            return query.Any();
+            return await query.AnyAsync();
         }
     }
 }

@@ -7,11 +7,11 @@ namespace WebAPI
     {
         public static void MapTipoAnomaliaEndpoints(this WebApplication app)
         {
-            app.MapGet("/tipoanomalia/{cod_tipo}", (int cod_tipo) =>
+            app.MapGet("/tipoanomalia/{cod_tipo}", async (int cod_tipo) =>
             {
                 TipoAnomaliaService tipoService = new TipoAnomaliaService();
 
-                TipoAnomaliaDTO dto = tipoService.Get(cod_tipo);
+                TipoAnomaliaDTO dto = await tipoService.GetAsync(cod_tipo);
 
                 if (dto == null)
                 {
@@ -25,11 +25,11 @@ namespace WebAPI
             .Produces(StatusCodes.Status404NotFound)
             .WithOpenApi();
 
-            app.MapGet("/tipoanomalia", () =>
+            app.MapGet("/tipoanomalia", async () =>
             {
                 TipoAnomaliaService tipoService = new TipoAnomaliaService();
 
-                var dtos = tipoService.GetAll();
+                var dtos = await tipoService.GetAllAsync();
 
                 return Results.Ok(dtos);
             })
@@ -37,13 +37,13 @@ namespace WebAPI
             .Produces<List<TipoAnomaliaDTO>>(StatusCodes.Status200OK)
             .WithOpenApi();
 
-            app.MapPost("/tipoanomalia", (TipoAnomaliaDTO dto) =>
+            app.MapPost("/tipoanomalia", async (TipoAnomaliaDTO dto) =>
             {
                 try
                 {
                     TipoAnomaliaService tipoService = new TipoAnomaliaService();
 
-                    TipoAnomaliaDTO tipoDTO = tipoService.Add(dto);
+                    TipoAnomaliaDTO tipoDTO = await tipoService.AddAsync(dto);
 
                     return Results.Created($"/tipoanomalia/{tipoDTO.Cod_anom}", tipoDTO);
                 }
@@ -57,13 +57,13 @@ namespace WebAPI
             .Produces(StatusCodes.Status400BadRequest)
             .WithOpenApi();
 
-            app.MapPut("/tipoanomalia", (TipoAnomaliaDTO dto) =>
+            app.MapPut("/tipoanomalia", async (TipoAnomaliaDTO dto) =>
             {
                 try
                 {
                     TipoAnomaliaService tipoService = new TipoAnomaliaService();
 
-                    var found = tipoService.Update(dto);
+                    var found = await tipoService.UpdateAsync(dto);
 
                     if (!found)
                     {
@@ -82,11 +82,11 @@ namespace WebAPI
             .Produces(StatusCodes.Status400BadRequest)
             .WithOpenApi();
 
-            app.MapDelete("/tipoanomalia/{cod_tipo}", (int cod_tipo) =>
+            app.MapDelete("/tipoanomalia/{cod_tipo}", async (int cod_tipo) =>
             {
                 TipoAnomaliaService tipoService = new TipoAnomaliaService();
 
-                var deleted = tipoService.Delete(cod_tipo);
+                var deleted = await tipoService.DeleteAsync(cod_tipo);
 
                 if (!deleted)
                 {

@@ -45,6 +45,7 @@ namespace API.Clients.EntitiesClients
                 }
                 else
                 {
+                    await HandleUnauthorizedResponseAsync(response);
                     string errorContent = await response.Content.ReadAsStringAsync();
                     throw new Exception($"Error al obtener los pedidos de agregacion. Status: {response.StatusCode}, Detalle: {errorContent}");
                 }

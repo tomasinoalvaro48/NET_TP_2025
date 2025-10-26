@@ -6,13 +6,13 @@ namespace Application.Services
 {
     public class PedidoAgregacionService
     {
-        public PedidoAgregacionDTO Add(PedidoAgregacionDTO dto)
+        public async Task<PedidoAgregacionDTO> AddAsync(PedidoAgregacionDTO dto)
         {
             var pedidoAgregacionRepository = new PedidoAgregacionRepository();
 
             var estado = "pendiente";
             PedidoAgregacion pedidoAgregacion = new PedidoAgregacion(0, dto.Descripcion_pedido_agreg, dto.Dificultad_pedido_agreg, estado);
-            pedidoAgregacionRepository.Add(pedidoAgregacion);
+            await pedidoAgregacionRepository.AddAsync(pedidoAgregacion);
 
             dto.Id_pedido_agreg = pedidoAgregacion.Id_pedido_agreg;
             dto.Estado_pedido_agreg = pedidoAgregacion.Estado_pedido_agreg;
@@ -20,16 +20,16 @@ namespace Application.Services
             return dto;
         }
 
-        public bool delete(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
             var pedidoAgregacionRepository = new PedidoAgregacionRepository();
-            return pedidoAgregacionRepository.Delete(id);
+            return await pedidoAgregacionRepository.DeleteAsync(id);
         }
 
-        public PedidoAgregacionDTO Get(int id)
+        public async Task<PedidoAgregacionDTO> GetAsync(int id)
         {
             var pedidoAgregacionRepository = new PedidoAgregacionRepository();
-            PedidoAgregacion? pedidoAgregacion = pedidoAgregacionRepository.GetById(id);
+            PedidoAgregacion? pedidoAgregacion = await pedidoAgregacionRepository.GetAsync(id);
             if (pedidoAgregacion == null)
             {
                 return null;
@@ -46,10 +46,10 @@ namespace Application.Services
             }
         }
 
-        public IEnumerable<PedidoAgregacionDTO> GetAll()
+        public async Task<IEnumerable<PedidoAgregacionDTO>> GetAllAsync()
         {
             var pedidoAgregacionRepository = new PedidoAgregacionRepository();
-            var pedidosAgregacion = pedidoAgregacionRepository.GetAll();
+            var pedidosAgregacion = await pedidoAgregacionRepository.GetAllAsync();
 
             return pedidosAgregacion.Select(pedidoAgregacion => new PedidoAgregacionDTO
             {
@@ -60,11 +60,11 @@ namespace Application.Services
             }).ToList();
         }
 
-        public bool Update(PedidoAgregacionDTO dto)
+        public async Task<bool> UpdateAsync(PedidoAgregacionDTO dto)
         {
             var pedidoAgregacionRespository = new PedidoAgregacionRepository();
             PedidoAgregacion pedidoAgregacionToUpdate = new PedidoAgregacion(dto.Id_pedido_agreg, dto.Descripcion_pedido_agreg, dto.Dificultad_pedido_agreg, dto.Estado_pedido_agreg);
-            return pedidoAgregacionRespository.Update(pedidoAgregacionToUpdate);
+            return await pedidoAgregacionRespository.UpdateAsync(pedidoAgregacionToUpdate);
         }
     }
 }

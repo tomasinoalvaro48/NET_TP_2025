@@ -6,31 +6,31 @@ namespace Application.Services
 {
     public class UsuarioService
     {
-        public UsuarioDTO Add(UsuarioDTO dto)
+        public async Task<UsuarioDTO> AddAsync(UsuarioDTO dto)
         {
             var usuarioRepository = new UsuarioRepository();
 
-            if (usuarioRepository.EmailExists(dto.Email_usu))
+            if (await usuarioRepository.EmailExistsAsync(dto.Email_usu))
             {
                 throw new ArgumentException($"Ya existe un usuario con el Email '{dto.Email_usu}'.");
             }
 
             Usuario usuario = new Usuario(0, dto.Nombre_usu, dto.Email_usu, dto.Passw_usu, dto.Tipo_usu, dto.ZonaId);
-            usuarioRepository.Add(usuario);
+            await usuarioRepository.AddAsync(usuario);
             dto.Cod_usu = usuario.Cod_usu;
             return dto;
         }
 
-        public bool Delete(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
             var usuarioRepository = new UsuarioRepository();
-            return usuarioRepository.Delete(id);
+            return await usuarioRepository.DeleteAsync(id);
         }
 
-        public UsuarioDTO Get(int id)
+        public async Task<UsuarioDTO> GetAsync(int id)
         {
             var usuarioRepository = new UsuarioRepository();
-            Usuario? usuario = usuarioRepository.Get(id);
+            Usuario? usuario = await usuarioRepository.GetAsync(id);
 
             if (usuario == null)
             {
@@ -54,10 +54,10 @@ namespace Application.Services
             }
         }
 
-        public IEnumerable<UsuarioDTO> GetAll()
+        public async Task<IEnumerable<UsuarioDTO>> GetAllAsync()
         {
             var usuarioRepository = new UsuarioRepository();
-            var usuarios = usuarioRepository.GetAll();
+            var usuarios = await usuarioRepository.GetAllAsync();
 
             return usuarios.Select(usuario => new UsuarioDTO
             {
@@ -74,27 +74,27 @@ namespace Application.Services
             }).ToList();
         }
 
-        public bool Update(UsuarioDTO dto)
+        public async Task<bool> UpdateAsync(UsuarioDTO dto)
         {
             var usuarioRepository = new UsuarioRepository();
 
-            if (usuarioRepository.EmailExists(dto.Email_usu, dto.Cod_usu))
+            if (await usuarioRepository.EmailExistsAsync(dto.Email_usu, dto.Cod_usu))
             {
                 throw new ArgumentException($"Ya existe otro usuario con el Email '{dto.Email_usu}'.");
             }
 
             Usuario usuario = new Usuario(dto.Cod_usu, dto.Nombre_usu, dto.Email_usu, dto.Passw_usu, dto.Tipo_usu, dto.ZonaId);
-            return usuarioRepository.Update(usuario);
+            return await usuarioRepository.UpdateAsync(usuario);
         }
 
-        public IEnumerable<UsuarioDTO> GetByCriteria(CriteriaDTO criteriaDTO)
+        public async Task<IEnumerable<UsuarioDTO>> GetByCriteriaAsync(CriteriaDTO criteriaDTO)
         {
             // Mapear DTO a Domain Model
             var criteria = new UsuarioCriteria(criteriaDTO.Texto);
 
             // Llamar al repositorio
             var usuarioRepository = new UsuarioRepository();
-            var clientes = usuarioRepository.GetByCriteria(criteria);
+            var clientes = await usuarioRepository.GetByCriteriaAsync(criteria);
 
             // Mapear Domain Model a DTO
             return clientes.Select(usuario => new UsuarioDTO

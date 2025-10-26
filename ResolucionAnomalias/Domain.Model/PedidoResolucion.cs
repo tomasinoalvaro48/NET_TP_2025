@@ -4,17 +4,17 @@ namespace Domain.Model
     public class PedidoResolucion
     {
 
-        public int Id { get; set; }
-        public DateTime Fecha { get; set; }
-        public string Direccion { get; set; }
+        public int Id { get; private set; }
+        public DateTime Fecha { get; private set; }
+        public string Direccion { get; private set; }
 
-        public string? Descripcion { get; set; }
+        public string? Descripcion { get; private set; }
 
-        public string Estado { get; set; }
+        public string Estado { get; private set; }
 
-        public string? Comentario { get; set; }
+        public string? Comentario { get; private set; }
 
-        public int Dificultad { get; set; }
+        public int Dificultad { get; private set; }
 
 
 

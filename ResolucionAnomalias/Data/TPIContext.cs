@@ -123,6 +123,10 @@ namespace Data
                     .IsRequired()
                     .HasMaxLength(100);
 
+                entity.Property(e => e.Salt)
+                    .IsRequired()
+                    .HasMaxLength(255);
+
                 entity.Property(e => e.Tipo_usu)
                     .IsRequired()
                     .HasMaxLength(20);
@@ -139,16 +143,18 @@ namespace Data
                     .HasForeignKey(e => e.ZonaId)
                     .IsRequired(false);
 
-                entity.HasData(
-                    new {
-                        Cod_usu = 1,
-                        Nombre_usu = "Operador",
-                        Email_usu = "operador@gmail.com",
-                        Passw_usu = "operador", //ver de cambiar para que esté hasheada
-                        Tipo_usu = "Operador",
-                        ZonaId = 1
-                    }
-                );
+                // Usuario operador inicial
+                var opUser = new Domain.Model.Usuario(1, "Operador", "operador@gmail.com", "operador", "Operador", 1);
+                entity.HasData(new
+                {
+                    Cod_usu = opUser.Cod_usu,
+                    Nombre_usu = opUser.Nombre_usu,
+                    Email_usu = opUser.Email_usu,
+                    Passw_usu = opUser.Passw_usu,
+                    Salt = opUser.Salt,
+                    Tipo_usu = opUser.Tipo_usu,
+                    ZonaId = opUser.ZonaId
+                });
             });
 
             modelBuilder.Entity<PedidoAgregacion>(entity =>

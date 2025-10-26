@@ -6,33 +6,29 @@ namespace Application.Services
 {
     public class ZonaService
     {
-        public ZonaDTO Add(ZonaDTO dto)
+        public async Task<ZonaDTO> AddAsync(ZonaDTO dto)
         {
             var zonaRepository = new ZonaRepository();
             Zona zona = new Zona(0, dto.Nombre, dto.LocalidadId);
-            if(zonaRepository.NombreExists(dto.LocalidadId, dto.Nombre))
+            if (await zonaRepository.NombreExistsAsync(dto.LocalidadId, dto.Nombre))
             {
                 throw new ArgumentException($"Ya existe una Zona con el Nombre: '{dto.Nombre}' para esa Localidad.");
             }
-            zonaRepository.Add(zona);
+            await zonaRepository.AddAsync(zona);
             dto.Id = zona.Id;
             return dto;
         }
 
-
-
-        public bool Delete(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
             var zonaRepository = new ZonaRepository();
-            return zonaRepository.Delete(id);
+            return await zonaRepository.DeleteAsync(id);
         }
 
-
-
-        public ZonaDTO Get(int id) 
+        public async Task<ZonaDTO> GetAsync(int id) 
         {
             var zonaRepository = new ZonaRepository();
-            Zona? zona = zonaRepository.Get(id);
+            Zona? zona = await zonaRepository.GetAsync(id);
 
             if (zona == null)
             {
@@ -49,12 +45,10 @@ namespace Application.Services
             }
         }
 
-
-
-        public IEnumerable<ZonaDTO> GetAll() 
+        public async Task<IEnumerable<ZonaDTO>> GetAllAsync() 
         {
             var zonaRepository = new ZonaRepository();
-            var zonas = zonaRepository.GetAll();
+            var zonas = await zonaRepository.GetAllAsync();
 
             return zonas.Select(zona => new ZonaDTO
             {
@@ -66,26 +60,21 @@ namespace Application.Services
             }).ToList();
         }
 
-
-
-        public bool Update(ZonaDTO dto)
+        public async Task<bool> UpdateAsync(ZonaDTO dto)
         {
             var zonaRepository = new ZonaRepository();
-            if (zonaRepository.NombreExists(dto.LocalidadId, dto.Nombre))
+            if (await zonaRepository.NombreExistsAsync(dto.LocalidadId, dto.Nombre))
             {
                 throw new ArgumentException($"Ya existe una Zona con el Nombre: '{dto.Nombre}' para esa Localidad.");
             }
             Zona zona = new Zona(dto.Id, dto.Nombre, dto.LocalidadId);
-            return zonaRepository.Update(zona);
+            return await zonaRepository.UpdateAsync(zona);
         }
 
-
-
-
-        public IEnumerable<ZonaDTO> GetByLocalidad(int id_loc)
+        public async Task<IEnumerable<ZonaDTO>> GetByLocalidadAsync(int id_loc)
         {
             var zonaRepository = new ZonaRepository();
-            var zonas = zonaRepository.GetByLocalidad(id_loc);
+            var zonas = await zonaRepository.GetByLocalidadAsync(id_loc);
             return zonas.Select(zona => new ZonaDTO
             {
                 Id = zona.Id,

@@ -6,10 +6,10 @@ namespace Application.Services
 {
     public class TipoAnomaliaService
     {
-        public TipoAnomaliaDTO Get(int cod_anom)
+        public async Task<TipoAnomaliaDTO> GetAsync(int cod_anom)
         {
             var tipoRepository = new TipoAnomaliaRepository();
-            TipoAnomalia tipo = tipoRepository.GetById(cod_anom);
+            TipoAnomalia tipo = await tipoRepository.GetAsync(cod_anom);
             if (tipo == null)
             {
                 return null;
@@ -25,44 +25,44 @@ namespace Application.Services
             }
         }
 
-        public IEnumerable<TipoAnomalia> GetAll()
+        public async Task<IEnumerable<TipoAnomalia>> GetAllAsync()
         {
             TipoAnomaliaRepository tipoRepository = new TipoAnomaliaRepository();
-            IEnumerable<TipoAnomalia> tipos = tipoRepository.GetAll();
+            IEnumerable<TipoAnomalia> tipos = await tipoRepository.GetAllAsync();
             return tipos;
         }
 
-        public TipoAnomaliaDTO Add(TipoAnomaliaDTO tipo)
+        public async Task<TipoAnomaliaDTO> AddAsync(TipoAnomaliaDTO tipo)
         {
             TipoAnomaliaRepository tipoRepository = new TipoAnomaliaRepository();
 
-            if(tipoRepository.NombreExists(tipo.Nombre_anom))
+            if (await tipoRepository.NombreExistsAsync(tipo.Nombre_anom))
             {
                 throw new ArgumentException($"Ya existe un tipo de anomalía con el código {tipo.Cod_anom}.");
             }
 
             TipoAnomalia ntipo = new TipoAnomalia(tipo.Cod_anom, tipo.Nombre_anom, tipo.Dif_anom);
-            tipoRepository.Add(ntipo);
+            await tipoRepository.AddAsync(ntipo);
 
             return tipo;
         }
 
-        public bool Delete(int cod_anom)
+        public async Task<bool> DeleteAsync(int cod_anom)
         {
             TipoAnomaliaRepository tipoRepository = new TipoAnomaliaRepository();
-            return tipoRepository.Delete(cod_anom);
+            return await tipoRepository.DeleteAsync(cod_anom);
         }
 
-        public bool Update(TipoAnomaliaDTO tipo)
+        public async Task<bool> UpdateAsync(TipoAnomaliaDTO tipo)
         {
             TipoAnomaliaRepository tipoRepository = new TipoAnomaliaRepository();
 
-            if(tipoRepository.NombreExists(tipo.Nombre_anom, tipo.Cod_anom))
+            if (await tipoRepository.NombreExistsAsync(tipo.Nombre_anom, tipo.Cod_anom))
             {
                 throw new ArgumentException($"Ya existe un tipo de anomalía con el código {tipo.Cod_anom}.");
             }
             TipoAnomalia tipoToUpdate = new TipoAnomalia(tipo.Cod_anom, tipo.Nombre_anom, tipo.Dif_anom);
-            return tipoRepository.Update(tipoToUpdate);
+            return await tipoRepository.UpdateAsync(tipoToUpdate);
         }
     }
 }
