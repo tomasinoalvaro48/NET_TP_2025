@@ -37,6 +37,11 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services.AddAuthorization(options =>
 {
+    /*options.AddPolicy("LocalidadesLeer", policy => policy.RequireClaim("permission", "localidades.leer"));
+    options.AddPolicy("LocalidadesAgregar", policy => policy.RequireClaim("permission", "localidades.agregar"));
+    options.AddPolicy("LocalidadesActualizar", policy => policy.RequireClaim("permission", "localidades.actualizar"));
+    options.AddPolicy("LocalidadesEliminar", policy => policy.RequireClaim("permission", "localidades.eliminar"));*/
+
     options.FallbackPolicy = options.DefaultPolicy;
 });
 

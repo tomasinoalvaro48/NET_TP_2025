@@ -56,22 +56,6 @@ namespace API.Auth.WindowsForms
             return false;
         }
 
-        public async Task<UsuarioDTO?> GetCurrentUserAsync()
-        {
-            if (_cachedUser != null)
-                return _cachedUser;
-
-            var username = await GetUsernameAsync();
-
-            if (string.IsNullOrEmpty(username))
-                return null;
-
-            var usuarios = await UsuarioApiClient.GetAllAsync();
-            _cachedUser = usuarios.FirstOrDefault(u => u.Email_usu.Equals(username, StringComparison.OrdinalIgnoreCase));
-
-            return _cachedUser;
-        }
-
         public async Task LogoutAsync()
         {
             _currentToken = null;
@@ -112,6 +96,22 @@ namespace API.Auth.WindowsForms
             }
         }
 
+        public async Task<UsuarioDTO?> GetCurrentUserAsync()
+        {
+            if (_cachedUser != null)
+                return _cachedUser;
+
+            var username = await GetUsernameAsync();
+
+            if (string.IsNullOrEmpty(username))
+                return null;
+
+            var usuarios = await UsuarioApiClient.GetAllAsync();
+            _cachedUser = usuarios.FirstOrDefault(u => u.Email_usu.Equals(username, StringComparison.OrdinalIgnoreCase));
+
+            return _cachedUser;
+        }
+
         public void ClearSession()
         {
             _currentToken = null;
@@ -119,6 +119,5 @@ namespace API.Auth.WindowsForms
             _cachedUser = null;
             _tokenExpiration = default;
         }
-
     }
 }
