@@ -11,7 +11,6 @@ namespace Data
         public DbSet<Zona> Zonas { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<PedidoAgregacion> PedidosAgregacion { get; set; }
-
         public DbSet<PedidoResolucion> PedidosResolucion { get; set; }
 
         internal TPIContext()
@@ -144,10 +143,10 @@ namespace Data
                     .IsRequired(false);
 
                 // Usuario operador inicial
-                var opUser = new Domain.Model.Usuario(1, "Operador", "operador@gmail.com", "operador", "Operador", 1);
+                var opUser = new Domain.Model.Usuario("Operador", "operador@gmail.com", "operador", "Operador", 1);
                 entity.HasData(new
                 {
-                    Cod_usu = opUser.Cod_usu,
+                    Cod_usu = 1,
                     Nombre_usu = opUser.Nombre_usu,
                     Email_usu = opUser.Email_usu,
                     Passw_usu = opUser.Passw_usu,
@@ -200,7 +199,6 @@ namespace Data
 
 
 
-
                 entity.Property(e => e.ZonaId)
                     .IsRequired()
                     .HasField("_zonaId");
@@ -212,7 +210,6 @@ namespace Data
                     .WithMany()
                     .HasForeignKey(e => e.ZonaId)
                     .OnDelete(DeleteBehavior.Restrict);
-
 
 
 
@@ -229,7 +226,6 @@ namespace Data
 
 
 
-
                 entity.Property(e => e.DenuncianteId)
                     .IsRequired()
                     .HasField("_denuncianteId");
@@ -241,7 +237,6 @@ namespace Data
                     .WithMany()
                     .HasForeignKey(e => e.DenuncianteId)
                     .OnDelete(DeleteBehavior.Restrict);
-
 
 
 
@@ -263,8 +258,6 @@ namespace Data
 
                     anomalia.ToTable("AnomaliaPedido");
                 });
-
-
             });
         }
     }

@@ -11,7 +11,7 @@ namespace Application.Services
             var pedidoAgregacionRepository = new PedidoAgregacionRepository();
 
             var estado = "pendiente";
-            PedidoAgregacion pedidoAgregacion = new PedidoAgregacion(0, dto.Descripcion_pedido_agreg, dto.Dificultad_pedido_agreg, estado);
+            PedidoAgregacion pedidoAgregacion = new PedidoAgregacion(dto.Descripcion_pedido_agreg, dto.Dificultad_pedido_agreg, estado);
             await pedidoAgregacionRepository.AddAsync(pedidoAgregacion);
 
             dto.Id_pedido_agreg = pedidoAgregacion.Id_pedido_agreg;
@@ -63,8 +63,16 @@ namespace Application.Services
         public async Task<bool> UpdateAsync(PedidoAgregacionDTO dto)
         {
             var pedidoAgregacionRespository = new PedidoAgregacionRepository();
-            PedidoAgregacion pedidoAgregacionToUpdate = new PedidoAgregacion(dto.Id_pedido_agreg, dto.Descripcion_pedido_agreg, dto.Dificultad_pedido_agreg, dto.Estado_pedido_agreg);
-            return await pedidoAgregacionRespository.UpdateAsync(pedidoAgregacionToUpdate);
+            var pedidoToUpdate = await pedidoAgregacionRespository.GetAsync(dto.Id_pedido_agreg);
+            
+            if (pedidoToUpdate == null)
+                return false;
+
+            pedidoToUpdate.SetDescripcion(dto.Descripcion_pedido_agreg);
+            pedidoToUpdate.SetDificultad(dto.Dificultad_pedido_agreg);
+            pedidoToUpdate.SetEstado(dto.Estado_pedido_agreg);
+
+            return await pedidoAgregacionRespository.UpdateAsync(pedidoToUpdate);
         }
     }
 }

@@ -9,19 +9,11 @@
 
         public PedidoAgregacion() { }
 
-        public PedidoAgregacion(int id, string descripcion, int dificultad, string estado)
+        public PedidoAgregacion(string descripcion, int dificultad, string estado)
         {
-            SetId(id);
             SetDescripcion(descripcion);
             SetDificultad(dificultad);
             SetEstado(estado);
-        }
-
-        public void SetId(int id)
-        {
-            if (id < 0)
-                throw new ArgumentException("El id debe ser mayor que 0.", nameof(id));
-            Id_pedido_agreg = id;
         }
 
         public void SetDescripcion(string descripcion)

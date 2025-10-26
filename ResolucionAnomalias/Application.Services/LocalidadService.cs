@@ -15,7 +15,7 @@ namespace Application.Services
                 throw new ArgumentException($"Ya existe una localidad con el código {dto.Codigo}.");
             }
 
-            Localidad localidad = new Localidad(0, dto.Codigo, dto.Nombre);
+            Localidad localidad = new Localidad(dto.Codigo, dto.Nombre);
             await localidadRepository.AddAsync(localidad);
 
             dto.ID = localidad.ID;
@@ -63,14 +63,22 @@ namespace Application.Services
 
         public async Task<bool> UpdateAsync(LocalidadDTO dto)
         {
-            var localidadRespository = new LocalidadRepository();
+            var localidadRepository = new LocalidadRepository();
 
-            if (await localidadRespository.CodigoExistsAsync(dto.Codigo,dto.ID))
+            if (await localidadRepository.CodigoExistsAsync(dto.Codigo,dto.ID))
             {
                 throw new ArgumentException($"Ya existe otro cliente con el Codigo '{dto.Codigo}' .");
             }
-            Localidad localidadToUpdate = new Localidad(dto.ID,dto.Codigo ,dto.Nombre);
-            return await localidadRespository.UpdateAsync(localidadToUpdate);
+
+            Localidad localidadToUpdate = await localidadRepository.GetAsync(dto.ID);
+
+            if (localidadToUpdate == null)
+                return false;
+
+            localidadToUpdate.SetCodigo(dto.Codigo);
+            localidadToUpdate.SetNombre(dto.Nombre);
+
+            return await localidadRepository.UpdateAsync(localidadToUpdate);
         }
     }
 }

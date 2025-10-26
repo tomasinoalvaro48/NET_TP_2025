@@ -14,7 +14,6 @@ namespace Application.Services
             var estadoPedido = "activo";
 
             var pedido = new PedidoResolucion(
-                0,
                 fechaPedido, 
                 dto.Direccion, 
                 dto.Descripcion, 
@@ -112,27 +111,29 @@ namespace Application.Services
         {
             var pedidoRepository = new PedidoResolucionRepository();
 
-            var pedido = new PedidoResolucion(
-                dto.Id,
-                dto.Fecha,
-                dto.Direccion,
-                dto.Descripcion,
-                dto.Estado,
-                dto.Comentario,
-                dto.Dificultad,
-                dto.ZonaId,
-                dto.DenuncianteId,
-                dto.CazadorId
-            );
+            var pedidoToUpdate = await pedidoRepository.GetAsync(dto.Id);
+            
+            if (pedidoToUpdate == null)
+                return false;
 
-            foreach(var anomaliaDto in dto.Anomalias)
+            pedidoToUpdate.setFecha(dto.Fecha);
+            pedidoToUpdate.setDireccion(dto.Direccion);
+            pedidoToUpdate.setDescripcion(dto.Descripcion);
+            pedidoToUpdate.setEstado(dto.Estado);
+            pedidoToUpdate.setComentario(dto.Comentario);
+            pedidoToUpdate.setDificultad(dto.Dificultad);
+
+            pedidoToUpdate.SetZonaId(dto.ZonaId);
+            pedidoToUpdate.SetDenuncianteId(dto.DenuncianteId);
+            pedidoToUpdate.SetCazadorId(dto.CazadorId);
+
+            foreach (var anomaliaDto in dto.Anomalias)
             {
                 var anomaliaPedido = new AnomaliaPedido(0, anomaliaDto.TipoAnomaliaId);
-                pedido.AddAnomaliaPedido(anomaliaPedido);
+                pedidoToUpdate.AddAnomaliaPedido(anomaliaPedido);
             }
-            return await pedidoRepository.UpdateAsync(pedido);
 
-
+            return await pedidoRepository.UpdateAsync(pedidoToUpdate);
         }
     }
 }

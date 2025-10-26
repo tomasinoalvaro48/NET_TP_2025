@@ -33,9 +33,8 @@ namespace Domain.Model
 
         private Usuario() { }
 
-        public Usuario(int cod_usu, string nombre_usu, string email_usu, string passw_usu, string tipo_usu, int? zonaId = null)
+        public Usuario(string nombre_usu, string email_usu, string passw_usu, string tipo_usu, int? zonaId = null)
         {
-            SetCod_usu(cod_usu);
             SetNombre_usu(nombre_usu);
             SetEmail_usu(email_usu);
             SetPassw_usu(passw_usu);
@@ -48,13 +47,6 @@ namespace Domain.Model
             {
                 _zonaId = null;
             }
-        }
-
-        public void SetCod_usu(int cod_usu)
-        {
-            if (cod_usu < 0)
-                throw new ArgumentException("El código del usuario debe ser mayor que 0.", nameof(cod_usu));
-            Cod_usu = cod_usu;
         }
 
         public void SetNombre_usu(string nombre_usu)

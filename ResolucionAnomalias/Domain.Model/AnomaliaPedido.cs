@@ -8,7 +8,6 @@ namespace Domain.Model
 {
     public class AnomaliaPedido
     {
-
         public int PedidoId { get; private set; }
 
         private int _tipoAnomaliaId;
@@ -55,7 +54,6 @@ namespace Domain.Model
             {
                 _tipoAnomalia = null;
             }
-
         }
 
         public void SetTipoAnomalia(TipoAnomalia tipoAnomalia)
@@ -64,10 +62,5 @@ namespace Domain.Model
             _tipoAnomalia = tipoAnomalia;
             _tipoAnomaliaId = tipoAnomalia.Cod_anom;
         }
-
-
-
-
-
     }
 }

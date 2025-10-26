@@ -29,19 +29,10 @@
 
         public Zona() { }
 
-        public Zona(int id, string nombre, int localidadId)
+        public Zona(string nombre, int localidadId)
         {
-            SetId(id);
             SetNombre(nombre);
             SetLocalidadId(localidadId);
-
-        }
-
-        public void SetId(int id)
-        {
-            if (id < 0)
-                throw new ArgumentException("El Id debe ser mayor que 0.", nameof(id));
-            Id = id;
         }
 
         public void SetNombre(string nombre)
@@ -59,7 +50,6 @@
 
             if(_localidad != null && _localidad.ID != localidadId)
             { _localidad = null; }
-
         }
 
         public void SetLocalidad(Localidad localidad)

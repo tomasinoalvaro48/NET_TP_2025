@@ -1,21 +1,14 @@
-﻿
-namespace Domain.Model
+﻿namespace Domain.Model
 {
     public class PedidoResolucion
     {
-
         public int Id { get; private set; }
         public DateTime Fecha { get; private set; }
         public string Direccion { get; private set; }
-
         public string? Descripcion { get; private set; }
-
         public string Estado { get; private set; }
-
         public string? Comentario { get; private set; }
-
         public int Dificultad { get; private set; }
-
 
 
         private int _zonaId;
@@ -99,11 +92,10 @@ namespace Domain.Model
 
 
 
-        public PedidoResolucion(){}
+        public PedidoResolucion() {}
 
-        public PedidoResolucion(int id, DateTime fecha, string direccion, string descripcion, string estado, string comentario, int dificultad, int zonaId, int denuncianteId, int cazadorId)
+        public PedidoResolucion(DateTime fecha, string direccion, string descripcion, string estado, string comentario, int dificultad, int zonaId, int denuncianteId, int cazadorId)
         {
-            setId(id);
             setFecha(fecha);
             setDireccion(direccion);
             setDescripcion(descripcion);
@@ -114,15 +106,6 @@ namespace Domain.Model
             SetZonaId(zonaId);
             SetCazadorId(cazadorId);
             SetDenuncianteId(denuncianteId);
-
-        }
-
-
-        public void setId(int id)
-        {
-            if (id < 0)
-                throw new ArgumentException("El id debe ser mayor o igual a 0.", nameof(id));
-            Id = id;
         }
 
         public void setFecha(DateTime fecha)
@@ -146,14 +129,12 @@ namespace Domain.Model
             Descripcion = descripcion;
         }
 
-
         public void setEstado(string estado)
         {
             if (string.IsNullOrWhiteSpace(estado))
                 throw new ArgumentException("El estado no puede ser nulo o vacío.", nameof(estado));
             Estado = estado;
         }
-
 
         public void setComentario(string comentario)
         {
@@ -242,7 +223,6 @@ namespace Domain.Model
         public void ClearAnomaliaPedidos()
         {
             _anomaliaPedido.Clear();
-
         }
     }
 }
