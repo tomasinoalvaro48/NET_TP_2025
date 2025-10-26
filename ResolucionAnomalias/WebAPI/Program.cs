@@ -65,6 +65,7 @@ app.MapTipoAnomaliaEndpoints();
 app.MapLocalidadEndpoints();
 app.MapZonaEndpoints();
 app.MapUsuarioEndpoints();
+app.MapPedidoResolucionEndpoints();
 app.MapPedidoAgregacionEndpoints();
 
 //--------------------- Run app --------------------
