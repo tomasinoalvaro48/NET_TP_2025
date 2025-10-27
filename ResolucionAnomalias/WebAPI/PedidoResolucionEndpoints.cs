@@ -58,7 +58,7 @@ namespace WebAPI
             .Produces(StatusCodes.Status400BadRequest)
             .WithOpenApi();
 
-            app.MapPut("/pedidos_resolucion", async (PedidoResolucionDTO dto) =>
+            app.MapPatch("/pedidos_resolucion/tomar_pedido", async (PedidoResolucionDTO dto) =>
             {
                 try
                 {
@@ -98,6 +98,33 @@ namespace WebAPI
             })
             .WithName("DeletePedido")
             .Produces(StatusCodes.Status204NoContent)
+            .Produces(StatusCodes.Status404NotFound)
+            .WithOpenApi();
+
+            app.MapPatch("/pedidos_resolucion/finalizar_pedido/{id}", async (int id) =>             {
+                PedidoResolucionService pedidoService = new PedidoResolucionService();
+                var updated = await pedidoService.FinalizarPedidoAsync(id);
+                if (!updated)
+                {
+                    return Results.NotFound();
+                }
+                return Results.NoContent();
+            }).
+            WithName("FinalizarPedido").
+            Produces(StatusCodes.Status204NoContent).
+            Produces(StatusCodes.Status404NotFound).
+            WithOpenApi();
+
+            app.MapGet("/pedidos_resolucion/pedidos_denunciante/{id}", async (int id) =>
+            {
+                PedidoResolucionService pedidoService = new PedidoResolucionService();
+
+                var dtos = await pedidoService.GetAllDenunciante(id);
+
+                return Results.Ok(dtos);
+            })
+            .WithName("GetAllPedidosDenunciante")
+            .Produces<List<PedidoResolucionDTO>>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status404NotFound)
             .WithOpenApi();
 

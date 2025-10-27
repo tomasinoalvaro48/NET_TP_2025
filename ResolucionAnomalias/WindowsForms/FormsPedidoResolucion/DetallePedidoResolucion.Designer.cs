@@ -125,7 +125,7 @@
             // 
             // buttonCancelar
             // 
-            buttonCancelar.Location = new Point(604, 462);
+            buttonCancelar.Location = new Point(386, 467);
             buttonCancelar.Name = "buttonCancelar";
             buttonCancelar.Size = new Size(94, 29);
             buttonCancelar.TabIndex = 11;
@@ -135,9 +135,9 @@
             // 
             // buttonAceptar
             // 
-            buttonAceptar.Location = new Point(484, 466);
+            buttonAceptar.Location = new Point(534, 467);
             buttonAceptar.Name = "buttonAceptar";
-            buttonAceptar.Size = new Size(94, 29);
+            buttonAceptar.Size = new Size(213, 29);
             buttonAceptar.TabIndex = 12;
             buttonAceptar.Text = "Aceptar";
             buttonAceptar.UseVisualStyleBackColor = true;
@@ -242,6 +242,7 @@
             // 
             textBoxFecha.Location = new Point(504, 33);
             textBoxFecha.Name = "textBoxFecha";
+            textBoxFecha.ReadOnly = true;
             textBoxFecha.Size = new Size(231, 27);
             textBoxFecha.TabIndex = 24;
             // 
@@ -264,7 +265,7 @@
             // 
             // textBoxDenunciante
             // 
-            textBoxDenunciante.Location = new Point(172, 84);
+            textBoxDenunciante.Location = new Point(172, 74);
             textBoxDenunciante.Name = "textBoxDenunciante";
             textBoxDenunciante.ReadOnly = true;
             textBoxDenunciante.Size = new Size(200, 27);

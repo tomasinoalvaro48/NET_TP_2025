@@ -1,5 +1,6 @@
 ﻿using API.Clients;
 using WindowsForms.FormsPedidoAgregacion;
+using WindowsForms.FormsPedidoResolucion;
 using WindowsForms.FormsTipoAnomalia;
 using WindowsForms.FormsUsuario;
 using WindowsForms.FormsZona;
@@ -73,6 +74,12 @@ namespace WindowsForms
             login.ShowDialog();
 
             this.Close();
+        }
+
+        private void buttonTomarPedido_Click(object sender, EventArgs e)
+        {
+            ListaPedidoResolucion pedidoResolucion = new ListaPedidoResolucion();
+            pedidoResolucion.ShowDialog();
         }
     }
 }

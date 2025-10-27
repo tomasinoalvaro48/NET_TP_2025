@@ -39,15 +39,16 @@
             toolStripMenuItemMasAjustes = new ToolStripMenuItem();
             cerrarSesionToolStripMenuItem = new ToolStripMenuItem();
             realizarPedidoToolStripMenuItem = new ToolStripMenuItem();
+            buttonPedidoResolucion = new Button();
             menuStripDenunciante.SuspendLayout();
             SuspendLayout();
             // 
             // EnterCRUDTipoAnomaliaButton
             // 
-            EnterCRUDTipoAnomaliaButton.Location = new Point(69, 303);
-            EnterCRUDTipoAnomaliaButton.Margin = new Padding(6);
+            EnterCRUDTipoAnomaliaButton.Location = new Point(42, 189);
+            EnterCRUDTipoAnomaliaButton.Margin = new Padding(4, 4, 4, 4);
             EnterCRUDTipoAnomaliaButton.Name = "EnterCRUDTipoAnomaliaButton";
-            EnterCRUDTipoAnomaliaButton.Size = new Size(312, 107);
+            EnterCRUDTipoAnomaliaButton.Size = new Size(192, 67);
             EnterCRUDTipoAnomaliaButton.TabIndex = 0;
             EnterCRUDTipoAnomaliaButton.Text = "CRUD Tipo de Anomalia";
             EnterCRUDTipoAnomaliaButton.UseVisualStyleBackColor = true;
@@ -55,10 +56,10 @@
             // 
             // logoutButton
             // 
-            logoutButton.Location = new Point(667, 484);
-            logoutButton.Margin = new Padding(6);
+            logoutButton.Location = new Point(410, 302);
+            logoutButton.Margin = new Padding(4, 4, 4, 4);
             logoutButton.Name = "logoutButton";
-            logoutButton.Size = new Size(251, 49);
+            logoutButton.Size = new Size(154, 31);
             logoutButton.TabIndex = 1;
             logoutButton.Text = "Cerrar sesión";
             logoutButton.UseVisualStyleBackColor = true;
@@ -67,19 +68,19 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(35, 72);
-            label1.Margin = new Padding(6, 0, 6, 0);
+            label1.Location = new Point(22, 45);
+            label1.Margin = new Padding(4, 0, 4, 0);
             label1.Name = "label1";
-            label1.Size = new Size(552, 32);
+            label1.Size = new Size(344, 20);
             label1.TabIndex = 2;
             label1.Text = "(menu temporal hasta que agreguemos el pedido)";
             // 
             // EnterCRUDLocalidadButton
             // 
-            EnterCRUDLocalidadButton.Location = new Point(409, 166);
-            EnterCRUDLocalidadButton.Margin = new Padding(6);
+            EnterCRUDLocalidadButton.Location = new Point(252, 104);
+            EnterCRUDLocalidadButton.Margin = new Padding(4, 4, 4, 4);
             EnterCRUDLocalidadButton.Name = "EnterCRUDLocalidadButton";
-            EnterCRUDLocalidadButton.Size = new Size(312, 107);
+            EnterCRUDLocalidadButton.Size = new Size(192, 67);
             EnterCRUDLocalidadButton.TabIndex = 3;
             EnterCRUDLocalidadButton.Text = "CRUD Localidad";
             EnterCRUDLocalidadButton.UseVisualStyleBackColor = true;
@@ -87,10 +88,10 @@
             // 
             // btnCrudZona
             // 
-            btnCrudZona.Location = new Point(409, 303);
-            btnCrudZona.Margin = new Padding(6);
+            btnCrudZona.Location = new Point(252, 189);
+            btnCrudZona.Margin = new Padding(4, 4, 4, 4);
             btnCrudZona.Name = "btnCrudZona";
-            btnCrudZona.Size = new Size(312, 107);
+            btnCrudZona.Size = new Size(192, 67);
             btnCrudZona.TabIndex = 4;
             btnCrudZona.Text = "CRUD Zona";
             btnCrudZona.UseVisualStyleBackColor = true;
@@ -98,10 +99,10 @@
             // 
             // EnterCRUDUsuarioButton
             // 
-            EnterCRUDUsuarioButton.Location = new Point(69, 166);
-            EnterCRUDUsuarioButton.Margin = new Padding(6);
+            EnterCRUDUsuarioButton.Location = new Point(42, 104);
+            EnterCRUDUsuarioButton.Margin = new Padding(4, 4, 4, 4);
             EnterCRUDUsuarioButton.Name = "EnterCRUDUsuarioButton";
-            EnterCRUDUsuarioButton.Size = new Size(312, 107);
+            EnterCRUDUsuarioButton.Size = new Size(192, 67);
             EnterCRUDUsuarioButton.TabIndex = 5;
             EnterCRUDUsuarioButton.Text = "CRUD Usuario";
             EnterCRUDUsuarioButton.UseVisualStyleBackColor = true;
@@ -110,10 +111,10 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(35, 119);
-            label2.Margin = new Padding(6, 0, 6, 0);
+            label2.Location = new Point(22, 74);
+            label2.Margin = new Padding(4, 0, 4, 0);
             label2.Name = "label2";
-            label2.Size = new Size(618, 32);
+            label2.Size = new Size(390, 20);
             label2.TabIndex = 6;
             label2.Text = "(por ahora solo tiene permitido acceder a tipo_anomalia)";
             // 
@@ -123,7 +124,8 @@
             menuStripDenunciante.Items.AddRange(new ToolStripItem[] { toolStripMenuItemMasAjustes, realizarPedidoToolStripMenuItem });
             menuStripDenunciante.Location = new Point(0, 0);
             menuStripDenunciante.Name = "menuStripDenunciante";
-            menuStripDenunciante.Size = new Size(1138, 42);
+            menuStripDenunciante.Padding = new Padding(4, 1, 0, 1);
+            menuStripDenunciante.Size = new Size(700, 26);
             menuStripDenunciante.TabIndex = 8;
             menuStripDenunciante.Text = "menuStripDenunciante";
             // 
@@ -132,28 +134,39 @@
             toolStripMenuItemMasAjustes.Alignment = ToolStripItemAlignment.Right;
             toolStripMenuItemMasAjustes.DropDownItems.AddRange(new ToolStripItem[] { cerrarSesionToolStripMenuItem });
             toolStripMenuItemMasAjustes.Name = "toolStripMenuItemMasAjustes";
-            toolStripMenuItemMasAjustes.Size = new Size(161, 38);
+            toolStripMenuItemMasAjustes.Size = new Size(101, 24);
             toolStripMenuItemMasAjustes.Text = "Más Ajustes";
             // 
             // cerrarSesionToolStripMenuItem
             // 
             cerrarSesionToolStripMenuItem.Name = "cerrarSesionToolStripMenuItem";
-            cerrarSesionToolStripMenuItem.Size = new Size(359, 44);
+            cerrarSesionToolStripMenuItem.Size = new Size(179, 26);
             cerrarSesionToolStripMenuItem.Text = "Cerrar Sesión";
             cerrarSesionToolStripMenuItem.Click += cerrarSesionToolStripMenuItem_Click;
             // 
             // realizarPedidoToolStripMenuItem
             // 
             realizarPedidoToolStripMenuItem.Name = "realizarPedidoToolStripMenuItem";
-            realizarPedidoToolStripMenuItem.Size = new Size(195, 38);
+            realizarPedidoToolStripMenuItem.Size = new Size(126, 24);
             realizarPedidoToolStripMenuItem.Text = "Realizar Pedido";
             realizarPedidoToolStripMenuItem.Click += realizarPedidoToolStripMenuItem_Click;
             // 
+            // buttonPedidoResolucion
+            // 
+            buttonPedidoResolucion.Location = new Point(499, 130);
+            buttonPedidoResolucion.Name = "buttonPedidoResolucion";
+            buttonPedidoResolucion.Size = new Size(139, 81);
+            buttonPedidoResolucion.TabIndex = 9;
+            buttonPedidoResolucion.Text = "Hacer Pedido";
+            buttonPedidoResolucion.UseVisualStyleBackColor = true;
+            buttonPedidoResolucion.Click += buttonPedidoResolucion_Click;
+            // 
             // MenuDenunciante
             // 
-            AutoScaleDimensions = new SizeF(13F, 32F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1138, 559);
+            ClientSize = new Size(700, 349);
+            Controls.Add(buttonPedidoResolucion);
             Controls.Add(menuStripDenunciante);
             Controls.Add(label2);
             Controls.Add(EnterCRUDUsuarioButton);
@@ -162,7 +175,7 @@
             Controls.Add(label1);
             Controls.Add(logoutButton);
             Controls.Add(EnterCRUDTipoAnomaliaButton);
-            Margin = new Padding(6);
+            Margin = new Padding(4, 4, 4, 4);
             Name = "MenuDenunciante";
             Text = "Menu Denunciante";
             menuStripDenunciante.ResumeLayout(false);
@@ -184,5 +197,6 @@
         private ToolStripMenuItem toolStripMenuItemMasAjustes;
         private ToolStripMenuItem cerrarSesionToolStripMenuItem;
         private ToolStripMenuItem realizarPedidoToolStripMenuItem;
+        private Button buttonPedidoResolucion;
     }
 }
