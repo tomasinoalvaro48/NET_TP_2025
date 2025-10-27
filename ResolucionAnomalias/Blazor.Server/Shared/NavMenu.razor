@@ -42,6 +42,14 @@
                 </NavLink>
             </div>
         }
+        @if (canReadUsuarios)
+        {
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="usuarios">
+                    <span class="oi oi-map"></span> Usuarios
+                </NavLink>
+            </div>
+        }
         @if (canReadPedidosAgregacion)
         {
             <div class="nav-item px-3">
@@ -58,6 +66,7 @@
     private bool canReadLocalidades = false;
     private bool canReadZonas = false;
     private bool canReadTiposAnomalia = false;
+    private bool canReadUsuarios = false;
     private bool canReadPedidosAgregacion = false;
 
     private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
@@ -82,6 +91,7 @@
             canReadLocalidades = true;
             canReadZonas = true;
             canReadTiposAnomalia = true;
+            canReadUsuarios = true;
             canReadPedidosAgregacion = true;
         }
         else
@@ -89,6 +99,7 @@
             canReadLocalidades = false;
             canReadZonas = false;
             canReadTiposAnomalia = false;
+            canReadUsuarios = false;
             canReadPedidosAgregacion = false;
         }
         StateHasChanged();

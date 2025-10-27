@@ -1,0 +1,258 @@
+﻿@using DTOs
+@using API.Clients
+@using API.Clients.EntitiesClients;
+@inject IJSRuntime JSRuntime
+
+@if (showModal)
+{
+    <div class="modal fade show d-block" tabindex="-1" style="background-color: rgba(0,0,0,0.5);">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">@((mode == FormMode.Add) ? "Agregar Usuario" : "Editar Usuario")</h5>
+                    <button type="button" class="btn-close" @onclick="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <EditForm Model="currentUsuario" OnValidSubmit="HandleValidSubmit">
+                        <DataAnnotationsValidator />
+
+                        @if (mode == FormMode.Update)
+                        {
+                            <div class="mb-3">
+                                <label class="form-label">ID</label>
+                                <input type="text" class="form-control" value="@currentUsuario.Cod_usu" readonly />
+                            </div>
+                        }
+
+                        <div class="mb-3">
+                            <label class="form-label">Nombre *</label>
+                            <InputText @bind-Value="currentUsuario.Nombre_usu" class="form-control" />
+                            @if (validationErrors.ContainsKey("Nombre_usu"))
+                            {
+                                <div class="text-danger small">@validationErrors["Nombre_usu"]</div>
+                            }
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Email *</label>
+                            <InputText @bind-Value="currentUsuario.Email_usu" class="form-control" />
+                            @if (validationErrors.ContainsKey("Email_usu"))
+                            {
+                                <div class="text-danger small">@validationErrors["Email_usu"]</div>
+                            }
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Contraseña *</label>
+                            <InputText @bind-Value="password" type="password" class="form-control" />
+                            @if (validationErrors.ContainsKey("Passw_usu"))
+                            {
+                                <div class="text-danger small">@validationErrors["Passw_usu"]</div>
+                            }
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Tipo *</label>
+                            <InputSelect @bind-Value="currentUsuario.Tipo_usu" class="form-select">
+                                <option value="">Seleccionar tipo</option>
+                                <option value="Operador">Operador</option>
+                                <option value="Cazador">Cazador</option>
+                                <option value="Denunciante">Denunciante</option>
+                            </InputSelect>
+                            @if (validationErrors.ContainsKey("Tipo_usu"))
+                            {
+                                <div class="text-danger small">@validationErrors["Tipo_usu"]</div>
+                            }
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Zona *</label>
+                            <InputSelect @bind-Value="currentUsuario.ZonaId" class="form-select">
+                                <option value="">Seleccionar Zona</option>
+                                @if (zonas != null)
+                                {
+                                    @foreach (var zona in zonas)
+                                    {
+                                        <option value="@zona.Id">@zona.Nombre</option>
+                                    }
+                                }
+                            </InputSelect>
+                            @if (validationErrors.ContainsKey("ZonaId"))
+                            {
+                                <div class="text-danger small">@validationErrors["ZonaId"]</div>
+                            }
+                        </div>
+
+                        @if (!string.IsNullOrEmpty(errorMessage))
+                        {
+                            <div class="alert alert-danger">@errorMessage</div>
+                        }
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" @onclick="Close">Cancelar</button>
+                            <button type="submit" class="btn btn-primary" disabled="@saving">
+                                @(saving ? "Guardando..." : (mode == FormMode.Add ? "Agregar" : "Actualizar"))
+                            </button>
+                        </div>
+                    </EditForm>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter] public EventCallback OnUsuarioChanged { get; set; }
+
+    private bool showModal = false;
+    private FormMode mode = FormMode.Add;
+    private UsuarioDTO currentUsuario = new UsuarioDTO();
+    private string password = string.Empty;
+    private bool saving = false;
+    private string errorMessage = string.Empty;
+    private Dictionary<string, string> validationErrors = new();
+    private List<ZonaDTO>? zonas;
+
+    public enum FormMode { Add, Update }
+
+    public async Task ShowAddModal()
+    {
+        mode = FormMode.Add;
+        currentUsuario = new UsuarioDTO();
+        password = string.Empty;
+        await LoadZonas();
+        ClearValidationErrors();
+        showModal = true;
+        StateHasChanged();
+    }
+
+    public async Task ShowEditModal(UsuarioDTO usuario)
+    {
+        mode = FormMode.Update;
+        currentUsuario = new UsuarioDTO
+            {
+                Cod_usu = usuario.Cod_usu,
+                Nombre_usu = usuario.Nombre_usu,
+                Email_usu = usuario.Email_usu,
+                Tipo_usu = usuario.Tipo_usu,
+                ZonaId = usuario.ZonaId
+            };
+        password = ""; // No mostrar password existente
+        await LoadZonas();
+        ClearValidationErrors();
+        showModal = true;
+        StateHasChanged();
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        if (!ValidateUsuario()) return;
+
+        try
+        {
+            saving = true;
+            errorMessage = string.Empty;
+
+            if (mode == FormMode.Add)
+            {
+                var dto = new UsuarioCreateDTO
+                    {
+                        Nombre_usu = currentUsuario.Nombre_usu,
+                        Email_usu = currentUsuario.Email_usu,
+                        Passw_usu = password,
+                        Tipo_usu = currentUsuario.Tipo_usu,
+                        ZonaId = currentUsuario.ZonaId
+                    };
+                await UsuarioApiClient.AddAsync(dto);
+            }
+            else
+            {
+                var dto = new UsuarioUpdateDTO
+                    {
+                        Cod_usu = currentUsuario.Cod_usu,
+                        Nombre_usu = currentUsuario.Nombre_usu,
+                        Email_usu = currentUsuario.Email_usu,
+                        Passw_usu = password,
+                        Tipo_usu = currentUsuario.Tipo_usu,
+                        ZonaId = currentUsuario.ZonaId
+                    };
+                await UsuarioApiClient.UpdateAsync(dto);
+            }
+
+            await OnUsuarioChanged.InvokeAsync();
+            Close();
+        }
+        catch (Exception ex)
+        {
+            errorMessage = ex.Message;
+        }
+        finally
+        {
+            saving = false;
+        }
+    }
+
+    private bool ValidateUsuario()
+    {
+        ClearValidationErrors();
+        bool isValid = true;
+
+        if (string.IsNullOrWhiteSpace(currentUsuario.Nombre_usu))
+        {
+            validationErrors["Nombre_usu"] = "El nombre es requerido";
+            isValid = false;
+        }
+
+        if (string.IsNullOrWhiteSpace(currentUsuario.Email_usu))
+        {
+            validationErrors["Email_usu"] = "El email es requerido";
+            isValid = false;
+        }
+
+        if (mode == FormMode.Add && string.IsNullOrWhiteSpace(password))
+        {
+            validationErrors["Passw_usu"] = "La contraseña es requerida";
+            isValid = false;
+        }
+
+        if (string.IsNullOrWhiteSpace(currentUsuario.Tipo_usu))
+        {
+            validationErrors["Tipo_usu"] = "Debe seleccionar un tipo de usuario";
+            isValid = false;
+        }
+
+        if (!currentUsuario.ZonaId.HasValue)
+        {
+            validationErrors["ZonaId"] = "Debe seleccionar una zona";
+            isValid = false;
+        }
+
+        StateHasChanged();
+        return isValid;
+    }
+
+    private async Task LoadZonas()
+    {
+        try
+        {
+            zonas = (await ZonaApiClient.GetAllAsync())?.ToList();
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Error al cargar zonas: {ex.Message}";
+        }
+    }
+
+    private void ClearValidationErrors()
+    {
+        validationErrors.Clear();
+        errorMessage = string.Empty;
+    }
+
+    private void Close()
+    {
+        showModal = false;
+        ClearValidationErrors();
+        StateHasChanged();
+    }
+}

@@ -37,7 +37,12 @@
 
                         <div class="mb-3">
                             <label class="form-label">Dif_anom *</label>
-                            <InputNumber @bind-Value="currentTipoAnomalia.Dif_anom" class="form-control" />
+                            <InputSelect @bind-Value="currentTipoAnomalia.Dif_anom" class="form-control">
+                                <option value="">Seleccione dificultad</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                            </InputSelect>
                             @if (validationErrors.ContainsKey("Dif_anom"))
                             {
                                 <div class="text-danger small">@validationErrors["Dif_anom"]</div>
