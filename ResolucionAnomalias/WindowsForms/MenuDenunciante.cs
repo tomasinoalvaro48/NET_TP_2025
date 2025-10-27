@@ -1,4 +1,5 @@
 ﻿using API.Clients;
+using WindowsForms.FormsPedidoResolucion;
 using WindowsForms.FormsTipoAnomalia;
 using WindowsForms.FormsUsuario;
 using WindowsForms.FormsZona;
@@ -12,30 +13,6 @@ namespace WindowsForms
         {
             InitializeComponent();
             // this.FormClosing += MenuDenunciante_FormClosing;
-        }
-
-        private void ButtonCRUDTipoAnomalia_Click(object sender, EventArgs e)
-        {
-            TipoAnomaliaLista tipoLista = new TipoAnomaliaLista();
-            tipoLista.ShowDialog();
-        }
-
-        private void ButtonCRUDLocalidad_Click(object sender, EventArgs e)
-        {
-            LocalidadLista localidadLista = new LocalidadLista();
-            localidadLista.ShowDialog();
-        }
-
-        private void btnCrudZona_Click(object sender, EventArgs e)
-        {
-            ZonaLista zonaLista = new ZonaLista();
-            zonaLista.ShowDialog();
-        }
-
-        private void ButtonCRUDUsuario_Click(object sender, EventArgs e)
-        {
-            UsuarioLista usuarioLista = new UsuarioLista();
-            usuarioLista.ShowDialog();
         }
 
         private async void logoutButton_Click(object sender, EventArgs e)
@@ -52,6 +29,12 @@ namespace WindowsForms
             login.ShowDialog();
         }
 
+        private void realizarPedidoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ListaPedidoResolucion pedidoLista = new ListaPedidoResolucion();
+            pedidoLista.ShowDialog();
+        }
+
         private async void cerrarSesionToolStripMenuItem_Click(object sender, EventArgs e)
         {
             await AuthServiceProvider.Instance.LogoutAsync();
@@ -64,11 +47,6 @@ namespace WindowsForms
 
             CierreManual = false;
             this.Close();
-        }
-
-        private void realizarPedidoToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
         }
 
         private async void MenuDenunciante_FormClosing(object sender, FormClosingEventArgs e)
