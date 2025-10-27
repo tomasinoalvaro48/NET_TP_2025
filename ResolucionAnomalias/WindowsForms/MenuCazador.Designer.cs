@@ -45,7 +45,7 @@
             // 
             // EnterCRUDLocalidadButton
             // 
-            EnterCRUDLocalidadButton.Location = new Point(321, 401);
+            EnterCRUDLocalidadButton.Location = new Point(509, 385);
             EnterCRUDLocalidadButton.Margin = new Padding(6);
             EnterCRUDLocalidadButton.Name = "EnterCRUDLocalidadButton";
             EnterCRUDLocalidadButton.Size = new Size(271, 105);
@@ -56,7 +56,7 @@
             // 
             // btnCrudZona
             // 
-            btnCrudZona.Location = new Point(604, 401);
+            btnCrudZona.Location = new Point(792, 385);
             btnCrudZona.Margin = new Padding(6);
             btnCrudZona.Name = "btnCrudZona";
             btnCrudZona.Size = new Size(271, 105);
@@ -68,7 +68,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(22, 160);
+            label1.Location = new Point(511, 290);
             label1.Margin = new Padding(6, 0, 6, 0);
             label1.Name = "label1";
             label1.Size = new Size(552, 32);
@@ -111,16 +111,16 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(22, 202);
+            label2.Location = new Point(369, 258);
             label2.Margin = new Padding(6, 0, 6, 0);
             label2.Name = "label2";
-            label2.Size = new Size(818, 32);
+            label2.Size = new Size(708, 32);
             label2.TabIndex = 6;
-            label2.Text = "(por ahora solo tiene permitido acceder a localidad y zona, y pedido_agreg)";
+            label2.Text = "(solo tiene permitido acceder a localidad y zona, y pedido_agreg)";
             // 
             // pedidoAgregacionButton
             // 
-            pedidoAgregacionButton.Location = new Point(321, 518);
+            pedidoAgregacionButton.Location = new Point(792, 502);
             pedidoAgregacionButton.Margin = new Padding(6);
             pedidoAgregacionButton.Name = "pedidoAgregacionButton";
             pedidoAgregacionButton.Size = new Size(271, 105);
@@ -131,11 +131,13 @@
             // 
             // menuStripCazador
             // 
+            menuStripCazador.BackColor = SystemColors.ControlLight;
+            menuStripCazador.Dock = DockStyle.Left;
             menuStripCazador.ImageScalingSize = new Size(32, 32);
             menuStripCazador.Items.AddRange(new ToolStripItem[] { toolStripMenuItemMasAjustes, realizarPedidoAgregacionToolStripMenuItem });
             menuStripCazador.Location = new Point(0, 0);
             menuStripCazador.Name = "menuStripCazador";
-            menuStripCazador.Size = new Size(1078, 40);
+            menuStripCazador.Size = new Size(373, 770);
             menuStripCazador.TabIndex = 9;
             menuStripCazador.Text = "menuStripCazador";
             // 
@@ -144,20 +146,21 @@
             toolStripMenuItemMasAjustes.Alignment = ToolStripItemAlignment.Right;
             toolStripMenuItemMasAjustes.DropDownItems.AddRange(new ToolStripItem[] { cerrarSesionToolStripMenuItem });
             toolStripMenuItemMasAjustes.Name = "toolStripMenuItemMasAjustes";
-            toolStripMenuItemMasAjustes.Size = new Size(161, 36);
+            toolStripMenuItemMasAjustes.Size = new Size(350, 36);
             toolStripMenuItemMasAjustes.Text = "Más Ajustes";
             // 
             // cerrarSesionToolStripMenuItem
             // 
             cerrarSesionToolStripMenuItem.Name = "cerrarSesionToolStripMenuItem";
-            cerrarSesionToolStripMenuItem.Size = new Size(359, 44);
+            cerrarSesionToolStripMenuItem.Size = new Size(288, 44);
             cerrarSesionToolStripMenuItem.Text = "Cerrar Sesión";
             cerrarSesionToolStripMenuItem.Click += cerrarSesionToolStripMenuItem_Click;
             // 
             // realizarPedidoAgregacionToolStripMenuItem
             // 
+            realizarPedidoAgregacionToolStripMenuItem.Margin = new Padding(5);
             realizarPedidoAgregacionToolStripMenuItem.Name = "realizarPedidoAgregacionToolStripMenuItem";
-            realizarPedidoAgregacionToolStripMenuItem.Size = new Size(357, 36);
+            realizarPedidoAgregacionToolStripMenuItem.Size = new Size(350, 36);
             realizarPedidoAgregacionToolStripMenuItem.Text = "Realizar Pedido de Agregación";
             realizarPedidoAgregacionToolStripMenuItem.Click += realizarPedidoAgregacionToolStripMenuItem_Click;
             // 
@@ -178,6 +181,7 @@
             Margin = new Padding(6);
             Name = "MenuCazador";
             Text = "Menu Cazador";
+            FormClosing += MenuCazador_FormClosing;
             menuStripCazador.ResumeLayout(false);
             menuStripCazador.PerformLayout();
             ResumeLayout(false);

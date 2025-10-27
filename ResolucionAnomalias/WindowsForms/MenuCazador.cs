@@ -8,10 +8,11 @@ namespace WindowsForms
 {
     public partial class MenuCazador : Form
     {
+    private bool CierreManual = true;
         public MenuCazador()
         {
             InitializeComponent();
-            this.FormClosing += MenuCazador_FormClosing;
+            // this.FormClosing += MenuCazador_FormClosing;
         }
 
         private void ButtonCRUDLocalidad_Click(object sender, EventArgs e)
@@ -54,6 +55,7 @@ namespace WindowsForms
             var login = new LoginForm();
             login.ShowDialog();
 
+            CierreManual = false;
             this.Close();
         }
 
@@ -73,13 +75,14 @@ namespace WindowsForms
             var login = new LoginForm();
             login.ShowDialog();
 
+            CierreManual = false;
             this.Close();
         }
 
         private async void MenuCazador_FormClosing(object sender, FormClosingEventArgs e)
         {
             // Si el usuario cerró con la X
-            if (e.CloseReason == CloseReason.UserClosing)
+            if (CierreManual && e.CloseReason == CloseReason.UserClosing)
             {
                 // Initializes the variables to pass to the MessageBox.Show method.
                 string message = "¿Cerrar sesión y salir de la aplicación?";
