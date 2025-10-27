@@ -7,10 +7,11 @@ namespace WindowsForms
 {
     public partial class MenuDenunciante : Form
     {
+        private bool CierreManual = true;
         public MenuDenunciante()
         {
             InitializeComponent();
-            this.FormClosing += MenuDenunciante_FormClosing;
+            // this.FormClosing += MenuDenunciante_FormClosing;
         }
 
         private void ButtonCRUDTipoAnomalia_Click(object sender, EventArgs e)
@@ -45,9 +46,10 @@ namespace WindowsForms
             this.Hide();
 
             var login = new LoginForm();
-            login.ShowDialog();
 
+            CierreManual = false;
             this.Close();
+            login.ShowDialog();
         }
 
         private async void cerrarSesionToolStripMenuItem_Click(object sender, EventArgs e)
@@ -60,6 +62,7 @@ namespace WindowsForms
             var login = new LoginForm();
             login.ShowDialog();
 
+            CierreManual = false;
             this.Close();
         }
 
@@ -71,7 +74,7 @@ namespace WindowsForms
         private async void MenuDenunciante_FormClosing(object sender, FormClosingEventArgs e)
         {
             // Si el usuario cerró con la X
-            if (e.CloseReason == CloseReason.UserClosing)
+            if (CierreManual && e.CloseReason == CloseReason.UserClosing)
             {
                 // Initializes the variables to pass to the MessageBox.Show method.
                 string message = "¿Cerrar sesión y salir de la aplicación?";
