@@ -21,11 +21,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API.Auth.WindowsForms", "AP
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blazor.Server", "Blazor.Server\Blazor.Server.csproj", "{BE519D03-9ADF-46C8-A065-B5F7392A6214}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blazor.WebAssembly", "Blazor.WebAssembly\Blazor.WebAssembly.csproj", "{D61ADF9A-7B32-4B26-91BE-DD85CFD81065}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API.Auth.Blazor.Server", "API.Auth.Blazor.Server\API.Auth.Blazor.Server.csproj", "{051459C6-3879-4BB6-A05F-EEBBFD66FB10}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API.Auth.Blazor.WebAssembly", "API.Auth.Blazor.WebAssembly\API.Auth.Blazor.WebAssembly.csproj", "{DD23218E-10D8-4249-BE7D-3F86206D1D28}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,18 +65,10 @@ Global
 		{BE519D03-9ADF-46C8-A065-B5F7392A6214}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BE519D03-9ADF-46C8-A065-B5F7392A6214}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BE519D03-9ADF-46C8-A065-B5F7392A6214}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D61ADF9A-7B32-4B26-91BE-DD85CFD81065}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D61ADF9A-7B32-4B26-91BE-DD85CFD81065}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D61ADF9A-7B32-4B26-91BE-DD85CFD81065}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D61ADF9A-7B32-4B26-91BE-DD85CFD81065}.Release|Any CPU.Build.0 = Release|Any CPU
 		{051459C6-3879-4BB6-A05F-EEBBFD66FB10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{051459C6-3879-4BB6-A05F-EEBBFD66FB10}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{051459C6-3879-4BB6-A05F-EEBBFD66FB10}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{051459C6-3879-4BB6-A05F-EEBBFD66FB10}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DD23218E-10D8-4249-BE7D-3F86206D1D28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DD23218E-10D8-4249-BE7D-3F86206D1D28}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DD23218E-10D8-4249-BE7D-3F86206D1D28}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DD23218E-10D8-4249-BE7D-3F86206D1D28}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
