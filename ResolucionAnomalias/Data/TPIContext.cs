@@ -46,6 +46,11 @@ namespace Data
                 entity.HasIndex(e => e.Nombre_anom).IsUnique();
 
                 entity.Property(e => e.Dif_anom).IsRequired();
+
+
+
+
+
             });
 
             modelBuilder.Entity<Localidad>(entity =>
@@ -97,7 +102,6 @@ namespace Data
                     new { Id = 2, Nombre = "Sur", LocalidadId = 1, LocalidadCodigo = "2000", LocalidadNombre = "Rosario" },
                     new { Id = 3, Nombre = "Norte", LocalidadId = 2, LocalidadCodigo = "2001", LocalidadNombre = "Bs As" }
                 );
-
             });
 
             modelBuilder.Entity<Usuario>(entity =>
@@ -142,7 +146,6 @@ namespace Data
                     .HasForeignKey(e => e.ZonaId)
                     .IsRequired(false);
 
-                // Usuario operador inicial
                 var opUser = new Domain.Model.Usuario("Operador", "operador@gmail.com", "operador", "Operador", 1);
                 entity.HasData(new
                 {
@@ -159,86 +162,59 @@ namespace Data
             modelBuilder.Entity<PedidoAgregacion>(entity =>
             {
                 entity.HasKey(e => e.Id_pedido_agreg);
-
                 entity.Property(e => e.Id_pedido_agreg).ValueGeneratedOnAdd();
-
                 entity.Property(e => e.Descripcion_pedido_agreg).IsRequired().HasMaxLength(200);
-
                 entity.Property(e => e.Dificultad_pedido_agreg).IsRequired();
-
                 entity.Property(e => e.Estado_pedido_agreg).IsRequired().HasMaxLength(50);
-            });
 
+                // Tipo de anomalia OPCIONAL (nullable)
+                entity.Property(e => e.TipoAnomaliaId)
+                    .HasField("_tipoAnomaliaId")
+                    .IsRequired(false);
 
-            modelBuilder.Entity<PedidoResolucion>(entity =>
-            {
-                entity.HasKey(e => e.Id);
+                entity.Navigation(e => e.TipoAnomalia).HasField("_tipoAnomalia");
 
-                entity.Property(e => e.Id)
-                    .ValueGeneratedOnAdd();
-
-                entity.Property(e => e.Fecha)
-                    .IsRequired();
-
-                entity.Property(e => e.Direccion)
-                    .IsRequired()
-                    .HasMaxLength(100);
-
-                entity.Property(e => e.Descripcion)
-                    .HasMaxLength(500);
-
-                entity.Property(e => e.Estado)
-                    .IsRequired()
-                    .HasMaxLength(20);
-
-                entity.Property(e => e.Comentario)
-                    .HasMaxLength(500);
-
-                entity.Property(e => e.Dificultad)
-                    .IsRequired();
-
-
-
-                entity.Property(e => e.ZonaId)
-                    .IsRequired()
-                    .HasField("_zonaId");
-
-                entity.Navigation(e => e.Zona)
-                    .HasField("_zona");
-
-                entity.HasOne(e => e.Zona)
+                entity.HasOne(e => e.TipoAnomalia)
                     .WithMany()
-                    .HasForeignKey(e => e.ZonaId)
+                    .HasForeignKey(e => e.TipoAnomaliaId)
+                    .IsRequired(false)
                     .OnDelete(DeleteBehavior.Restrict);
 
-
-
+                // Cazador OBLIGATORIO
                 entity.Property(e => e.CazadorId)
-                    .HasField("_cazadorId");
+                    .HasField("_cazadorId")
+                    .IsRequired();
 
                 entity.Navigation(e => e.Cazador)
                     .HasField("_cazador");
 
                 entity.HasOne(e => e.Cazador)
                     .WithMany()
-                    .HasForeignKey(e => e.CazadorId)
-                    .OnDelete(DeleteBehavior.Restrict);
+                    .HasForeignKey(e => e.CazadorId);
+            });
 
+            modelBuilder.Entity<PedidoResolucion>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+                entity.Property(e => e.Fecha).IsRequired();
+                entity.Property(e => e.Direccion).IsRequired().HasMaxLength(100);
+                entity.Property(e => e.Descripcion).HasMaxLength(500);
+                entity.Property(e => e.Estado).IsRequired().HasMaxLength(20);
+                entity.Property(e => e.Comentario).HasMaxLength(500);
+                entity.Property(e => e.Dificultad).IsRequired();
 
+                entity.Property(e => e.ZonaId).IsRequired().HasField("_zonaId");
+                entity.Navigation(e => e.Zona).HasField("_zona");
+                entity.HasOne(e => e.Zona).WithMany().HasForeignKey(e => e.ZonaId).OnDelete(DeleteBehavior.Restrict);
 
-                entity.Property(e => e.DenuncianteId)
-                    .IsRequired()
-                    .HasField("_denuncianteId");
+                entity.Property(e => e.CazadorId).HasField("_cazadorId");
+                entity.Navigation(e => e.Cazador).HasField("_cazador");
+                entity.HasOne(e => e.Cazador).WithMany().HasForeignKey(e => e.CazadorId).OnDelete(DeleteBehavior.Restrict);
 
-                entity.Navigation(e => e.Denunciante)
-                    .HasField("_denunciante");
-
-                entity.HasOne(e => e.Denunciante)
-                    .WithMany()
-                    .HasForeignKey(e => e.DenuncianteId)
-                    .OnDelete(DeleteBehavior.Restrict);
-
-
+                entity.Property(e => e.DenuncianteId).IsRequired().HasField("_denuncianteId");
+                entity.Navigation(e => e.Denunciante).HasField("_denunciante");
+                entity.HasOne(e => e.Denunciante).WithMany().HasForeignKey(e => e.DenuncianteId).OnDelete(DeleteBehavior.Restrict);
 
                 entity.OwnsMany(e => e.AnomaliaPedidos, anomalia =>
                 {
@@ -248,8 +224,7 @@ namespace Data
                         .IsRequired()
                         .HasField("_tipoAnomaliaId");
 
-                    anomalia.Navigation(a => a.TipoAnomalia)
-                        .HasField("_tipoAnomalia");
+                    anomalia.Navigation(a => a.TipoAnomalia).HasField("_tipoAnomalia");
 
                     anomalia.HasOne(a => a.TipoAnomalia)
                         .WithMany()

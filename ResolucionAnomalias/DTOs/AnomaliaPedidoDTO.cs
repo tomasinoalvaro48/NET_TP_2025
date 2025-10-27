@@ -10,5 +10,8 @@ namespace DTOs
         public int? TipoAnomaliaDificultad { get; set; }
         public int PedidoResolucionId { get; set; }
 
+
+        
+
     }
 }

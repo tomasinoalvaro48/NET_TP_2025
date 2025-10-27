@@ -62,7 +62,17 @@ namespace WindowsForms.FormsPedidoAgregacion
                     }
                     else
                     {
+                        // Asignar el cazador logueado al crear
+                        var currentUser = await AuthServiceProvider.Instance.GetCurrentUserAsync();
+                        if (currentUser == null)
+                        {
+                            MessageBox.Show("Sesión inválida. Inicie sesión nuevamente.", "Sesión", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+
+                        this.PedidoAgregacion.CazadorId = currentUser.Cod_usu;
                         this.PedidoAgregacion.Estado_pedido_agreg = "Pendiente";
+
                         await PedidoAgregacionApiClient.AddAsync(this.PedidoAgregacion);
                     }
 

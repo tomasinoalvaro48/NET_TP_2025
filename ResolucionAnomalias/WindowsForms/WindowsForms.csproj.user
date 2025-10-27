@@ -5,6 +5,9 @@
     <Compile Update="FormsPedidoAgregacion\PedidoAgregacionReporte.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="FormsPedidoResolucion\DetalleAnomalia.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="FormsPedidoResolucion\DetallePedidoResolucion.cs">
       <SubType>Form</SubType>
     </Compile>
