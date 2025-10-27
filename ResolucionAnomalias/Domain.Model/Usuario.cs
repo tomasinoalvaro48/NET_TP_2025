@@ -31,7 +31,7 @@ namespace Domain.Model
             }
         }
 
-        private Usuario() { }
+        public Usuario() { }
 
         public Usuario(string nombre_usu, string email_usu, string passw_usu, string tipo_usu, int? zonaId = null)
         {

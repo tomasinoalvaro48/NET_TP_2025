@@ -54,11 +54,7 @@ namespace Data
             var existingUsuario = await context.Usuarios.FindAsync(usuario.Cod_usu);
             if (existingUsuario != null)
             {
-                existingUsuario.SetNombre_usu(usuario.Nombre_usu);
-                existingUsuario.SetEmail_usu(usuario.Email_usu);
-                existingUsuario.SetPassw_usu(usuario.Passw_usu);
-                existingUsuario.SetTipo_usu(usuario.Tipo_usu);
-                existingUsuario.SetZonaId(usuario.ZonaId);
+                context.Entry(existingUsuario).CurrentValues.SetValues(usuario);
                 await context.SaveChangesAsync();
                 return true;
             }

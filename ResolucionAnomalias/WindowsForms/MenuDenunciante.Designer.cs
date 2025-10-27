@@ -39,6 +39,7 @@
             toolStripMenuItemMasAjustes = new ToolStripMenuItem();
             cerrarSesionToolStripMenuItem = new ToolStripMenuItem();
             realizarPedidoToolStripMenuItem = new ToolStripMenuItem();
+            cambiarContrasenaToolStripMenuItem = new ToolStripMenuItem();
             menuStripDenunciante.SuspendLayout();
             SuspendLayout();
             // 
@@ -132,7 +133,7 @@
             // toolStripMenuItemMasAjustes
             // 
             toolStripMenuItemMasAjustes.Alignment = ToolStripItemAlignment.Right;
-            toolStripMenuItemMasAjustes.DropDownItems.AddRange(new ToolStripItem[] { cerrarSesionToolStripMenuItem });
+            toolStripMenuItemMasAjustes.DropDownItems.AddRange(new ToolStripItem[] { cambiarContrasenaToolStripMenuItem, cerrarSesionToolStripMenuItem });
             toolStripMenuItemMasAjustes.Name = "toolStripMenuItemMasAjustes";
             toolStripMenuItemMasAjustes.Size = new Size(233, 36);
             toolStripMenuItemMasAjustes.Text = "Más Ajustes";
@@ -140,7 +141,7 @@
             // cerrarSesionToolStripMenuItem
             // 
             cerrarSesionToolStripMenuItem.Name = "cerrarSesionToolStripMenuItem";
-            cerrarSesionToolStripMenuItem.Size = new Size(288, 44);
+            cerrarSesionToolStripMenuItem.Size = new Size(362, 44);
             cerrarSesionToolStripMenuItem.Text = "Cerrar Sesión";
             cerrarSesionToolStripMenuItem.Click += cerrarSesionToolStripMenuItem_Click;
             // 
@@ -151,6 +152,13 @@
             realizarPedidoToolStripMenuItem.Size = new Size(223, 36);
             realizarPedidoToolStripMenuItem.Text = "Realizar Pedido";
             realizarPedidoToolStripMenuItem.Click += realizarPedidoToolStripMenuItem_Click;
+            // 
+            // cambiarContrasenaToolStripMenuItem
+            // 
+            cambiarContrasenaToolStripMenuItem.Name = "cambiarContrasenaToolStripMenuItem";
+            cambiarContrasenaToolStripMenuItem.Size = new Size(362, 44);
+            cambiarContrasenaToolStripMenuItem.Text = "Cambiar Contraseña";
+            cambiarContrasenaToolStripMenuItem.Click += cambiarContrasenaToolStripMenuItem_Click;
             // 
             // MenuDenunciante
             // 
@@ -188,5 +196,6 @@
         private ToolStripMenuItem toolStripMenuItemMasAjustes;
         private ToolStripMenuItem cerrarSesionToolStripMenuItem;
         private ToolStripMenuItem realizarPedidoToolStripMenuItem;
+        private ToolStripMenuItem cambiarContrasenaToolStripMenuItem;
     }
 }

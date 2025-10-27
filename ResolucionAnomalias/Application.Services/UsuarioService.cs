@@ -80,6 +80,29 @@ namespace Application.Services
             }).ToList();
         }
 
+        public async Task<UsuarioUpdateDTO> GetByEmailAsync(string email)
+        {
+            var usuarioRepository = new UsuarioRepository();
+            Usuario? usuario = await usuarioRepository.GetByEmailAsync(email);
+            if (usuario == null)
+            {
+                return null;
+            }
+            else
+            {
+                return new UsuarioUpdateDTO
+                {
+                    Cod_usu = usuario.Cod_usu,
+                    Nombre_usu = usuario.Nombre_usu,
+                    Passw_usu = usuario.Passw_usu,
+                    Email_usu = usuario.Email_usu,
+                    Salt = usuario.Salt,
+                    Tipo_usu = usuario.Tipo_usu,
+                    ZonaId = usuario.ZonaId,
+                };
+            }
+        } 
+
         public async Task<bool> UpdateAsync(UsuarioUpdateDTO updateDto)
         {
             var usuarioRepository = new UsuarioRepository();

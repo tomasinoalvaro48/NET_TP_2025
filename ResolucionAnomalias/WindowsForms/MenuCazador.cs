@@ -8,7 +8,7 @@ namespace WindowsForms
 {
     public partial class MenuCazador : Form
     {
-    private bool CierreManual = true;
+        private bool CierreManual = true;
         public MenuCazador()
         {
             InitializeComponent();
@@ -97,6 +97,12 @@ namespace WindowsForms
                     Application.Exit();
                 }
             }
+        }
+
+        private void cambiarContrasenaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CambiarContrasenaUsuario cambiarContrasenaUsuario = new CambiarContrasenaUsuario();
+            cambiarContrasenaUsuario.ShowDialog();
         }
     }
 }

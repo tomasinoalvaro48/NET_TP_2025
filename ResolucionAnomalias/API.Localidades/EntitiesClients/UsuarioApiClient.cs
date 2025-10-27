@@ -1,6 +1,7 @@
 ﻿using DTOs;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
+using Domain.Model;
 
 namespace API.Clients.EntitiesClients
 {
@@ -129,6 +130,35 @@ namespace API.Clients.EntitiesClients
                 throw new Exception($"Timeout al actualizar usuario con Id {usuario.Cod_usu}: {ex.Message}", ex);
             }
         }
+
+        public static async Task<UsuarioUpdateDTO> GetByEmailAsync(string email)
+        {
+            try
+            {
+                using var client = await CreateHttpClientAsync();
+                HttpResponseMessage response = await client.GetAsync("usuarios/email/" + email);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return await response.Content.ReadAsAsync<UsuarioUpdateDTO>();
+                }
+                else
+                {
+                    string errorContent = await response.Content.ReadAsStringAsync();
+                    throw new Exception($"Error al obtener usuario con Email {email}. Status: {response.StatusCode}, Detalle: {errorContent}");
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new Exception($"Error de conexión al obtener usuario con Email {email}: {ex.Message}", ex);
+            }
+            catch (TaskCanceledException ex)
+            {
+                throw new Exception($"Timeout al obtener usuario con Email {email}: {ex.Message}", ex);
+            }
+        }
+
+
         public static async Task<IEnumerable<UsuarioDTO>> GetByCriteriaAsync(string texto)
         {
             try

@@ -1,5 +1,6 @@
 ﻿using Application.Services;
 using DTOs;
+using Domain.Model;
 
 namespace WebAPI
 {
@@ -35,6 +36,22 @@ namespace WebAPI
             })
             .WithName("GetAllUsuarios")
             .Produces<List<UsuarioDTO>>(StatusCodes.Status200OK)
+            .WithOpenApi();
+
+            app.MapGet("/usuarios/email/{email}", async (string email) => { 
+                UsuarioService usuarioService = new UsuarioService();
+
+                UsuarioUpdateDTO dto = await usuarioService.GetByEmailAsync(email);
+
+                if (dto == null)
+                {
+                    return Results.NotFound();
+                }
+
+                return Results.Ok(dto);
+            })
+            .WithName("GetUsuarioByEmail")
+            .Produces<UsuarioUpdateDTO>(StatusCodes.Status200OK)
             .WithOpenApi();
 
             app.MapPost("/usuarios", async (UsuarioCreateDTO dto) =>

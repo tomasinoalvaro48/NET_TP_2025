@@ -90,5 +90,11 @@ namespace WindowsForms
                 }
             }
         }
+
+        private void cambiarContrasenaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CambiarContrasenaUsuario cambiarContrasenaUsuario = new CambiarContrasenaUsuario();
+            cambiarContrasenaUsuario.ShowDialog();
+        }
     }
 }
