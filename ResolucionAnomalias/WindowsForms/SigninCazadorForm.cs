@@ -6,11 +6,9 @@ namespace WindowsForms
 {
     public partial class SigninCazadorForm : Form
     {
-        //public UsuarioDTO Usuario { get; set; }
         public SigninCazadorForm()
         {
             InitializeComponent();
-            //Usuario = new UsuarioDTO();
             LoadLocalidades();
         }
         private async void LoadLocalidades()
@@ -36,6 +34,7 @@ namespace WindowsForms
             errorProvider.SetError(nombreTextBox, string.Empty);
             errorProvider.SetError(emailTextBox, string.Empty);
             errorProvider.SetError(contraseniaTextBox, string.Empty);
+            errorProvider.SetError(confirmarContraseniaTextBox, string.Empty);
             errorProvider.SetError(localidadComboBox, string.Empty);
             errorProvider.SetError(zonaComboBox, string.Empty);
 
@@ -65,6 +64,12 @@ namespace WindowsForms
             {
                 isValid = false;
                 errorProvider.SetError(contraseniaTextBox, "La contraseña debe tener mínimo 6 caracteres");
+            }
+
+            if (confirmarContraseniaTextBox.Text != contraseniaTextBox.Text)
+            {
+                isValid = false;
+                errorProvider.SetError(confirmarContraseniaTextBox, "Las contraseñas no coinciden");
             }
 
             if (localidadComboBox.SelectedValue == null)

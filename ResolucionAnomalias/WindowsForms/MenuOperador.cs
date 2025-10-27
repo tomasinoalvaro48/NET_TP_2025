@@ -11,6 +11,7 @@ namespace WindowsForms
         public MenuOperador()
         {
             InitializeComponent();
+            this.FormClosing += MenuOperador_FormClosing;
         }
 
         private void ButtonCRUDLocalidad_Click(object sender, EventArgs e)
@@ -103,6 +104,20 @@ namespace WindowsForms
             login.ShowDialog();
 
             this.Close();
+        }
+
+        private async void MenuOperador_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // Si el usuario cerró con la X
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                await AuthServiceProvider.Instance.LogoutAsync();
+                AuthServiceProvider.Instance.ClearSession();
+
+                // MOSTRAR Login de nuevo
+                var login = new LoginForm();
+                login.Show();
+            }
         }
     }
 }

@@ -43,15 +43,16 @@
             nombreLabel = new Label();
             tituloLabel = new Label();
             errorProvider = new ErrorProvider(components);
+            confirmarContraseniaTextBox = new TextBox();
+            confirmarContraseniaLabel = new Label();
             ((System.ComponentModel.ISupportInitialize)errorProvider).BeginInit();
             SuspendLayout();
             // 
             // cancelarButton
             // 
-            cancelarButton.Location = new Point(193, 452);
-            cancelarButton.Margin = new Padding(6);
+            cancelarButton.Location = new Point(132, 250);
             cancelarButton.Name = "cancelarButton";
-            cancelarButton.Size = new Size(139, 49);
+            cancelarButton.Size = new Size(75, 23);
             cancelarButton.TabIndex = 27;
             cancelarButton.Text = "Cancelar";
             cancelarButton.UseVisualStyleBackColor = true;
@@ -59,10 +60,9 @@
             // 
             // registrarseButton
             // 
-            registrarseButton.Location = new Point(396, 452);
-            registrarseButton.Margin = new Padding(6);
+            registrarseButton.Location = new Point(241, 250);
             registrarseButton.Name = "registrarseButton";
-            registrarseButton.Size = new Size(139, 49);
+            registrarseButton.Size = new Size(75, 23);
             registrarseButton.TabIndex = 26;
             registrarseButton.Text = "Registrarse";
             registrarseButton.UseVisualStyleBackColor = true;
@@ -73,95 +73,85 @@
             zonaComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             zonaComboBox.Enabled = false;
             zonaComboBox.FormattingEnabled = true;
-            zonaComboBox.Location = new Point(230, 381);
-            zonaComboBox.Margin = new Padding(6);
+            zonaComboBox.Location = new Point(152, 217);
             zonaComboBox.Name = "zonaComboBox";
-            zonaComboBox.Size = new Size(327, 40);
+            zonaComboBox.Size = new Size(178, 23);
             zonaComboBox.TabIndex = 25;
             // 
             // localidadComboBox
             // 
             localidadComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             localidadComboBox.FormattingEnabled = true;
-            localidadComboBox.Location = new Point(230, 311);
-            localidadComboBox.Margin = new Padding(6);
+            localidadComboBox.Location = new Point(152, 184);
             localidadComboBox.Name = "localidadComboBox";
-            localidadComboBox.Size = new Size(327, 40);
+            localidadComboBox.Size = new Size(178, 23);
             localidadComboBox.TabIndex = 24;
             localidadComboBox.SelectedIndexChanged += localidadSeleccionada;
             // 
             // contraseniaTextBox
             // 
-            contraseniaTextBox.Location = new Point(230, 236);
-            contraseniaTextBox.Margin = new Padding(6);
+            contraseniaTextBox.Location = new Point(152, 115);
             contraseniaTextBox.Name = "contraseniaTextBox";
-            contraseniaTextBox.Size = new Size(327, 39);
+            contraseniaTextBox.Size = new Size(178, 23);
             contraseniaTextBox.TabIndex = 23;
             contraseniaTextBox.UseSystemPasswordChar = true;
             // 
             // emailTextBox
             // 
-            emailTextBox.Location = new Point(230, 165);
-            emailTextBox.Margin = new Padding(6);
+            emailTextBox.Location = new Point(152, 81);
             emailTextBox.Name = "emailTextBox";
-            emailTextBox.Size = new Size(327, 39);
+            emailTextBox.Size = new Size(178, 23);
             emailTextBox.TabIndex = 22;
             // 
             // nombreTextBox
             // 
-            nombreTextBox.Location = new Point(230, 88);
-            nombreTextBox.Margin = new Padding(6);
+            nombreTextBox.Location = new Point(152, 45);
             nombreTextBox.Name = "nombreTextBox";
-            nombreTextBox.Size = new Size(327, 39);
+            nombreTextBox.Size = new Size(178, 23);
             nombreTextBox.TabIndex = 21;
             // 
             // zonaLabel
             // 
             zonaLabel.AutoSize = true;
-            zonaLabel.Location = new Point(142, 382);
-            zonaLabel.Margin = new Padding(6, 0, 6, 0);
+            zonaLabel.Location = new Point(104, 217);
             zonaLabel.Name = "zonaLabel";
-            zonaLabel.Size = new Size(73, 32);
+            zonaLabel.Size = new Size(37, 15);
             zonaLabel.TabIndex = 20;
             zonaLabel.Text = "Zona:";
             // 
             // localidadLabel
             // 
             localidadLabel.AutoSize = true;
-            localidadLabel.Location = new Point(96, 311);
-            localidadLabel.Margin = new Padding(6, 0, 6, 0);
+            localidadLabel.Location = new Point(80, 184);
             localidadLabel.Name = "localidadLabel";
-            localidadLabel.Size = new Size(119, 32);
+            localidadLabel.Size = new Size(61, 15);
             localidadLabel.TabIndex = 19;
             localidadLabel.Text = "Localidad:";
             // 
             // contraseniaLabel
             // 
             contraseniaLabel.AutoSize = true;
-            contraseniaLabel.Location = new Point(79, 238);
-            contraseniaLabel.Margin = new Padding(6, 0, 6, 0);
+            contraseniaLabel.Location = new Point(71, 116);
             contraseniaLabel.Name = "contraseniaLabel";
-            contraseniaLabel.Size = new Size(139, 32);
+            contraseniaLabel.Size = new Size(70, 15);
             contraseniaLabel.TabIndex = 18;
             contraseniaLabel.Text = "Contraseña:";
             // 
             // emailLabel
             // 
             emailLabel.AutoSize = true;
-            emailLabel.Location = new Point(142, 168);
-            emailLabel.Margin = new Padding(6, 0, 6, 0);
+            emailLabel.Location = new Point(104, 83);
             emailLabel.Name = "emailLabel";
-            emailLabel.Size = new Size(76, 32);
+            emailLabel.Size = new Size(39, 15);
             emailLabel.TabIndex = 17;
             emailLabel.Text = "Email:";
             // 
             // nombreLabel
             // 
             nombreLabel.AutoSize = true;
-            nombreLabel.Location = new Point(111, 88);
-            nombreLabel.Margin = new Padding(6, 0, 6, 0);
+            nombreLabel.Location = new Point(88, 45);
             nombreLabel.Name = "nombreLabel";
-            nombreLabel.Size = new Size(107, 32);
+            nombreLabel.Size = new Size(54, 15);
             nombreLabel.TabIndex = 16;
             nombreLabel.Text = "Nombre:";
             // 
@@ -170,9 +160,10 @@
             tituloLabel.Anchor = AnchorStyles.Top;
             tituloLabel.AutoSize = true;
             tituloLabel.BorderStyle = BorderStyle.FixedSingle;
-            tituloLabel.Location = new Point(247, 29);
+            tituloLabel.Location = new Point(184, 18);
+            tituloLabel.Margin = new Padding(2, 0, 2, 0);
             tituloLabel.Name = "tituloLabel";
-            tituloLabel.Size = new Size(229, 34);
+            tituloLabel.Size = new Size(114, 17);
             tituloLabel.TabIndex = 28;
             tituloLabel.Text = "Registro de Cazador";
             // 
@@ -181,11 +172,30 @@
             errorProvider.BlinkStyle = ErrorBlinkStyle.NeverBlink;
             errorProvider.ContainerControl = this;
             // 
-            // SigninForm
+            // confirmarContraseniaTextBox
             // 
-            AutoScaleDimensions = new SizeF(13F, 32F);
+            confirmarContraseniaTextBox.Location = new Point(152, 150);
+            confirmarContraseniaTextBox.Name = "confirmarContraseniaTextBox";
+            confirmarContraseniaTextBox.Size = new Size(178, 23);
+            confirmarContraseniaTextBox.TabIndex = 29;
+            confirmarContraseniaTextBox.UseSystemPasswordChar = true;
+            // 
+            // confirmarContraseniaLabel
+            // 
+            confirmarContraseniaLabel.AutoSize = true;
+            confirmarContraseniaLabel.Location = new Point(16, 153);
+            confirmarContraseniaLabel.Name = "confirmarContraseniaLabel";
+            confirmarContraseniaLabel.Size = new Size(127, 15);
+            confirmarContraseniaLabel.TabIndex = 30;
+            confirmarContraseniaLabel.Text = "Confirmar Contraseña:";
+            // 
+            // SigninCazadorForm
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(694, 548);
+            ClientSize = new Size(420, 306);
+            Controls.Add(confirmarContraseniaLabel);
+            Controls.Add(confirmarContraseniaTextBox);
             Controls.Add(tituloLabel);
             Controls.Add(cancelarButton);
             Controls.Add(registrarseButton);
@@ -199,7 +209,8 @@
             Controls.Add(contraseniaLabel);
             Controls.Add(emailLabel);
             Controls.Add(nombreLabel);
-            Name = "SigninForm";
+            Margin = new Padding(2, 1, 2, 1);
+            Name = "SigninCazadorForm";
             Text = "Resolución de Anomalías - Registro";
             ((System.ComponentModel.ISupportInitialize)errorProvider).EndInit();
             ResumeLayout(false);
@@ -222,5 +233,7 @@
         private Label nombreLabel;
         private Label tituloLabel;
         private ErrorProvider errorProvider;
+        private Label confirmarContraseniaLabel;
+        private TextBox confirmarContraseniaTextBox;
     }
 }

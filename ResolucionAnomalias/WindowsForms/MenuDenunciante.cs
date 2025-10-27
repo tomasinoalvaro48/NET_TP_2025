@@ -10,6 +10,7 @@ namespace WindowsForms
         public MenuDenunciante()
         {
             InitializeComponent();
+            this.FormClosing += MenuDenunciante_FormClosing;
         }
 
         private void ButtonCRUDTipoAnomalia_Click(object sender, EventArgs e)
@@ -65,6 +66,20 @@ namespace WindowsForms
         private void realizarPedidoToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private async void MenuDenunciante_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // Si el usuario cerró con la X
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                await AuthServiceProvider.Instance.LogoutAsync();
+                AuthServiceProvider.Instance.ClearSession();
+
+                // MOSTRAR Login de nuevo
+                var login = new LoginForm();
+                login.Show();
+            }
         }
     }
 }
