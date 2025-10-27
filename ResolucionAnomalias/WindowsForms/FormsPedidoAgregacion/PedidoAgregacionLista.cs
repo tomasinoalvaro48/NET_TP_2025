@@ -68,14 +68,12 @@ namespace WindowsForms.FormsPedidoAgregacion
         private void agregarButton_Click(object sender, EventArgs e)
         {
             PedidoAgregacionDetalle pedidoAgregacionDetalle = new PedidoAgregacionDetalle();
-
             PedidoAgregacionDTO pedidoAgregacionNueva = new PedidoAgregacionDTO();
 
             pedidoAgregacionDetalle.Mode = FormMode.Add;
             pedidoAgregacionDetalle.PedidoAgregacion = pedidoAgregacionNueva;
 
             pedidoAgregacionDetalle.ShowDialog();
-
             this.GetAllAndLoad();
         }
 
@@ -91,7 +89,7 @@ namespace WindowsForms.FormsPedidoAgregacion
 
                 pedidoAgregacionDetalle.Mode = FormMode.Update;
                 pedidoAgregacionDetalle.PedidoAgregacion = pedidoAgregacion;
-
+                
                 pedidoAgregacionDetalle.ShowDialog();
 
                 this.GetAllAndLoad();
@@ -107,6 +105,8 @@ namespace WindowsForms.FormsPedidoAgregacion
             try
             {
                 int id = this.SelectedItem().Id_pedido_agreg;
+
+                var pedido = await PedidoAgregacionApiClient.GetAsync(id);
 
                 var result = MessageBox.Show($"¿Está seguro que desea eliminar el pedido de agregacion con id {id}?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
@@ -139,6 +139,8 @@ namespace WindowsForms.FormsPedidoAgregacion
                 {
                     this.eliminarButton.Enabled = false;
                     this.modificarButton.Enabled = false;
+                    this.buttonAceptar.Enabled = false;
+                    this.buttonRechazar.Enabled = false;
                 }
             }
             catch (Exception ex)
@@ -158,6 +160,67 @@ namespace WindowsForms.FormsPedidoAgregacion
                 MessageBox.Show("No tenés permisos para acceder a pedidos de agregacion", "Acceso denegado");
                 this.Close();
             }
+        }
+
+        private async void buttonAceptar_Click(object sender, EventArgs e)
+        {
+            var pedido = SelectedItem();
+
+            pedido.Estado_pedido_agreg = "Aceptado";
+            await PedidoAgregacionApiClient.UpdateAsync(pedido);
+
+            TipoAnomaliaDTO tipo = new TipoAnomaliaDTO
+            {
+                Nombre_anom = pedido.Descripcion_pedido_agreg,
+                Dif_anom = pedido.Dificultad_pedido_agreg
+            };
+
+            await TipoAnomaliaApiClient.AddAsync(tipo);
+
+            GetAllAndLoad();
+        }
+
+        private async void buttonRechazar_Click(object sender, EventArgs e)
+        {
+            var pedido = SelectedItem();
+
+            pedido.Estado_pedido_agreg = "Rechazado";
+            await PedidoAgregacionApiClient.UpdateAsync(pedido);
+
+            GetAllAndLoad();
+        }
+
+        private async Task ActualizarBotonesSegunUsuarioYPedido()
+        {
+            var user = await AuthServiceProvider.Instance.GetCurrentUserAsync();
+            var pedido = SelectedItem();
+
+            if (user.Tipo_usu == "Cazador")
+            {
+                buttonAceptar.Visible = false;
+                buttonRechazar.Visible = false;
+            }
+            else if (user.Tipo_usu == "Operador")
+            {
+                buttonAceptar.Visible = true;
+                buttonRechazar.Visible = true;
+
+                if (pedido.Estado_pedido_agreg == "Pendiente")
+                {
+                    buttonAceptar.Enabled = true;
+                    buttonRechazar.Enabled = true;
+                }
+                else
+                {
+                    buttonAceptar.Enabled = false;
+                    buttonRechazar.Enabled = false;
+                }
+            }
+        }
+        private async void pedidosAgregacionDataGridView_SelectionChanged(object sender, EventArgs e)
+        {
+            if (pedidosAgregacionDataGridView.SelectedRows.Count > 0)
+                await ActualizarBotonesSegunUsuarioYPedido();
         }
     }
 }

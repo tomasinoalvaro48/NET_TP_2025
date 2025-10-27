@@ -32,6 +32,8 @@
             agregarButton = new Button();
             modificarButton = new Button();
             eliminarButton = new Button();
+            buttonAceptar = new Button();
+            buttonRechazar = new Button();
             ((System.ComponentModel.ISupportInitialize)pedidosAgregacionDataGridView).BeginInit();
             SuspendLayout();
             // 
@@ -42,6 +44,7 @@
             pedidosAgregacionDataGridView.Name = "pedidosAgregacionDataGridView";
             pedidosAgregacionDataGridView.Size = new Size(755, 301);
             pedidosAgregacionDataGridView.TabIndex = 0;
+            pedidosAgregacionDataGridView.SelectionChanged += pedidosAgregacionDataGridView_SelectionChanged;
             // 
             // agregarButton
             // 
@@ -73,11 +76,33 @@
             eliminarButton.UseVisualStyleBackColor = true;
             eliminarButton.Click += eliminarButton_Click;
             // 
+            // buttonAceptar
+            // 
+            buttonAceptar.Location = new Point(125, 331);
+            buttonAceptar.Name = "buttonAceptar";
+            buttonAceptar.Size = new Size(75, 23);
+            buttonAceptar.TabIndex = 4;
+            buttonAceptar.Text = "Aceptar";
+            buttonAceptar.UseVisualStyleBackColor = true;
+            buttonAceptar.Click += buttonAceptar_Click;
+            // 
+            // buttonRechazar
+            // 
+            buttonRechazar.Location = new Point(21, 331);
+            buttonRechazar.Name = "buttonRechazar";
+            buttonRechazar.Size = new Size(75, 23);
+            buttonRechazar.TabIndex = 5;
+            buttonRechazar.Text = "Rechazar";
+            buttonRechazar.UseVisualStyleBackColor = true;
+            buttonRechazar.Click += buttonRechazar_Click;
+            // 
             // PedidoAgregacionLista
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 419);
+            Controls.Add(buttonRechazar);
+            Controls.Add(buttonAceptar);
             Controls.Add(eliminarButton);
             Controls.Add(modificarButton);
             Controls.Add(agregarButton);
@@ -95,5 +120,7 @@
         private Button agregarButton;
         private Button modificarButton;
         private Button eliminarButton;
+        private Button buttonAceptar;
+        private Button buttonRechazar;
     }
 }

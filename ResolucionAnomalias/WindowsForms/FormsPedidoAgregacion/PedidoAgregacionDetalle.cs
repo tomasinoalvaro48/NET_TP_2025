@@ -143,8 +143,9 @@ namespace WindowsForms.FormsPedidoAgregacion
 
             if (user.Tipo_usu != "Operador" && user.Tipo_usu != "Cazador")
             {
-                MessageBox.Show("No tenés permisos para editar pedidos de aregacion", "Acceso denegado");
+                MessageBox.Show("No tenés permisos para editar pedidos de agregación", "Acceso denegado");
                 this.Close();
+                return;
             }
         }
     }

@@ -10,7 +10,7 @@ namespace Application.Services
         {
             var pedidoAgregacionRepository = new PedidoAgregacionRepository();
 
-            var estado = "pendiente";
+            var estado = "Pendiente";
             PedidoAgregacion pedidoAgregacion = new PedidoAgregacion(dto.Descripcion_pedido_agreg, dto.Dificultad_pedido_agreg, estado);
             await pedidoAgregacionRepository.AddAsync(pedidoAgregacion);
 
