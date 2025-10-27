@@ -89,7 +89,7 @@ namespace WindowsForms.FormsPedidoAgregacion
 
                 pedidoAgregacionDetalle.Mode = FormMode.Update;
                 pedidoAgregacionDetalle.PedidoAgregacion = pedidoAgregacion;
-                
+
                 pedidoAgregacionDetalle.ShowDialog();
 
                 this.GetAllAndLoad();

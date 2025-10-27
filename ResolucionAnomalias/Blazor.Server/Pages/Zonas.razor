@@ -10,45 +10,45 @@
 <PageTitle>Zonas</PageTitle>
 
 <AuthorizeRole Roles="Operador">
-    <div class="container-fluid">
-        <h3>Zonas</h3>
-
+<div class="container-fluid">
+            <h3>Zonas</h3>
+            
         <button class="btn btn-primary mb-3" @onclick="OpenAddModal">
             + Agregar
-        </button>
+                    </button>
 
         @if (zonas == null)
-        {
+            {
             <p>Cargando...</p>
-        }
-        else
-        {
+            }
+            else
+            {
             <table class="table table-striped">
                 <thead>
-                    <tr>
+                            <tr>
                         <th>ID</th>
-                        <th>Nombre</th>
-                        <th>Localidad</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
+                                <th>Nombre</th>
+                                <th>Localidad</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
                     @foreach (var zon in zonas)
-                    {
-                        <tr>
+                            {
+                                    <tr>
                             <td>@zon.Id</td>
                             <td>@zon.Nombre</td>
                             <td>@zon.LocalidadNombre</td>
-                            <td>
+                                        <td>
                                 <button class="btn btn-sm btn-outline-primary me-1" @onclick="() => OpenEditModal(zon)">Editar</button>
                                 <button class="btn btn-sm btn-outline-danger" @onclick="() => ConfirmDelete(zon)">Eliminar</button>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        }
-    </div>
+                                        </td>
+                                    </tr>
+                                }
+                        </tbody>
+                    </table>
+            }
+        </div>
 </AuthorizeRole>
 
 <ZonaModal @ref="zonaModal" OnZonaChanged="LoadZonas" />
@@ -56,15 +56,15 @@
 @code {
     private List<ZonaDTO>? zonas;
     private ZonaModal zonaModal = null!;
-
+    
     protected override async Task OnInitializedAsync()
-    {
-        await LoadZonas();
-    }
+            {
+                await LoadZonas();
+            }
 
     private async Task LoadZonas()
     {
-        zonas = (await ZonaApiClient.GetAllAsync())?.ToList();
+            zonas = (await ZonaApiClient.GetAllAsync())?.ToList();
     }
 
     private Task OpenAddModal() => zonaModal.ShowAddModal();

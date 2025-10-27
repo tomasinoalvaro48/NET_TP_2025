@@ -8,13 +8,13 @@
     <Compile Update="FormsPedidoResolucion\DetallePedidoResolucion.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="FormsPedidoResolucion\ListaPedidoResolucion.cs">
+    <Compile Update="FormsPedidoAgregacion\PedidoAgregacionLista.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="FormsPedidoAgregacion\PedidoAgregacionDetalle.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="FormsPedidoAgregacion\PedidoAgregacionLista.cs">
+    <Compile Update="FormsPedidoResolucion\ListaPedidoResolucion.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="LoginForm.cs">

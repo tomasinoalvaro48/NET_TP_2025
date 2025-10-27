@@ -10,45 +10,45 @@
 <PageTitle>Localidades</PageTitle>
 
 <AuthorizeRole Roles="Operador">
-    <div class="container-fluid">
-        <h3>Localidades</h3>
+<div class="container-fluid">
+    <h3>Localidades</h3>
 
         <button class="btn btn-primary mb-3" @onclick="OpenAddModal">
             + Agregar
         </button>
 
-        @if (localidades == null)
-        {
-            <p>Cargando...</p>
-        }
-        else
-        {
-            <table class="table table-striped">
-                <thead>
+    @if (localidades == null)
+    {
+        <p>Cargando...</p>
+    }
+    else
+    {
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Código</th>
+                    <th>Nombre</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var loc in localidades)
+                {
                     <tr>
-                        <th>ID</th>
-                        <th>Código</th>
-                        <th>Nombre</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var loc in localidades)
-                    {
-                        <tr>
-                            <td>@loc.ID</td>
-                            <td>@loc.Codigo</td>
-                            <td>@loc.Nombre</td>
-                            <td>
+                        <td>@loc.ID</td>
+                        <td>@loc.Codigo</td>
+                        <td>@loc.Nombre</td>
+                        <td>
                                 <button class="btn btn-sm btn-outline-primary me-1" @onclick="() => OpenEditModal(loc)">Editar</button>
                                 <button class="btn btn-sm btn-outline-danger" @onclick="() => ConfirmDelete(loc)">Eliminar</button>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        }
-    </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
 </AuthorizeRole>
 
 <LocalidadModal @ref="localidadModal" OnLocalidadChanged="LoadLocalidades" />
@@ -58,9 +58,9 @@
     private LocalidadModal localidadModal = null!;
 
     protected override async Task OnInitializedAsync()
-    {
-        await LoadLocalidades();
-    }
+            {
+                await LoadLocalidades();
+        }
 
     private async Task LoadLocalidades()
     {

@@ -10,45 +10,45 @@
 <PageTitle>TiposAnomalia</PageTitle>
 
 <AuthorizeRole Roles="Operador">
-    <div class="container-fluid">
-        <h3>TiposAnomalia</h3>
+<div class="container-fluid">
+    <h3>TiposAnomalia</h3>
 
         <button class="btn btn-primary mb-3" @onclick="OpenAddModal">
             + Agregar
         </button>
 
-        @if (tipos_anomalia == null)
-        {
-            <p>Cargando...</p>
-        }
-        else
-        {
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nombre</th>
+    @if (tipos_anomalia == null)
+    {
+        <p>Cargando...</p>
+    }
+    else
+    {
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
                         <th>Dificultad</th>
-                        <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var ta in tipos_anomalia)
+                {
+                    <tr>
+                        <td>@ta.Cod_anom</td>
+                        <td>@ta.Nombre_anom</td>
+                        <td>@ta.Dif_anom</td>
+                        <td>
+                                <button class="btn btn-sm btn-outline-primary me-1" @onclick="() => OpenEditModal(ta)">Editar</button>
+                                <button class="btn btn-sm btn-outline-danger" @onclick="() => ConfirmDelete(ta)">Eliminar</button>
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
-                    @foreach (var loc in tipos_anomalia)
-                    {
-                        <tr>
-                            <td>@loc.Cod_anom</td>
-                            <td>@loc.Nombre_anom</td>
-                            <td>@loc.Dif_anom</td>
-                            <td>
-                                <button class="btn btn-sm btn-outline-primary me-1" @onclick="() => OpenEditModal(loc)">Editar</button>
-                                <button class="btn btn-sm btn-outline-danger" @onclick="() => ConfirmDelete(loc)">Eliminar</button>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        }
-    </div>
+                }
+            </tbody>
+        </table>
+    }
+</div>
 </AuthorizeRole>
 
 <TipoAnomaliaModal @ref="tipoAnomaliaModal" OnTipoAnomaliaChanged="LoadTiposAnomalia" />
@@ -58,8 +58,8 @@
     private TipoAnomaliaModal tipoAnomaliaModal = null!;
 
     protected override async Task OnInitializedAsync()
-    {
-        await LoadTiposAnomalia();
+            {
+                await LoadTiposAnomalia();
     }
 
     private async Task LoadTiposAnomalia()
@@ -68,14 +68,14 @@
     }
 
     private Task OpenAddModal() => tipoAnomaliaModal.ShowAddModal();
-    private Task OpenEditModal(TipoAnomaliaDTO loc) => tipoAnomaliaModal.ShowEditModal(loc);
+    private Task OpenEditModal(TipoAnomaliaDTO ta) => tipoAnomaliaModal.ShowEditModal(ta);
 
-    private async Task ConfirmDelete(TipoAnomaliaDTO loc)
+    private async Task ConfirmDelete(TipoAnomaliaDTO ta)
     {
-        var confirm = await JSRuntime.InvokeAsync<bool>("confirm", $"¿Eliminar {loc.Nombre_anom}?");
+        var confirm = await JSRuntime.InvokeAsync<bool>("confirm", $"¿Eliminar {ta.Nombre_anom}?");
         if (confirm)
         {
-            await TipoAnomaliaApiClient.DeleteAsync(loc.Cod_anom);
+            await TipoAnomaliaApiClient.DeleteAsync(ta.Cod_anom);
             await LoadTiposAnomalia();
         }
     }
