@@ -1,0 +1,185 @@
+﻿@page "/register-denunciante"
+@using DTOs
+@using API.Clients
+@using API.Clients.EntitiesClients
+@using System.Text.RegularExpressions
+@inject IJSRuntime JSRuntime
+@inject NavigationManager Navigation
+
+<PageTitle>Registro de Cazador</PageTitle>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card mt-5">
+                <div class="card-header">
+                    <h3>Registro de Denunciante</h3>
+                </div>
+                <div class="card-body">
+                    <EditForm Model="@currentDenunciante" OnValidSubmit="HandleValidSubmit">
+                        <div class="mb-3">
+                            <label class="form-label">Nombre</label>
+                            <InputText @bind-Value="currentDenunciante.Nombre_usu" class="form-control" />
+                            @if (validationErrors.ContainsKey("Nombre_usu"))
+                            {
+                                <div class="text-danger small">@validationErrors["Nombre_usu"]</div>
+                            }
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <InputText @bind-Value="currentDenunciante.Email_usu" type="email" class="form-control" />
+                            @if (validationErrors.ContainsKey("Email_usu"))
+                            {
+                                <div class="text-danger small">@validationErrors["Email_usu"]</div>
+                            }
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Contraseña</label>
+                            <InputText @bind-Value="currentDenunciante.Passw_usu" type="password" class="form-control" />
+                            @if (validationErrors.ContainsKey("Passw_usu"))
+                            {
+                                <div class="text-danger small">@validationErrors["Passw_usu"]</div>
+                            }
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Confirmar Contraseña</label>
+                            <InputText @bind-Value="RepetirPassw_usu" type="password" class="form-control" />
+                            @if (validationErrors.ContainsKey("RepetirPassw_usu"))
+                            {
+                                <div class="text-danger small">@validationErrors["RepetirPassw_usu"]</div>
+                            }
+                        </div>
+
+                        <div class="mb-3">
+                            <a href="/login">¿Ya tienes una cuenta? Inicia sesión</a>
+                        </div>
+
+                        @if (!string.IsNullOrEmpty(errorMessage))
+                        {
+                            <div class="alert alert-danger">
+                                @errorMessage
+                            </div>
+                        }
+
+                        @if (!string.IsNullOrEmpty(successMessage))
+                        {
+                            <div class="alert alert-success">
+                                @successMessage
+                            </div>
+                        }
+
+                        <div class="d-flex justify-content-between mt-3">
+                            <button type="submit" class="btn btn-primary" disabled="@saving">
+                                @if (saving)
+                                {
+                                    <span class="spinner-border spinner-border-sm me-2"></span>
+                                }
+                                Registrarse
+                            </button>
+                            <button type="button" class="btn btn-secondary" @onclick="Cancelar">Cancelar</button>
+                        </div>
+                    </EditForm>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private string RepetirPassw_usu = string.Empty;
+    private UsuarioCreateDTO currentDenunciante = new();
+    private bool saving = false;
+    private string errorMessage = string.Empty;
+    private string successMessage = string.Empty;
+    private Dictionary<string, string> validationErrors = new();
+
+    private async Task HandleValidSubmit()
+    {
+        if (!Validate())
+            return;
+        try
+        {
+            saving = true;
+            errorMessage = string.Empty;
+            successMessage = string.Empty;
+
+            currentDenunciante.Tipo_usu = "Denunciante";
+
+            await UsuarioApiClient.AddAsync(currentDenunciante);
+
+            successMessage = "Registro exitoso. Redirigiendo al inicio de sesión...";
+
+            Navigation.NavigateTo("/login");
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Error al registrar usuario: {ex.Message}";
+        }
+        finally
+        {
+            saving = false;
+        }
+    }
+
+    private bool Validate()
+    {
+        ClearValidationErrors();
+        bool isValid = true;
+
+        // Validar nombre
+        if (string.IsNullOrWhiteSpace(currentDenunciante.Nombre_usu))
+        {
+            validationErrors["Nombre_usu"] = "El nombre es requerido";
+            isValid = false;
+        }
+        else if (!Regex.IsMatch(currentDenunciante.Nombre_usu, @"^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$"))
+        {
+            validationErrors["Nombre_usu"] = "El nombre no puede tener números";
+            isValid = false;
+        }
+
+        // Validar email
+        if (string.IsNullOrWhiteSpace(currentDenunciante.Email_usu) ||
+            !Regex.IsMatch(currentDenunciante.Email_usu, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+        {
+            validationErrors["Email_usu"] = "Debe ingresar un email válido";
+            isValid = false;
+        }
+
+        // Validar contraseña
+        if (string.IsNullOrWhiteSpace(currentDenunciante.Passw_usu))
+        {
+            validationErrors["Passw_usu"] = "La contraseña es requerida";
+            isValid = false;
+        }
+        else if (currentDenunciante.Passw_usu.Length < 6)
+        {
+            validationErrors["Passw_usu"] = "La contraseña debe tener mínimo 6 caracteres";
+            isValid = false;
+        }
+
+        // Validar confirmación de contraseña
+        if (RepetirPassw_usu != currentDenunciante.Passw_usu)
+        {
+            validationErrors["RepetirPassw_usu"] = "Las contraseñas no coinciden";
+            isValid = false;
+        }
+        StateHasChanged();
+        return isValid;
+    }
+
+    private void ClearValidationErrors()
+    {
+        validationErrors.Clear();
+        errorMessage = string.Empty;
+        successMessage = string.Empty;
+    }
+
+    private void Cancelar()
+    {
+        Navigation.NavigateTo("/login");
+    }
+}
