@@ -34,14 +34,16 @@
             toolStripMenuItemMasAjustes = new ToolStripMenuItem();
             cerrarSesionToolStripMenuItem = new ToolStripMenuItem();
             realizarPedidoToolStripMenuItem = new ToolStripMenuItem();
+            buttonPedidoResolucion = new Button();
             menuStripDenunciante.SuspendLayout();
             SuspendLayout();
             // 
             // logoutButton
             // 
-            logoutButton.Location = new Point(466, 227);
+            logoutButton.Location = new Point(410, 302);
+            logoutButton.Margin = new Padding(4, 4, 4, 4);
             logoutButton.Name = "logoutButton";
-            logoutButton.Size = new Size(135, 23);
+            logoutButton.Size = new Size(154, 31);
             logoutButton.TabIndex = 1;
             logoutButton.Text = "Cerrar sesión";
             logoutButton.UseVisualStyleBackColor = true;
@@ -50,9 +52,10 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(300, 76);
+            label1.Location = new Point(22, 45);
+            label1.Margin = new Padding(4, 0, 4, 0);
             label1.Name = "label1";
-            label1.Size = new Size(145, 15);
+            label1.Size = new Size(344, 20);
             label1.TabIndex = 2;
             label1.Text = "¡Bienvenido, Denunciante!";
             // 
@@ -64,8 +67,8 @@
             menuStripDenunciante.Items.AddRange(new ToolStripItem[] { toolStripMenuItemMasAjustes, realizarPedidoToolStripMenuItem });
             menuStripDenunciante.Location = new Point(0, 0);
             menuStripDenunciante.Name = "menuStripDenunciante";
-            menuStripDenunciante.Padding = new Padding(3, 1, 0, 1);
-            menuStripDenunciante.Size = new Size(112, 262);
+            menuStripDenunciante.Padding = new Padding(4, 1, 0, 1);
+            menuStripDenunciante.Size = new Size(700, 26);
             menuStripDenunciante.TabIndex = 8;
             menuStripDenunciante.Text = "menuStripDenunciante";
             // 
@@ -74,13 +77,13 @@
             toolStripMenuItemMasAjustes.Alignment = ToolStripItemAlignment.Right;
             toolStripMenuItemMasAjustes.DropDownItems.AddRange(new ToolStripItem[] { cerrarSesionToolStripMenuItem });
             toolStripMenuItemMasAjustes.Name = "toolStripMenuItemMasAjustes";
-            toolStripMenuItemMasAjustes.Size = new Size(105, 19);
+            toolStripMenuItemMasAjustes.Size = new Size(101, 24);
             toolStripMenuItemMasAjustes.Text = "Más Ajustes";
             // 
             // cerrarSesionToolStripMenuItem
             // 
             cerrarSesionToolStripMenuItem.Name = "cerrarSesionToolStripMenuItem";
-            cerrarSesionToolStripMenuItem.Size = new Size(143, 22);
+            cerrarSesionToolStripMenuItem.Size = new Size(179, 26);
             cerrarSesionToolStripMenuItem.Text = "Cerrar Sesión";
             cerrarSesionToolStripMenuItem.Click += cerrarSesionToolStripMenuItem_Click;
             // 
@@ -88,18 +91,31 @@
             // 
             realizarPedidoToolStripMenuItem.Margin = new Padding(5);
             realizarPedidoToolStripMenuItem.Name = "realizarPedidoToolStripMenuItem";
-            realizarPedidoToolStripMenuItem.Size = new Size(95, 19);
+            realizarPedidoToolStripMenuItem.Size = new Size(126, 24);
             realizarPedidoToolStripMenuItem.Text = "Realizar Pedido";
             realizarPedidoToolStripMenuItem.Click += realizarPedidoToolStripMenuItem_Click;
             // 
+            // buttonPedidoResolucion
+            // 
+            buttonPedidoResolucion.Location = new Point(499, 130);
+            buttonPedidoResolucion.Name = "buttonPedidoResolucion";
+            buttonPedidoResolucion.Size = new Size(139, 81);
+            buttonPedidoResolucion.TabIndex = 9;
+            buttonPedidoResolucion.Text = "Hacer Pedido";
+            buttonPedidoResolucion.UseVisualStyleBackColor = true;
+            buttonPedidoResolucion.Click += buttonPedidoResolucion_Click;
+            // 
             // MenuDenunciante
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(613, 262);
+            ClientSize = new Size(700, 349);
+            Controls.Add(buttonPedidoResolucion);
             Controls.Add(menuStripDenunciante);
             Controls.Add(label1);
             Controls.Add(logoutButton);
+            Controls.Add(EnterCRUDTipoAnomaliaButton);
+            Margin = new Padding(4, 4, 4, 4);
             Name = "MenuDenunciante";
             Text = "Menu Denunciante";
             FormClosing += MenuDenunciante_FormClosing;
@@ -116,5 +132,6 @@
         private ToolStripMenuItem toolStripMenuItemMasAjustes;
         private ToolStripMenuItem cerrarSesionToolStripMenuItem;
         private ToolStripMenuItem realizarPedidoToolStripMenuItem;
+        private Button buttonPedidoResolucion;
     }
 }

@@ -41,6 +41,7 @@ namespace WindowsForms.FormsPedidoResolucion
             InitializeComponent();
         }
 
+
         public DetalleAnomalia(FormMode mode, AnomaliaPedidoDTO anomalia) : this()
         {
             Init(mode, anomalia);
@@ -57,8 +58,8 @@ namespace WindowsForms.FormsPedidoResolucion
         {
             var tiposAnomalias = await TipoAnomaliaApiClient.GetAllAsync();
             comboBoxTipoAnomalia.DataSource = tiposAnomalias;
-            comboBoxTipoAnomalia.DisplayMember = "Descripcion";
-            comboBoxTipoAnomalia.ValueMember = "Id";
+            comboBoxTipoAnomalia.DisplayMember = "Nombre_anom";
+            comboBoxTipoAnomalia.ValueMember = "Cod_anom";
             comboBoxTipoAnomalia.SelectedIndex = -1;
         }
 
@@ -68,13 +69,15 @@ namespace WindowsForms.FormsPedidoResolucion
             {
                 this.Anomalia.TipoAnomaliaId = (int)comboBoxTipoAnomalia.SelectedValue;
                 this.Anomalia.TipoAnomaliaDescripcion = comboBoxTipoAnomalia.Text;
+                this.Anomalia.TipoAnomaliaDificultad = ((TipoAnomaliaDTO)comboBoxTipoAnomalia.SelectedItem).Dif_anom;
+                
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }
 
         }
 
-
+        
         private bool ValidateItem()
         {
             bool isValid = true;
@@ -113,10 +116,17 @@ namespace WindowsForms.FormsPedidoResolucion
 
         private async void comboBoxTipoAnomalia_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboBoxTipoAnomalia.SelectedIndex != null && comboBoxTipoAnomalia.SelectedIndex is int tipoAnomaliaId)
+            if (comboBoxTipoAnomalia.SelectedValue is int tipoAnomaliaId && tipoAnomaliaId > 0)
             {
-                var tipoAnomalia = await TipoAnomaliaApiClient.GetAsync(tipoAnomaliaId);
-
+                try
+                {
+                    var tipoAnomalia = await TipoAnomaliaApiClient.GetAsync(tipoAnomaliaId);
+                    // Podés hacer algo con tipoAnomalia si necesitás
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error al obtener tipo de anomalia: {ex.Message}");
+                }
             }
         }
     }

@@ -22,7 +22,8 @@ namespace Data
         {
             using var context = CreateContext();
             var pedido = await context.PedidosResolucion.FindAsync(id);
-            if (pedido != null) { 
+            if (pedido != null)
+            {
                 context.PedidosResolucion.Remove(pedido);
                 await context.SaveChangesAsync();
                 return true;
@@ -60,48 +61,57 @@ namespace Data
         public async Task<bool> UpdateAsync(PedidoResolucion pedido)
         {
             using var context = CreateContext();
+
             var existingPedido = await context.PedidosResolucion
                 .Include(p => p.AnomaliaPedidos)
-                    .ThenInclude(a => a.TipoAnomalia)
                 .Include(p => p.Denunciante)
                 .Include(p => p.Zona)
                 .Include(p => p.Cazador)
                 .FirstOrDefaultAsync(p => p.Id == pedido.Id);
 
-            if (existingPedido != null)
-            {
-                // Actualizar propiedades basicas del pedido
-                existingPedido.SetCazadorId(pedido.CazadorId);
-                existingPedido.SetZonaId(pedido.ZonaId);
-                existingPedido.setDireccion(pedido.Direccion);
-                
-                var itemsToDelete = existingPedido.AnomaliaPedidos
-                    .Where(existing => !pedido.AnomaliaPedidos.Any(nuevo =>nuevo.TipoAnomaliaId == existing.TipoAnomaliaId))
-                    .ToList();
-
-                foreach (var item in itemsToDelete)
-                {
-                    existingPedido.RemoveAnomaliaPedido(item);
-                }
-
-                foreach(var nuevoItem in pedido.AnomaliaPedidos)
-                {
-                    var existingItem = existingPedido.AnomaliaPedidos
-                        .FirstOrDefault(e => e.TipoAnomaliaId == nuevoItem.TipoAnomaliaId);
+            if (existingPedido == null)
+                return false;
 
 
-                    existingPedido.AddAnomaliaPedido(nuevoItem);
+            existingPedido.setEstado(pedido.Estado);
+            existingPedido.setComentario(pedido.Comentario);
 
-                }
+         
+            existingPedido.SetCazadorId(pedido.CazadorId.Value);
 
-                await context.SaveChangesAsync();
-                return true;
-            }
-            return false;
+            await context.SaveChangesAsync();
+            return true;
         }
 
+        public async Task<bool> FinalizarPedidoAsync(PedidoResolucion pedido)
+        {
+            using var context = CreateContext();
 
+            var existingPedido = await context.PedidosResolucion
+                .Include(p => p.AnomaliaPedidos)
+                .Include(p => p.Denunciante)
+                .Include(p => p.Zona)
+                .Include(p => p.Cazador)
+                .FirstOrDefaultAsync(p => p.Id == pedido.Id);
 
+            if (existingPedido == null)
+                return false;
+            existingPedido.setEstado(pedido.Estado);
+            await context.SaveChangesAsync();
+            return true;
+        }
 
+        public async Task<IEnumerable<PedidoResolucion>> GetAllDenunciante(int id)
+        {
+            using var context = CreateContext();
+            return await context.PedidosResolucion
+                .Include(p => p.AnomaliaPedidos)
+                    .ThenInclude(a => a.TipoAnomalia)
+                .Include(p => p.Denunciante)
+                .Include(p => p.Zona)
+                .Include(p => p.Cazador)
+                .Where(p => p.DenuncianteId == id)
+                .ToListAsync();
+        }
     }
 }

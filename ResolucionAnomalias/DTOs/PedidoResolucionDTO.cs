@@ -12,7 +12,7 @@ namespace DTOs
 
         public string Estado { get; set; }
 
-        public string Comentario { get; set; }
+        public string? Comentario { get; set; }
 
         public int Dificultad => Anomalias?.Sum(i => i.TipoAnomaliaDificultad) ?? 0;
 
@@ -24,7 +24,7 @@ namespace DTOs
         public string? LocalidadNombre { set; get; }
 
 
-        public int CazadorId { get; set; }
+        public int? CazadorId { get; set; }
         public string? CazadorNombre { get; set; }
 
 

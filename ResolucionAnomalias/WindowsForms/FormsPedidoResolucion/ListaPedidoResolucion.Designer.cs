@@ -32,6 +32,7 @@
             buttonAgregar = new Button();
             buttonModificar = new Button();
             buttonEliminar = new Button();
+            buttonFinalizarPedido = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridViewPedidos).BeginInit();
             SuspendLayout();
             // 
@@ -41,44 +42,55 @@
             dataGridViewPedidos.Location = new Point(71, 47);
             dataGridViewPedidos.Name = "dataGridViewPedidos";
             dataGridViewPedidos.RowHeadersWidth = 51;
-            dataGridViewPedidos.Size = new Size(708, 337);
+            dataGridViewPedidos.Size = new Size(956, 337);
             dataGridViewPedidos.TabIndex = 0;
             // 
             // buttonAgregar
             // 
-            buttonAgregar.Location = new Point(685, 431);
+            buttonAgregar.Location = new Point(1101, 431);
             buttonAgregar.Name = "buttonAgregar";
-            buttonAgregar.Size = new Size(94, 29);
+            buttonAgregar.Size = new Size(193, 29);
             buttonAgregar.TabIndex = 1;
-            buttonAgregar.Text = "Agregar";
+            buttonAgregar.Text = "Realizar Pedido";
             buttonAgregar.UseVisualStyleBackColor = true;
             buttonAgregar.Click += buttonAgregar_Click;
             // 
             // buttonModificar
             // 
-            buttonModificar.Location = new Point(551, 431);
+            buttonModificar.Location = new Point(449, 431);
             buttonModificar.Name = "buttonModificar";
-            buttonModificar.Size = new Size(94, 29);
+            buttonModificar.Size = new Size(197, 29);
             buttonModificar.TabIndex = 2;
-            buttonModificar.Text = "Modificar";
+            buttonModificar.Text = "Tomar Pedido";
             buttonModificar.UseVisualStyleBackColor = true;
             buttonModificar.Click += buttonModificar_Click;
             // 
             // buttonEliminar
             // 
-            buttonEliminar.Location = new Point(416, 431);
+            buttonEliminar.Location = new Point(71, 431);
             buttonEliminar.Name = "buttonEliminar";
-            buttonEliminar.Size = new Size(94, 29);
+            buttonEliminar.Size = new Size(107, 29);
             buttonEliminar.TabIndex = 3;
             buttonEliminar.Text = "Eliminar";
             buttonEliminar.UseVisualStyleBackColor = true;
             buttonEliminar.Click += buttonEliminar_Click;
             // 
+            // buttonFinalizarPedido
+            // 
+            buttonFinalizarPedido.Location = new Point(682, 431);
+            buttonFinalizarPedido.Name = "buttonFinalizarPedido";
+            buttonFinalizarPedido.Size = new Size(213, 29);
+            buttonFinalizarPedido.TabIndex = 4;
+            buttonFinalizarPedido.Text = "Finalizar Pedido";
+            buttonFinalizarPedido.UseVisualStyleBackColor = true;
+            buttonFinalizarPedido.Click += buttonFinalizarPedido_Click;
+            // 
             // ListaPedidoResolucion
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(844, 490);
+            ClientSize = new Size(1523, 490);
+            Controls.Add(buttonFinalizarPedido);
             Controls.Add(buttonEliminar);
             Controls.Add(buttonModificar);
             Controls.Add(buttonAgregar);
@@ -96,5 +108,6 @@
         private Button buttonAgregar;
         private Button buttonModificar;
         private Button buttonEliminar;
+        private Button buttonFinalizarPedido;
     }
 }

@@ -69,7 +69,6 @@ namespace Data
                     new { ID = 1, Codigo = 2000, Nombre = "Rosario" },
                     new { ID = 2, Codigo = 2001, Nombre = "Bs As" }
                 );
-
             });
 
             modelBuilder.Entity<Zona>(entity =>
@@ -166,7 +165,69 @@ namespace Data
                 entity.Property(e => e.Descripcion_pedido_agreg).IsRequired().HasMaxLength(200);
                 entity.Property(e => e.Dificultad_pedido_agreg).IsRequired();
                 entity.Property(e => e.Estado_pedido_agreg).IsRequired().HasMaxLength(50);
+                // Tipo de anomalia OPCIONAL (nullable)
+                entity.Property(e => e.TipoAnomaliaId)
+                    .HasField("_tipoAnomaliaId")
+                    .IsRequired(false);
 
+                entity.Navigation(e => e.TipoAnomalia).HasField("_tipoAnomalia");
+            modelBuilder.Entity<PedidoResolucion>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+
+                entity.Property(e => e.Id)
+                    .ValueGeneratedOnAdd();
+
+                entity.Property(e => e.Fecha)
+                    .IsRequired();
+
+                entity.Property(e => e.Direccion)
+                    .IsRequired()
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.Descripcion)
+                    .HasMaxLength(500);
+
+                entity.Property(e => e.Estado)
+                    .IsRequired()
+                    .HasMaxLength(20);
+
+                entity.Property(e => e.Comentario)
+                    .HasMaxLength(500);
+
+                entity.Property(e => e.Dificultad)
+                    .IsRequired();
+
+                entity.Property(e => e.ZonaId)
+                    .IsRequired()
+                    .HasField("_zonaId");
+
+                entity.Navigation(e => e.Zona)
+                    .HasField("_zona");
+
+                entity.HasOne(e => e.Zona)
+                    .WithMany()
+                    .HasForeignKey(e => e.TipoAnomaliaId)
+                    .IsRequired(false)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+                // Cazador OBLIGATORIO
+                entity.Property(e => e.CazadorId)
+                    .HasField("_cazadorId")
+                    .IsRequired(false);
+
+                entity.Navigation(e => e.Cazador)
+                    .HasField("_cazador");
+
+                entity.HasOne(e => e.Cazador)
+                    .WithMany()
+                    .HasForeignKey(e => e.CazadorId)
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .IsRequired(false);
+
+                entity.Property(e => e.DenuncianteId)
+                    .IsRequired()
+                    .HasField("_denuncianteId");
                 // Tipo de anomalia OPCIONAL (nullable)
                 entity.Property(e => e.TipoAnomaliaId)
                     .HasField("_tipoAnomaliaId")
@@ -193,7 +254,7 @@ namespace Data
                     .HasForeignKey(e => e.CazadorId);
             });
 
-            modelBuilder.Entity<PedidoResolucion>(entity =>
+                modelBuilder.Entity<PedidoResolucion>(entity =>
             {
                 entity.HasKey(e => e.Id);
                 entity.Property(e => e.Id).ValueGeneratedOnAdd();
@@ -208,13 +269,10 @@ namespace Data
                 entity.Navigation(e => e.Zona).HasField("_zona");
                 entity.HasOne(e => e.Zona).WithMany().HasForeignKey(e => e.ZonaId).OnDelete(DeleteBehavior.Restrict);
 
-                entity.Property(e => e.CazadorId).HasField("_cazadorId");
-                entity.Navigation(e => e.Cazador).HasField("_cazador");
-                entity.HasOne(e => e.Cazador).WithMany().HasForeignKey(e => e.CazadorId).OnDelete(DeleteBehavior.Restrict);
-
-                entity.Property(e => e.DenuncianteId).IsRequired().HasField("_denuncianteId");
-                entity.Navigation(e => e.Denunciante).HasField("_denunciante");
-                entity.HasOne(e => e.Denunciante).WithMany().HasForeignKey(e => e.DenuncianteId).OnDelete(DeleteBehavior.Restrict);
+                // IMPORTANT: usar el campo privado para materializar la colección
+                entity.Navigation(e => e.AnomaliaPedidos)
+                      .HasField("_anomaliaPedido")
+                      .UsePropertyAccessMode(PropertyAccessMode.Field);
 
                 entity.OwnsMany(e => e.AnomaliaPedidos, anomalia =>
                 {
@@ -231,6 +289,7 @@ namespace Data
                         .HasForeignKey(a => a.TipoAnomaliaId)
                         .OnDelete(DeleteBehavior.Restrict);
 
+                    // opcional, explicitar tabla para la owned collection
                     anomalia.ToTable("AnomaliaPedido");
                 });
             });

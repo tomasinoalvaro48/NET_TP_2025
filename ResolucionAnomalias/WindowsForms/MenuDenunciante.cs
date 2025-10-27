@@ -3,6 +3,8 @@ using WindowsForms.FormsPedidoResolucion;
 using WindowsForms.FormsTipoAnomalia;
 using WindowsForms.FormsUsuario;
 using WindowsForms.FormsZona;
+using WindowsForms.FormsPedidoResolucion; // <- agregado
+using DTOs;
 
 namespace WindowsForms
 {
@@ -49,6 +51,31 @@ namespace WindowsForms
             this.Close();
         }
 
+        private async void realizarPedidoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var user = await AuthServiceProvider.Instance.GetCurrentUserAsync();
+            if (user == null || !string.Equals(user.Tipo_usu, "Denunciante", StringComparison.OrdinalIgnoreCase))
+            {
+                MessageBox.Show("Solo un denunciante puede realizar pedidos.", "Acceso denegado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            var dto = new PedidoResolucionDTO
+            {
+                Fecha = DateTime.Now,
+                DenuncianteId = user.Cod_usu,
+                DenuncianteNombre = user.Nombre_usu
+            };
+
+            using var frm = new DetallePedidoResolucion(FormMode.Add, dto);
+            frm.ShowDialog();
+        }
+
+        private void buttonPedidoResolucion_Click(object sender, EventArgs e)
+        {
+            ListaPedidoResolucion pedidoResolucion = new ListaPedidoResolucion();
+            pedidoResolucion.ShowDialog();
+        }
         private async void MenuDenunciante_FormClosing(object sender, FormClosingEventArgs e)
         {
             // Si el usuario cerró con la X

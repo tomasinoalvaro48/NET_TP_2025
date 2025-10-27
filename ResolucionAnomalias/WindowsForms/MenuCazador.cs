@@ -75,5 +75,11 @@ namespace WindowsForms
                 }
             }
         }
+
+        private void buttonTomarPedido_Click(object sender, EventArgs e)
+        {
+            ListaPedidoResolucion pedidoResolucion = new ListaPedidoResolucion();
+            pedidoResolucion.ShowDialog();
+        }
     }
 }
