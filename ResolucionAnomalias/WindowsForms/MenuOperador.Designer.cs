@@ -36,6 +36,7 @@
             pedidosDeAgregacionToolStripMenuItem = new ToolStripMenuItem();
             toolStripMenuItemMasAjustes = new ToolStripMenuItem();
             cerrarSesionToolStripMenuItem = new ToolStripMenuItem();
+            reporteToolStripMenuItem = new ToolStripMenuItem();
             menuStripOperador.SuspendLayout();
             SuspendLayout();
             // 
@@ -43,45 +44,46 @@
             // 
             menuStripOperador.BackColor = SystemColors.Control;
             menuStripOperador.ImageScalingSize = new Size(32, 32);
-            menuStripOperador.Items.AddRange(new ToolStripItem[] { usuariosToolStripMenuItem, tiposDeAnomaliasToolStripMenuItem, localidadesToolStripMenuItem, zonasToolStripMenuItem, pedidosDeAgregacionToolStripMenuItem, toolStripMenuItemMasAjustes });
+            menuStripOperador.Items.AddRange(new ToolStripItem[] { usuariosToolStripMenuItem, tiposDeAnomaliasToolStripMenuItem, localidadesToolStripMenuItem, zonasToolStripMenuItem, pedidosDeAgregacionToolStripMenuItem, toolStripMenuItemMasAjustes, reporteToolStripMenuItem });
             menuStripOperador.Location = new Point(0, 0);
             menuStripOperador.Name = "menuStripOperador";
-            menuStripOperador.Size = new Size(1213, 42);
+            menuStripOperador.Padding = new Padding(3, 1, 0, 1);
+            menuStripOperador.Size = new Size(831, 24);
             menuStripOperador.TabIndex = 7;
             menuStripOperador.Text = "menuStripOperador";
             // 
             // usuariosToolStripMenuItem
             // 
             usuariosToolStripMenuItem.Name = "usuariosToolStripMenuItem";
-            usuariosToolStripMenuItem.Size = new Size(124, 38);
+            usuariosToolStripMenuItem.Size = new Size(64, 22);
             usuariosToolStripMenuItem.Text = "Usuarios";
             usuariosToolStripMenuItem.Click += usuariosToolStripMenuItem_Click;
             // 
             // tiposDeAnomaliasToolStripMenuItem
             // 
             tiposDeAnomaliasToolStripMenuItem.Name = "tiposDeAnomaliasToolStripMenuItem";
-            tiposDeAnomaliasToolStripMenuItem.Size = new Size(242, 38);
+            tiposDeAnomaliasToolStripMenuItem.Size = new Size(123, 22);
             tiposDeAnomaliasToolStripMenuItem.Text = "Tipos de Anomalías";
             tiposDeAnomaliasToolStripMenuItem.Click += tiposDeAnomaliasToolStripMenuItem_Click;
             // 
             // localidadesToolStripMenuItem
             // 
             localidadesToolStripMenuItem.Name = "localidadesToolStripMenuItem";
-            localidadesToolStripMenuItem.Size = new Size(157, 38);
+            localidadesToolStripMenuItem.Size = new Size(81, 22);
             localidadesToolStripMenuItem.Text = "Localidades";
             localidadesToolStripMenuItem.Click += localidadesToolStripMenuItem_Click;
             // 
             // zonasToolStripMenuItem
             // 
             zonasToolStripMenuItem.Name = "zonasToolStripMenuItem";
-            zonasToolStripMenuItem.Size = new Size(98, 38);
+            zonasToolStripMenuItem.Size = new Size(51, 22);
             zonasToolStripMenuItem.Text = "Zonas";
             zonasToolStripMenuItem.Click += zonasToolStripMenuItem_Click;
             // 
             // pedidosDeAgregacionToolStripMenuItem
             // 
             pedidosDeAgregacionToolStripMenuItem.Name = "pedidosDeAgregacionToolStripMenuItem";
-            pedidosDeAgregacionToolStripMenuItem.Size = new Size(279, 38);
+            pedidosDeAgregacionToolStripMenuItem.Size = new Size(141, 22);
             pedidosDeAgregacionToolStripMenuItem.Text = "Pedidos de Agregación";
             pedidosDeAgregacionToolStripMenuItem.Click += pedidosDeAgregacionToolStripMenuItem_Click;
             // 
@@ -90,24 +92,31 @@
             toolStripMenuItemMasAjustes.Alignment = ToolStripItemAlignment.Right;
             toolStripMenuItemMasAjustes.DropDownItems.AddRange(new ToolStripItem[] { cerrarSesionToolStripMenuItem });
             toolStripMenuItemMasAjustes.Name = "toolStripMenuItemMasAjustes";
-            toolStripMenuItemMasAjustes.Size = new Size(161, 38);
+            toolStripMenuItemMasAjustes.Size = new Size(82, 22);
             toolStripMenuItemMasAjustes.Text = "Más Ajustes";
             // 
             // cerrarSesionToolStripMenuItem
             // 
             cerrarSesionToolStripMenuItem.Name = "cerrarSesionToolStripMenuItem";
-            cerrarSesionToolStripMenuItem.Size = new Size(288, 44);
+            cerrarSesionToolStripMenuItem.Size = new Size(143, 22);
             cerrarSesionToolStripMenuItem.Text = "Cerrar Sesión";
             cerrarSesionToolStripMenuItem.Click += cerrarSesionToolStripMenuItem_Click;
             // 
+            // reporteToolStripMenuItem
+            // 
+            reporteToolStripMenuItem.Name = "reporteToolStripMenuItem";
+            reporteToolStripMenuItem.Size = new Size(204, 22);
+            reporteToolStripMenuItem.Text = "Ver Reporte Pedidos de Agregacion";
+            reporteToolStripMenuItem.Click += reporteToolStripMenuItem_Click;
+            // 
             // MenuOperador
             // 
-            AutoScaleDimensions = new SizeF(13F, 32F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1213, 606);
+            ClientSize = new Size(831, 284);
             Controls.Add(menuStripOperador);
             MainMenuStrip = menuStripOperador;
-            Margin = new Padding(4);
+            Margin = new Padding(2);
             Name = "MenuOperador";
             Text = "Menu Operador";
             menuStripOperador.ResumeLayout(false);
@@ -126,5 +135,6 @@
         private ToolStripMenuItem toolStripMenuItemMasAjustes;
         private ToolStripMenuItem cerrarSesionToolStripMenuItem;
         private MenuStrip menuStripOperador;
+        private ToolStripMenuItem reporteToolStripMenuItem;
     }
 }

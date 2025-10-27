@@ -86,6 +86,12 @@ namespace WindowsForms
             pedidoAgregacionLista.ShowDialog();
         }
 
+        private void reporteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PedidoAgregacionReporte pedidoAgregacionReporte = new PedidoAgregacionReporte();
+            pedidoAgregacionReporte.ShowDialog();
+        }
+
         private async void cerrarSesionToolStripMenuItem_Click(object sender, EventArgs e)
         {
             await AuthServiceProvider.Instance.LogoutAsync();
