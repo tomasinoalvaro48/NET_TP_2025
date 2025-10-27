@@ -45,8 +45,8 @@
             textBoxComentario = new TextBox();
             textBoxDescripcion = new TextBox();
             textBoxDificultad = new TextBox();
+            labelDescripcion = new Label();
             labelComentario = new Label();
-            label8 = new Label();
             label7 = new Label();
             comboBoxZonas = new ComboBox();
             labelFecha = new Label();
@@ -125,7 +125,7 @@
             // 
             // buttonCancelar
             // 
-            buttonCancelar.Location = new Point(604, 462);
+            buttonCancelar.Location = new Point(386, 467);
             buttonCancelar.Name = "buttonCancelar";
             buttonCancelar.Size = new Size(94, 29);
             buttonCancelar.TabIndex = 11;
@@ -135,9 +135,9 @@
             // 
             // buttonAceptar
             // 
-            buttonAceptar.Location = new Point(484, 466);
+            buttonAceptar.Location = new Point(534, 467);
             buttonAceptar.Name = "buttonAceptar";
-            buttonAceptar.Size = new Size(94, 29);
+            buttonAceptar.Size = new Size(213, 29);
             buttonAceptar.TabIndex = 12;
             buttonAceptar.Text = "Aceptar";
             buttonAceptar.UseVisualStyleBackColor = true;
@@ -194,23 +194,23 @@
             textBoxDificultad.Size = new Size(125, 27);
             textBoxDificultad.TabIndex = 18;
             // 
+            // labelDescripcion
+            // 
+            labelDescripcion.AutoSize = true;
+            labelDescripcion.Location = new Point(57, 370);
+            labelDescripcion.Name = "labelDescripcion";
+            labelDescripcion.Size = new Size(87, 20);
+            labelDescripcion.TabIndex = 19;
+            labelDescripcion.Text = "Descripcion";
+            // 
             // labelComentario
             // 
             labelComentario.AutoSize = true;
-            labelComentario.Location = new Point(57, 370);
+            labelComentario.Location = new Point(57, 441);
             labelComentario.Name = "labelComentario";
             labelComentario.Size = new Size(87, 20);
-            labelComentario.TabIndex = 19;
-            labelComentario.Text = "Descripcion";
-            // 
-            // label8
-            // 
-            label8.AutoSize = true;
-            label8.Location = new Point(57, 441);
-            label8.Name = "label8";
-            label8.Size = new Size(87, 20);
-            label8.TabIndex = 20;
-            label8.Text = "Comentario";
+            labelComentario.TabIndex = 20;
+            labelComentario.Text = "Comentario";
             // 
             // label7
             // 
@@ -242,6 +242,7 @@
             // 
             textBoxFecha.Location = new Point(504, 33);
             textBoxFecha.Name = "textBoxFecha";
+            textBoxFecha.ReadOnly = true;
             textBoxFecha.Size = new Size(231, 27);
             textBoxFecha.TabIndex = 24;
             // 
@@ -264,7 +265,7 @@
             // 
             // textBoxDenunciante
             // 
-            textBoxDenunciante.Location = new Point(172, 84);
+            textBoxDenunciante.Location = new Point(172, 74);
             textBoxDenunciante.Name = "textBoxDenunciante";
             textBoxDenunciante.ReadOnly = true;
             textBoxDenunciante.Size = new Size(200, 27);
@@ -281,8 +282,8 @@
             Controls.Add(labelFecha);
             Controls.Add(comboBoxZonas);
             Controls.Add(label7);
-            Controls.Add(label8);
             Controls.Add(labelComentario);
+            Controls.Add(labelDescripcion);
             Controls.Add(textBoxDificultad);
             Controls.Add(textBoxDescripcion);
             Controls.Add(textBoxComentario);
@@ -300,7 +301,7 @@
             Controls.Add(labelId);
             Controls.Add(dataGridViewAnomalias);
             Name = "DetallePedidoResolucion";
-            Text = "Form1";
+            Text = "Detalle Pedido";
             ((System.ComponentModel.ISupportInitialize)errorProvider).EndInit();
             ((System.ComponentModel.ISupportInitialize)dataGridViewAnomalias).EndInit();
             ResumeLayout(false);
@@ -324,8 +325,8 @@
         private TextBox textBoxDireccion;
         private TextBox textBoxDescripcion;
         private TextBox textBoxComentario;
-        private Label label8;
         private Label labelComentario;
+        private Label labelDescripcion;
         private TextBox textBoxDificultad;
         private ComboBox comboBoxZonas;
         private Label label7;

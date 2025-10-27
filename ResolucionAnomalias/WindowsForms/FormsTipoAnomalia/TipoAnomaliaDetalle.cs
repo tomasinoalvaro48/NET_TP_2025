@@ -140,7 +140,7 @@ namespace WindowsForms.FormsTipoAnomalia
         {
             var user = await AuthServiceProvider.Instance.GetCurrentUserAsync();
 
-            if (user.Tipo_usu != "Operador" && user.Tipo_usu != "Denunciante")
+            if (user.Tipo_usu != "Operador")
             {
                 MessageBox.Show("No tenés permisos para editar Anomalías", "Acceso denegado");
                 this.Close();

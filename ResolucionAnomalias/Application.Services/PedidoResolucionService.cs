@@ -11,18 +11,18 @@ namespace Application.Services
             var pedidoRepository = new PedidoResolucionRepository();
 
             var fechaPedido = DateTime.Now;
-            var estadoPedido = "activo";
+            var estadoPedido = "solicitado";
 
             var pedido = new PedidoResolucion(
-                fechaPedido, 
-                dto.Direccion, 
-                dto.Descripcion, 
+                fechaPedido,
+                dto.Direccion,
+                dto.Descripcion,
                 estadoPedido,
-                dto.Comentario, 
+                string.Empty,
                 dto.Dificultad,
-                dto.ZonaId, 
-                dto.DenuncianteId, 
-                dto.CazadorId 
+                dto.ZonaId,
+                dto.DenuncianteId,
+                null
             );
 
             foreach (var anomalia in dto.Anomalias)
@@ -33,16 +33,12 @@ namespace Application.Services
 
             await pedidoRepository.AddAsync(pedido);
 
+            // Devolver valores persistidos (Id/Fecha/Estado)
+            dto.Id = pedido.Id;
+            dto.Fecha = pedido.Fecha;
+            dto.Estado = pedido.Estado;
             return dto;
         }
-
-
-        public async Task<bool> DeleteAsync(int id)
-        {
-            var pedidoRepository = new PedidoResolucionRepository();
-            return await pedidoRepository.DeleteAsync(id);
-        }
-
 
         public async Task<PedidoResolucionDTO> GetAsync(int id)
         {
@@ -60,7 +56,8 @@ namespace Application.Services
                 Fecha = pedido.Fecha,
                 DenuncianteId = pedido.DenuncianteId,
                 DenuncianteNombre = pedido.Denunciante != null ? $"{pedido.Denunciante.Nombre_usu}" : null,
-                Descripcion = pedido.Descripcion,
+                Direccion = pedido.Direccion, 
+                Descripcion = pedido.Descripcion ?? string.Empty,
                 Estado = pedido.Estado,
                 Comentario = pedido.Comentario,
                 ZonaId = pedido.ZonaId,
@@ -76,7 +73,6 @@ namespace Application.Services
             };
         }
 
-
         public async Task<IEnumerable<PedidoResolucionDTO>> GetAllAsync()
         {
             var pedidoRepository = new PedidoResolucionRepository();
@@ -90,6 +86,7 @@ namespace Application.Services
                 Fecha = pedido.Fecha,
                 DenuncianteId = pedido.DenuncianteId,
                 DenuncianteNombre = pedido.Denunciante != null ? $"{pedido.Denunciante.Nombre_usu}" : null,
+                Direccion = pedido.Direccion, // <- agregado
                 Descripcion = pedido.Descripcion,
                 Estado = pedido.Estado,
                 Comentario = pedido.Comentario,
@@ -105,14 +102,11 @@ namespace Application.Services
                 }).ToList()
             }).ToList();
         }
-        
 
         public async Task<bool> UpdateAsync(PedidoResolucionDTO dto)
         {
             var pedidoRepository = new PedidoResolucionRepository();
-
             var pedidoToUpdate = await pedidoRepository.GetAsync(dto.Id);
-            
             if (pedidoToUpdate == null)
                 return false;
 
@@ -125,7 +119,8 @@ namespace Application.Services
 
             pedidoToUpdate.SetZonaId(dto.ZonaId);
             pedidoToUpdate.SetDenuncianteId(dto.DenuncianteId);
-            pedidoToUpdate.SetCazadorId(dto.CazadorId);
+            if (dto.CazadorId.HasValue) 
+                pedidoToUpdate.SetCazadorId(dto.CazadorId.Value);
 
             foreach (var anomaliaDto in dto.Anomalias)
             {
@@ -134,6 +129,54 @@ namespace Application.Services
             }
 
             return await pedidoRepository.UpdateAsync(pedidoToUpdate);
+        }
+
+
+        public async Task<bool> DeleteAsync(int id)
+        {
+            var pedidoRepository = new PedidoResolucionRepository();
+            return await pedidoRepository.DeleteAsync(id);
+        }
+
+
+        public async Task<bool> FinalizarPedidoAsync(int id)
+        {
+            var pedidoRepository = new PedidoResolucionRepository();
+            var pedido = await pedidoRepository.GetAsync(id);
+            if (pedido == null)
+                return false;
+            if(pedido.Estado == "aceptado")
+                pedido.setEstado("finalizado");
+            return await pedidoRepository.FinalizarPedidoAsync(pedido);
+        }
+
+        public async Task<IEnumerable<PedidoResolucionDTO>> GetAllDenunciante(int idDenunciante)
+        {
+            var pedidoRepository = new PedidoResolucionRepository();
+            var pedidos = await pedidoRepository.GetAllDenunciante(idDenunciante);
+            return pedidos.Select(pedido => new PedidoResolucionDTO
+            {
+                Id = pedido.Id,
+                CazadorId = pedido.CazadorId,
+                CazadorNombre = pedido.Cazador != null ? $"{pedido.Cazador.Nombre_usu}" : null,
+                Fecha = pedido.Fecha,
+                DenuncianteId = pedido.DenuncianteId,
+                DenuncianteNombre = pedido.Denunciante != null ? $"{pedido.Denunciante.Nombre_usu}" : null,
+                Direccion = pedido.Direccion, 
+                Descripcion = pedido.Descripcion,
+                Estado = pedido.Estado,
+                Comentario = pedido.Comentario,
+                ZonaId = pedido.ZonaId,
+                ZonaNombre = pedido.Zona != null ? pedido.Zona.Nombre : null,
+
+                Anomalias = pedido.AnomaliaPedidos.Select(anomalia => new AnomaliaPedidoDTO
+                {
+                    PedidoResolucionId = anomalia.PedidoId,
+                    TipoAnomaliaId = anomalia.TipoAnomaliaId,
+                    TipoAnomaliaDescripcion = anomalia.TipoAnomalia?.Nombre_anom,
+                    TipoAnomaliaDificultad = anomalia.TipoAnomalia?.Dif_anom
+                }).ToList()
+            }).ToList();
         }
     }
 }

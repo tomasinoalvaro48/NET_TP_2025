@@ -63,15 +63,14 @@
 
 
 
-        private int _cazadorId;
+        private int? _cazadorId;
         private Usuario? _cazador;
 
-        public int CazadorId
+        public int? CazadorId
         {
             get => _cazador?.Cod_usu ?? _cazadorId;
             private set => _cazadorId = value;
         }
-
 
         public Usuario? Cazador
         {
@@ -86,6 +85,7 @@
             }
         }
 
+
         private readonly List<AnomaliaPedido> _anomaliaPedido = new();
         public IReadOnlyCollection<AnomaliaPedido> AnomaliaPedidos => _anomaliaPedido.AsReadOnly();
 
@@ -94,7 +94,7 @@
 
         public PedidoResolucion() {}
 
-        public PedidoResolucion(DateTime fecha, string direccion, string descripcion, string estado, string comentario, int dificultad, int zonaId, int denuncianteId, int cazadorId)
+        public PedidoResolucion(DateTime fecha, string direccion, string descripcion, string estado, string comentario, int dificultad, int zonaId, int denuncianteId, int? cazadorId = null)
         {
             setFecha(fecha);
             setDireccion(direccion);
@@ -104,8 +104,16 @@
             setDificultad(dificultad);
 
             SetZonaId(zonaId);
-            SetCazadorId(cazadorId);
             SetDenuncianteId(denuncianteId);
+            if (cazadorId.HasValue)
+            {
+                SetCazadorId(cazadorId.Value);
+            }
+            else
+            {
+                _cazadorId = null;
+                _cazador = null;
+            }
         }
 
         public void setFecha(DateTime fecha)
@@ -124,8 +132,8 @@
 
         public void setDescripcion(string descripcion)
         {
-            // if (string.IsNullOrWhiteSpace(descripcion))
-            //   throw new ArgumentException("La descripción no puede ser nula o vacía.", nameof(descripcion));
+            if (string.IsNullOrWhiteSpace(descripcion))
+               throw new ArgumentException("La descripción no puede ser nula o vacía.", nameof(descripcion));
             Descripcion = descripcion;
         }
 
@@ -170,7 +178,7 @@
 
         public void SetCazadorId(int cazadorId)
         {
-            if (cazadorId <= 0)
+            if (cazadorId < 0)
                 throw new ArgumentException("El Id del cazador debe ser mayor que 0.", nameof(cazadorId));
             _cazadorId = cazadorId;
 

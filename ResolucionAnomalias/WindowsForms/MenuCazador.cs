@@ -1,5 +1,6 @@
 ﻿using API.Clients;
 using WindowsForms.FormsPedidoAgregacion;
+using WindowsForms.FormsPedidoResolucion;
 using WindowsForms.FormsTipoAnomalia;
 using WindowsForms.FormsUsuario;
 using WindowsForms.FormsZona;
@@ -15,36 +16,6 @@ namespace WindowsForms
             // this.FormClosing += MenuCazador_FormClosing;
         }
 
-        private void ButtonCRUDLocalidad_Click(object sender, EventArgs e)
-        {
-            LocalidadLista localidadLista = new LocalidadLista();
-            localidadLista.ShowDialog();
-        }
-
-        private void btnCrudZona_Click(object sender, EventArgs e)
-        {
-            ZonaLista zonaLista = new ZonaLista();
-            zonaLista.ShowDialog();
-        }
-
-        private void ButtonCRUDTipoAnomalia_Click(object sender, EventArgs e)
-        {
-            TipoAnomaliaLista tipoLista = new TipoAnomaliaLista();
-            tipoLista.ShowDialog();
-        }
-
-        private void ButtonCRUDUsuario_Click(object sender, EventArgs e)
-        {
-            UsuarioLista usuarioLista = new UsuarioLista();
-            usuarioLista.ShowDialog();
-        }
-
-        private void pedidoAgregacionButton_Click(object sender, EventArgs e)
-        {
-            PedidoAgregacionLista pedidoAgregacionLista = new PedidoAgregacionLista();
-            pedidoAgregacionLista.ShowDialog();
-        }
-
         private async void logoutButton_Click(object sender, EventArgs e)
         {
             await AuthServiceProvider.Instance.LogoutAsync();
@@ -57,6 +28,12 @@ namespace WindowsForms
 
             CierreManual = false;
             this.Close();
+        }
+
+        private void tomarPedidoDeResoluciónToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ListaPedidoResolucion pedidoLista = new ListaPedidoResolucion();
+            pedidoLista.ShowDialog();
         }
 
         private void realizarPedidoAgregacionToolStripMenuItem_Click(object sender, EventArgs e)
@@ -97,6 +74,12 @@ namespace WindowsForms
                     Application.Exit();
                 }
             }
+        }
+
+        private void buttonTomarPedido_Click(object sender, EventArgs e)
+        {
+            ListaPedidoResolucion pedidoResolucion = new ListaPedidoResolucion();
+            pedidoResolucion.ShowDialog();
         }
     }
 }
