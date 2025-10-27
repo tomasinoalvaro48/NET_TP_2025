@@ -65,6 +65,8 @@ namespace API.Auth.Blazor.Server
 
         public async Task<bool> LoginAsync(string username, string password)
         {
+            _cachedUser = null;
+
             var request = new LoginRequest
             {
                 Email = username,
@@ -93,6 +95,7 @@ namespace API.Auth.Blazor.Server
         public Task LogoutAsync()
         {
             _currentSession = null;
+            _cachedUser = null;
             AuthenticationStateChanged?.Invoke(false);
             return Task.CompletedTask;
         }

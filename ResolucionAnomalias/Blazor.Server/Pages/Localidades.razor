@@ -1,7 +1,7 @@
 ﻿@page "/localidades"
 @using DTOs
 @using API.Clients
-@using API.Clients.EntitiesClients;
+@using API.Clients.EntitiesClients
 @using Blazor.Server.Components
 @inject IJSRuntime JSRuntime
 @inject IAuthService AuthService
@@ -9,54 +9,47 @@
 
 <PageTitle>Localidades</PageTitle>
 
-<div class="container-fluid">
-    <h3>Localidades</h3>
+<AuthorizeRole Roles="Operador">
+    <div class="container-fluid">
+        <h3>Localidades</h3>
 
-    @if (canAdd)
-    {
         <button class="btn btn-primary mb-3" @onclick="OpenAddModal">
             + Agregar
         </button>
-    }
 
-    @if (localidades == null)
-    {
-        <p>Cargando...</p>
-    }
-    else
-    {
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Código</th>
-                    <th>Nombre</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var loc in localidades)
-                {
+        @if (localidades == null)
+        {
+            <p>Cargando...</p>
+        }
+        else
+        {
+            <table class="table table-striped">
+                <thead>
                     <tr>
-                        <td>@loc.ID</td>
-                        <td>@loc.Codigo</td>
-                        <td>@loc.Nombre</td>
-                        <td>
-                            @if (canUpdate)
-                            {
-                                <button class="btn btn-sm btn-outline-primary me-1" @onclick="() => OpenEditModal(loc)">Editar</button>
-                            }
-                            @if (canDelete)
-                            {
-                                <button class="btn btn-sm btn-outline-danger" @onclick="() => ConfirmDelete(loc)">Eliminar</button>
-                            }
-                        </td>
+                        <th>ID</th>
+                        <th>Código</th>
+                        <th>Nombre</th>
+                        <th></th>
                     </tr>
-                }
-            </tbody>
-        </table>
-    }
-</div>
+                </thead>
+                <tbody>
+                    @foreach (var loc in localidades)
+                    {
+                        <tr>
+                            <td>@loc.ID</td>
+                            <td>@loc.Codigo</td>
+                            <td>@loc.Nombre</td>
+                            <td>
+                                <button class="btn btn-sm btn-outline-primary me-1" @onclick="() => OpenEditModal(loc)">Editar</button>
+                                <button class="btn btn-sm btn-outline-danger" @onclick="() => ConfirmDelete(loc)">Eliminar</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</AuthorizeRole>
 
 <LocalidadModal @ref="localidadModal" OnLocalidadChanged="LoadLocalidades" />
 
@@ -64,33 +57,9 @@
     private List<LocalidadDTO>? localidades;
     private LocalidadModal localidadModal = null!;
 
-    private bool canRead, canAdd, canUpdate, canDelete;
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    protected override async Task OnInitializedAsync()
     {
-        if (firstRender)
-        {
-            if (!await AuthService.IsAuthenticatedAsync())
-            {
-                Navigation.NavigateTo("/login");
-                return;
-            }
-
-            await LoadPermissions();
-
-            if (canRead)
-                await LoadLocalidades();
-
-            StateHasChanged();
-        }
-    }
-
-    private async Task LoadPermissions()
-    {
-        canRead = await AuthService.HasPermissionAsync("localidades.leer");
-        canAdd = await AuthService.HasPermissionAsync("localidades.agregar");
-        canUpdate = await AuthService.HasPermissionAsync("localidades.actualizar");
-        canDelete = await AuthService.HasPermissionAsync("localidades.eliminar");
+        await LoadLocalidades();
     }
 
     private async Task LoadLocalidades()
@@ -99,7 +68,6 @@
     }
 
     private Task OpenAddModal() => localidadModal.ShowAddModal();
-
     private Task OpenEditModal(LocalidadDTO loc) => localidadModal.ShowEditModal(loc);
 
     private async Task ConfirmDelete(LocalidadDTO loc)

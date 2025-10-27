@@ -38,32 +38,39 @@ namespace WindowsForms.FormsPedidoAgregacion
             }
 
             var all = await PedidoAgregacionApiClient.GetAllAsync();
-            var filtrados = all.Where(p => p.Estado_pedido_agreg == comboEstado.SelectedItem.ToString()).ToList();
 
+            var filtrados = all.Where(p => p.Estado_pedido_agreg == comboEstado.SelectedItem.ToString()).ToList();
             dataGridView1.DataSource = filtrados;
 
-            CargarGrafico(filtrados);
+            CargarGrafico(all);
         }
 
-        private void CargarGrafico(List<PedidoAgregacionDTO> pedidos)
+        private void CargarGrafico(IEnumerable<PedidoAgregacionDTO> pedidos)
         {
             chart1.Series.Clear();
             chart1.ChartAreas.Clear();
             chart1.ChartAreas.Add(new ChartArea("Main"));
 
-            var serie = new Series("Pedidos")
+            var serie = new Series("Pedidos por Estado")
             {
-                ChartType = SeriesChartType.Column
+                ChartType = SeriesChartType.Column,
+                IsValueShownAsLabel = true
             };
 
-            // ejemplo: agrupar por dificultad
-            var grupos = pedidos.GroupBy(p => p.Dificultad_pedido_agreg)
-                               .Select(g => new { Dificultad = g.Key, Count = g.Count() });
+            var estados = new[] { "Pendiente", "Aceptado", "Rechazado" };
 
-            foreach (var g in grupos)
-                serie.Points.AddXY($"Dif {g.Dificultad}", g.Count);
+            foreach (var estado in estados)
+            {
+                int count = pedidos.Count(p => p.Estado_pedido_agreg == estado);
+                serie.Points.AddXY(estado, count);
+            }
 
             chart1.Series.Add(serie);
+
+            var chartArea = chart1.ChartAreas["Main"];
+            chartArea.AxisX.Interval = 1;
+            chartArea.AxisY.Minimum = 0;
+            chartArea.AxisY.Interval = 1;
         }
     }
 }
