@@ -52,49 +52,6 @@
             logoutButton.UseVisualStyleBackColor = true;
             logoutButton.Click += logoutButton_Click;
             // 
-            // EnterCRUDUsuarioButton
-            // 
-            EnterCRUDUsuarioButton.Location = new Point(23, 251);
-            EnterCRUDUsuarioButton.Margin = new Padding(4, 4, 4, 4);
-            EnterCRUDUsuarioButton.Name = "EnterCRUDUsuarioButton";
-            EnterCRUDUsuarioButton.Size = new Size(167, 66);
-            EnterCRUDUsuarioButton.TabIndex = 4;
-            EnterCRUDUsuarioButton.Text = "CRUD Usuario";
-            EnterCRUDUsuarioButton.UseVisualStyleBackColor = true;
-            EnterCRUDUsuarioButton.Click += ButtonCRUDUsuario_Click;
-            // 
-            // EnterCRUDTipoAnomaliaButton
-            // 
-            EnterCRUDTipoAnomaliaButton.Location = new Point(23, 324);
-            EnterCRUDTipoAnomaliaButton.Margin = new Padding(4, 4, 4, 4);
-            EnterCRUDTipoAnomaliaButton.Name = "EnterCRUDTipoAnomaliaButton";
-            EnterCRUDTipoAnomaliaButton.Size = new Size(167, 66);
-            EnterCRUDTipoAnomaliaButton.TabIndex = 5;
-            EnterCRUDTipoAnomaliaButton.Text = "CRUD Tipo de Anomalia";
-            EnterCRUDTipoAnomaliaButton.UseVisualStyleBackColor = true;
-            EnterCRUDTipoAnomaliaButton.Click += ButtonCRUDTipoAnomalia_Click;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new Point(14, 126);
-            label2.Margin = new Padding(4, 0, 4, 0);
-            label2.Name = "label2";
-            label2.Size = new Size(515, 20);
-            label2.TabIndex = 6;
-            label2.Text = "(por ahora solo tiene permitido acceder a localidad y zona, y pedido_agreg)";
-            // 
-            // pedidoAgregacionButton
-            // 
-            pedidoAgregacionButton.Location = new Point(198, 324);
-            pedidoAgregacionButton.Margin = new Padding(4, 4, 4, 4);
-            pedidoAgregacionButton.Name = "pedidoAgregacionButton";
-            pedidoAgregacionButton.Size = new Size(167, 66);
-            pedidoAgregacionButton.TabIndex = 7;
-            pedidoAgregacionButton.Text = "CRUD Pedido de Agregacion";
-            pedidoAgregacionButton.UseVisualStyleBackColor = true;
-            pedidoAgregacionButton.Click += pedidoAgregacionButton_Click;
-            // 
             // menuStripCazador
             // 
             menuStripCazador.BackColor = SystemColors.ControlLight;
