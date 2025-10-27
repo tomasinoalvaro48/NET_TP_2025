@@ -1,0 +1,91 @@
+﻿<h3>Anomalias</h3>
+
+@using DTOs
+@using API.Clients.EntitiesClients
+@inject IJSRuntime JS
+
+@if (show)
+{
+    <div class="modal fade show d-block" tabindex="-1" style="background-color: rgba(0,0,0,0.4);">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Seleccionar Anomalía</h5>
+                    <button type="button" class="btn-close" @onclick="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Tipo de anomalía</label>
+                        <select class="form-select" @bind="selectedId">
+                            <option value="">-- Seleccione --</option>
+                            @foreach (var t in tipos)
+                            {
+                                <option value="@t.Cod_anom">@t.Nombre_anom (@t.Dif_anom)</option>
+                            }
+                        </select>
+                    </div>
+                    @if (!string.IsNullOrEmpty(error))
+                    {
+                        <div class="alert alert-danger">@error</div>
+                    }
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" @onclick="Close">Cancelar</button>
+                    <button class="btn btn-primary" @onclick="Confirm">Agregar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter] public EventCallback<AnomaliaPedidoDTO> OnSelected { get; set; }
+
+    private bool show;
+    private List<TipoAnomaliaDTO> tipos = new();
+    private int? selectedId;
+    private string error = string.Empty;
+
+    public async Task ShowAsync()
+    {
+        error = string.Empty;
+        selectedId = null;
+        tipos = (await TipoAnomaliaApiClient.GetAllAsync())?.ToList() ?? new();
+        show = true;
+        StateHasChanged();
+    }
+
+    private void Close()
+    {
+        show = false;
+        StateHasChanged();
+    }
+
+    private async Task Confirm()
+    {
+        error = string.Empty;
+
+        if (!selectedId.HasValue || selectedId.Value <= 0)
+        {
+            error = "Debe seleccionar un tipo de anomalía.";
+            return;
+        }
+
+        var tipo = tipos.FirstOrDefault(t => t.Cod_anom == selectedId.Value);
+        if (tipo == null)
+        {
+            error = "Selección inválida.";
+            return;
+        }
+
+        var dto = new AnomaliaPedidoDTO
+        {
+            TipoAnomaliaId = tipo.Cod_anom,
+            TipoAnomaliaDescripcion = tipo.Nombre_anom,
+            TipoAnomaliaDificultad = tipo.Dif_anom
+        };
+
+        await OnSelected.InvokeAsync(dto);
+        Close();
+    }
+}

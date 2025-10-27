@@ -1,14 +1,18 @@
 ﻿@page "/pedidos-resolucion"
-@using API.Clients.EntitiesClients;
-@using DTOs;
+@using API.Clients.EntitiesClients
+@using API.Clients
+@using DTOs
 @using Blazor.Server.Components
-@inject PedidoResolucionApiClient PedidoResolucionApiClient
 @inject IJSRuntime JS
 @inject NavigationManager NavManager
+@inject IAuthService AuthService
 
 <h3>Pedidos Resolución</h3>
 
-<button class="btn btn-primary mb-3" @onclick="ShowAddModal">Nuevo Pedido</button>
+@if (canAdd)
+{
+    <button class="btn btn-primary mb-3" @onclick="ShowAddModal">Nuevo Pedido</button>
+}
 
 @if (pedidos == null)
 {
@@ -56,10 +60,21 @@ else
 
     private IEnumerable<PedidoResolucionDTO>? pedidos;
     private PedidoResolucionModal? modal;
+    private bool canAdd = false;
 
     protected override async Task OnInitializedAsync()
     {
+        await ResolvePermissions();
         await LoadPedidos();
+    }
+
+    private async Task ResolvePermissions()
+    {
+        var email = await AuthService.GetUsernameAsync();
+        if (string.IsNullOrWhiteSpace(email)) { canAdd = false; return; }
+        var usuarios = await UsuarioApiClient.GetAllAsync();
+        var user = usuarios.FirstOrDefault(u => u.Email_usu.Equals(email, StringComparison.OrdinalIgnoreCase));
+        canAdd = user?.Tipo_usu?.Equals("Denunciante", StringComparison.OrdinalIgnoreCase) == true;
     }
 
     private async Task LoadPedidos()

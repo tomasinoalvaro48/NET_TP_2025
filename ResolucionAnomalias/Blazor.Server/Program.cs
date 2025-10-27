@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using API.Clients;
 using API.Auth.Blazor.Server;
+using API.Clients.EntitiesClients;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,11 @@ builder.Services.AddServerSideBlazor();
 
 // Configurar autenticación
 builder.Services.AddSingleton<IAuthService, BlazorServerAuthService>();
+
+// Registrar ApiClients (para @inject)
+builder.Services.AddSingleton<PedidoResolucionApiClient>();
+builder.Services.AddSingleton<ZonaApiClient>();
+builder.Services.AddSingleton<TipoAnomaliaApiClient>();
 
 var app = builder.Build();
 
