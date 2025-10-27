@@ -1,5 +1,6 @@
 ﻿@page "/usuarios"
 @using DTOs
+@using Domain.Model
 @using API.Clients
 @using API.Clients.EntitiesClients
 @using Blazor.Server.Components
@@ -20,6 +21,12 @@
         }
         else
         {
+            <div class="mb-3 d-flex">
+                <InputText @bind-Value="searchText" placeholder="Buscar por nombre, email o tipo..." class="form-control me-2" />
+                <button class="btn btn-primary" @onclick="SearchUsuarios">Buscar</button>
+                <button class="btn btn-secondary ms-2" @onclick="ClearSearch">Limpiar</button>
+            </div>
+
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -52,20 +59,39 @@
     </div>
 </AuthorizeRole>
 
-<UsuarioModal @ref="usuarioModal" OnUsuarioChanged="LoadUsuarios" />
+<UsuarioModal @ref="usuarioModal" OnUsuarioChanged="@(async () => await LoadUsuarios())" />
 
 @code {
     private List<UsuarioDTO>? usuarios;
     private UsuarioModal usuarioModal = null!;
+    private string searchText = string.Empty;
 
     protected override async Task OnInitializedAsync()
     {
         await LoadUsuarios();
     }
 
-    private async Task LoadUsuarios()
+    private async Task LoadUsuarios(string texto = "")
     {
-        usuarios = (await UsuarioApiClient.GetAllAsync())?.ToList();
+        if (string.IsNullOrWhiteSpace(texto))
+        {
+            usuarios = (await UsuarioApiClient.GetAllAsync())?.ToList();
+        }
+        else
+        {
+            usuarios = (await UsuarioApiClient.GetByCriteriaAsync(texto))?.ToList();
+        }
+    }
+
+    private async Task SearchUsuarios()
+    {
+        await LoadUsuarios(searchText);
+    }
+
+    private async Task ClearSearch()
+    {
+        searchText = string.Empty;
+        await LoadUsuarios();
     }
 
     private Task OpenAddModal() => usuarioModal.ShowAddModal();
@@ -77,7 +103,7 @@
         if (confirm)
         {
             await UsuarioApiClient.DeleteAsync(usu.Cod_usu);
-            await LoadUsuarios();
+            await LoadUsuarios(searchText);
         }
     }
 }
