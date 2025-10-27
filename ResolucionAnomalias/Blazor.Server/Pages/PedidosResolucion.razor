@@ -1,0 +1,90 @@
+﻿@page "/pedidos-resolucion"
+@using API.Clients.EntitiesClients;
+@using DTOs;
+@using Blazor.Server.Components
+@inject PedidoResolucionApiClient PedidoResolucionApiClient
+@inject IJSRuntime JS
+@inject NavigationManager NavManager
+
+<h3>Pedidos Resolución</h3>
+
+<button class="btn btn-primary mb-3" @onclick="ShowAddModal">Nuevo Pedido</button>
+
+@if (pedidos == null)
+{
+    <p>Cargando...</p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Fecha</th>
+                <th>Zona</th>
+                <th>Descripción</th>
+                <th>Dificultad</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var p in pedidos)
+            {
+                <tr>
+                    <td>@p.Id</td>
+                    <td>@p.Fecha.ToShortDateString()</td>
+                    <td>@p.ZonaNombre</td>
+                    <td>@p.Descripcion</td>
+                    <td>@p.Dificultad</td>
+                    <td>@p.Estado</td>
+                    <td>
+                        <button class="btn btn-sm btn-warning me-1" @onclick="(() => ShowEditModal(p.Id))">Editar</button>
+                        <button class="btn btn-sm btn-danger" @onclick="(() => Delete(p.Id))">Eliminar</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<PedidoResolucionModal 
+    @ref="modal"
+    OnSaved="LoadPedidos" />
+
+@code {
+
+    private IEnumerable<PedidoResolucionDTO>? pedidos;
+    private PedidoResolucionModal? modal;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadPedidos();
+    }
+
+    private async Task LoadPedidos()
+    {
+        pedidos = await PedidoResolucionApiClient.GetAllAsync();
+        StateHasChanged();
+    }
+
+    private async Task ShowAddModal()
+    {
+        await modal!.OpenForAdd();
+    }
+
+    private async Task ShowEditModal(int id)
+    {
+        await modal!.OpenForEdit(id);
+    }
+
+    private async Task Delete(int id)
+    {
+        var confirm = await JS.InvokeAsync<bool>("confirm", $"¿Eliminar pedido {id}?");
+        if (confirm)
+        {
+            await PedidoResolucionApiClient.DeleteAsync(id);
+            await LoadPedidos();
+        }
+    }
+}
