@@ -1,0 +1,83 @@
+﻿@page "/usuarios"
+@using DTOs
+@using API.Clients
+@using API.Clients.EntitiesClients
+@using Blazor.Server.Components
+@inject IJSRuntime JSRuntime
+@inject IAuthService AuthService
+
+<PageTitle>Usuarios</PageTitle>
+
+<AuthorizeRole Roles="Operador">
+    <div class="container-fluid">
+        <h3>Usuarios</h3>
+
+        <button class="btn btn-primary mb-3" @onclick="OpenAddModal">+ Agregar</button>
+
+        @if (usuarios == null)
+        {
+            <p>Cargando...</p>
+        }
+        else
+        {
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Email</th>
+                        <th>Tipo</th>
+                        <th>Zona</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var usu in usuarios)
+                    {
+                        <tr>
+                            <td>@usu.Cod_usu</td>
+                            <td>@usu.Nombre_usu</td>
+                            <td>@usu.Email_usu</td>
+                            <td>@usu.Tipo_usu</td>
+                            <td>@usu.ZonaNombre</td>
+                            <td>
+                                <button class="btn btn-sm btn-outline-primary me-1" @onclick="() => OpenEditModal(usu)">Editar</button>
+                                <button class="btn btn-sm btn-outline-danger" @onclick="() => ConfirmDelete(usu)">Eliminar</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</AuthorizeRole>
+
+<UsuarioModal @ref="usuarioModal" OnUsuarioChanged="LoadUsuarios" />
+
+@code {
+    private List<UsuarioDTO>? usuarios;
+    private UsuarioModal usuarioModal = null!;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadUsuarios();
+    }
+
+    private async Task LoadUsuarios()
+    {
+        usuarios = (await UsuarioApiClient.GetAllAsync())?.ToList();
+    }
+
+    private Task OpenAddModal() => usuarioModal.ShowAddModal();
+    private Task OpenEditModal(UsuarioDTO usu) => usuarioModal.ShowEditModal(usu);
+
+    private async Task ConfirmDelete(UsuarioDTO usu)
+    {
+        var confirm = await JSRuntime.InvokeAsync<bool>("confirm", $"¿Eliminar {usu.Nombre_usu}?");
+        if (confirm)
+        {
+            await UsuarioApiClient.DeleteAsync(usu.Cod_usu);
+            await LoadUsuarios();
+        }
+    }
+}
