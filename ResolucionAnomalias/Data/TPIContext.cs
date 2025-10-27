@@ -228,7 +228,7 @@ namespace Data
                     .HasField("_denuncianteId");
 
                 entity.Navigation(e => e.Denunciante)
-                    .HasField("_Denunciante");
+                    .HasField("_denunciante");
 
                 entity.HasOne(e => e.Denunciante)
                     .WithMany()
