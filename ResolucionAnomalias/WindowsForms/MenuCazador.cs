@@ -81,12 +81,18 @@ namespace WindowsForms
             // Si el usuario cerró con la X
             if (e.CloseReason == CloseReason.UserClosing)
             {
-                await AuthServiceProvider.Instance.LogoutAsync();
-                AuthServiceProvider.Instance.ClearSession();
+                // Initializes the variables to pass to the MessageBox.Show method.
+                string message = "¿Cerrar sesión y salir de la aplicación?";
+                string caption = "¿Desea cerrar sesión y salir de la aplicación?";
+                MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+                DialogResult result = MessageBox.Show(message, caption, buttons);
+                if (result == DialogResult.Yes)
+                {
+                    await AuthServiceProvider.Instance.LogoutAsync();
+                    AuthServiceProvider.Instance.ClearSession();
 
-                // MOSTRAR Login de nuevo
-                var login = new LoginForm();
-                login.Show();
+                    Application.Exit();
+                }
             }
         }
     }
