@@ -1,0 +1,56 @@
+﻿@using DTOs
+@using API.Clients
+@using API.Clients.EntitiesClients
+@using Blazor.Server.Components
+@inject IJSRuntime JSRuntime
+@inject IAuthService AuthService
+@inject NavigationManager Navigation
+
+@if (!isInitialized)
+{
+    <p>Cargando...</p>
+}
+else if (!accesoPermitido)
+{
+    <p>No tenés permisos para acceder a esta página.</p>
+}
+else
+{
+    @ChildContent
+}
+
+@code {
+    [Parameter] public string Roles { get; set; } = "";
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    private bool accesoPermitido = false;
+    private bool isInitialized = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (!await AuthService.IsAuthenticatedAsync())
+        {
+            Navigation.NavigateTo("/login");
+            return;
+        }
+
+        var user = await AuthService.GetCurrentUserAsync();
+
+        if (user != null)
+        {
+            var allowedRoles = Roles.Split(',')
+                                    .Select(r => r.Trim().ToLower())
+                                    .ToList();
+
+            accesoPermitido = allowedRoles.Contains(user.Tipo_usu.Trim().ToLower());
+        }
+
+        isInitialized = true;
+
+        if (!accesoPermitido)
+        {
+            await JSRuntime.InvokeVoidAsync("alert", "No tenés permisos para acceder a esta página");
+            // opcional: Navigation.NavigateTo("/"); solo si querés redirigir
+        }
+    }
+}
