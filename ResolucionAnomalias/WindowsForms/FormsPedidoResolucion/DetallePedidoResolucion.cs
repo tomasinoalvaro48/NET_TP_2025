@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using API.Clients;
 using API.Clients.EntitiesClients;
+using Domain.Model;
 using DTOs;
 
 namespace WindowsForms.FormsPedidoResolucion
@@ -52,7 +53,7 @@ namespace WindowsForms.FormsPedidoResolucion
 
         private async void Init(FormMode mode, PedidoResolucionDTO pedido)
         {
-            //ConfigurarColumnas();
+            ConfigurarColumnas();
             anomaliasLocales = new List<AnomaliaPedidoDTO>();
 
             await LoadZonas();
@@ -68,7 +69,7 @@ namespace WindowsForms.FormsPedidoResolucion
             {
                 Id = z.Id, 
                 ZonaConLocalidad = $"{z.LocalidadNombre} {z.Nombre}"            
-            });
+            }).ToList();
         
             comboBoxZonas.DataSource = zonasConLocalidad;
             comboBoxZonas.DisplayMember = "ZonaConLocalidad";
@@ -109,17 +110,17 @@ namespace WindowsForms.FormsPedidoResolucion
 
             RefreshAnomaliasGrid();
         }
-
         private void RefreshAnomaliasGrid()
         {
-            dataGridViewAnomalias.DataContext = null;
-            dataGridViewAnomalias.DataContext = anomaliasLocales;
+            dataGridViewAnomalias.DataSource = null;
+            dataGridViewAnomalias.DataSource = anomaliasLocales;
 
-            bool hasAnomalias = anomaliasLocales.Count > 0;
+            bool hasAnomalias = anomaliasLocales != null && anomaliasLocales.Count > 0;
             buttonEliminar.Enabled = hasAnomalias;
 
-            if (hasAnomalias)
+            if (hasAnomalias && dataGridViewAnomalias.Rows.Count > 0)
             {
+                dataGridViewAnomalias.ClearSelection();
                 dataGridViewAnomalias.Rows[0].Selected = true;
             }
 
@@ -145,6 +146,28 @@ namespace WindowsForms.FormsPedidoResolucion
             }
 
 
+        }
+        
+        private void ConfigurarColumnas()
+        {
+            this.dataGridViewAnomalias.AutoGenerateColumns = false;
+            this.dataGridViewAnomalias.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "NombreAnomalia",
+                HeaderText = "Nombre Anomalia",
+                DataPropertyName = "TipoAnomaliaDescripcion",
+                Width = 300
+
+            });
+
+            this.dataGridViewAnomalias.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "DificultadAnomalia",
+                HeaderText = "Dificultad Anomalia",
+                DataPropertyName = "TipoAnomaliaDificultad",
+                Width = 300
+
+            });
         }
 
         private void buttonEliminar_Click(object sender, EventArgs e)
@@ -203,6 +226,7 @@ namespace WindowsForms.FormsPedidoResolucion
                 textBoxCazador.Visible = false;
                 labelCazador.Visible = false;
                 textBoxComentario.Visible = false;
+                labelComentario.Visible = false;
 
 
             }
@@ -215,6 +239,7 @@ namespace WindowsForms.FormsPedidoResolucion
                 labelId.Visible = true;
                 textBoxComentario.Visible = true;
                 textBoxDescripcion.ReadOnly = true;
+                labelComentario.Visible = true;
 
 
             }
@@ -225,8 +250,10 @@ namespace WindowsForms.FormsPedidoResolucion
 
             errorProvider.SetError(comboBoxZonas, string.Empty);
             errorProvider.SetError(dataGridViewAnomalias, string.Empty);
+            errorProvider.SetError(textBoxDescripcion, string.Empty);
+            errorProvider.SetError(textBoxDireccion, string.Empty);
 
-            if(comboBoxZonas.SelectedIndex == null)
+            if (comboBoxZonas.SelectedIndex == null)
             {
                 errorProvider.SetError(comboBoxZonas, "Debe seleccionar una zona.");
                 isValid = false;
@@ -235,6 +262,18 @@ namespace WindowsForms.FormsPedidoResolucion
             if(anomaliasLocales.Count == 0)
             {
                 errorProvider.SetError(dataGridViewAnomalias, "Debe agregar al menos una anomalia.");
+                isValid = false;
+            }
+
+            if (string.IsNullOrWhiteSpace(textBoxDescripcion.Text))
+            {
+                errorProvider.SetError(textBoxDescripcion, "La descripción no puede estar vacía.");
+                isValid = false;
+            }
+
+            if (string.IsNullOrWhiteSpace(textBoxDireccion.Text))
+            {
+                errorProvider.SetError(textBoxDireccion, "La dirección no puede estar vacía.");
                 isValid = false;
             }
 

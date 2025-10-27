@@ -48,7 +48,7 @@
             // 
             // buttonCancelar
             // 
-            buttonCancelar.Location = new Point(624, 357);
+            buttonCancelar.Location = new Point(572, 275);
             buttonCancelar.Name = "buttonCancelar";
             buttonCancelar.Size = new Size(94, 29);
             buttonCancelar.TabIndex = 1;
@@ -58,7 +58,7 @@
             // 
             // buttonAceptar
             // 
-            buttonAceptar.Location = new Point(469, 357);
+            buttonAceptar.Location = new Point(427, 275);
             buttonAceptar.Name = "buttonAceptar";
             buttonAceptar.Size = new Size(94, 29);
             buttonAceptar.TabIndex = 2;
@@ -83,7 +83,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(715, 337);
             Controls.Add(comboBoxTipoAnomalia);
             Controls.Add(buttonAceptar);
             Controls.Add(buttonCancelar);
