@@ -7,56 +7,77 @@
 @inject IAuthService AuthService
 @inject NavigationManager Navigation
 
-<PageTitle>PedidosAgregacion</PageTitle>
+<PageTitle>Pedidos de Agregación</PageTitle>
 
 <div class="container-fluid">
-    <h3>PedidosAgregacion</h3>
+    <h3>Pedidos de Agregación</h3>
 
-    @if (canAdd)
+    @if (isCazador)
     {
         <button class="btn btn-primary mb-3" @onclick="OpenAddModal">
             + Agregar
         </button>
     }
 
-    @if (pedidos_agregacion == null)
+    @if (!canRead)
+    {
+        <div class="alert alert-warning">No tiene permisos para ver pedidos de agregación.</div>
+    }
+    else if (pedidos_agregacion == null)
     {
         <p>Cargando...</p>
     }
     else
     {
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Id_pedido_agreg</th>
-                    <th>Descripcion_pedido_agreg</th>
-                    <th>Dificultad_pedido_agreg</th>
-                    <th>Estado_pedido_agreg</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var pa in pedidos_agregacion)
-                {
+        <div class="table-responsive">
+            <table class="table table-striped table-hover align-middle">
+                <thead class="table-dark">
                     <tr>
-                        <td>@pa.Id_pedido_agreg</td>
-                        <td>@pa.Descripcion_pedido_agreg</td>
-                        <td>@pa.Dificultad_pedido_agreg</td>
-                        <td>@pa.Estado_pedido_agreg</td>
-                        <td>
-                            @if (canUpdate)
-                            {
-                                <button class="btn btn-sm btn-outline-primary me-1" @onclick="() => OpenEditModal(pa)">Editar</button>
-                            }
-                            @if (canDelete)
-                            {
-                                <button class="btn btn-sm btn-outline-danger" @onclick="() => ConfirmDelete(pa)">Eliminar</button>
-                            }
-                        </td>
+                        <th class="text-nowrap">ID</th>
+                        <th>Descripción</th>
+                        <th class="text-center">Dificultad</th>
+                        <th class="text-center">Estado</th>
+                        <th class="text-nowrap">Cazador</th>
+                        <th class="text-nowrap">Acciones</th>
                     </tr>
-                }
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach (var pa in pedidos_agregacion)
+                    {
+                        <tr>
+                            <td>@pa.Id_pedido_agreg</td>
+                            <td>@pa.Descripcion_pedido_agreg</td>
+                            <td class="text-center">@pa.Dificultad_pedido_agreg</td>
+                            <td class="text-center">
+                                <span class="@GetEstadoBadgeClass(pa.Estado_pedido_agreg)">@pa.Estado_pedido_agreg</span>
+                            </td>
+                            <td class="text-nowrap">@pa.NombreCazador</td>
+                            <td class="text-nowrap">
+                                @if (isCazador)
+                                {
+                                    <button class="btn btn-sm btn-outline-primary me-1"
+                                            disabled="@string.Equals(pa.Estado_pedido_agreg, "Aceptado", StringComparison.OrdinalIgnoreCase)"
+                                            @onclick="() => OpenEditModal(pa)">
+                                        Editar
+                                    </button>
+
+                                    <button class="btn btn-sm btn-outline-danger"
+                                            @onclick="() => ConfirmDelete(pa)">
+                                        Eliminar
+                                    </button>
+                                }
+
+                                @if (isOperador && string.Equals(pa.Estado_pedido_agreg, "Pendiente", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    <button class="btn btn-sm btn-success me-1" @onclick="() => Aceptar(pa)">Aceptar</button>
+                                    <button class="btn btn-sm btn-warning" @onclick="() => Rechazar(pa)">Rechazar</button>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     }
 </div>
 
@@ -66,7 +87,11 @@
     private List<PedidoAgregacionDTO>? pedidos_agregacion;
     private PedidoAgregacionModal pedidoAgregacionModal = null!;
 
-    private bool canRead, canAdd, canUpdate, canDelete;
+    private bool canRead = false;
+    private bool isCazador = false;
+    private bool isOperador = false;
+    private int currentUserId = 0;
+    private string currentUserName = string.Empty;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -78,7 +103,8 @@
                 return;
             }
 
-            await LoadPermissions();
+            await ResolveRoleAsync();
+            canRead = isCazador || isOperador;
 
             if (canRead)
                 await LoadPedidosAgregacion();
@@ -87,30 +113,115 @@
         }
     }
 
-    private async Task LoadPermissions()
+    private async Task ResolveRoleAsync()
     {
-        canRead = await AuthService.HasPermissionAsync("pedidos_agregacion.leer");
-        canAdd = await AuthService.HasPermissionAsync("pedidos_agregacion.agregar");
-        canUpdate = await AuthService.HasPermissionAsync("pedidos_agregacion.actualizar");
-        canDelete = await AuthService.HasPermissionAsync("pedidos_agregacion.eliminar");
+        var email = await AuthService.GetUsernameAsync();
+        if (string.IsNullOrWhiteSpace(email))
+        {
+            isCazador = false;
+            isOperador = false;
+            currentUserId = 0;
+            return;
+        }
+
+        var usuarios = await UsuarioApiClient.GetAllAsync();
+        var user = usuarios.FirstOrDefault(u => u.Email_usu.Equals(email, StringComparison.OrdinalIgnoreCase));
+
+        isCazador = string.Equals(user?.Tipo_usu, "Cazador", StringComparison.OrdinalIgnoreCase);
+        isOperador = string.Equals(user?.Tipo_usu, "Operador", StringComparison.OrdinalIgnoreCase);
+        currentUserId = user?.Cod_usu ?? 0;
+        currentUserName = user?.Nombre_usu ?? string.Empty;
     }
 
     private async Task LoadPedidosAgregacion()
     {
-        pedidos_agregacion = (await PedidoAgregacionApiClient.GetAllAsync())?.ToList();
+        var all = (await PedidoAgregacionApiClient.GetAllAsync())?.ToList() ?? new List<PedidoAgregacionDTO>();
+
+        if (isCazador && currentUserId > 0)
+            pedidos_agregacion = all.Where(p => p.CazadorId == currentUserId).ToList();
+        else
+            pedidos_agregacion = all;
     }
 
     private Task OpenAddModal() => pedidoAgregacionModal.ShowAddModal();
 
-    private Task OpenEditModal(PedidoAgregacionDTO pa) => pedidoAgregacionModal.ShowEditModal(pa);
+    private Task OpenEditModal(PedidoAgregacionDTO pa)
+    {
+        if (string.Equals(pa.Estado_pedido_agreg, "Aceptado", StringComparison.OrdinalIgnoreCase))
+            return Task.CompletedTask;
+
+        return pedidoAgregacionModal.ShowEditModal(pa);
+    }
 
     private async Task ConfirmDelete(PedidoAgregacionDTO pa)
     {
+        if (!isCazador)
+        {
+            await JSRuntime.InvokeVoidAsync("alert", "Solo un Cazador puede eliminar.");
+            return;
+        }
+
         var confirm = await JSRuntime.InvokeAsync<bool>("confirm", $"¿Eliminar {pa.Descripcion_pedido_agreg}?");
         if (confirm)
         {
             await PedidoAgregacionApiClient.DeleteAsync(pa.Id_pedido_agreg);
             await LoadPedidosAgregacion();
+            StateHasChanged();
         }
     }
+
+    private async Task Aceptar(PedidoAgregacionDTO pa)
+    {
+        if (!isOperador)
+        {
+            await JSRuntime.InvokeVoidAsync("alert", "Solo Operador puede aceptar.");
+            return;
+        }
+
+        try
+        {
+            var tipo = new TipoAnomaliaDTO
+            {
+                Nombre_anom = pa.Descripcion_pedido_agreg,
+                Dif_anom = pa.Dificultad_pedido_agreg
+            };
+
+            var createdTipo = await TipoAnomaliaApiClient.AddAsync(tipo);
+
+            pa.TipoAnomaliaId = createdTipo.Cod_anom;
+            pa.NombreTipoAnomalia = createdTipo.Nombre_anom;
+            pa.Estado_pedido_agreg = "Aceptado";
+
+            await PedidoAgregacionApiClient.UpdateAsync(pa);
+            await LoadPedidosAgregacion();
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            await JSRuntime.InvokeVoidAsync("alert", $"Error al aceptar: {ex.Message}");
+        }
+    }
+
+    private async Task Rechazar(PedidoAgregacionDTO pa)
+    {
+        if (!isOperador)
+        {
+            await JSRuntime.InvokeVoidAsync("alert", "Solo Operador puede rechazar.");
+            return;
+        }
+
+        pa.Estado_pedido_agreg = "Rechazado";
+        await PedidoAgregacionApiClient.UpdateAsync(pa);
+        await LoadPedidosAgregacion();
+        StateHasChanged();
+    }
+
+    private static string GetEstadoBadgeClass(string estado) =>
+        (estado ?? string.Empty).ToLowerInvariant() switch
+        {
+            "pendiente" => "badge bg-secondary",
+            "aceptado"  => "badge bg-success",
+            "rechazado" => "badge bg-danger",
+            _           => "badge bg-light text-dark"
+        };
 }
