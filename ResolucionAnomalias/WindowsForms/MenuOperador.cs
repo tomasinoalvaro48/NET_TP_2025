@@ -44,24 +44,8 @@ namespace WindowsForms
 
         private async void pedidosDeAgregacionToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            try
-            {
-                var pdfBytes = await ReporteApiClient.ObtenerReportePedidosAgregacionCategoriasAsync();
-
-                var tempPath = Path.GetTempPath();
-                var fileName = $"ReportePedidosAgregacion_{DateTime.Now:yyyyMMdd_HHmmss}.pdf";
-                var fullPath = Path.Combine(tempPath, fileName);
-
-                await File.WriteAllBytesAsync(fullPath, pdfBytes);
-
-                var psi = new ProcessStartInfo(fullPath) { UseShellExecute = true };
-                Process.Start(psi);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al generar/abrir el reporte de agregación: {ex.Message}", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            PedidoAgregacionLista pedidoAg = new PedidoAgregacionLista();
+            pedidoAg.ShowDialog();
         }
 
         private async void reporteToolStripMenuItem_Click(object sender, EventArgs e)
