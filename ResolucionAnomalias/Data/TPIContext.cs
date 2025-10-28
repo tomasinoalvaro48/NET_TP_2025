@@ -194,6 +194,8 @@ namespace Data
                 entity.Property(e => e.Dificultad_pedido_agreg).IsRequired();
 
                 entity.Property(e => e.Estado_pedido_agreg).IsRequired().HasMaxLength(50);
+
+
             });
 
             modelBuilder.Entity<PedidoResolucion>(entity =>

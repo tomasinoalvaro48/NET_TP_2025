@@ -1,4 +1,5 @@
 ﻿using API.Clients;
+using API.Clients.EntitiesClients;
 using System.Windows.Forms;
 using WindowsForms.FormsPedidoAgregacion;
 using WindowsForms.FormsPedidoResolucion;
@@ -134,6 +135,28 @@ namespace WindowsForms
 
                     Application.Exit();
                 }
+            }
+        }
+
+        private async void btnReportePedidos_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var pdfBytes = await ReporteApiClient.ObtenerReportePedidosResolucionMesActualAsync();
+
+                using SaveFileDialog sfd = new SaveFileDialog();
+                sfd.Filter = "PDF files (*.pdf)|*.pdf";
+                sfd.FileName = "ReportePedidosResolucion.pdf";
+
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    await System.IO.File.WriteAllBytesAsync(sfd.FileName, pdfBytes);
+                    MessageBox.Show("Reporte guardado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al generar el reporte: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
