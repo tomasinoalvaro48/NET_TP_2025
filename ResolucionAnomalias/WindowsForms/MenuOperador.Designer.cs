@@ -33,14 +33,12 @@
             tiposDeAnomaliasToolStripMenuItem = new ToolStripMenuItem();
             localidadesToolStripMenuItem = new ToolStripMenuItem();
             zonasToolStripMenuItem = new ToolStripMenuItem();
-            verPedidosDeResoluciónToolStripMenuItem = new ToolStripMenuItem();
             pedidosDeAgregacionToolStripMenuItem = new ToolStripMenuItem();
             toolStripMenuItemMasAjustes = new ToolStripMenuItem();
             cerrarSesionToolStripMenuItem = new ToolStripMenuItem();
             reporteToolStripMenuItem = new ToolStripMenuItem();
             tituloLabel = new Label();
             btnReportePedidos = new Button();
-            labeltitulo = new Label();
             buttonReportePedidoAgregacion = new Button();
             menuStripOperador.SuspendLayout();
             SuspendLayout();
@@ -50,7 +48,7 @@
             menuStripOperador.BackColor = SystemColors.ControlLight;
             menuStripOperador.Dock = DockStyle.Left;
             menuStripOperador.ImageScalingSize = new Size(32, 32);
-            menuStripOperador.Items.AddRange(new ToolStripItem[] { usuariosToolStripMenuItem, tiposDeAnomaliasToolStripMenuItem, localidadesToolStripMenuItem, zonasToolStripMenuItem, verPedidosDeResoluciónToolStripMenuItem, pedidosDeAgregacionToolStripMenuItem, toolStripMenuItemMasAjustes, reporteToolStripMenuItem });
+            menuStripOperador.Items.AddRange(new ToolStripItem[] { usuariosToolStripMenuItem, tiposDeAnomaliasToolStripMenuItem, localidadesToolStripMenuItem, zonasToolStripMenuItem, pedidosDeAgregacionToolStripMenuItem, toolStripMenuItemMasAjustes, reporteToolStripMenuItem });
             menuStripOperador.Location = new Point(0, 0);
             menuStripOperador.Name = "menuStripOperador";
             menuStripOperador.Padding = new Padding(4, 1, 0, 1);
@@ -89,13 +87,7 @@
             zonasToolStripMenuItem.Size = new Size(226, 19);
             zonasToolStripMenuItem.Text = "Zonas";
             zonasToolStripMenuItem.Click += zonasToolStripMenuItem_Click;
-            // 
-            // verPedidosDeResoluciónToolStripMenuItem
-            // 
-            verPedidosDeResoluciónToolStripMenuItem.Name = "verPedidosDeResoluciónToolStripMenuItem";
-            verPedidosDeResoluciónToolStripMenuItem.Size = new Size(236, 19);
-            verPedidosDeResoluciónToolStripMenuItem.Text = "Ver Pedidos de Resolución";
-            verPedidosDeResoluciónToolStripMenuItem.Click += verPedidosDeResoluciónToolStripMenuItem_Click;
+
             // 
             // pedidosDeAgregacionToolStripMenuItem
             // 
@@ -137,17 +129,6 @@
             tituloLabel.TabIndex = 8;
             tituloLabel.Text = "¡Bienvenido, Operador!";
             // 
-            // buttonPedido
-            // 
-            buttonPedido.Location = new Point(316, 107);
-            buttonPedido.Margin = new Padding(3, 2, 3, 2);
-            buttonPedido.Name = "buttonPedido";
-            buttonPedido.Size = new Size(181, 22);
-            buttonPedido.TabIndex = 8;
-            buttonPedido.Text = "btn Temporal Pedido";
-            buttonPedido.UseVisualStyleBackColor = true;
-            buttonPedido.Click += buttonPedido_Click;
-            // 
             // btnReportePedidos
             // 
             btnReportePedidos.Location = new Point(352, 179);
@@ -173,7 +154,6 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             ClientSize = new Size(653, 284);
-            Controls.Add(labeltitulo);
             ClientSize = new Size(653, 284);
             Controls.Add(btnReportePedidos);
             Controls.Add(menuStripOperador);
