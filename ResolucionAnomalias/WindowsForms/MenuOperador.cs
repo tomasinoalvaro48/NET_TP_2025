@@ -42,16 +42,48 @@ namespace WindowsForms
             zonaLista.ShowDialog();
         }
 
-        private void pedidosDeAgregacionToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void pedidosDeAgregacionToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            PedidoAgregacionLista pedidoAgregacionLista = new PedidoAgregacionLista();
-            pedidoAgregacionLista.ShowDialog();
+            try
+            {
+                var pdfBytes = await ReporteApiClient.ObtenerReportePedidosAgregacionCategoriasAsync();
+
+                var tempPath = Path.GetTempPath();
+                var fileName = $"ReportePedidosAgregacion_{DateTime.Now:yyyyMMdd_HHmmss}.pdf";
+                var fullPath = Path.Combine(tempPath, fileName);
+
+                await File.WriteAllBytesAsync(fullPath, pdfBytes);
+
+                var psi = new ProcessStartInfo(fullPath) { UseShellExecute = true };
+                Process.Start(psi);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al generar/abrir el reporte de agregación: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
-        private void reporteToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void reporteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            PedidoAgregacionReporte pedidoAgregacionReporte = new PedidoAgregacionReporte();
-            pedidoAgregacionReporte.ShowDialog();
+            try
+            {
+                var pdfBytes = await ReporteApiClient.ObtenerReportePedidosAgregacionCategoriasAsync();
+
+                var tempPath = Path.GetTempPath();
+                var fileName = $"ReportePedidosAgregacion_{DateTime.Now:yyyyMMdd_HHmmss}.pdf";
+                var fullPath = Path.Combine(tempPath, fileName);
+
+                await File.WriteAllBytesAsync(fullPath, pdfBytes);
+
+                var psi = new ProcessStartInfo(fullPath) { UseShellExecute = true };
+                Process.Start(psi);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al generar/abrir el reporte de agregación: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private async void cerrarSesionToolStripMenuItem_Click(object sender, EventArgs e)
@@ -94,7 +126,19 @@ namespace WindowsForms
             }
         }
 
-        private async void btnReportePedidos_Click(object sender, EventArgs e)
+        private void btnReportePedidos_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+      
+
+        private void verRToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private async void veToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
             {
@@ -114,28 +158,6 @@ namespace WindowsForms
             catch (Exception ex)
             {
                 MessageBox.Show($"Error al generar/abrir el reporte: {ex.Message}", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private async void buttonReportePedidoAgregacion_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                var pdfBytes = await ReporteApiClient.ObtenerReportePedidosAgregacionCategoriasAsync();
-
-                var tempPath = Path.GetTempPath();
-                var fileName = $"ReportePedidosAgregacion_{DateTime.Now:yyyyMMdd_HHmmss}.pdf";
-                var fullPath = Path.Combine(tempPath, fileName);
-
-                await File.WriteAllBytesAsync(fullPath, pdfBytes);
-
-                var psi = new ProcessStartInfo(fullPath) { UseShellExecute = true };
-                Process.Start(psi);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al generar/abrir el reporte de agregación: {ex.Message}", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
