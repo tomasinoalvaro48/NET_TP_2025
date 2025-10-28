@@ -1,6 +1,5 @@
 ﻿using Application.Services;
 using DTOs;
-using Domain.Model;
 
 namespace WebAPI
 {

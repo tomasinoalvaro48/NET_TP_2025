@@ -1,12 +1,10 @@
 ﻿using API.Clients;
 using API.Clients.EntitiesClients;
-using System.Windows.Forms;
 using WindowsForms.FormsPedidoAgregacion;
 using WindowsForms.FormsPedidoResolucion;
 using WindowsForms.FormsTipoAnomalia;
 using WindowsForms.FormsUsuario;
 using WindowsForms.FormsZona;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace WindowsForms
 {

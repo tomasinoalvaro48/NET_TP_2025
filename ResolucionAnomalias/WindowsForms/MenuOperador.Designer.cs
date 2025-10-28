@@ -53,7 +53,7 @@
             menuStripOperador.Location = new Point(0, 0);
             menuStripOperador.Name = "menuStripOperador";
             menuStripOperador.Padding = new Padding(4, 1, 0, 1);
-            menuStripOperador.Size = new Size(218, 284);
+            menuStripOperador.Size = new Size(245, 284);
             menuStripOperador.TabIndex = 7;
             menuStripOperador.Text = "menuStripOperador";
             // 
@@ -61,7 +61,7 @@
             // 
             usuariosToolStripMenuItem.Margin = new Padding(5);
             usuariosToolStripMenuItem.Name = "usuariosToolStripMenuItem";
-            usuariosToolStripMenuItem.Size = new Size(199, 19);
+            usuariosToolStripMenuItem.Size = new Size(226, 19);
             usuariosToolStripMenuItem.Text = "Usuarios";
             usuariosToolStripMenuItem.Click += usuariosToolStripMenuItem_Click;
             // 
@@ -69,7 +69,7 @@
             // 
             tiposDeAnomaliasToolStripMenuItem.Margin = new Padding(5);
             tiposDeAnomaliasToolStripMenuItem.Name = "tiposDeAnomaliasToolStripMenuItem";
-            tiposDeAnomaliasToolStripMenuItem.Size = new Size(199, 19);
+            tiposDeAnomaliasToolStripMenuItem.Size = new Size(226, 19);
             tiposDeAnomaliasToolStripMenuItem.Text = "Tipos de Anomalías";
             tiposDeAnomaliasToolStripMenuItem.Click += tiposDeAnomaliasToolStripMenuItem_Click;
             // 
@@ -77,7 +77,7 @@
             // 
             localidadesToolStripMenuItem.Margin = new Padding(5);
             localidadesToolStripMenuItem.Name = "localidadesToolStripMenuItem";
-            localidadesToolStripMenuItem.Size = new Size(199, 19);
+            localidadesToolStripMenuItem.Size = new Size(226, 19);
             localidadesToolStripMenuItem.Text = "Localidades";
             localidadesToolStripMenuItem.Click += localidadesToolStripMenuItem_Click;
             // 
@@ -85,14 +85,14 @@
             // 
             zonasToolStripMenuItem.Margin = new Padding(5);
             zonasToolStripMenuItem.Name = "zonasToolStripMenuItem";
-            zonasToolStripMenuItem.Size = new Size(199, 19);
+            zonasToolStripMenuItem.Size = new Size(226, 19);
             zonasToolStripMenuItem.Text = "Zonas";
             zonasToolStripMenuItem.Click += zonasToolStripMenuItem_Click;
             // 
             // verPedidosDeResoluciónToolStripMenuItem
             // 
             verPedidosDeResoluciónToolStripMenuItem.Name = "verPedidosDeResoluciónToolStripMenuItem";
-            verPedidosDeResoluciónToolStripMenuItem.Size = new Size(209, 19);
+            verPedidosDeResoluciónToolStripMenuItem.Size = new Size(236, 19);
             verPedidosDeResoluciónToolStripMenuItem.Text = "Ver Pedidos de Resolución";
             verPedidosDeResoluciónToolStripMenuItem.Click += verPedidosDeResoluciónToolStripMenuItem_Click;
             // 
@@ -100,7 +100,7 @@
             // 
             pedidosDeAgregacionToolStripMenuItem.Margin = new Padding(5);
             pedidosDeAgregacionToolStripMenuItem.Name = "pedidosDeAgregacionToolStripMenuItem";
-            pedidosDeAgregacionToolStripMenuItem.Size = new Size(199, 19);
+            pedidosDeAgregacionToolStripMenuItem.Size = new Size(226, 19);
             pedidosDeAgregacionToolStripMenuItem.Text = "Pedidos de Agregación";
             pedidosDeAgregacionToolStripMenuItem.Click += pedidosDeAgregacionToolStripMenuItem_Click;
             // 
@@ -109,7 +109,7 @@
             toolStripMenuItemMasAjustes.Alignment = ToolStripItemAlignment.Right;
             toolStripMenuItemMasAjustes.DropDownItems.AddRange(new ToolStripItem[] { cerrarSesionToolStripMenuItem });
             toolStripMenuItemMasAjustes.Name = "toolStripMenuItemMasAjustes";
-            toolStripMenuItemMasAjustes.Size = new Size(209, 19);
+            toolStripMenuItemMasAjustes.Size = new Size(236, 19);
             toolStripMenuItemMasAjustes.Text = "Más Ajustes";
             // 
             // cerrarSesionToolStripMenuItem
@@ -123,8 +123,8 @@
             // 
             reporteToolStripMenuItem.Margin = new Padding(5);
             reporteToolStripMenuItem.Name = "reporteToolStripMenuItem";
-            reporteToolStripMenuItem.Size = new Size(199, 19);
-            reporteToolStripMenuItem.Text = "Ver Reporte Pedidos de Agregacion";
+            reporteToolStripMenuItem.Size = new Size(226, 19);
+            reporteToolStripMenuItem.Text = "Reporte Pedidos de Agregacion (no pdf)";
             reporteToolStripMenuItem.Click += reporteToolStripMenuItem_Click;
             // 
             // tituloLabel

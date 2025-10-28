@@ -1,7 +1,6 @@
 ﻿using API.Auth.WindowsForms;
 using Data;
 using Domain.Model;
-using DTOs;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;

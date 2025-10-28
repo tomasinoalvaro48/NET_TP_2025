@@ -1,8 +1,5 @@
 ﻿using API.Clients;
-using WindowsForms.FormsTipoAnomalia;
-using WindowsForms.FormsUsuario;
-using WindowsForms.FormsZona;
-using WindowsForms.FormsPedidoResolucion; // <- agregado
+using WindowsForms.FormsPedidoResolucion;
 using DTOs;
 
 namespace WindowsForms
