@@ -45,66 +45,77 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(141, 148);
+            label1.Location = new Point(76, 69);
+            label1.Margin = new Padding(2, 0, 2, 0);
             label1.Name = "label1";
-            label1.Size = new Size(209, 32);
+            label1.Size = new Size(105, 15);
             label1.TabIndex = 0;
             label1.Text = "Contraseña actual:";
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(135, 228);
+            label2.Location = new Point(73, 107);
+            label2.Margin = new Padding(2, 0, 2, 0);
             label2.Name = "label2";
-            label2.Size = new Size(215, 32);
+            label2.Size = new Size(107, 15);
             label2.TabIndex = 1;
             label2.Text = "Nueva Contraseña:";
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(62, 301);
+            label3.Location = new Point(33, 141);
+            label3.Margin = new Padding(2, 0, 2, 0);
             label3.Name = "label3";
-            label3.Size = new Size(288, 32);
+            label3.Size = new Size(143, 15);
             label3.TabIndex = 2;
             label3.Text = "Repita Nueva Contraseña:";
             // 
             // textBoxContrasenaActual
             // 
-            textBoxContrasenaActual.Location = new Point(363, 145);
+            textBoxContrasenaActual.Location = new Point(195, 68);
+            textBoxContrasenaActual.Margin = new Padding(2, 1, 2, 1);
             textBoxContrasenaActual.Name = "textBoxContrasenaActual";
-            textBoxContrasenaActual.Size = new Size(200, 39);
+            textBoxContrasenaActual.Size = new Size(110, 23);
             textBoxContrasenaActual.TabIndex = 3;
+            textBoxContrasenaActual.UseSystemPasswordChar = true;
             // 
             // textBoxNuevaContrasena
             // 
-            textBoxNuevaContrasena.Location = new Point(363, 225);
+            textBoxNuevaContrasena.Location = new Point(195, 105);
+            textBoxNuevaContrasena.Margin = new Padding(2, 1, 2, 1);
             textBoxNuevaContrasena.Name = "textBoxNuevaContrasena";
-            textBoxNuevaContrasena.Size = new Size(200, 39);
+            textBoxNuevaContrasena.Size = new Size(110, 23);
             textBoxNuevaContrasena.TabIndex = 4;
+            textBoxNuevaContrasena.UseSystemPasswordChar = true;
             // 
             // textBoxRepetirNuevaContrasena
             // 
-            textBoxRepetirNuevaContrasena.Location = new Point(363, 301);
+            textBoxRepetirNuevaContrasena.Location = new Point(195, 141);
+            textBoxRepetirNuevaContrasena.Margin = new Padding(2, 1, 2, 1);
             textBoxRepetirNuevaContrasena.Name = "textBoxRepetirNuevaContrasena";
-            textBoxRepetirNuevaContrasena.Size = new Size(200, 39);
+            textBoxRepetirNuevaContrasena.Size = new Size(110, 23);
             textBoxRepetirNuevaContrasena.TabIndex = 5;
+            textBoxRepetirNuevaContrasena.UseSystemPasswordChar = true;
             // 
             // label4
             // 
             label4.AutoSize = true;
             label4.BorderStyle = BorderStyle.FixedSingle;
-            label4.Location = new Point(250, 43);
+            label4.Location = new Point(135, 20);
+            label4.Margin = new Padding(2, 0, 2, 0);
             label4.Name = "label4";
-            label4.Size = new Size(259, 34);
+            label4.Size = new Size(130, 17);
             label4.TabIndex = 6;
             label4.Text = "Cambio de Contraseña";
             // 
             // buttonCancelar
             // 
-            buttonCancelar.Location = new Point(177, 397);
+            buttonCancelar.Location = new Point(95, 186);
+            buttonCancelar.Margin = new Padding(2, 1, 2, 1);
             buttonCancelar.Name = "buttonCancelar";
-            buttonCancelar.Size = new Size(150, 46);
+            buttonCancelar.Size = new Size(81, 22);
             buttonCancelar.TabIndex = 7;
             buttonCancelar.Text = "Cancelar";
             buttonCancelar.UseVisualStyleBackColor = true;
@@ -112,9 +123,10 @@
             // 
             // buttonConfirmar
             // 
-            buttonConfirmar.Location = new Point(413, 397);
+            buttonConfirmar.Location = new Point(222, 186);
+            buttonConfirmar.Margin = new Padding(2, 1, 2, 1);
             buttonConfirmar.Name = "buttonConfirmar";
-            buttonConfirmar.Size = new Size(150, 46);
+            buttonConfirmar.Size = new Size(81, 22);
             buttonConfirmar.TabIndex = 8;
             buttonConfirmar.Text = "Confirmar";
             buttonConfirmar.UseVisualStyleBackColor = true;
@@ -126,9 +138,9 @@
             // 
             // CambiarContrasenaUsuario
             // 
-            AutoScaleDimensions = new SizeF(13F, 32F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(747, 502);
+            ClientSize = new Size(402, 235);
             Controls.Add(buttonConfirmar);
             Controls.Add(buttonCancelar);
             Controls.Add(label4);
@@ -138,6 +150,7 @@
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
+            Margin = new Padding(2, 1, 2, 1);
             Name = "CambiarContrasenaUsuario";
             Text = "Cambiar Contraseña";
             ((System.ComponentModel.ISupportInitialize)errorProvider).EndInit();

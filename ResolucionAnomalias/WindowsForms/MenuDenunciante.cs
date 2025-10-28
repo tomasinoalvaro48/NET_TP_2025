@@ -14,30 +14,6 @@ namespace WindowsForms
             InitializeComponent();
         }
 
-        private void ButtonCRUDTipoAnomalia_Click(object sender, EventArgs e)
-        {
-            TipoAnomaliaLista tipoLista = new TipoAnomaliaLista();
-            tipoLista.ShowDialog();
-        }
-
-        private void ButtonCRUDLocalidad_Click(object sender, EventArgs e)
-        {
-            LocalidadLista localidadLista = new LocalidadLista();
-            localidadLista.ShowDialog();
-        }
-
-        private void btnCrudZona_Click(object sender, EventArgs e)
-        {
-            ZonaLista zonaLista = new ZonaLista();
-            zonaLista.ShowDialog();
-        }
-
-        private void ButtonCRUDUsuario_Click(object sender, EventArgs e)
-        {
-            UsuarioLista usuarioLista = new UsuarioLista();
-            usuarioLista.ShowDialog();
-        }
-
         private async void logoutButton_Click(object sender, EventArgs e)
         {
             await AuthServiceProvider.Instance.LogoutAsync();
@@ -94,6 +70,11 @@ namespace WindowsForms
         {
             CambiarContrasenaUsuario cambiarContrasenaUsuario = new CambiarContrasenaUsuario();
             cambiarContrasenaUsuario.ShowDialog();
+        }
+
+        private void MenuDenunciante_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

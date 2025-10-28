@@ -18,50 +18,6 @@ namespace WindowsForms
             InitializeComponent();
         }
 
-        private void ButtonCRUDLocalidad_Click(object sender, EventArgs e)
-        {
-            LocalidadLista localidadLista = new LocalidadLista();
-            localidadLista.ShowDialog();
-        }
-
-        private void ButtonCRUDTipoAnomalia_Click(object sender, EventArgs e)
-        {
-            TipoAnomaliaLista tipoLista = new TipoAnomaliaLista();
-            tipoLista.ShowDialog();
-        }
-
-        private void btnCrudZona_Click(object sender, EventArgs e)
-        {
-            ZonaLista zonaLista = new ZonaLista();
-            zonaLista.ShowDialog();
-        }
-
-        private void ButtonCRUDUsuario_Click(object sender, EventArgs e)
-        {
-            UsuarioLista usuarioLista = new UsuarioLista();
-            usuarioLista.ShowDialog();
-        }
-
-        private void pedidoAgregacionButton_Click(object sender, EventArgs e)
-        {
-            PedidoAgregacionLista pedidoAgregacionLista = new PedidoAgregacionLista();
-            pedidoAgregacionLista.ShowDialog();
-        }
-
-        private async void logoutButton_Click(object sender, EventArgs e)
-        {
-            await AuthServiceProvider.Instance.LogoutAsync();
-            AuthServiceProvider.Instance.ClearSession();
-
-            this.Hide();
-
-            var login = new LoginForm();
-
-            CierreManual = false;
-            this.Close();
-            login.ShowDialog();
-        }
-
         private void usuariosToolStripMenuItem_Click(object sender, EventArgs e)
         {
             UsuarioLista usuarioLista = new UsuarioLista();
@@ -112,10 +68,10 @@ namespace WindowsForms
             this.Close();
         }
 
-        private void buttonPedido_Click(object sender, EventArgs e)
+        private void verPedidosDeResoluciónToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ListaPedidoResolucion pedidoResolucion = new ListaPedidoResolucion();
-            pedidoResolucion.ShowDialog();  
+            pedidoResolucion.ShowDialog();
         }
 
         private async void MenuOperador_FormClosing(object sender, FormClosingEventArgs e)
