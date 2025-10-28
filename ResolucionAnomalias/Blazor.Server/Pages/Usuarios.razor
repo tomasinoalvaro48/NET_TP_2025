@@ -3,7 +3,6 @@
 @using Domain.Model
 @using API.Clients
 @using API.Clients.EntitiesClients
-@using Blazor.Server.Components
 @inject IJSRuntime JSRuntime
 @inject IAuthService AuthService
 
@@ -13,7 +12,11 @@
     <div class="container-fluid">
         <h3>Usuarios</h3>
 
-        <button class="btn btn-primary mb-3" @onclick="OpenAddModal">+ Agregar</button>
+        <div class="mb-3 d-flex">
+            <InputText @bind-Value="searchText" placeholder="Buscar por nombre, email o tipo..." class="form-control me-2" />
+            <button class="btn btn-primary" @onclick="SearchUsuarios">Buscar</button>
+            <button class="btn btn-secondary ms-2" @onclick="ClearSearch">Limpiar</button>
+        </div>
 
         @if (usuarios == null)
         {
@@ -21,12 +24,6 @@
         }
         else
         {
-            <div class="mb-3 d-flex">
-                <InputText @bind-Value="searchText" placeholder="Buscar por nombre, email o tipo..." class="form-control me-2" />
-                <button class="btn btn-primary" @onclick="SearchUsuarios">Buscar</button>
-                <button class="btn btn-secondary ms-2" @onclick="ClearSearch">Limpiar</button>
-            </div>
-
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -35,7 +32,6 @@
                         <th>Email</th>
                         <th>Tipo</th>
                         <th>Zona</th>
-                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -47,10 +43,6 @@
                             <td>@usu.Email_usu</td>
                             <td>@usu.Tipo_usu</td>
                             <td>@usu.ZonaNombre</td>
-                            <td>
-                                <button class="btn btn-sm btn-outline-primary me-1" @onclick="() => OpenEditModal(usu)">Editar</button>
-                                <button class="btn btn-sm btn-outline-danger" @onclick="() => ConfirmDelete(usu)">Eliminar</button>
-                            </td>
                         </tr>
                     }
                 </tbody>
@@ -59,11 +51,8 @@
     </div>
 </AuthorizeRole>
 
-<UsuarioModal @ref="usuarioModal" OnUsuarioChanged="@(async () => await LoadUsuarios())" />
-
 @code {
     private List<UsuarioDTO>? usuarios;
-    private UsuarioModal usuarioModal = null!;
     private string searchText = string.Empty;
 
     protected override async Task OnInitializedAsync()
@@ -92,18 +81,5 @@
     {
         searchText = string.Empty;
         await LoadUsuarios();
-    }
-
-    private Task OpenAddModal() => usuarioModal.ShowAddModal();
-    private Task OpenEditModal(UsuarioDTO usu) => usuarioModal.ShowEditModal(usu);
-
-    private async Task ConfirmDelete(UsuarioDTO usu)
-    {
-        var confirm = await JSRuntime.InvokeAsync<bool>("confirm", $"¿Eliminar {usu.Nombre_usu}?");
-        if (confirm)
-        {
-            await UsuarioApiClient.DeleteAsync(usu.Cod_usu);
-            await LoadUsuarios(searchText);
-        }
     }
 }
