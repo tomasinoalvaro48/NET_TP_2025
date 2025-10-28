@@ -44,7 +44,7 @@
             // 
             // loginButton
             // 
-            loginButton.Location = new Point(179, 150);
+            loginButton.Location = new Point(212, 159);
             loginButton.Margin = new Padding(2, 1, 2, 1);
             loginButton.Name = "loginButton";
             loginButton.Size = new Size(104, 22);
@@ -58,7 +58,7 @@
             usuarioTextBox.Location = new Point(179, 66);
             usuarioTextBox.Margin = new Padding(2, 1, 2, 1);
             usuarioTextBox.Name = "usuarioTextBox";
-            usuarioTextBox.Size = new Size(110, 23);
+            usuarioTextBox.Size = new Size(195, 23);
             usuarioTextBox.TabIndex = 1;
             // 
             // contraseniaTextBox
@@ -66,14 +66,14 @@
             contraseniaTextBox.Location = new Point(179, 114);
             contraseniaTextBox.Margin = new Padding(2, 1, 2, 1);
             contraseniaTextBox.Name = "contraseniaTextBox";
-            contraseniaTextBox.Size = new Size(110, 23);
+            contraseniaTextBox.Size = new Size(195, 23);
             contraseniaTextBox.TabIndex = 2;
             contraseniaTextBox.UseSystemPasswordChar = true;
             // 
             // textBoxUsuarioLabel
             // 
             textBoxUsuarioLabel.AutoSize = true;
-            textBoxUsuarioLabel.Location = new Point(183, 50);
+            textBoxUsuarioLabel.Location = new Point(127, 74);
             textBoxUsuarioLabel.Margin = new Padding(2, 0, 2, 0);
             textBoxUsuarioLabel.Name = "textBoxUsuarioLabel";
             textBoxUsuarioLabel.Size = new Size(33, 15);
@@ -83,7 +83,7 @@
             // textBoxContraseniaLabel
             // 
             textBoxContraseniaLabel.AutoSize = true;
-            textBoxContraseniaLabel.Location = new Point(179, 98);
+            textBoxContraseniaLabel.Location = new Point(90, 122);
             textBoxContraseniaLabel.Margin = new Padding(2, 0, 2, 0);
             textBoxContraseniaLabel.Name = "textBoxContraseniaLabel";
             textBoxContraseniaLabel.Size = new Size(70, 15);

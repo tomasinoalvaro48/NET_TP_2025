@@ -1,7 +1,6 @@
 ﻿using API.Auth.WindowsForms;
 using API.Clients.EntitiesClients;
 using System.Security.Cryptography;
-using System.Text.RegularExpressions;
 using DTOs;
 
 namespace WindowsForms

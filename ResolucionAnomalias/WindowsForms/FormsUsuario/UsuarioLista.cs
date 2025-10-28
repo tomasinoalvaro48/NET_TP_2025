@@ -15,14 +15,7 @@ namespace WindowsForms.FormsUsuario
         private async void UsuarioLista_Load(object sender, EventArgs e)
         {
             await ValidarPermisosAsync();
-            this.GetAllAndLoad();
-        }
-
-        private UsuarioDTO SelectedItem()
-        {
-            UsuarioDTO usuario;
-            usuario = (UsuarioDTO)usuariosDataGridView.SelectedRows[0].DataBoundItem;
-            return usuario;
+            await GetAllAndLoad();
         }
 
         private void ConfigurarColumas()
@@ -86,7 +79,7 @@ namespace WindowsForms.FormsUsuario
             });
         }
 
-        private async void GetAllAndLoad()
+        private async Task GetAllAndLoad()
         {
             try
             {
@@ -94,81 +87,11 @@ namespace WindowsForms.FormsUsuario
                 this.usuariosDataGridView.DataSource = await UsuarioApiClient.GetAllAsync();
 
                 if (this.usuariosDataGridView.Rows.Count > 0)
-                {
                     this.usuariosDataGridView.Rows[0].Selected = true;
-                    this.eliminarButton.Enabled = true;
-                    this.modificarButton.Enabled = true;
-                }
-                else
-                {
-                    this.eliminarButton.Enabled = false;
-                    this.modificarButton.Enabled = false;
-                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error al cargar lista de usuarios: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                this.eliminarButton.Enabled = true;
-                this.modificarButton.Enabled = true;
-            }
-        }
-
-        private void agregarButton_Click(object sender, EventArgs e)
-        {
-            UsuarioDetalle usuarioDetalle = new UsuarioDetalle();
-
-            UsuarioDTO usuarioNuevo = new UsuarioDTO();
-
-            usuarioDetalle.Mode = FormMode.Add;
-            usuarioDetalle.Usuario = usuarioNuevo;
-
-            usuarioDetalle.ShowDialog();
-
-            this.GetAllAndLoad();
-        }
-
-        private async void eliminarButton_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                int id = this.SelectedItem().Cod_usu;
-
-                var result = MessageBox.Show($"¿Está seguro que desea eliminar el usuario con ID {id}?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                if (result == DialogResult.Yes)
-                {
-                    await UsuarioApiClient.DeleteAsync(id);
-                    this.GetAllAndLoad();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al eliminar el usuario: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-
-        }
-
-        private async void modificarButton_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                UsuarioDetalle usuarioDetalle = new UsuarioDetalle();
-
-                int id = this.SelectedItem().Cod_usu;
-
-                UsuarioDTO usuario = await UsuarioApiClient.GetAsync(id);
-
-                usuarioDetalle.Mode = FormMode.Update;
-
-                usuarioDetalle.Usuario = usuario;
-
-                usuarioDetalle.ShowDialog();
-
-                this.GetAllAndLoad();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al cargar usuario para modificar: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -186,43 +109,27 @@ namespace WindowsForms.FormsUsuario
         private void BuscarButton_Click(object sender, EventArgs e)
         {
             string texto = this.buscarTextBox.Text.Trim();
-            this.GetByCriteriaAndLoad(texto);
+            _ = GetByCriteriaAndLoad(texto); // Ignorar el warning del async void
         }
 
-        private async void GetByCriteriaAndLoad(string texto = "")
+        private async Task GetByCriteriaAndLoad(string texto = "")
         {
             this.usuariosDataGridView.DataSource = null;
 
-            IEnumerable<UsuarioDTO> clientes;
+            IEnumerable<UsuarioDTO> usuarios;
             if (string.IsNullOrWhiteSpace(texto))
             {
-                clientes = await UsuarioApiClient.GetAllAsync();
+                usuarios = await UsuarioApiClient.GetAllAsync();
             }
             else
             {
-                clientes = await UsuarioApiClient.GetByCriteriaAsync(texto);
+                usuarios = await UsuarioApiClient.GetByCriteriaAsync(texto);
             }
 
-            this.usuariosDataGridView.DataSource = clientes;
-
-            // Solo manejar Enabled/Disabled si los botones son visibles (tienen permisos)
-            bool canUpdate = modificarButton.Tag is bool updatePermission && updatePermission;
-            bool canDelete = eliminarButton.Tag is bool deletePermission && deletePermission;
+            this.usuariosDataGridView.DataSource = usuarios;
 
             if (this.usuariosDataGridView.Rows.Count > 0)
-            {
                 this.usuariosDataGridView.Rows[0].Selected = true;
-
-                // Solo habilitar si tiene permisos Y hay elementos
-                if (canDelete) this.eliminarButton.Enabled = true;
-                if (canUpdate) this.modificarButton.Enabled = true;
-            }
-            else
-            {
-                // Solo deshabilitar si son visibles
-                if (canDelete) this.eliminarButton.Enabled = false;
-                if (canUpdate) this.modificarButton.Enabled = false;
-            }
         }
     }
 }

@@ -32,9 +32,6 @@
     <Compile Update="FormsTipoAnomalia\TipoAnomaliaDetalle.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="FormsUsuario\UsuarioDetalle.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Update="FormsUsuario\UsuarioLista.cs">
       <SubType>Form</SubType>
     </Compile>

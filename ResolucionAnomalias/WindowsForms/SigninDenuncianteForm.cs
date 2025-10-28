@@ -6,11 +6,9 @@ namespace WindowsForms
 {
     public partial class SigninDenuncianteForm : Form
     {
-        //public UsuarioDTO Usuario { get; set; }
         public SigninDenuncianteForm()
         {
             InitializeComponent();
-            //Usuario = new UsuarioDTO();
         }
 
         private bool ValidateUsuario()
