@@ -1,0 +1,237 @@
+﻿@page "/cambiar-contrasena"
+@using DTOs
+@using API.Clients
+@using API.Clients.EntitiesClients
+@using System.Security.Cryptography
+@inject IAuthService AuthService
+@inject NavigationManager Navigation
+@inject IJSRuntime JSRuntime
+
+<PageTitle>Cambiar Contraseña</PageTitle>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card mt-5">
+                <div class="card-header">
+                    <h3>Cambiar Contraseña</h3>
+                </div>
+                <div class="card-body">
+                    <EditForm Model="@model" OnValidSubmit="HandleValidSubmit">
+                        <div class="mb-3">
+                            <label class="form-label">Contraseña Actual *</label>
+                            <InputText @bind-Value="model.ContrasenaActual" type="password" class="form-control" />
+                            @if (validationErrors.ContainsKey("ContrasenaActual"))
+                            {
+                                <div class="text-danger small">@validationErrors["ContrasenaActual"]</div>
+                            }
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Nueva Contraseña *</label>
+                            <InputText @bind-Value="model.NuevaContrasena" type="password" class="form-control" />
+                            @if (validationErrors.ContainsKey("NuevaContrasena"))
+                            {
+                                <div class="text-danger small">@validationErrors["NuevaContrasena"]</div>
+                            }
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Repetir Nueva Contraseña *</label>
+                            <InputText @bind-Value="model.RepetirNuevaContrasena" type="password" class="form-control" />
+                            @if (validationErrors.ContainsKey("RepetirNuevaContrasena"))
+                            {
+                                <div class="text-danger small">@validationErrors["RepetirNuevaContrasena"]</div>
+                            }
+                        </div>
+
+                        @if (!string.IsNullOrEmpty(errorMessage))
+                        {
+                            <div class="alert alert-danger">
+                                @errorMessage
+                            </div>
+                        }
+
+                        @if (!string.IsNullOrEmpty(successMessage))
+                        {
+                            <div class="alert alert-success">
+                                @successMessage
+                            </div>
+                        }
+
+                        <div class="d-flex justify-content-between mt-3">
+                            <button type="submit" class="btn btn-primary" disabled="@saving">
+                                @if (saving)
+                                {
+                                    <span class="spinner-border spinner-border-sm me-2"></span>
+                                }
+                                Cambiar Contraseña
+                            </button>
+                            <button type="button" class="btn btn-secondary" @onclick="Cancelar">Cancelar</button>
+                        </div>
+                    </EditForm>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private CambiarContrasenaModel model = new();
+    private bool saving = false;
+    private string errorMessage = string.Empty;
+    private string successMessage = string.Empty;
+    private Dictionary<string, string> validationErrors = new();
+
+    private class CambiarContrasenaModel
+    {
+        public string ContrasenaActual { get; set; } = string.Empty;
+        public string NuevaContrasena { get; set; } = string.Empty;
+        public string RepetirNuevaContrasena { get; set; } = string.Empty;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Validar que el usuario esté autenticado y tenga permisos
+        if (!await AuthService.IsAuthenticatedAsync())
+        {
+            Navigation.NavigateTo("/login");
+            return;
+        }
+
+        var currentUser = await AuthService.GetCurrentUserAsync();
+        if (currentUser == null || (currentUser.Tipo_usu != "Denunciante" && currentUser.Tipo_usu != "Cazador"))
+        {
+            await JSRuntime.InvokeVoidAsync("alert", "No tiene permisos para cambiar la contraseña.");
+            Navigation.NavigateTo("/");
+            return;
+        }
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        if (!Validate())
+            return;
+
+        try
+        {
+            saving = true;
+            errorMessage = string.Empty;
+            successMessage = string.Empty;
+
+            var email = await AuthService.GetUsernameAsync();
+            if (string.IsNullOrEmpty(email))
+            {
+                errorMessage = "No se pudo obtener la información del usuario actual.";
+                return;
+            }
+
+            // Obtener el usuario actual por email
+            var usuario = await UsuarioApiClient.GetByEmailAsync(email);
+            if (usuario == null)
+            {
+                errorMessage = "No se encontró el usuario actual.";
+                return;
+            }
+
+            // Verificar la contraseña actual
+            string saltAlmacenado = usuario.Salt;
+            using var pbkdf2 = new Rfc2898DeriveBytes(
+                model.ContrasenaActual,
+                Convert.FromBase64String(saltAlmacenado),
+                10000,
+                HashAlgorithmName.SHA256
+            );
+            byte[] hashBytes = pbkdf2.GetBytes(32);
+            string hashContrasenaIngresada = Convert.ToBase64String(hashBytes);
+
+            if (hashContrasenaIngresada != usuario.Passw_usu)
+            {
+                validationErrors["ContrasenaActual"] = "La contraseña actual es incorrecta";
+                return;
+            }
+
+            // Actualizar con la nueva contraseña
+            var usuarioUpdate = new UsuarioUpdateDTO
+            {
+                Cod_usu = usuario.Cod_usu,
+                Nombre_usu = usuario.Nombre_usu,
+                Email_usu = usuario.Email_usu,
+                Passw_usu = model.NuevaContrasena,
+                Tipo_usu = usuario.Tipo_usu,
+                ZonaId = usuario.ZonaId
+            };
+
+            await UsuarioApiClient.UpdateAsync(usuarioUpdate);
+
+            successMessage = "Contraseña cambiada exitosamente. Deberá iniciar sesión nuevamente.";
+
+            // Esperar un momento para que el usuario vea el mensaje
+            await Task.Delay(2000);
+
+            // Cerrar sesión y redirigir al login
+            await AuthService.LogoutAsync();
+            Navigation.NavigateTo("/login");
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Error al cambiar la contraseña: {ex.Message}";
+        }
+        finally
+        {
+            saving = false;
+        }
+    }
+
+    private bool Validate()
+    {
+        ClearValidationErrors();
+        bool isValid = true;
+
+        // Validar contraseña actual
+        if (string.IsNullOrWhiteSpace(model.ContrasenaActual))
+        {
+            validationErrors["ContrasenaActual"] = "La contraseña actual es obligatoria";
+            isValid = false;
+        }
+
+        // Validar nueva contraseña
+        if (string.IsNullOrWhiteSpace(model.NuevaContrasena))
+        {
+            validationErrors["NuevaContrasena"] = "La nueva contraseña es obligatoria";
+            isValid = false;
+        }
+        else if (model.NuevaContrasena.Length < 6)
+        {
+            validationErrors["NuevaContrasena"] = "La nueva contraseña debe tener al menos 6 caracteres";
+            isValid = false;
+        }
+
+        // Validar repetir nueva contraseña
+        if (string.IsNullOrWhiteSpace(model.RepetirNuevaContrasena))
+        {
+            validationErrors["RepetirNuevaContrasena"] = "Debe repetir la nueva contraseña";
+            isValid = false;
+        }
+        else if (model.NuevaContrasena != model.RepetirNuevaContrasena)
+        {
+            validationErrors["RepetirNuevaContrasena"] = "Las contraseñas no coinciden";
+            isValid = false;
+        }
+
+        StateHasChanged();
+        return isValid;
+    }
+
+    private void ClearValidationErrors()
+    {
+        validationErrors.Clear();
+        errorMessage = string.Empty;
+        successMessage = string.Empty;
+    }
+
+    private void Cancelar()
+    {
+        Navigation.NavigateTo("/");
+    }
+}

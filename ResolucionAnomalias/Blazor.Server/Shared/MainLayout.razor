@@ -1,5 +1,6 @@
 ﻿@inherits LayoutComponentBase
 @using API.Clients
+@using DTOs
 @inject IAuthService AuthService
 @inject NavigationManager Navigation
 @implements IDisposable
@@ -15,6 +16,10 @@
         <div class="top-row px-4 d-flex justify-content-end">
             @if (isAuthenticated)
             {
+                @if (canChangePassword)
+                {
+                    <button class="btn btn-primary btn-sm me-2" @onclick="CambiarContrasena">Cambiar Contraseña</button>
+                }
                 <button class="btn btn-primary btn-sm" @onclick="Logout">Cerrar Sesión</button>
             }
         </div>
@@ -27,6 +32,7 @@
 
 @code {
     private bool isAuthenticated = false;
+    private bool canChangePassword = false;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -41,6 +47,18 @@
     private async Task CheckAuthenticationState()
     {
         isAuthenticated = await AuthService.IsAuthenticatedAsync();
+        
+        if (isAuthenticated)
+        {
+            var currentUser = await AuthService.GetCurrentUserAsync();
+            canChangePassword = currentUser != null && 
+                               (currentUser.Tipo_usu == "Denunciante" || currentUser.Tipo_usu == "Cazador");
+        }
+        else
+        {
+            canChangePassword = false;
+        }
+        
         StateHasChanged();
     }
 
@@ -56,6 +74,11 @@
     {
         await AuthService.LogoutAsync();
         Navigation.NavigateTo("/login");
+    }
+
+    private void CambiarContrasena()
+    {
+        Navigation.NavigateTo("/cambiar-contrasena");
     }
 
     public void Dispose()
