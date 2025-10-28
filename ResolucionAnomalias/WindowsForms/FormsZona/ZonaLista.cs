@@ -153,7 +153,7 @@ namespace WindowsForms.FormsZona
         {
             var user = await AuthServiceProvider.Instance.GetCurrentUserAsync();
 
-            if (user.Tipo_usu != "Operador" && user.Tipo_usu != "Cazador")
+            if (user.Tipo_usu != "Operador")
             {
                 MessageBox.Show("No tenés permisos para acceder a Zonas", "Acceso denegado");
                 this.Close();

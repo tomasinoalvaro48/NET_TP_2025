@@ -164,20 +164,31 @@ namespace WindowsForms.FormsPedidoAgregacion
 
         private async void buttonAceptar_Click(object sender, EventArgs e)
         {
-            var pedido = SelectedItem();
-
-            pedido.Estado_pedido_agreg = "Aceptado";
-            await PedidoAgregacionApiClient.UpdateAsync(pedido);
-
-            TipoAnomaliaDTO tipo = new TipoAnomaliaDTO
+            try
             {
-                Nombre_anom = pedido.Descripcion_pedido_agreg,
-                Dif_anom = pedido.Dificultad_pedido_agreg
-            };
+                var pedido = SelectedItem();
 
-            await TipoAnomaliaApiClient.AddAsync(tipo);
+                var tipo = new TipoAnomaliaDTO
+                {
+                    Nombre_anom = pedido.Descripcion_pedido_agreg,
+                    Dif_anom = pedido.Dificultad_pedido_agreg
+                };
 
-            GetAllAndLoad();
+                var createdTipo = await TipoAnomaliaApiClient.AddAsync(tipo);
+             
+                pedido.TipoAnomaliaId = createdTipo.Cod_anom;
+                pedido.NombreTipoAnomalia = createdTipo.Nombre_anom;
+                pedido.Estado_pedido_agreg = "Aceptado";
+
+                // 3) Update pedido
+                await PedidoAgregacionApiClient.UpdateAsync(pedido);
+
+                GetAllAndLoad();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al aceptar el pedido de agregación: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private async void buttonRechazar_Click(object sender, EventArgs e)

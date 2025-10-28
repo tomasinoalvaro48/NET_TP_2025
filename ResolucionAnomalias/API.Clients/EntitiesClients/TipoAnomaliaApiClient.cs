@@ -64,12 +64,19 @@ namespace API.Clients.EntitiesClients
             }
         }
 
-        public async static Task AddAsync(TipoAnomaliaDTO tipo)
+        public async static Task<TipoAnomaliaDTO> AddAsync(TipoAnomaliaDTO tipo)
         {
             try
             {
                 HttpResponseMessage response = await client.PostAsJsonAsync("tipoanomalia", tipo);
-                if (!response.IsSuccessStatusCode)
+                if (response.IsSuccessStatusCode)
+                {
+                    var created = await response.Content.ReadFromJsonAsync<TipoAnomaliaDTO>();
+                    if (created == null)
+                        throw new Exception("No se pudo leer el tipo de anomalía creado desde la API.");
+                    return created;
+                }
+                else
                 {
                     string errorContent = await response.Content.ReadAsStringAsync();
                     throw new Exception($"Error al crear tipo de anomalia. Status: {response.StatusCode}, Detalle: {errorContent}");

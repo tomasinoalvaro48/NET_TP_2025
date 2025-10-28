@@ -11,7 +11,7 @@ namespace Application.Services
             var pedidoAgregacionRepository = new PedidoAgregacionRepository();
 
             var estado = "Pendiente";
-            PedidoAgregacion pedidoAgregacion = new PedidoAgregacion(dto.Descripcion_pedido_agreg, dto.Dificultad_pedido_agreg, estado);
+            PedidoAgregacion pedidoAgregacion = new PedidoAgregacion(dto.Descripcion_pedido_agreg, dto.Dificultad_pedido_agreg, estado, dto.CazadorId);
             await pedidoAgregacionRepository.AddAsync(pedidoAgregacion);
 
             dto.Id_pedido_agreg = pedidoAgregacion.Id_pedido_agreg;
@@ -41,7 +41,11 @@ namespace Application.Services
                     Id_pedido_agreg = pedidoAgregacion.Id_pedido_agreg,
                     Descripcion_pedido_agreg = pedidoAgregacion.Descripcion_pedido_agreg,
                     Dificultad_pedido_agreg = pedidoAgregacion.Dificultad_pedido_agreg,
-                    Estado_pedido_agreg = pedidoAgregacion.Estado_pedido_agreg
+                    Estado_pedido_agreg = pedidoAgregacion.Estado_pedido_agreg,
+                    NombreCazador = pedidoAgregacion.Cazador?.Nombre_usu,
+                    CazadorId = pedidoAgregacion.CazadorId,
+                    TipoAnomaliaId = pedidoAgregacion.TipoAnomaliaId,
+                    NombreTipoAnomalia = pedidoAgregacion.TipoAnomalia?.Nombre_anom
                 };
             }
         }
@@ -57,6 +61,10 @@ namespace Application.Services
                 Descripcion_pedido_agreg = pedidoAgregacion.Descripcion_pedido_agreg,
                 Dificultad_pedido_agreg = pedidoAgregacion.Dificultad_pedido_agreg,
                 Estado_pedido_agreg = pedidoAgregacion.Estado_pedido_agreg,
+                NombreCazador = pedidoAgregacion.Cazador?.Nombre_usu,
+                CazadorId = pedidoAgregacion.CazadorId,
+                TipoAnomaliaId = pedidoAgregacion.TipoAnomaliaId,
+                NombreTipoAnomalia = pedidoAgregacion.TipoAnomalia?.Nombre_anom
             }).ToList();
         }
 
@@ -71,8 +79,11 @@ namespace Application.Services
             pedidoToUpdate.SetDescripcion(dto.Descripcion_pedido_agreg);
             pedidoToUpdate.SetDificultad(dto.Dificultad_pedido_agreg);
             pedidoToUpdate.SetEstado(dto.Estado_pedido_agreg);
+            pedidoToUpdate.SetTipoAnomalia(dto.TipoAnomaliaId);
 
             return await pedidoAgregacionRespository.UpdateAsync(pedidoToUpdate);
         }
     }
+
+    
 }

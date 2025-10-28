@@ -13,7 +13,11 @@ namespace Data
         public async Task<IEnumerable<PedidoAgregacion>> GetAllAsync()
         {
             using var context = CreateContext();
-            return await context.PedidosAgregacion.OrderBy(p => p.Id_pedido_agreg).ToListAsync();
+            return await context.PedidosAgregacion
+                .Include(p => p.Cazador)
+                .Include(p => p.TipoAnomalia)
+                .OrderBy(p => p.Id_pedido_agreg)
+                .ToListAsync();
         }
 
         public async Task AddAsync(PedidoAgregacion pedidoAgregacion)
@@ -39,7 +43,10 @@ namespace Data
         public async Task<PedidoAgregacion?> GetAsync(int id)
         {
             using var context = CreateContext();
-            return await context.PedidosAgregacion.FirstOrDefaultAsync(c => c.Id_pedido_agreg == id);
+            return await context.PedidosAgregacion
+                .Include(p => p.Cazador)
+                .Include(p => p.TipoAnomalia)
+                .FirstOrDefaultAsync(c => c.Id_pedido_agreg == id);
         }
 
         public async Task<bool> UpdateAsync(PedidoAgregacion pedidoAgregacion)
@@ -51,6 +58,7 @@ namespace Data
                 existingPedidoAgregacion.SetDescripcion(pedidoAgregacion.Descripcion_pedido_agreg);
                 existingPedidoAgregacion.SetDificultad(pedidoAgregacion.Dificultad_pedido_agreg);
                 existingPedidoAgregacion.SetEstado(pedidoAgregacion.Estado_pedido_agreg);
+                existingPedidoAgregacion.SetTipoAnomalia(pedidoAgregacion.TipoAnomaliaId);
                 await context.SaveChangesAsync();
                 return true;
             }

@@ -1,6 +1,7 @@
 ﻿using API.Clients;
 using System.Windows.Forms;
 using WindowsForms.FormsPedidoAgregacion;
+using WindowsForms.FormsPedidoResolucion;
 using WindowsForms.FormsTipoAnomalia;
 using WindowsForms.FormsUsuario;
 using WindowsForms.FormsZona;
@@ -108,6 +109,12 @@ namespace WindowsForms
 
             CierreManual = false;
             this.Close();
+        }
+
+        private void buttonPedido_Click(object sender, EventArgs e)
+        {
+            ListaPedidoResolucion pedidoResolucion = new ListaPedidoResolucion();
+            pedidoResolucion.ShowDialog();  
         }
 
         private async void MenuOperador_FormClosing(object sender, FormClosingEventArgs e)

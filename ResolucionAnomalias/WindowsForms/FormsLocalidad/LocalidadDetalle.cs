@@ -148,7 +148,7 @@ namespace WindowsForms
         {
             var user = await AuthServiceProvider.Instance.GetCurrentUserAsync();
 
-            if (user.Tipo_usu != "Operador" && user.Tipo_usu != "Cazador")
+            if (user.Tipo_usu != "Operador")
             {
                 MessageBox.Show("No tenés permisos para editar Localidades", "Acceso denegado");
                 this.Close();

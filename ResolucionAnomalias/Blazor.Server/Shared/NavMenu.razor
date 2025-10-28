@@ -58,6 +58,14 @@
                 </NavLink>
             </div>
         }
+        @if (canReadPedidosResolucion)
+        {
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="pedidos-resolucion">
+                    <span class="oi oi-map"></span> PedidosResolucion
+                </NavLink>
+            </div>
+        }
     </nav>
 </div>
 
@@ -68,6 +76,7 @@
     private bool canReadTiposAnomalia = false;
     private bool canReadUsuarios = false;
     private bool canReadPedidosAgregacion = false;
+    private bool canReadPedidosResolucion = false;
 
     private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 
@@ -93,6 +102,7 @@
             canReadTiposAnomalia = true;
             canReadUsuarios = true;
             canReadPedidosAgregacion = true;
+            canReadPedidosResolucion = true;
         }
         else
         {
@@ -101,6 +111,7 @@
             canReadTiposAnomalia = false;
             canReadUsuarios = false;
             canReadPedidosAgregacion = false;
+            canReadPedidosResolucion = false;
         }
         StateHasChanged();
     }

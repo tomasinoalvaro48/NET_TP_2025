@@ -1,0 +1,210 @@
+﻿@using DTOs
+@using API.Clients.EntitiesClients
+@using API.Clients
+@inject IJSRuntime JS
+@inject IAuthService AuthService
+
+@if (showModal)
+{
+    <div class="modal fade show d-block" tabindex="-1" style="background-color:rgba(0,0,0,0.4)">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">@title</h5>
+                    <button type="button" class="btn-close" @onclick="Close"></button>
+                </div>
+
+                <div class="modal-body">
+
+                    @if (pedido.Id > 0)
+                    {
+                        <div class="mb-2">
+                            <label>ID</label>
+                            <input class="form-control" disabled value="@pedido.Id" />
+                        </div>
+                    }
+
+                    <div class="mb-2">
+                        <label>Fecha</label>
+                        <input class="form-control" disabled
+                               value="@(pedido.Fecha == DateTime.MinValue ? "" : pedido.Fecha.ToString("dd/MM/yyyy"))" />
+                    </div>
+
+                    <div class="mb-2">
+                        <label>Zona</label>
+                        <select class="form-select" @bind="pedido.ZonaId">
+                            <option value="">Seleccione...</option>
+                            @foreach (var z in zonas)
+                            {
+                                <option value="@z.Id">@($"{z.LocalidadNombre} {z.Nombre}")</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="mb-2">
+                        <label>Descripción</label>
+                        <textarea class="form-control" @bind="pedido.Descripcion"></textarea>
+                    </div>
+
+                    <div class="mb-2">
+                        <label>Comentario</label>
+                        <textarea class="form-control" @bind="pedido.Comentario"></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Dificultad Total</label>
+                        <input class="form-control" disabled value="@pedido.Dificultad" />
+                    </div>
+
+                    <div>
+                        <h6>Anomalías</h6>
+                        <button class="btn btn-sm btn-primary mb-2" @onclick="OpenAnomaliasModal">Agregar Anomalía</button>
+
+                        <table class="table table-sm table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Tipo</th>
+                                    <th>Dificultad</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var a in pedido.Anomalias ?? new List<AnomaliaPedidoDTO>())
+                                {
+                                    <tr>
+                                        <td>@a.TipoAnomaliaDescripcion</td>
+                                        <td>@a.TipoAnomaliaDificultad</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-danger" @onclick="(() => RemoveAnomalia(a))">X</button>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                    @if (!string.IsNullOrEmpty(errorMessage))
+                    {
+                        <div class="alert alert-danger">@errorMessage</div>
+                    }
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" @onclick="Close">Cancelar</button>
+                    <button class="btn btn-success" @onclick="Save">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<AnomaliasModal @ref="anomaliasModal" OnSelected="OnAnomaliaSelected" />
+
+@code {
+
+    [Parameter] public EventCallback OnSaved { get; set; }
+
+    private bool showModal = false;
+    private string title = "";
+    private PedidoResolucionDTO pedido = new();
+    private List<ZonaDTO> zonas = new();
+    private string errorMessage = string.Empty;
+    private AnomaliasModal anomaliasModal = null!;
+
+    public async Task OpenForAdd()
+    {
+        pedido = new() { Fecha = DateTime.Now };
+        title = "Nuevo Pedido Resolución";
+        errorMessage = string.Empty;
+        showModal = true;
+        await LoadData();
+        StateHasChanged();
+    }
+
+    public async Task OpenForEdit(int id)
+    {
+        try
+        {
+            errorMessage = string.Empty;
+            pedido = await PedidoResolucionApiClient.GetAsync(id);
+            title = $"Editar Pedido {id}";
+            showModal = true;
+            await LoadData();
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            await JS.InvokeVoidAsync("alert", $"Error al cargar pedido: {ex.Message}");
+        }
+    }
+
+    private async Task LoadData()
+    {
+        zonas = (await ZonaApiClient.GetAllAsync()).ToList();
+        StateHasChanged();
+    }
+
+    private async Task OpenAnomaliasModal()
+    {
+        await anomaliasModal.ShowAsync();
+    }
+
+    private void OnAnomaliaSelected(AnomaliaPedidoDTO a)
+    {
+        pedido.Anomalias ??= new List<AnomaliaPedidoDTO>();
+        // Evitar duplicados por TipoAnomaliaId
+        if (!pedido.Anomalias.Any(x => x.TipoAnomaliaId == a.TipoAnomaliaId))
+        {
+            pedido.Anomalias.Add(a);
+        }
+    }
+
+    private void RemoveAnomalia(AnomaliaPedidoDTO a)
+    {
+        pedido.Anomalias?.Remove(a);
+    }
+
+    private async Task Save()
+    {
+        try
+        {
+            errorMessage = string.Empty;
+
+            // Solo Denunciante puede crear (alta)
+            if (pedido.Id == 0 && !await IsCurrentUserDenunciante())
+            {
+                errorMessage = "Solo un usuario de tipo Denunciante puede crear nuevos pedidos.";
+                return;
+            }
+
+            if (pedido.Id == 0)
+                await PedidoResolucionApiClient.AddAsync(pedido);
+            else
+                await PedidoResolucionApiClient.UpdateAsync(pedido);
+
+            await OnSaved.InvokeAsync();
+            Close();
+        }
+        catch (Exception ex)
+        {
+            errorMessage = ex.Message;
+        }
+    }
+
+    private void Close()
+    {
+        showModal = false;
+    }
+
+    // Determina si el usuario actual es Denunciante sin depender de métodos extra del IAuthService
+    private async Task<bool> IsCurrentUserDenunciante()
+    {
+        var email = await AuthService.GetUsernameAsync();
+        if (string.IsNullOrWhiteSpace(email)) return false;
+
+        var usuarios = await UsuarioApiClient.GetAllAsync();
+        var user = usuarios.FirstOrDefault(u => u.Email_usu.Equals(email, StringComparison.OrdinalIgnoreCase));
+        return user?.Tipo_usu?.Equals("Denunciante", StringComparison.OrdinalIgnoreCase) == true;
+    }
+}

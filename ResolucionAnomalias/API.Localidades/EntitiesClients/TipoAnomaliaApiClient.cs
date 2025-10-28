@@ -59,7 +59,7 @@ namespace API.Clients.EntitiesClients
             }
         }
 
-        public async static Task AddAsync(TipoAnomaliaDTO tipo)
+        public async static Task<TipoAnomaliaDTO> AddAsync(TipoAnomaliaDTO tipo)
         {
             try
             {
@@ -70,6 +70,7 @@ namespace API.Clients.EntitiesClients
                     string errorContent = await response.Content.ReadAsStringAsync();
                     throw new Exception($"Error al crear tipo de anomalia. Status: {response.StatusCode}, Detalle: {errorContent}");
                 }
+                return await response.Content.ReadAsAsync<TipoAnomaliaDTO>();
             }
             catch (HttpRequestException ex)
             {
