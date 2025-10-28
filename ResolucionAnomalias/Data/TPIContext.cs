@@ -46,6 +46,13 @@ namespace Data
                 entity.HasIndex(e => e.Nombre_anom).IsUnique();
 
                 entity.Property(e => e.Dif_anom).IsRequired();
+
+                entity.HasData(
+                    new { Cod_anom = 1, Nombre_anom = "Slimer", Dif_anom = 2 },
+                    new { Cod_anom = 2, Nombre_anom = "Ejército de Fantasmas", Dif_anom = 3 },
+                    new { Cod_anom = 3, Nombre_anom = "Gollum", Dif_anom = 1 },
+                    new { Cod_anom = 4, Nombre_anom = "Dementor", Dif_anom = 3 }
+                );
             });
 
             modelBuilder.Entity<Localidad>(entity =>
@@ -94,7 +101,8 @@ namespace Data
                 entity.HasData(
                     new { Id = 1, Nombre = "Centro", LocalidadId = 1, LocalidadCodigo = "2000", LocalidadNombre = "Rosario" },
                     new { Id = 2, Nombre = "Sur", LocalidadId = 1, LocalidadCodigo = "2000", LocalidadNombre = "Rosario" },
-                    new { Id = 3, Nombre = "Norte", LocalidadId = 2, LocalidadCodigo = "2001", LocalidadNombre = "Bs As" }
+                    new { Id = 3, Nombre = "Norte", LocalidadId = 2, LocalidadCodigo = "2001", LocalidadNombre = "Bs As" },
+                    new { Id = 4, Nombre = "Oeste", LocalidadId = 2, LocalidadCodigo = "2001", LocalidadNombre = "Bs As" }
                 );
             });
 
@@ -140,7 +148,9 @@ namespace Data
                     .HasForeignKey(e => e.ZonaId)
                     .IsRequired(false);
 
-                var opUser = new Domain.Model.Usuario("Operador", "operador@gmail.com", "operador", "Operador", 1);
+                var opUser = new Usuario("Operador", "o@o.com", "123456", "Operador", 1);
+                var cazUser = new Usuario("Peter Venkman", "c@c.com", "123456", "Cazador", 2);
+                var denUser = new Usuario("Pepe Rodriguez", "d@d.com", "123456", "Denunciante", null);
                 entity.HasData(new
                 {
                     Cod_usu = 1,
@@ -150,6 +160,26 @@ namespace Data
                     Salt = opUser.Salt,
                     Tipo_usu = opUser.Tipo_usu,
                     ZonaId = opUser.ZonaId
+                },
+                new
+                {
+                    Cod_usu = 2,
+                    Nombre_usu = cazUser.Nombre_usu,
+                    Email_usu = cazUser.Email_usu,
+                    Passw_usu = cazUser.Passw_usu,
+                    Salt = cazUser.Salt,
+                    Tipo_usu = cazUser.Tipo_usu,
+                    ZonaId = cazUser.ZonaId
+                },
+                new
+                {
+                    Cod_usu = 3,
+                    Nombre_usu = denUser.Nombre_usu,
+                    Email_usu = denUser.Email_usu,
+                    Passw_usu = denUser.Passw_usu,
+                    Salt = denUser.Salt,
+                    Tipo_usu = denUser.Tipo_usu,
+                    ZonaId = denUser.ZonaId
                 });
             });
 
