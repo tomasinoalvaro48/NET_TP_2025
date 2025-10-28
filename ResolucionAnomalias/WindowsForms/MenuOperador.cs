@@ -1,12 +1,12 @@
 ﻿using API.Clients;
 using API.Clients.EntitiesClients;
-using System.Windows.Forms;
 using WindowsForms.FormsPedidoAgregacion;
 using WindowsForms.FormsPedidoResolucion;
 using WindowsForms.FormsTipoAnomalia;
 using WindowsForms.FormsUsuario;
 using WindowsForms.FormsZona;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
+using System.Diagnostics;
+
 
 namespace WindowsForms
 {
@@ -115,7 +115,7 @@ namespace WindowsForms
         private void buttonPedido_Click(object sender, EventArgs e)
         {
             ListaPedidoResolucion pedidoResolucion = new ListaPedidoResolucion();
-            pedidoResolucion.ShowDialog();  
+            pedidoResolucion.ShowDialog();
         }
 
         private async void MenuOperador_FormClosing(object sender, FormClosingEventArgs e)
@@ -144,19 +144,43 @@ namespace WindowsForms
             {
                 var pdfBytes = await ReporteApiClient.ObtenerReportePedidosResolucionMesActualAsync();
 
-                using SaveFileDialog sfd = new SaveFileDialog();
-                sfd.Filter = "PDF files (*.pdf)|*.pdf";
-                sfd.FileName = "ReportePedidosResolucion.pdf";
+                // Guardar en archivo temporal
+                var tempPath = Path.GetTempPath();
+                var fileName = $"ReportePedidosResolucion_{DateTime.Now:yyyyMMdd_HHmmss}.pdf";
+                var fullPath = Path.Combine(tempPath, fileName);
 
-                if (sfd.ShowDialog() == DialogResult.OK)
-                {
-                    await System.IO.File.WriteAllBytesAsync(sfd.FileName, pdfBytes);
-                    MessageBox.Show("Reporte guardado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
+                await File.WriteAllBytesAsync(fullPath, pdfBytes);
+
+                // Abrir con el visor PDF predeterminado
+                var psi = new ProcessStartInfo(fullPath) { UseShellExecute = true };
+                Process.Start(psi);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al generar el reporte: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error al generar/abrir el reporte: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private async void buttonReportePedidoAgregacion_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var pdfBytes = await ReporteApiClient.ObtenerReportePedidosAgregacionCategoriasAsync();
+
+                var tempPath = Path.GetTempPath();
+                var fileName = $"ReportePedidosAgregacion_{DateTime.Now:yyyyMMdd_HHmmss}.pdf";
+                var fullPath = Path.Combine(tempPath, fileName);
+
+                await File.WriteAllBytesAsync(fullPath, pdfBytes);
+
+                var psi = new ProcessStartInfo(fullPath) { UseShellExecute = true };
+                Process.Start(psi);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al generar/abrir el reporte de agregación: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
