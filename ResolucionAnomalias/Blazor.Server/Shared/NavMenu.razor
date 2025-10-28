@@ -1,5 +1,7 @@
 ﻿@using API.Clients
+@using API.Clients.EntitiesClients
 @inject IAuthService AuthService
+@inject IJSRuntime JSRuntime
 @implements IDisposable
 
 <div class="top-row ps-3 navbar navbar-dark">
@@ -18,6 +20,7 @@
                 <span class="oi oi-home" aria-hidden="true"></span> Home
             </NavLink>
         </div>
+
         @if (canReadLocalidades)
         {
             <div class="nav-item px-3">
@@ -66,23 +69,37 @@
                 </NavLink>
             </div>
         }
+
+        @* Reportes (solo Operador) *@
+        @if (isOperador)
+        {
+            <div class="nav-item px-3">
+                <button class="nav-link btn btn-link text-start px-0"
+                        @onclick="DownloadReporteResolucion"
+                        @onclick:stopPropagation="true">
+                    <span class="oi oi-document"></span> Reporte Resolución
+                </button>
+            </div>
+            <div class="nav-item px-3">
+                <button class="nav-link btn btn-link text-start px-0"
+                        @onclick="DownloadReporteAgregacion"
+                        @onclick:stopPropagation="true">
+                    <span class="oi oi-document"></span> Reporte Agregación
+                </button>
+            </div>
+        }
     </nav>
 </div>
 
 @code {
     private bool collapseNavMenu = true;
-    private bool canReadLocalidades = false;
-    private bool canReadZonas = false;
-    private bool canReadTiposAnomalia = false;
-    private bool canReadUsuarios = false;
-    private bool canReadPedidosAgregacion = false;
-    private bool canReadPedidosResolucion = false;
+    private bool canReadLocalidades, canReadZonas, canReadTiposAnomalia, canReadUsuarios, canReadPedidosAgregacion, canReadPedidosResolucion;
+    private bool isOperador;
 
     private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 
     protected override async Task OnInitializedAsync()
     {
-        // Suscribirse a cambios de autenticación
         AuthService.AuthenticationStateChanged += OnAuthenticationStateChanged;
         await CheckPermissions();
         await base.OnInitializedAsync();
@@ -93,44 +110,53 @@
         var isAuthenticated = await AuthService.IsAuthenticatedAsync();
         if (isAuthenticated)
         {
-            //canReadLocalidades = await AuthService.HasPermissionAsync("localidades.leer");
-            //canReadZonas = await AuthService.HasPermissionAsync("zonas.leer");
-            //canReadTiposAnomalia = await AuthService.HasPermissionAsync("tipos_anomalia.leer");
-            //canReadPedidosAgregacion = await AuthService.HasPermissionAsync("pedidos_agregacion.leer");
-            canReadLocalidades = true;
-            canReadZonas = true;
-            canReadTiposAnomalia = true;
-            canReadUsuarios = true;
-            canReadPedidosAgregacion = true;
-            canReadPedidosResolucion = true;
+            canReadLocalidades = canReadZonas = canReadTiposAnomalia = canReadUsuarios = canReadPedidosAgregacion = canReadPedidosResolucion = true;
+            var currentUser = await AuthService.GetCurrentUserAsync();
+            isOperador = string.Equals(currentUser?.Tipo_usu, "Operador", StringComparison.OrdinalIgnoreCase);
         }
         else
         {
-            canReadLocalidades = false;
-            canReadZonas = false;
-            canReadTiposAnomalia = false;
-            canReadUsuarios = false;
-            canReadPedidosAgregacion = false;
-            canReadPedidosResolucion = false;
+            canReadLocalidades = canReadZonas = canReadTiposAnomalia = canReadUsuarios = canReadPedidosAgregacion = canReadPedidosResolucion = false;
+            isOperador = false;
         }
         StateHasChanged();
     }
 
-    private void OnAuthenticationStateChanged(bool authenticated)
+    private void OnAuthenticationStateChanged(bool authenticated) => InvokeAsync(CheckPermissions);
+
+    private void ToggleNavMenu() => collapseNavMenu = !collapseNavMenu;
+
+    public void Dispose() => AuthService.AuthenticationStateChanged -= OnAuthenticationStateChanged;
+
+    private async Task DownloadReporteResolucion()
     {
-        InvokeAsync(async () =>
+        try
         {
-            await CheckPermissions();
-        });
+            var bytes = await ReporteApiClient.ObtenerReportePedidosResolucionMesActualAsync();
+            await DownloadBytesAsFile("ReportePedidosResolucion.pdf", "application/pdf", bytes);
+        }
+        catch (Exception ex)
+        {
+            await JSRuntime.InvokeVoidAsync("alert", $"Error al descargar reporte de resolución: {ex.Message}");
+        }
     }
 
-    private void ToggleNavMenu()
+    private async Task DownloadReporteAgregacion()
     {
-        collapseNavMenu = !collapseNavMenu;
+        try
+        {
+            var bytes = await ReporteApiClient.ObtenerReportePedidosAgregacionCategoriasAsync();
+            await DownloadBytesAsFile("ReportePedidosAgregacion.pdf", "application/pdf", bytes);
+        }
+        catch (Exception ex)
+        {
+            await JSRuntime.InvokeVoidAsync("alert", $"Error al descargar reporte de agregación: {ex.Message}");
+        }
     }
 
-    public void Dispose()
+    private async Task DownloadBytesAsFile(string fileName, string contentType, byte[] bytes)
     {
-        AuthService.AuthenticationStateChanged -= OnAuthenticationStateChanged;
+        var base64 = Convert.ToBase64String(bytes);
+        await JSRuntime.InvokeVoidAsync("downloadFileFromBytes", fileName, contentType, base64);
     }
 }
