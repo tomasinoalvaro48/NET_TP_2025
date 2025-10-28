@@ -29,9 +29,6 @@
         private void InitializeComponent()
         {
             usuariosDataGridView = new DataGridView();
-            agregarButton = new Button();
-            eliminarButton = new Button();
-            modificarButton = new Button();
             buscarTextBox = new TextBox();
             buscarButton = new Button();
             ((System.ComponentModel.ISupportInitialize)usuariosDataGridView).BeginInit();
@@ -45,36 +42,6 @@
             usuariosDataGridView.RowHeadersWidth = 82;
             usuariosDataGridView.Size = new Size(776, 302);
             usuariosDataGridView.TabIndex = 0;
-            // 
-            // agregarButton
-            // 
-            agregarButton.Location = new Point(706, 344);
-            agregarButton.Name = "agregarButton";
-            agregarButton.Size = new Size(75, 23);
-            agregarButton.TabIndex = 1;
-            agregarButton.Text = "Agregar";
-            agregarButton.UseVisualStyleBackColor = true;
-            agregarButton.Click += agregarButton_Click;
-            // 
-            // eliminarButton
-            // 
-            eliminarButton.Location = new Point(625, 344);
-            eliminarButton.Name = "eliminarButton";
-            eliminarButton.Size = new Size(75, 23);
-            eliminarButton.TabIndex = 2;
-            eliminarButton.Text = "Eliminar";
-            eliminarButton.UseVisualStyleBackColor = true;
-            eliminarButton.Click += eliminarButton_Click;
-            // 
-            // modificarButton
-            // 
-            modificarButton.Location = new Point(543, 344);
-            modificarButton.Name = "modificarButton";
-            modificarButton.Size = new Size(75, 23);
-            modificarButton.TabIndex = 3;
-            modificarButton.Text = "Modificar";
-            modificarButton.UseVisualStyleBackColor = true;
-            modificarButton.Click += modificarButton_Click;
             // 
             // buscarTextBox
             // 
@@ -103,9 +70,6 @@
             ClientSize = new Size(864, 436);
             Controls.Add(buscarButton);
             Controls.Add(buscarTextBox);
-            Controls.Add(modificarButton);
-            Controls.Add(eliminarButton);
-            Controls.Add(agregarButton);
             Controls.Add(usuariosDataGridView);
             Name = "UsuarioLista";
             Text = "UsuarioLista";
@@ -118,9 +82,6 @@
         #endregion
 
         private DataGridView usuariosDataGridView;
-        private Button agregarButton;
-        private Button eliminarButton;
-        private Button modificarButton;
         private TextBox buscarTextBox;
         private Button buscarButton;
     }
