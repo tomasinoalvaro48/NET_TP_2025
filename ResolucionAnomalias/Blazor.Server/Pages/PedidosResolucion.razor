@@ -1,4 +1,4 @@
-﻿@page "/pedidos-resolucion"
+﻿    @page "/pedidos-resolucion"
 @using API.Clients.EntitiesClients
 @using API.Clients
 @using DTOs
@@ -9,10 +9,16 @@
 
 <h3>Pedidos Resolución</h3>
 
-@if (canAdd)
-{
-    <button class="btn btn-primary mb-3" @onclick="ShowAddModal">Nuevo Pedido</button>
-}
+<div class="mb-3 d-flex gap-2">
+    @if (canAdd)
+    {
+        <button class="btn btn-primary" @onclick="ShowAddModal">Nuevo Pedido</button>
+    }
+    @if (canTake)
+    {
+        <button class="btn btn-outline-secondary" @onclick="ShowTakeModal">Tomar pedido</button>
+    }
+</div>
 
 @if (pedidos == null)
 {
@@ -43,8 +49,19 @@ else
                     <td>@p.Dificultad</td>
                     <td>@p.Estado</td>
                     <td>
-                        <button class="btn btn-sm btn-warning me-1" @onclick="(() => ShowEditModal(p.Id))">Editar</button>
-                        <button class="btn btn-sm btn-danger" @onclick="(() => Delete(p.Id))">Eliminar</button>
+                       
+                        @if (isDenunciante && p.DenuncianteId == currentUserId)
+                        {
+                            <button class="btn btn-sm btn-danger me-1" @onclick="(() => Delete(p.Id))">Eliminar</button>
+                        }
+
+                        @if (isCazador
+                            && p.CazadorId.HasValue
+                            && p.CazadorId.Value == currentUserId
+                            && string.Equals(p.Estado, "aceptado", StringComparison.OrdinalIgnoreCase))
+                        {
+                            <button class="btn btn-sm btn-success" @onclick="(() => Finalizar(p.Id))">Finalizar</button>
+                        }
                     </td>
                 </tr>
             }
@@ -56,11 +73,20 @@ else
     @ref="modal"
     OnSaved="LoadPedidos" />
 
-@code {
+<TomarPedidoModal
+    @ref="tomarModal"
+    OnTaken="LoadPedidos" />
 
+@code {
     private IEnumerable<PedidoResolucionDTO>? pedidos;
     private PedidoResolucionModal? modal;
+    private TomarPedidoModal? tomarModal;
+
     private bool canAdd = false;
+    private bool canTake = false;
+    private bool isCazador = false;
+    private bool isDenunciante = false;
+    private int currentUserId = 0;
 
     protected override async Task OnInitializedAsync()
     {
@@ -71,15 +97,32 @@ else
     private async Task ResolvePermissions()
     {
         var email = await AuthService.GetUsernameAsync();
-        if (string.IsNullOrWhiteSpace(email)) { canAdd = false; return; }
+        if (string.IsNullOrWhiteSpace(email))
+        {
+            canAdd = false; canTake = false; isCazador = false; isDenunciante = false; currentUserId = 0;
+            return;
+        }
+
         var usuarios = await UsuarioApiClient.GetAllAsync();
         var user = usuarios.FirstOrDefault(u => u.Email_usu.Equals(email, StringComparison.OrdinalIgnoreCase));
-        canAdd = user?.Tipo_usu?.Equals("Denunciante", StringComparison.OrdinalIgnoreCase) == true;
+        isDenunciante = user?.Tipo_usu?.Equals("Denunciante", StringComparison.OrdinalIgnoreCase) == true;
+        isCazador = user?.Tipo_usu?.Equals("Cazador", StringComparison.OrdinalIgnoreCase) == true;
+        currentUserId = user?.Cod_usu ?? 0;
+
+        canAdd = isDenunciante;
+        canTake = isCazador;
     }
 
     private async Task LoadPedidos()
     {
-        pedidos = await PedidoResolucionApiClient.GetAllAsync();
+        if (isDenunciante && currentUserId > 0)
+        {
+            pedidos = await PedidoResolucionApiClient.GetAllByDenuncianteAsync(currentUserId);
+        }
+        else
+        {
+            pedidos = await PedidoResolucionApiClient.GetAllAsync();
+        }
         StateHasChanged();
     }
 
@@ -88,18 +131,70 @@ else
         await modal!.OpenForAdd();
     }
 
+    // Mantengo el método por si lo usas en otro lado, pero ya no se muestra el botón.
     private async Task ShowEditModal(int id)
     {
         await modal!.OpenForEdit(id);
     }
 
+    private async Task ShowTakeModal()
+    {
+        if (!isCazador)
+        {
+            await JS.InvokeVoidAsync("alert", "Solo un usuario Cazador puede tomar pedidos.");
+            return;
+        }
+        await tomarModal!.OpenAsync();
+    }
+
     private async Task Delete(int id)
     {
-        var confirm = await JS.InvokeAsync<bool>("confirm", $"¿Eliminar pedido {id}?");
-        if (confirm)
+        // Validación extra en cliente: solo denunciante dueño puede eliminar
+        if (!isDenunciante)
         {
-            await PedidoResolucionApiClient.DeleteAsync(id);
-            await LoadPedidos();
+            await JS.InvokeVoidAsync("alert", "Solo un Denunciante puede eliminar pedidos propios.");
+            return;
         }
+
+        var pedido = await PedidoResolucionApiClient.GetAsync(id);
+        if (pedido == null || pedido.DenuncianteId != currentUserId)
+        {
+            await JS.InvokeVoidAsync("alert", "Solo puede eliminar su propio pedido.");
+            return;
+        }
+
+        var confirm = await JS.InvokeAsync<bool>("confirm", $"¿Eliminar pedido {id}?");
+        if (!confirm) return;
+
+        await PedidoResolucionApiClient.DeleteAsync(id);
+        await LoadPedidos();
+    }
+
+    private async Task Finalizar(int id)
+    {
+        if (!isCazador)
+        {
+            await JS.InvokeVoidAsync("alert", "Solo un Cazador puede finalizar pedidos.");
+            return;
+        }
+
+        var pedido = await PedidoResolucionApiClient.GetAsync(id);
+        if (!pedido.CazadorId.HasValue || pedido.CazadorId.Value != currentUserId)
+        {
+            await JS.InvokeVoidAsync("alert", "Solo el cazador asignado puede finalizar este pedido.");
+            return;
+        }
+
+        if (!string.Equals(pedido.Estado, "aceptado", StringComparison.OrdinalIgnoreCase))
+        {
+            await JS.InvokeVoidAsync("alert", "Solo se puede finalizar un pedido aceptado.");
+            return;
+        }
+
+        var confirm = await JS.InvokeAsync<bool>("confirm", $"¿Finalizar el pedido {id}?");
+        if (!confirm) return;
+
+        await PedidoResolucionApiClient.FinalizarAsync(id);
+        await LoadPedidos();
     }
 }

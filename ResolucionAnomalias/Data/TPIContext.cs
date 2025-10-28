@@ -205,18 +205,16 @@ namespace Data
                     .HasForeignKey(e => e.ZonaId)
                     .OnDelete(DeleteBehavior.Restrict);
 
+                // Hacer CazadorId opcional
                 entity.Property(e => e.CazadorId)
-                    .HasField("_cazadorId")
-                    .IsRequired(false);
-
-                entity.Navigation(e => e.Cazador)
-                    .HasField("_cazador");
-
+                      .HasField("_cazadorId")
+                      .IsRequired(false);
+                entity.Navigation(e => e.Cazador).HasField("_cazador");
                 entity.HasOne(e => e.Cazador)
-                    .WithMany()
-                    .HasForeignKey(e => e.CazadorId)
-                    .OnDelete(DeleteBehavior.Restrict)
-                    .IsRequired(false);
+                      .WithMany()
+                      .HasForeignKey(e => e.CazadorId)
+                      .IsRequired(false)
+                      .OnDelete(DeleteBehavior.Restrict);
 
                 entity.Property(e => e.DenuncianteId)
                     .IsRequired()

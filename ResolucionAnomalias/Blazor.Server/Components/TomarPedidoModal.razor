@@ -1,5 +1,137 @@
-﻿<h3>TomarPedidoModal</h3>
+﻿@using DTOs
+@using API.Clients
+@using API.Clients.EntitiesClients
+@inject IAuthService AuthService
+@inject IJSRuntime JS
+
+@if (show)
+{
+    <div class="modal fade show d-block" tabindex="-1" style="background-color: rgba(0,0,0,0.4);">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Tomar pedido</h5>
+                    <button type="button" class="btn-close" @onclick="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-2">
+                        <label>Pedido</label>
+                        <select class="form-select" @bind="selectedId">
+                            <option value="">-- Seleccione pedido pendiente --</option>
+                            @foreach (var p in disponibles)
+                            {
+                                <option value="@p.Id">@($"#{p.Id} - {p.Descripcion}")</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="mb-2">
+                        <label>Comentario</label>
+                        <textarea class="form-control" @bind="comentario" placeholder="Comentario opcional del cazador"></textarea>
+                    </div>
+
+                    @if (!string.IsNullOrEmpty(error))
+                    {
+                        <div class="alert alert-danger">@error</div>
+                    }
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" @onclick="Close">Cancelar</button>
+                    <button class="btn btn-primary" @onclick="Confirm">Tomar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
 
 @code {
+    [Parameter] public EventCallback OnTaken { get; set; }
 
+    private bool show;
+    private List<PedidoResolucionDTO> disponibles = new();
+    private int? selectedId;
+    private string comentario = string.Empty;
+    private string error = string.Empty;
+
+    public async Task OpenAsync()
+    {
+        error = string.Empty;
+        comentario = string.Empty;
+        selectedId = null;
+
+        // Cargar solo pedidos "solicitado" y sin cazador asignado
+        var all = (await PedidoResolucionApiClient.GetAllAsync())?.ToList() ?? new();
+        disponibles = all
+            .Where(p => !p.CazadorId.HasValue
+                        && string.Equals(p.Estado, "solicitado", StringComparison.OrdinalIgnoreCase))
+            .ToList();
+
+        show = true;
+        StateHasChanged();
+    }
+
+    private void Close()
+    {
+        show = false;
+        StateHasChanged();
+    }
+
+    private async Task Confirm()
+    {
+        error = string.Empty;
+
+        if (!selectedId.HasValue || selectedId.Value <= 0)
+        {
+            error = "Debe seleccionar un pedido.";
+            return;
+        }
+
+        // Validar rol cazador
+        var email = await AuthService.GetUsernameAsync();
+        var usuarios = await UsuarioApiClient.GetAllAsync();
+        var user = usuarios.FirstOrDefault(u => u.Email_usu.Equals(email, StringComparison.OrdinalIgnoreCase));
+
+        if (user == null || !string.Equals(user.Tipo_usu, "Cazador", StringComparison.OrdinalIgnoreCase))
+        {
+            error = "Solo un usuario Cazador puede tomar pedidos.";
+            return;
+        }
+
+        // Cargar pedido y re-validar estado
+        var pedido = await PedidoResolucionApiClient.GetAsync(selectedId.Value);
+        if (pedido == null)
+        {
+            error = "No se pudo cargar el pedido seleccionado.";
+            return;
+        }
+
+        if (pedido.CazadorId.HasValue)
+        {
+            error = "El pedido ya fue asignado.";
+            return;
+        }
+
+        if (!string.Equals(pedido.Estado, "solicitado", StringComparison.OrdinalIgnoreCase))
+        {
+            error = "Solo se puede tomar un pedido en estado solicitado.";
+            return;
+        }
+
+        // Asignar y aceptar
+        pedido.CazadorId = user.Cod_usu;
+        pedido.CazadorNombre = user.Nombre_usu;
+        pedido.Comentario = comentario;
+        pedido.Estado = "aceptado";
+
+        try
+        {
+            await PedidoResolucionApiClient.UpdateAsync(pedido);
+            await OnTaken.InvokeAsync();
+            Close();
+        }
+        catch (Exception ex)
+        {
+            error = ex.Message;
+        }
+    }
 }
