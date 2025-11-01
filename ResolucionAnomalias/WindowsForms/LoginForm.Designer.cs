@@ -58,7 +58,7 @@
             loginButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             loginButton.Font = new Font("Segoe UI", 10F);
             loginButton.Location = new Point(610, 200);
-            loginButton.Margin = new Padding(5, 5, 5, 5);
+            loginButton.Margin = new Padding(5);
             loginButton.Name = "loginButton";
             loginButton.Size = new Size(244, 56);
             loginButton.TabIndex = 0;
@@ -71,7 +71,7 @@
             usuarioTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             usuarioTextBox.Font = new Font("Segoe UI", 10F);
             usuarioTextBox.Location = new Point(276, 51);
-            usuarioTextBox.Margin = new Padding(5, 5, 5, 5);
+            usuarioTextBox.Margin = new Padding(5);
             usuarioTextBox.Name = "usuarioTextBox";
             usuarioTextBox.Size = new Size(575, 43);
             usuarioTextBox.TabIndex = 1;
@@ -81,7 +81,7 @@
             contraseniaTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             contraseniaTextBox.Font = new Font("Segoe UI", 10F);
             contraseniaTextBox.Location = new Point(276, 123);
-            contraseniaTextBox.Margin = new Padding(5, 5, 5, 5);
+            contraseniaTextBox.Margin = new Padding(5);
             contraseniaTextBox.Name = "contraseniaTextBox";
             contraseniaTextBox.Size = new Size(575, 43);
             contraseniaTextBox.TabIndex = 2;
@@ -131,7 +131,7 @@
             signinCazadorButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             signinCazadorButton.Font = new Font("Segoe UI", 9F);
             signinCazadorButton.Location = new Point(480, 88);
-            signinCazadorButton.Margin = new Padding(5, 5, 5, 5);
+            signinCazadorButton.Margin = new Padding(5);
             signinCazadorButton.Name = "signinCazadorButton";
             signinCazadorButton.Size = new Size(358, 64);
             signinCazadorButton.TabIndex = 6;
@@ -143,7 +143,7 @@
             // 
             signinDenuncianteButton.Font = new Font("Segoe UI", 9F);
             signinDenuncianteButton.Location = new Point(65, 88);
-            signinDenuncianteButton.Margin = new Padding(5, 5, 5, 5);
+            signinDenuncianteButton.Margin = new Padding(5);
             signinDenuncianteButton.Name = "signinDenuncianteButton";
             signinDenuncianteButton.Size = new Size(358, 64);
             signinDenuncianteButton.TabIndex = 7;
@@ -156,7 +156,7 @@
             CloseProgramButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             CloseProgramButton.Font = new Font("Segoe UI", 9F);
             CloseProgramButton.Location = new Point(674, 21);
-            CloseProgramButton.Margin = new Padding(5, 5, 5, 5);
+            CloseProgramButton.Margin = new Padding(5);
             CloseProgramButton.Name = "CloseProgramButton";
             CloseProgramButton.Size = new Size(211, 48);
             CloseProgramButton.TabIndex = 8;
@@ -174,7 +174,7 @@
             tableLayoutPanelMain.Controls.Add(panelFooter, 0, 3);
             tableLayoutPanelMain.Dock = DockStyle.Fill;
             tableLayoutPanelMain.Location = new Point(32, 32);
-            tableLayoutPanelMain.Margin = new Padding(5, 5, 5, 5);
+            tableLayoutPanelMain.Margin = new Padding(5);
             tableLayoutPanelMain.Name = "tableLayoutPanelMain";
             tableLayoutPanelMain.RowCount = 4;
             tableLayoutPanelMain.RowStyles.Add(new RowStyle());
@@ -189,9 +189,9 @@
             panelTitle.Controls.Add(tituloLabel);
             panelTitle.Dock = DockStyle.Fill;
             panelTitle.Location = new Point(5, 5);
-            panelTitle.Margin = new Padding(5, 5, 5, 5);
+            panelTitle.Margin = new Padding(5);
             panelTitle.Name = "panelTitle";
-            panelTitle.Padding = new Padding(16, 16, 16, 16);
+            panelTitle.Padding = new Padding(16);
             panelTitle.Size = new Size(901, 96);
             panelTitle.TabIndex = 0;
             // 
@@ -205,9 +205,9 @@
             panelLogin.Controls.Add(loginButton);
             panelLogin.Dock = DockStyle.Fill;
             panelLogin.Location = new Point(5, 111);
-            panelLogin.Margin = new Padding(5, 5, 5, 5);
+            panelLogin.Margin = new Padding(5);
             panelLogin.Name = "panelLogin";
-            panelLogin.Padding = new Padding(32, 32, 32, 32);
+            panelLogin.Padding = new Padding(32);
             panelLogin.Size = new Size(901, 287);
             panelLogin.TabIndex = 1;
             // 
@@ -219,9 +219,9 @@
             panelRegister.Controls.Add(signinCazadorButton);
             panelRegister.Dock = DockStyle.Fill;
             panelRegister.Location = new Point(5, 408);
-            panelRegister.Margin = new Padding(5, 5, 5, 5);
+            panelRegister.Margin = new Padding(5);
             panelRegister.Name = "panelRegister";
-            panelRegister.Padding = new Padding(32, 32, 32, 32);
+            panelRegister.Padding = new Padding(32);
             panelRegister.Size = new Size(901, 191);
             panelRegister.TabIndex = 2;
             // 
@@ -243,9 +243,9 @@
             panelFooter.Controls.Add(CloseProgramButton);
             panelFooter.Dock = DockStyle.Fill;
             panelFooter.Location = new Point(5, 609);
-            panelFooter.Margin = new Padding(5, 5, 5, 5);
+            panelFooter.Margin = new Padding(5);
             panelFooter.Name = "panelFooter";
-            panelFooter.Padding = new Padding(16, 16, 16, 16);
+            panelFooter.Padding = new Padding(16);
             panelFooter.Size = new Size(901, 90);
             panelFooter.TabIndex = 3;
             // 
@@ -255,13 +255,12 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(975, 768);
             Controls.Add(tableLayoutPanelMain);
-            Margin = new Padding(5, 5, 5, 5);
+            Margin = new Padding(5);
             MinimumSize = new Size(796, 677);
             Name = "LoginForm";
-            Padding = new Padding(32, 32, 32, 32);
+            Padding = new Padding(32);
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Resolución de Anomalías - Inicio de Sesión";
-            FormClosing += CruzCloseProgram_Click;
             ((System.ComponentModel.ISupportInitialize)errorProvider).EndInit();
             tableLayoutPanelMain.ResumeLayout(false);
             panelTitle.ResumeLayout(false);

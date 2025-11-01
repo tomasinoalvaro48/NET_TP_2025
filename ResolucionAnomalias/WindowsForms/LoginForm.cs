@@ -24,7 +24,7 @@ namespace WindowsForms
                     if (success)
                     {
                         this.DialogResult = DialogResult.OK;
-                        this.Hide();
+                        this.Close();
                     }
                     else
                     {
@@ -86,11 +86,6 @@ namespace WindowsForms
         }
 
         private void CloseProgram_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
-
-        private void CruzCloseProgram_Click(object sender, FormClosingEventArgs e)
         {
             Application.Exit();
         }

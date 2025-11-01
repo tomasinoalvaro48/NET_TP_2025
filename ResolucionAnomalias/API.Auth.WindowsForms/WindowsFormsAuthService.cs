@@ -56,13 +56,12 @@ namespace API.Auth.WindowsForms
             return false;
         }
 
-        public async Task LogoutAsync()
+        public Task LogoutAsync()
         {
-            _currentToken = null;
-            _tokenExpiration = default;
-            _currentUsername = null;
+            ClearSession();
 
             AuthenticationStateChanged?.Invoke(false);
+            return Task.CompletedTask;
         }
 
         public async Task CheckTokenExpirationAsync()
