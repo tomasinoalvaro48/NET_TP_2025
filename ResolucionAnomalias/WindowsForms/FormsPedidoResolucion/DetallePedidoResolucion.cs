@@ -182,6 +182,13 @@ namespace WindowsForms.FormsPedidoResolucion
 
             if (detalleAnomalia.ShowDialog() == DialogResult.OK)
             {
+                // Verificar si la anomalía ya existe en la lista
+                if (anomaliasLocales.Any(a => a.TipoAnomaliaId == detalleAnomalia.Anomalia.TipoAnomaliaId))
+                {
+                    MessageBox.Show("Esta anomalía ya fue agregada al pedido.", "Anomalía duplicada", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
                 anomaliasLocales.Add(detalleAnomalia.Anomalia);
                 RefreshAnomaliasGrid();
             }

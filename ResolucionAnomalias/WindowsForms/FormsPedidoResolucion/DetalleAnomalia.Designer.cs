@@ -43,6 +43,58 @@
             panelButtons.SuspendLayout();
             SuspendLayout();
             // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 10F);
+            label1.Location = new Point(65, 72);
+            label1.Margin = new Padding(5, 0, 5, 0);
+            label1.Name = "label1";
+            label1.Size = new Size(227, 37);
+            label1.TabIndex = 0;
+            label1.Text = "Tipo de Anomalía";
+            // 
+            // buttonCancelar
+            // 
+            buttonCancelar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            buttonCancelar.Font = new Font("Segoe UI", 10F);
+            buttonCancelar.Location = new Point(387, 16);
+            buttonCancelar.Margin = new Padding(5, 5, 5, 5);
+            buttonCancelar.Name = "buttonCancelar";
+            buttonCancelar.Size = new Size(162, 64);
+            buttonCancelar.TabIndex = 1;
+            buttonCancelar.Text = "Cancelar";
+            buttonCancelar.UseVisualStyleBackColor = true;
+            buttonCancelar.Click += buttonCancelar_Click;
+            // 
+            // buttonAceptar
+            // 
+            buttonAceptar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            buttonAceptar.Font = new Font("Segoe UI", 10F);
+            buttonAceptar.Location = new Point(559, 16);
+            buttonAceptar.Margin = new Padding(5, 5, 5, 5);
+            buttonAceptar.Name = "buttonAceptar";
+            buttonAceptar.Size = new Size(179, 64);
+            buttonAceptar.TabIndex = 2;
+            buttonAceptar.Text = "Aceptar";
+            buttonAceptar.UseVisualStyleBackColor = true;
+            buttonAceptar.Click += buttonAceptar_Click;
+            // 
+            // comboBoxTipoAnomalia
+            // 
+            comboBoxTipoAnomalia.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            comboBoxTipoAnomalia.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxTipoAnomalia.FlatStyle = FlatStyle.Popup;
+            comboBoxTipoAnomalia.Font = new Font("Segoe UI", 10F);
+            comboBoxTipoAnomalia.ForeColor = Color.Black;
+            comboBoxTipoAnomalia.FormattingEnabled = true;
+            comboBoxTipoAnomalia.Location = new Point(341, 67);
+            comboBoxTipoAnomalia.Margin = new Padding(5, 5, 5, 5);
+            comboBoxTipoAnomalia.Name = "comboBoxTipoAnomalia";
+            comboBoxTipoAnomalia.Size = new Size(345, 45);
+            comboBoxTipoAnomalia.TabIndex = 3;
+            comboBoxTipoAnomalia.SelectedIndexChanged += comboBoxTipoAnomalia_SelectedIndexChanged;
+            // 
             // errorProvider1
             // 
             errorProvider1.ContainerControl = this;
@@ -54,12 +106,13 @@
             tableLayoutPanelMain.Controls.Add(panelFields, 0, 0);
             tableLayoutPanelMain.Controls.Add(panelButtons, 0, 1);
             tableLayoutPanelMain.Dock = DockStyle.Fill;
-            tableLayoutPanelMain.Location = new Point(15, 15);
+            tableLayoutPanelMain.Location = new Point(24, 24);
+            tableLayoutPanelMain.Margin = new Padding(5, 5, 5, 5);
             tableLayoutPanelMain.Name = "tableLayoutPanelMain";
             tableLayoutPanelMain.RowCount = 2;
             tableLayoutPanelMain.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanelMain.RowStyles.Add(new RowStyle(SizeType.AutoSize));
-            tableLayoutPanelMain.Size = new Size(470, 170);
+            tableLayoutPanelMain.RowStyles.Add(new RowStyle());
+            tableLayoutPanelMain.Size = new Size(764, 272);
             tableLayoutPanelMain.TabIndex = 0;
             // 
             // panelFields
@@ -67,80 +120,35 @@
             panelFields.Controls.Add(label1);
             panelFields.Controls.Add(comboBoxTipoAnomalia);
             panelFields.Dock = DockStyle.Fill;
-            panelFields.Location = new Point(3, 3);
+            panelFields.Location = new Point(5, 5);
+            panelFields.Margin = new Padding(5, 5, 5, 5);
             panelFields.Name = "panelFields";
-            panelFields.Padding = new Padding(30, 20, 30, 20);
-            panelFields.Size = new Size(464, 104);
+            panelFields.Padding = new Padding(49, 32, 49, 32);
+            panelFields.Size = new Size(754, 166);
             panelFields.TabIndex = 0;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 10F);
-            label1.Location = new Point(40, 45);
-            label1.Name = "label1";
-            label1.Size = new Size(147, 23);
-            label1.TabIndex = 0;
-            label1.Text = "Tipo de Anomalía";
-            // 
-            // comboBoxTipoAnomalia
-            // 
-            comboBoxTipoAnomalia.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            comboBoxTipoAnomalia.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBoxTipoAnomalia.FlatStyle = FlatStyle.Popup;
-            comboBoxTipoAnomalia.Font = new Font("Segoe UI", 10F);
-            comboBoxTipoAnomalia.ForeColor = Color.Black;
-            comboBoxTipoAnomalia.FormattingEnabled = true;
-            comboBoxTipoAnomalia.Location = new Point(210, 42);
-            comboBoxTipoAnomalia.Name = "comboBoxTipoAnomalia";
-            comboBoxTipoAnomalia.Size = new Size(214, 31);
-            comboBoxTipoAnomalia.TabIndex = 3;
-            comboBoxTipoAnomalia.SelectedIndexChanged += comboBoxTipoAnomalia_SelectedIndexChanged;
             // 
             // panelButtons
             // 
             panelButtons.Controls.Add(buttonCancelar);
             panelButtons.Controls.Add(buttonAceptar);
             panelButtons.Dock = DockStyle.Fill;
-            panelButtons.Location = new Point(3, 113);
+            panelButtons.Location = new Point(5, 181);
+            panelButtons.Margin = new Padding(5, 5, 5, 5);
             panelButtons.Name = "panelButtons";
-            panelButtons.Padding = new Padding(10);
-            panelButtons.Size = new Size(464, 54);
+            panelButtons.Padding = new Padding(16, 16, 16, 16);
+            panelButtons.Size = new Size(754, 86);
             panelButtons.TabIndex = 1;
-            // 
-            // buttonCancelar
-            // 
-            buttonCancelar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            buttonCancelar.Font = new Font("Segoe UI", 10F);
-            buttonCancelar.Location = new Point(238, 10);
-            buttonCancelar.Name = "buttonCancelar";
-            buttonCancelar.Size = new Size(100, 40);
-            buttonCancelar.TabIndex = 1;
-            buttonCancelar.Text = "Cancelar";
-            buttonCancelar.UseVisualStyleBackColor = true;
-            buttonCancelar.Click += buttonCancelar_Click;
-            // 
-            // buttonAceptar
-            // 
-            buttonAceptar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            buttonAceptar.Font = new Font("Segoe UI", 10F);
-            buttonAceptar.Location = new Point(344, 10);
-            buttonAceptar.Name = "buttonAceptar";
-            buttonAceptar.Size = new Size(110, 40);
-            buttonAceptar.TabIndex = 2;
-            buttonAceptar.Text = "Aceptar";
-            buttonAceptar.UseVisualStyleBackColor = true;
-            buttonAceptar.Click += buttonAceptar_Click;
             // 
             // DetalleAnomalia
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(500, 200);
-            MinimumSize = new Size(400, 200);
+            ClientSize = new Size(812, 320);
             Controls.Add(tableLayoutPanelMain);
+            Margin = new Padding(5, 5, 5, 5);
+            MinimumSize = new Size(838, 391);
             Name = "DetalleAnomalia";
-            Padding = new Padding(15);
+            Padding = new Padding(24, 24, 24, 24);
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Detalle de Anomalía";
             ((System.ComponentModel.ISupportInitialize)errorProvider1).EndInit();

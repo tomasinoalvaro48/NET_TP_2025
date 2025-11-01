@@ -74,9 +74,7 @@ namespace WindowsForms.FormsPedidoResolucion
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }
-
         }
-
         
         private bool ValidateItem()
         {
