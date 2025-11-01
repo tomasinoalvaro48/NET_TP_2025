@@ -6,6 +6,8 @@ namespace WindowsForms
 {
     public partial class MenuDenunciante : Form
     {
+        private bool CierreManual = true;
+        
         public MenuDenunciante()
         {
             InitializeComponent();
@@ -21,6 +23,7 @@ namespace WindowsForms
             var login = new LoginForm();
             login.ShowDialog();
 
+            CierreManual = false;
             this.Close();
         }
 
@@ -34,6 +37,7 @@ namespace WindowsForms
             var login = new LoginForm();
             login.ShowDialog();
 
+            CierreManual = false;
             this.Close();
         }
 
@@ -69,9 +73,30 @@ namespace WindowsForms
             cambiarContrasenaUsuario.ShowDialog();
         }
 
-        private void MenuDenunciante_Load(object sender, EventArgs e)
+        private async void MenuDenunciante_FormClosing(object sender, FormClosingEventArgs e)
         {
+            // usuario cerró con la cruz:
+            if (CierreManual && e.CloseReason == CloseReason.UserClosing)
+            {
+                // Cancelar el cierre temporalmente para mostrar el diálogo
+                e.Cancel = true;
 
+                string message = "¿Cerrar sesión y salir de la aplicación?";
+                string caption = "¿Desea cerrar sesión y salir de la aplicación?";
+                MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+                DialogResult result = MessageBox.Show(message, caption, buttons);
+                
+                if (result == DialogResult.Yes)
+                {
+                    CierreManual = false;
+                    
+                    //logout
+                    await AuthServiceProvider.Instance.LogoutAsync();
+                    AuthServiceProvider.Instance.ClearSession();
+
+                    Application.Exit();
+                }
+            }
         }
     }
 }

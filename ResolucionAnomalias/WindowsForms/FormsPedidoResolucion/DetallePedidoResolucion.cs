@@ -53,10 +53,8 @@ namespace WindowsForms.FormsPedidoResolucion
 
             await LoadZonas();
 
-            // 1) Primero asignar el pedido
             this.Pedido = pedido;
 
-            // 2) Luego el modo (ApplyPermissions ya no romperá)
             this.Mode = mode;
 
             if (this.Mode == FormMode.Add && _currentUser.Tipo_usu == "Denunciante")

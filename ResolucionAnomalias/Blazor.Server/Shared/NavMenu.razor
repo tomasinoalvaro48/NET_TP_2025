@@ -94,7 +94,7 @@
 @code {
     private bool collapseNavMenu = true;
     private bool canReadLocalidades, canReadZonas, canReadTiposAnomalia, canReadUsuarios, canReadPedidosAgregacion, canReadPedidosResolucion;
-    private bool isOperador;
+    private bool isOperador, isCazador, isDenunciante;
 
     private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 
@@ -110,14 +110,28 @@
         var isAuthenticated = await AuthService.IsAuthenticatedAsync();
         if (isAuthenticated)
         {
-            canReadLocalidades = canReadZonas = canReadTiposAnomalia = canReadUsuarios = canReadPedidosAgregacion = canReadPedidosResolucion = true;
             var currentUser = await AuthService.GetCurrentUserAsync();
             isOperador = string.Equals(currentUser?.Tipo_usu, "Operador", StringComparison.OrdinalIgnoreCase);
+            isCazador = string.Equals(currentUser?.Tipo_usu, "Cazador", StringComparison.OrdinalIgnoreCase);
+            isDenunciante = string.Equals(currentUser?.Tipo_usu, "Denunciante", StringComparison.OrdinalIgnoreCase);
+            if (isOperador)
+            {
+                canReadLocalidades = canReadZonas = canReadTiposAnomalia = canReadUsuarios = canReadPedidosAgregacion = canReadPedidosResolucion = true;
+            }
+            if (isCazador)
+            {
+                canReadPedidosAgregacion = canReadPedidosResolucion = true;
+            }
+            if (isDenunciante)
+            {
+                canReadPedidosResolucion = true;
+            }
         }
         else
         {
             canReadLocalidades = canReadZonas = canReadTiposAnomalia = canReadUsuarios = canReadPedidosAgregacion = canReadPedidosResolucion = false;
-            isOperador = false;
+            isOperador = isCazador = isDenunciante = false;
+
         }
         StateHasChanged();
     }

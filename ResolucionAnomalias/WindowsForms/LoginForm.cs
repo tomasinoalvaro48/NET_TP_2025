@@ -89,5 +89,10 @@ namespace WindowsForms
         {
             Application.Exit();
         }
+
+        private void CruzCloseProgram_Click(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

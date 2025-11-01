@@ -42,7 +42,7 @@ namespace WindowsForms
             zonaLista.ShowDialog();
         }
 
-        private async void pedidosDeAgregacionToolStripMenuItem_Click(object sender, EventArgs e)
+        private void pedidosDeAgregacionToolStripMenuItem_Click(object sender, EventArgs e)
         {
             PedidoAgregacionLista pedidoAg = new PedidoAgregacionLista();
             pedidoAg.ShowDialog();
@@ -92,34 +92,28 @@ namespace WindowsForms
 
         private async void MenuOperador_FormClosing(object sender, FormClosingEventArgs e)
         {
-            // Si el usuario cerró con la X
+            // usuario cerró con la cruz:
             if (CierreManual && e.CloseReason == CloseReason.UserClosing)
             {
-                // Initializes the variables to pass to the MessageBox.Show method.
+                // Cancelar el cierre temporalmente para mostrar el diálogo
+                e.Cancel = true;
+
                 string message = "¿Cerrar sesión y salir de la aplicación?";
                 string caption = "¿Desea cerrar sesión y salir de la aplicación?";
                 MessageBoxButtons buttons = MessageBoxButtons.YesNo;
                 DialogResult result = MessageBox.Show(message, caption, buttons);
+                
                 if (result == DialogResult.Yes)
                 {
+                    CierreManual = false;
+                    
+                    //logout
                     await AuthServiceProvider.Instance.LogoutAsync();
                     AuthServiceProvider.Instance.ClearSession();
 
                     Application.Exit();
                 }
             }
-        }
-
-        private void btnReportePedidos_Click(object sender, EventArgs e)
-        {
-            
-        }
-
-      
-
-        private void verRToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
         }
 
         private async void veToolStripMenuItem_Click(object sender, EventArgs e)

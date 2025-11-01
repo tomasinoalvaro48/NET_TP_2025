@@ -9,6 +9,7 @@
 
 <PageTitle>Pedidos de Agregación</PageTitle>
 
+<AuthorizeRole Roles="Cazador,Operador">
 <div class="container-fluid">
     <h3>Pedidos de Agregación</h3>
 
@@ -19,11 +20,7 @@
         </button>
     }
 
-    @if (!canRead)
-    {
-        <div class="alert alert-warning">No tiene permisos para ver pedidos de agregación.</div>
-    }
-    else if (pedidos_agregacion == null)
+    @if (pedidos_agregacion == null)
     {
         <p>Cargando...</p>
     }
@@ -80,6 +77,7 @@
         </div>
     }
 </div>
+</AuthorizeRole>
 
 <PedidoAgregacionModal @ref="pedidoAgregacionModal" OnPedidoAgregacionChanged="LoadPedidosAgregacion" />
 

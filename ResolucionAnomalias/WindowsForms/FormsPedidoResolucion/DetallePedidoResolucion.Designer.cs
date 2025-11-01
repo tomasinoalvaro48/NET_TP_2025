@@ -54,80 +54,354 @@
             labelCazador = new Label();
             textBoxCazador = new TextBox();
             textBoxDenunciante = new TextBox();
+            tableLayoutPanelMain = new TableLayoutPanel();
+            panelFields = new Panel();
+            panelAnomalias = new Panel();
+            panelAnomaliaButtons = new Panel();
+            panelBottomInfo = new Panel();
+            panelButtons = new Panel();
             ((System.ComponentModel.ISupportInitialize)errorProvider).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridViewAnomalias).BeginInit();
+            tableLayoutPanelMain.SuspendLayout();
+            panelFields.SuspendLayout();
+            panelAnomalias.SuspendLayout();
+            panelAnomaliaButtons.SuspendLayout();
+            panelBottomInfo.SuspendLayout();
+            panelButtons.SuspendLayout();
             SuspendLayout();
             // 
             // errorProvider
             // 
             errorProvider.ContainerControl = this;
             // 
-            // dataGridViewAnomalias
+            // tableLayoutPanelMain
             // 
-            dataGridViewAnomalias.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewAnomalias.Location = new Point(40, 210);
-            dataGridViewAnomalias.Name = "dataGridViewAnomalias";
-            dataGridViewAnomalias.RowHeadersWidth = 51;
-            dataGridViewAnomalias.Size = new Size(707, 129);
-            dataGridViewAnomalias.TabIndex = 0;
+            tableLayoutPanelMain.ColumnCount = 1;
+            tableLayoutPanelMain.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutPanelMain.Controls.Add(panelFields, 0, 0);
+            tableLayoutPanelMain.Controls.Add(panelAnomalias, 0, 1);
+            tableLayoutPanelMain.Controls.Add(panelBottomInfo, 0, 2);
+            tableLayoutPanelMain.Controls.Add(panelButtons, 0, 3);
+            tableLayoutPanelMain.Dock = DockStyle.Fill;
+            tableLayoutPanelMain.Location = new Point(15, 15);
+            tableLayoutPanelMain.Name = "tableLayoutPanelMain";
+            tableLayoutPanelMain.RowCount = 4;
+            tableLayoutPanelMain.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+            tableLayoutPanelMain.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanelMain.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+            tableLayoutPanelMain.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+            tableLayoutPanelMain.Size = new Size(870, 620);
+            tableLayoutPanelMain.TabIndex = 0;
+            // 
+            // panelFields
+            // 
+            panelFields.Controls.Add(labelId);
+            panelFields.Controls.Add(textBoxId);
+            panelFields.Controls.Add(labelFecha);
+            panelFields.Controls.Add(textBoxFecha);
+            panelFields.Controls.Add(labelDenunciante);
+            panelFields.Controls.Add(textBoxDenunciante);
+            panelFields.Controls.Add(labelCazador);
+            panelFields.Controls.Add(textBoxCazador);
+            panelFields.Controls.Add(label3);
+            panelFields.Controls.Add(textBoxDireccion);
+            panelFields.Controls.Add(label7);
+            panelFields.Controls.Add(comboBoxZonas);
+            panelFields.Dock = DockStyle.Fill;
+            panelFields.Location = new Point(3, 3);
+            panelFields.Name = "panelFields";
+            panelFields.Padding = new Padding(20, 10, 20, 10);
+            panelFields.Size = new Size(864, 170);
+            panelFields.TabIndex = 0;
             // 
             // labelId
             // 
             labelId.AutoSize = true;
-            labelId.Location = new Point(57, 40);
+            labelId.Font = new Font("Segoe UI", 10F);
+            labelId.Location = new Point(30, 20);
             labelId.Name = "labelId";
-            labelId.Size = new Size(22, 20);
+            labelId.Size = new Size(28, 23);
             labelId.TabIndex = 1;
-            labelId.Text = "Id";
+            labelId.Text = "ID";
             // 
-            // label3
+            // textBoxId
             // 
-            label3.AutoSize = true;
-            label3.Location = new Point(57, 130);
-            label3.Name = "label3";
-            label3.Size = new Size(72, 20);
-            label3.TabIndex = 3;
-            label3.Text = "Direccion";
+            textBoxId.BackColor = SystemColors.Control;
+            textBoxId.Font = new Font("Segoe UI", 10F);
+            textBoxId.Location = new Point(170, 17);
+            textBoxId.Name = "textBoxId";
+            textBoxId.ReadOnly = true;
+            textBoxId.Size = new Size(200, 30);
+            textBoxId.TabIndex = 7;
             // 
-            // label4
+            // labelFecha
             // 
-            label4.AutoSize = true;
-            label4.Location = new Point(50, 187);
-            label4.Name = "label4";
-            label4.Size = new Size(79, 20);
-            label4.TabIndex = 4;
-            label4.Text = "Anomalias";
+            labelFecha.AutoSize = true;
+            labelFecha.Font = new Font("Segoe UI", 10F);
+            labelFecha.Location = new Point(420, 20);
+            labelFecha.Name = "labelFecha";
+            labelFecha.Size = new Size(53, 23);
+            labelFecha.TabIndex = 23;
+            labelFecha.Text = "Fecha";
+            // 
+            // textBoxFecha
+            // 
+            textBoxFecha.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            textBoxFecha.BackColor = SystemColors.Control;
+            textBoxFecha.Font = new Font("Segoe UI", 10F);
+            textBoxFecha.Location = new Point(530, 17);
+            textBoxFecha.Name = "textBoxFecha";
+            textBoxFecha.ReadOnly = true;
+            textBoxFecha.Size = new Size(304, 30);
+            textBoxFecha.TabIndex = 24;
             // 
             // labelDenunciante
             // 
             labelDenunciante.AutoSize = true;
-            labelDenunciante.Location = new Point(57, 77);
+            labelDenunciante.Font = new Font("Segoe UI", 10F);
+            labelDenunciante.Location = new Point(30, 65);
             labelDenunciante.Name = "labelDenunciante";
-            labelDenunciante.Size = new Size(92, 20);
+            labelDenunciante.Size = new Size(106, 23);
             labelDenunciante.TabIndex = 5;
             labelDenunciante.Text = "Denunciante";
             // 
-            // textBoxId
+            // textBoxDenunciante
             // 
-            textBoxId.Location = new Point(172, 33);
-            textBoxId.Name = "textBoxId";
-            textBoxId.ReadOnly = true;
-            textBoxId.Size = new Size(200, 27);
-            textBoxId.TabIndex = 7;
-            textBoxId.TextAlign = HorizontalAlignment.Right;
+            textBoxDenunciante.BackColor = SystemColors.Control;
+            textBoxDenunciante.Font = new Font("Segoe UI", 10F);
+            textBoxDenunciante.Location = new Point(170, 62);
+            textBoxDenunciante.Name = "textBoxDenunciante";
+            textBoxDenunciante.ReadOnly = true;
+            textBoxDenunciante.Size = new Size(200, 30);
+            textBoxDenunciante.TabIndex = 26;
+            // 
+            // labelCazador
+            // 
+            labelCazador.AutoSize = true;
+            labelCazador.Font = new Font("Segoe UI", 10F);
+            labelCazador.Location = new Point(420, 65);
+            labelCazador.Name = "labelCazador";
+            labelCazador.Size = new Size(74, 23);
+            labelCazador.TabIndex = 6;
+            labelCazador.Text = "Cazador";
+            // 
+            // textBoxCazador
+            // 
+            textBoxCazador.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            textBoxCazador.BackColor = SystemColors.Control;
+            textBoxCazador.Font = new Font("Segoe UI", 10F);
+            textBoxCazador.Location = new Point(530, 62);
+            textBoxCazador.Name = "textBoxCazador";
+            textBoxCazador.ReadOnly = true;
+            textBoxCazador.Size = new Size(304, 30);
+            textBoxCazador.TabIndex = 25;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI", 10F);
+            label3.Location = new Point(30, 110);
+            label3.Name = "label3";
+            label3.Size = new Size(83, 23);
+            label3.TabIndex = 3;
+            label3.Text = "Dirección";
             // 
             // textBoxDireccion
             // 
-            textBoxDireccion.Location = new Point(172, 130);
+            textBoxDireccion.Font = new Font("Segoe UI", 10F);
+            textBoxDireccion.Location = new Point(170, 107);
             textBoxDireccion.Name = "textBoxDireccion";
-            textBoxDireccion.Size = new Size(200, 27);
+            textBoxDireccion.Size = new Size(200, 30);
             textBoxDireccion.TabIndex = 10;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Font = new Font("Segoe UI", 10F);
+            label7.Location = new Point(420, 110);
+            label7.Name = "label7";
+            label7.Size = new Size(47, 23);
+            label7.TabIndex = 21;
+            label7.Text = "Zona";
+            // 
+            // comboBoxZonas
+            // 
+            comboBoxZonas.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            comboBoxZonas.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxZonas.FlatStyle = FlatStyle.Popup;
+            comboBoxZonas.Font = new Font("Segoe UI", 10F);
+            comboBoxZonas.ForeColor = Color.Black;
+            comboBoxZonas.FormattingEnabled = true;
+            comboBoxZonas.Location = new Point(530, 107);
+            comboBoxZonas.Name = "comboBoxZonas";
+            comboBoxZonas.Size = new Size(304, 31);
+            comboBoxZonas.TabIndex = 22;
+            // 
+            // panelAnomalias
+            // 
+            panelAnomalias.Controls.Add(label4);
+            panelAnomalias.Controls.Add(dataGridViewAnomalias);
+            panelAnomalias.Controls.Add(panelAnomaliaButtons);
+            panelAnomalias.Dock = DockStyle.Fill;
+            panelAnomalias.Location = new Point(3, 179);
+            panelAnomalias.Name = "panelAnomalias";
+            panelAnomalias.Padding = new Padding(20, 10, 20, 10);
+            panelAnomalias.Size = new Size(864, 244);
+            panelAnomalias.TabIndex = 1;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            label4.Location = new Point(30, 15);
+            label4.Name = "label4";
+            label4.Size = new Size(92, 23);
+            label4.TabIndex = 4;
+            label4.Text = "Anomalías";
+            // 
+            // dataGridViewAnomalias
+            // 
+            dataGridViewAnomalias.AllowUserToAddRows = false;
+            dataGridViewAnomalias.AllowUserToDeleteRows = false;
+            dataGridViewAnomalias.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dataGridViewAnomalias.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewAnomalias.Location = new Point(30, 45);
+            dataGridViewAnomalias.MultiSelect = false;
+            dataGridViewAnomalias.Name = "dataGridViewAnomalias";
+            dataGridViewAnomalias.ReadOnly = true;
+            dataGridViewAnomalias.RowHeadersWidth = 51;
+            dataGridViewAnomalias.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridViewAnomalias.Size = new Size(804, 145);
+            dataGridViewAnomalias.TabIndex = 0;
+            // 
+            // panelAnomaliaButtons
+            // 
+            panelAnomaliaButtons.Controls.Add(buttonEliminar);
+            panelAnomaliaButtons.Controls.Add(buttonAgregar);
+            panelAnomaliaButtons.Dock = DockStyle.Bottom;
+            panelAnomaliaButtons.Location = new Point(20, 194);
+            panelAnomaliaButtons.Name = "panelAnomaliaButtons";
+            panelAnomaliaButtons.Padding = new Padding(10, 5, 10, 5);
+            panelAnomaliaButtons.Size = new Size(824, 40);
+            panelAnomaliaButtons.TabIndex = 2;
+            // 
+            // buttonEliminar
+            // 
+            buttonEliminar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            buttonEliminar.Font = new Font("Segoe UI", 10F);
+            buttonEliminar.Location = new Point(604, 5);
+            buttonEliminar.Name = "buttonEliminar";
+            buttonEliminar.Size = new Size(100, 35);
+            buttonEliminar.TabIndex = 14;
+            buttonEliminar.Text = "Eliminar";
+            buttonEliminar.UseVisualStyleBackColor = true;
+            buttonEliminar.Click += buttonEliminar_Click;
+            // 
+            // buttonAgregar
+            // 
+            buttonAgregar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            buttonAgregar.Font = new Font("Segoe UI", 10F);
+            buttonAgregar.Location = new Point(710, 5);
+            buttonAgregar.Name = "buttonAgregar";
+            buttonAgregar.Size = new Size(100, 35);
+            buttonAgregar.TabIndex = 13;
+            buttonAgregar.Text = "Agregar";
+            buttonAgregar.UseVisualStyleBackColor = true;
+            buttonAgregar.Click += buttonAgregar_Click;
+            // 
+            // panelBottomInfo
+            // 
+            panelBottomInfo.Controls.Add(labelDescripcion);
+            panelBottomInfo.Controls.Add(textBoxDescripcion);
+            panelBottomInfo.Controls.Add(labelComentario);
+            panelBottomInfo.Controls.Add(textBoxComentario);
+            panelBottomInfo.Controls.Add(label6);
+            panelBottomInfo.Controls.Add(textBoxDificultad);
+            panelBottomInfo.Dock = DockStyle.Fill;
+            panelBottomInfo.Location = new Point(3, 429);
+            panelBottomInfo.Name = "panelBottomInfo";
+            panelBottomInfo.Padding = new Padding(20, 10, 20, 10);
+            panelBottomInfo.Size = new Size(864, 128);
+            panelBottomInfo.TabIndex = 2;
+            // 
+            // labelDescripcion
+            // 
+            labelDescripcion.AutoSize = true;
+            labelDescripcion.Font = new Font("Segoe UI", 10F);
+            labelDescripcion.Location = new Point(30, 20);
+            labelDescripcion.Name = "labelDescripcion";
+            labelDescripcion.Size = new Size(99, 23);
+            labelDescripcion.TabIndex = 19;
+            labelDescripcion.Text = "Descripción";
+            // 
+            // textBoxDescripcion
+            // 
+            textBoxDescripcion.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            textBoxDescripcion.Font = new Font("Segoe UI", 10F);
+            textBoxDescripcion.Location = new Point(170, 17);
+            textBoxDescripcion.Name = "textBoxDescripcion";
+            textBoxDescripcion.Size = new Size(664, 30);
+            textBoxDescripcion.TabIndex = 17;
+            // 
+            // labelComentario
+            // 
+            labelComentario.AutoSize = true;
+            labelComentario.Font = new Font("Segoe UI", 10F);
+            labelComentario.Location = new Point(30, 65);
+            labelComentario.Name = "labelComentario";
+            labelComentario.Size = new Size(102, 23);
+            labelComentario.TabIndex = 20;
+            labelComentario.Text = "Comentario";
+            // 
+            // textBoxComentario
+            // 
+            textBoxComentario.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            textBoxComentario.Font = new Font("Segoe UI", 10F);
+            textBoxComentario.Location = new Point(170, 62);
+            textBoxComentario.Name = "textBoxComentario";
+            textBoxComentario.Size = new Size(454, 30);
+            textBoxComentario.TabIndex = 16;
+            // 
+            // label6
+            // 
+            label6.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            label6.AutoSize = true;
+            label6.Font = new Font("Segoe UI", 10F);
+            label6.Location = new Point(650, 65);
+            label6.Name = "label6";
+            label6.Size = new Size(83, 23);
+            label6.TabIndex = 15;
+            label6.Text = "Dificultad";
+            // 
+            // textBoxDificultad
+            // 
+            textBoxDificultad.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            textBoxDificultad.BackColor = SystemColors.Control;
+            textBoxDificultad.Font = new Font("Segoe UI", 10F);
+            textBoxDificultad.Location = new Point(739, 62);
+            textBoxDificultad.Name = "textBoxDificultad";
+            textBoxDificultad.ReadOnly = true;
+            textBoxDificultad.Size = new Size(95, 30);
+            textBoxDificultad.TabIndex = 18;
+            // 
+            // panelButtons
+            // 
+            panelButtons.Controls.Add(buttonCancelar);
+            panelButtons.Controls.Add(buttonAceptar);
+            panelButtons.Dock = DockStyle.Fill;
+            panelButtons.Location = new Point(3, 563);
+            panelButtons.Name = "panelButtons";
+            panelButtons.Padding = new Padding(10);
+            panelButtons.Size = new Size(864, 54);
+            panelButtons.TabIndex = 3;
             // 
             // buttonCancelar
             // 
-            buttonCancelar.Location = new Point(386, 467);
+            buttonCancelar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            buttonCancelar.Font = new Font("Segoe UI", 10F);
+            buttonCancelar.Location = new Point(638, 10);
             buttonCancelar.Name = "buttonCancelar";
-            buttonCancelar.Size = new Size(94, 29);
+            buttonCancelar.Size = new Size(100, 40);
             buttonCancelar.TabIndex = 11;
             buttonCancelar.Text = "Cancelar";
             buttonCancelar.UseVisualStyleBackColor = true;
@@ -135,177 +409,39 @@
             // 
             // buttonAceptar
             // 
-            buttonAceptar.Location = new Point(534, 467);
+            buttonAceptar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            buttonAceptar.Font = new Font("Segoe UI", 10F);
+            buttonAceptar.Location = new Point(744, 10);
             buttonAceptar.Name = "buttonAceptar";
-            buttonAceptar.Size = new Size(213, 29);
+            buttonAceptar.Size = new Size(110, 40);
             buttonAceptar.TabIndex = 12;
             buttonAceptar.Text = "Aceptar";
             buttonAceptar.UseVisualStyleBackColor = true;
             buttonAceptar.Click += buttonAceptar_Click;
             // 
-            // buttonAgregar
-            // 
-            buttonAgregar.Location = new Point(653, 345);
-            buttonAgregar.Name = "buttonAgregar";
-            buttonAgregar.Size = new Size(94, 29);
-            buttonAgregar.TabIndex = 13;
-            buttonAgregar.Text = "Agregar";
-            buttonAgregar.UseVisualStyleBackColor = true;
-            buttonAgregar.Click += buttonAgregar_Click;
-            // 
-            // buttonEliminar
-            // 
-            buttonEliminar.Location = new Point(524, 345);
-            buttonEliminar.Name = "buttonEliminar";
-            buttonEliminar.Size = new Size(94, 29);
-            buttonEliminar.TabIndex = 14;
-            buttonEliminar.Text = "Eliminar";
-            buttonEliminar.UseVisualStyleBackColor = true;
-            buttonEliminar.Click += buttonEliminar_Click;
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Location = new Point(504, 413);
-            label6.Name = "label6";
-            label6.Size = new Size(74, 20);
-            label6.TabIndex = 15;
-            label6.Text = "Dificultad";
-            // 
-            // textBoxComentario
-            // 
-            textBoxComentario.Location = new Point(160, 434);
-            textBoxComentario.Name = "textBoxComentario";
-            textBoxComentario.Size = new Size(268, 27);
-            textBoxComentario.TabIndex = 16;
-            // 
-            // textBoxDescripcion
-            // 
-            textBoxDescripcion.Location = new Point(160, 367);
-            textBoxDescripcion.Name = "textBoxDescripcion";
-            textBoxDescripcion.Size = new Size(268, 27);
-            textBoxDescripcion.TabIndex = 17;
-            // 
-            // textBoxDificultad
-            // 
-            textBoxDificultad.Location = new Point(604, 406);
-            textBoxDificultad.Name = "textBoxDificultad";
-            textBoxDificultad.ReadOnly = true;
-            textBoxDificultad.Size = new Size(125, 27);
-            textBoxDificultad.TabIndex = 18;
-            // 
-            // labelDescripcion
-            // 
-            labelDescripcion.AutoSize = true;
-            labelDescripcion.Location = new Point(57, 370);
-            labelDescripcion.Name = "labelDescripcion";
-            labelDescripcion.Size = new Size(87, 20);
-            labelDescripcion.TabIndex = 19;
-            labelDescripcion.Text = "Descripcion";
-            // 
-            // labelComentario
-            // 
-            labelComentario.AutoSize = true;
-            labelComentario.Location = new Point(57, 441);
-            labelComentario.Name = "labelComentario";
-            labelComentario.Size = new Size(87, 20);
-            labelComentario.TabIndex = 20;
-            labelComentario.Text = "Comentario";
-            // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.Location = new Point(416, 130);
-            label7.Name = "label7";
-            label7.Size = new Size(43, 20);
-            label7.TabIndex = 21;
-            label7.Text = "Zona";
-            // 
-            // comboBoxZonas
-            // 
-            comboBoxZonas.FormattingEnabled = true;
-            comboBoxZonas.Location = new Point(504, 130);
-            comboBoxZonas.Name = "comboBoxZonas";
-            comboBoxZonas.Size = new Size(231, 28);
-            comboBoxZonas.TabIndex = 22;
-            // 
-            // labelFecha
-            // 
-            labelFecha.AutoSize = true;
-            labelFecha.Location = new Point(416, 36);
-            labelFecha.Name = "labelFecha";
-            labelFecha.Size = new Size(47, 20);
-            labelFecha.TabIndex = 23;
-            labelFecha.Text = "Fecha";
-            // 
-            // textBoxFecha
-            // 
-            textBoxFecha.Location = new Point(504, 33);
-            textBoxFecha.Name = "textBoxFecha";
-            textBoxFecha.ReadOnly = true;
-            textBoxFecha.Size = new Size(231, 27);
-            textBoxFecha.TabIndex = 24;
-            // 
-            // labelCazador
-            // 
-            labelCazador.AutoSize = true;
-            labelCazador.Location = new Point(416, 84);
-            labelCazador.Name = "labelCazador";
-            labelCazador.Size = new Size(64, 20);
-            labelCazador.TabIndex = 6;
-            labelCazador.Text = "Cazador";
-            // 
-            // textBoxCazador
-            // 
-            textBoxCazador.Location = new Point(504, 84);
-            textBoxCazador.Name = "textBoxCazador";
-            textBoxCazador.ReadOnly = true;
-            textBoxCazador.Size = new Size(231, 27);
-            textBoxCazador.TabIndex = 25;
-            // 
-            // textBoxDenunciante
-            // 
-            textBoxDenunciante.Location = new Point(172, 74);
-            textBoxDenunciante.Name = "textBoxDenunciante";
-            textBoxDenunciante.ReadOnly = true;
-            textBoxDenunciante.Size = new Size(200, 27);
-            textBoxDenunciante.TabIndex = 26;
-            // 
             // DetallePedidoResolucion
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 507);
-            Controls.Add(textBoxDenunciante);
-            Controls.Add(textBoxCazador);
-            Controls.Add(textBoxFecha);
-            Controls.Add(labelFecha);
-            Controls.Add(comboBoxZonas);
-            Controls.Add(label7);
-            Controls.Add(labelComentario);
-            Controls.Add(labelDescripcion);
-            Controls.Add(textBoxDificultad);
-            Controls.Add(textBoxDescripcion);
-            Controls.Add(textBoxComentario);
-            Controls.Add(label6);
-            Controls.Add(buttonEliminar);
-            Controls.Add(buttonAgregar);
-            Controls.Add(buttonAceptar);
-            Controls.Add(buttonCancelar);
-            Controls.Add(textBoxDireccion);
-            Controls.Add(textBoxId);
-            Controls.Add(labelCazador);
-            Controls.Add(labelDenunciante);
-            Controls.Add(label4);
-            Controls.Add(label3);
-            Controls.Add(labelId);
-            Controls.Add(dataGridViewAnomalias);
+            ClientSize = new Size(900, 650);
+            MinimumSize = new Size(800, 600);
+            Controls.Add(tableLayoutPanelMain);
             Name = "DetallePedidoResolucion";
-            Text = "Detalle Pedido";
+            Padding = new Padding(15);
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Detalle Pedido de Resolución";
             ((System.ComponentModel.ISupportInitialize)errorProvider).EndInit();
             ((System.ComponentModel.ISupportInitialize)dataGridViewAnomalias).EndInit();
+            tableLayoutPanelMain.ResumeLayout(false);
+            panelFields.ResumeLayout(false);
+            panelFields.PerformLayout();
+            panelAnomalias.ResumeLayout(false);
+            panelAnomalias.PerformLayout();
+            panelAnomaliaButtons.ResumeLayout(false);
+            panelBottomInfo.ResumeLayout(false);
+            panelBottomInfo.PerformLayout();
+            panelButtons.ResumeLayout(false);
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -335,5 +471,11 @@
         private TextBox textBoxDenunciante;
         private TextBox textBoxCazador;
         private Label labelCazador;
+        private TableLayoutPanel tableLayoutPanelMain;
+        private Panel panelFields;
+        private Panel panelAnomalias;
+        private Panel panelAnomaliaButtons;
+        private Panel panelBottomInfo;
+        private Panel panelButtons;
     }
 }
