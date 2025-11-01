@@ -155,7 +155,7 @@
             // 
             CloseProgramButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             CloseProgramButton.Font = new Font("Segoe UI", 9F);
-            CloseProgramButton.Location = new Point(674, 21);
+            CloseProgramButton.Location = new Point(690, 37);
             CloseProgramButton.Margin = new Padding(5);
             CloseProgramButton.Name = "CloseProgramButton";
             CloseProgramButton.Size = new Size(211, 48);
@@ -245,7 +245,7 @@
             panelFooter.Location = new Point(5, 609);
             panelFooter.Margin = new Padding(5);
             panelFooter.Name = "panelFooter";
-            panelFooter.Padding = new Padding(16);
+            panelFooter.Padding = new Padding(16, 16, 0, 0);
             panelFooter.Size = new Size(901, 90);
             panelFooter.TabIndex = 3;
             // 
@@ -254,9 +254,10 @@
             AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(975, 768);
+            ControlBox = false;
             Controls.Add(tableLayoutPanelMain);
             Margin = new Padding(5);
-            MinimumSize = new Size(796, 677);
+            MinimumSize = new Size(1001, 839);
             Name = "LoginForm";
             Padding = new Padding(32);
             StartPosition = FormStartPosition.CenterScreen;
