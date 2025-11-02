@@ -278,13 +278,13 @@ namespace WindowsForms.FormsPedidoResolucion
 
                 if (hasRows)
                 {
-                    this.dataGridViewPedidos.Rows[0].Selected = true;
+                    this.dataGridViewPedidos.Rows[0].Selected = false;
                 }
 
-                if (buttonEliminar.Visible) buttonEliminar.Enabled = hasRows;
-                if (buttonModificar.Visible) buttonModificar.Enabled = hasRows;
+                if (buttonEliminar.Visible) buttonEliminar.Enabled = false;
+                if (buttonModificar.Visible) buttonModificar.Enabled = false;
                 if (buttonAgregar.Visible) buttonAgregar.Enabled = true;
-                if (buttonFinalizarPedido.Visible) buttonFinalizarPedido.Enabled = hasRows;
+                if (buttonFinalizarPedido.Visible) buttonFinalizarPedido.Enabled = false;
             }
             catch (Exception ex)
             {
