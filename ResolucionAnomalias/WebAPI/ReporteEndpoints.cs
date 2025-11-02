@@ -1,7 +1,6 @@
 ﻿using Application.Services;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
-using QuestPDF.Infrastructure;
 using ScottPlot;
 using System.Globalization;
 using QColors = QuestPDF.Helpers.Colors;

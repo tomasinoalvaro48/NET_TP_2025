@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 using API.Clients;
 using API.Auth.Blazor.Server;
 using API.Clients.EntitiesClients;

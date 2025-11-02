@@ -1,6 +1,4 @@
-﻿using System.Net.Http.Json;
-
-namespace API.Clients.EntitiesClients
+﻿namespace API.Clients.EntitiesClients
 {
     public class ReporteApiClient : BaseApiClient
     {

@@ -1,5 +1,4 @@
 ﻿using DTOs;
-using System.Net.Http.Headers;
 using System.Net.Http.Json;
 
 namespace API.Clients.EntitiesClients

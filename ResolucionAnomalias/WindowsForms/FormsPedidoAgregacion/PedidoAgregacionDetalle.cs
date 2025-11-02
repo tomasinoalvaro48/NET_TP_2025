@@ -1,8 +1,6 @@
-﻿using System.Text.RegularExpressions;
-using DTOs;
+﻿using DTOs;
 using API.Clients.EntitiesClients;
 using API.Clients;
-using System.Windows.Forms;
 
 namespace WindowsForms.FormsPedidoAgregacion
 {
