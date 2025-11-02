@@ -266,8 +266,7 @@ namespace WindowsForms.FormsPedidoAgregacion
             buttonAceptar.Visible = false;
             buttonRechazar.Visible = false;
 
-            var hasSelection = pedidosAgregacionDataGridView.SelectedRows.Count > 0;
-            var pedido = hasSelection ? SelectedItem() : null;
+            var pedido = SelectedItem();
 
             if (string.Equals(user?.Tipo_usu, "Cazador", StringComparison.OrdinalIgnoreCase))
             {
@@ -276,9 +275,9 @@ namespace WindowsForms.FormsPedidoAgregacion
                 buttonRechazar.Visible = false;
 
                 // Habilitar Modificar solo si NO está Aceptado
-                if (pedido != null)
+                if (!string.Equals(pedido.Estado_pedido_agreg, "Aceptado", StringComparison.OrdinalIgnoreCase))
                 {
-                    modificarButton.Enabled = !string.Equals(pedido.Estado_pedido_agreg, "Aceptado", StringComparison.OrdinalIgnoreCase);
+                    modificarButton.Enabled = true;
                     eliminarButton.Enabled = true;
                 }
                 else
