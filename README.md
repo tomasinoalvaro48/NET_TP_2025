@@ -14,7 +14,7 @@
 
 #### Resolución de anomalías
 
-En la provincia de Santa Fe están ocurriendo Anomalías producidas por Fantasmas. Para solucionarlo, se crea un sistema capaz de asignar Avistamientos de Anomalías a Cazadores. Estos Avistamientos son cargados al sistema por un Operador, que es contactado por teléfono por la gente. El Operador genera un Pedido de Resolución, y detalla la Anomalía y el lugar del avistamiento. Luego, el Cazador acepta un Pedido de Resolución, según su zona y localidad y, una vez resuelto, detalla su información. El Cazador puede no resolver la Anomalía.
+En el país están ocurriendo Anomalías producidas por Fantasmas. Para solucionarlo, se crea un sistema capaz de asignar Avistamientos de Anomalías a Cazadores. Estos Avistamientos son cargados al sistema por un Denunciante, que se registra y genera un Pedido de Resolución, donde detalla la/s Anomalía/s y el lugar del avistamiento. Luego, el Cazador acepta un Pedido de Resolución, según su localidad y su zona y, una vez resuelto, lo finaliza.
 
 ## Modelo de Negocio
 
