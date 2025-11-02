@@ -43,6 +43,7 @@
             tableLayoutPanelMain = new TableLayoutPanel();
             panelMenu = new Panel();
             panelContent = new Panel();
+            buttonVolver = new Button();
             flowLayoutPanelButtons = new FlowLayoutPanel();
             buttonUsuarios = new Button();
             buttonTiposAnomalias = new Button();
@@ -72,7 +73,7 @@
             menuStripOperador.Location = new Point(0, 0);
             menuStripOperador.Name = "menuStripOperador";
             menuStripOperador.Padding = new Padding(10, 0, 0, 10);
-            menuStripOperador.Size = new Size(280, 617);
+            menuStripOperador.Size = new Size(280, 1140);
             menuStripOperador.TabIndex = 7;
             menuStripOperador.Text = "menuStripOperador";
             // 
@@ -197,7 +198,7 @@
             tableLayoutPanelMain.Name = "tableLayoutPanelMain";
             tableLayoutPanelMain.RowCount = 1;
             tableLayoutPanelMain.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanelMain.Size = new Size(905, 617);
+            tableLayoutPanelMain.Size = new Size(1933, 1140);
             tableLayoutPanelMain.TabIndex = 0;
             // 
             // panelMenu
@@ -208,24 +209,44 @@
             panelMenu.Location = new Point(0, 0);
             panelMenu.Margin = new Padding(0);
             panelMenu.Name = "panelMenu";
-            panelMenu.Size = new Size(280, 617);
+            panelMenu.Size = new Size(280, 1140);
             panelMenu.TabIndex = 0;
             // 
             // panelContent
             // 
             panelContent.AutoScroll = true;
             panelContent.BackColor = Color.White;
+            panelContent.Controls.Add(buttonVolver);
             panelContent.Controls.Add(flowLayoutPanelButtons);
             panelContent.Controls.Add(tituloLabel);
             panelContent.Dock = DockStyle.Fill;
             panelContent.Location = new Point(283, 3);
+            panelContent.MinimumSize = new Size(1517, 1130);
             panelContent.Name = "panelContent";
             panelContent.Padding = new Padding(30, 30, 30, 20);
-            panelContent.Size = new Size(619, 611);
+            panelContent.Size = new Size(1647, 1134);
             panelContent.TabIndex = 1;
+            // 
+            // buttonVolver
+            // 
+            buttonVolver.BackColor = Color.Gray;
+            buttonVolver.Cursor = Cursors.Hand;
+            buttonVolver.FlatAppearance.BorderSize = 0;
+            buttonVolver.FlatStyle = FlatStyle.Flat;
+            buttonVolver.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            buttonVolver.ForeColor = Color.White;
+            buttonVolver.Location = new Point(0, 0);
+            buttonVolver.Name = "buttonVolver";
+            buttonVolver.Size = new Size(143, 40);
+            buttonVolver.TabIndex = 21;
+            buttonVolver.Text = "← Volver";
+            buttonVolver.UseVisualStyleBackColor = false;
+            buttonVolver.Visible = false;
+            buttonVolver.Click += buttonVolver_Click;
             // 
             // flowLayoutPanelButtons
             // 
+            flowLayoutPanelButtons.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             flowLayoutPanelButtons.Controls.Add(buttonUsuarios);
             flowLayoutPanelButtons.Controls.Add(buttonTiposAnomalias);
             flowLayoutPanelButtons.Controls.Add(buttonLocalidades);
@@ -234,11 +255,11 @@
             flowLayoutPanelButtons.Controls.Add(buttonPedidosAgregacion);
             flowLayoutPanelButtons.Controls.Add(buttonReportePedidosResolucion);
             flowLayoutPanelButtons.Controls.Add(buttonReportePedidosAgregacion);
-            flowLayoutPanelButtons.Dock = DockStyle.Top;
+            flowLayoutPanelButtons.Dock = DockStyle.Left;
             flowLayoutPanelButtons.Location = new Point(30, 103);
             flowLayoutPanelButtons.Name = "flowLayoutPanelButtons";
             flowLayoutPanelButtons.Padding = new Padding(0, 10, 0, 0);
-            flowLayoutPanelButtons.Size = new Size(559, 400);
+            flowLayoutPanelButtons.Size = new Size(1087, 1011);
             flowLayoutPanelButtons.TabIndex = 20;
             // 
             // buttonUsuarios
@@ -281,7 +302,7 @@
             buttonLocalidades.FlatStyle = FlatStyle.Flat;
             buttonLocalidades.Font = new Font("Segoe UI", 9.5F);
             buttonLocalidades.ForeColor = Color.White;
-            buttonLocalidades.Location = new Point(3, 69);
+            buttonLocalidades.Location = new Point(535, 13);
             buttonLocalidades.Name = "buttonLocalidades";
             buttonLocalidades.Size = new Size(260, 50);
             buttonLocalidades.TabIndex = 13;
@@ -297,7 +318,7 @@
             buttonZonas.FlatStyle = FlatStyle.Flat;
             buttonZonas.Font = new Font("Segoe UI", 9.5F);
             buttonZonas.ForeColor = Color.White;
-            buttonZonas.Location = new Point(269, 69);
+            buttonZonas.Location = new Point(801, 13);
             buttonZonas.Name = "buttonZonas";
             buttonZonas.Size = new Size(260, 50);
             buttonZonas.TabIndex = 14;
@@ -313,7 +334,7 @@
             buttonPedidosResolucion.FlatStyle = FlatStyle.Flat;
             buttonPedidosResolucion.Font = new Font("Segoe UI", 9.5F);
             buttonPedidosResolucion.ForeColor = Color.White;
-            buttonPedidosResolucion.Location = new Point(3, 125);
+            buttonPedidosResolucion.Location = new Point(3, 69);
             buttonPedidosResolucion.Name = "buttonPedidosResolucion";
             buttonPedidosResolucion.Size = new Size(260, 86);
             buttonPedidosResolucion.TabIndex = 16;
@@ -329,7 +350,7 @@
             buttonPedidosAgregacion.FlatStyle = FlatStyle.Flat;
             buttonPedidosAgregacion.Font = new Font("Segoe UI", 9.5F);
             buttonPedidosAgregacion.ForeColor = Color.White;
-            buttonPedidosAgregacion.Location = new Point(269, 125);
+            buttonPedidosAgregacion.Location = new Point(269, 69);
             buttonPedidosAgregacion.Name = "buttonPedidosAgregacion";
             buttonPedidosAgregacion.Size = new Size(260, 86);
             buttonPedidosAgregacion.TabIndex = 15;
@@ -345,7 +366,7 @@
             buttonReportePedidosResolucion.FlatStyle = FlatStyle.Flat;
             buttonReportePedidosResolucion.Font = new Font("Segoe UI", 9.5F);
             buttonReportePedidosResolucion.ForeColor = Color.White;
-            buttonReportePedidosResolucion.Location = new Point(3, 217);
+            buttonReportePedidosResolucion.Location = new Point(535, 69);
             buttonReportePedidosResolucion.Name = "buttonReportePedidosResolucion";
             buttonReportePedidosResolucion.Size = new Size(260, 93);
             buttonReportePedidosResolucion.TabIndex = 17;
@@ -361,7 +382,7 @@
             buttonReportePedidosAgregacion.FlatStyle = FlatStyle.Flat;
             buttonReportePedidosAgregacion.Font = new Font("Segoe UI", 9.5F);
             buttonReportePedidosAgregacion.ForeColor = Color.White;
-            buttonReportePedidosAgregacion.Location = new Point(269, 217);
+            buttonReportePedidosAgregacion.Location = new Point(801, 69);
             buttonReportePedidosAgregacion.Name = "buttonReportePedidosAgregacion";
             buttonReportePedidosAgregacion.Size = new Size(260, 93);
             buttonReportePedidosAgregacion.TabIndex = 18;
@@ -376,18 +397,18 @@
             tituloLabel.ForeColor = Color.FromArgb(40, 40, 40);
             tituloLabel.Location = new Point(30, 30);
             tituloLabel.Name = "tituloLabel";
-            tituloLabel.Size = new Size(559, 73);
+            tituloLabel.Size = new Size(1587, 73);
             tituloLabel.TabIndex = 19;
             tituloLabel.Text = "Bienvenido, Operador";
             tituloLabel.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // MenuOperador
             // 
-            ClientSize = new Size(905, 617);
+            ClientSize = new Size(1933, 1140);
             Controls.Add(tableLayoutPanelMain);
             Controls.Add(buttonReportePedidoAgregacion);
             MainMenuStrip = menuStripOperador;
-            MinimumSize = new Size(800, 500);
+            MinimumSize = new Size(1959, 1211);
             Name = "MenuOperador";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Menu Operador - Sistema de Resolución de Anomalías";
@@ -429,5 +450,6 @@
         private Button buttonReportePedidosResolucion;
         private Button buttonReportePedidosAgregacion;
         private ToolStripMenuItem reporteResolucionToolStripMenuItem;
+        private Button buttonVolver;
     }
 }

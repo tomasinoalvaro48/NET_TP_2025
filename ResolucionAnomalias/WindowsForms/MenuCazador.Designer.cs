@@ -33,8 +33,8 @@
             EnterCRUDTipoAnomaliaButton = new Button();
             label2 = new Label();
             menuStripCazador = new MenuStrip();
-            tomarPedidoDeResoluciónToolStripMenuItem = new ToolStripMenuItem();
             realizarPedidoAgregacionToolStripMenuItem = new ToolStripMenuItem();
+            tomarPedidoDeResoluciónToolStripMenuItem = new ToolStripMenuItem();
             toolStripMenuItemMasAjustes = new ToolStripMenuItem();
             cambiarContrasenaToolStripMenuItem = new ToolStripMenuItem();
             cerrarSesionToolStripMenuItem = new ToolStripMenuItem();
@@ -43,6 +43,7 @@
             tableLayoutPanelMain = new TableLayoutPanel();
             panelMenu = new Panel();
             panelContent = new Panel();
+            buttonVolver = new Button();
             buttonPedidoAgregacion = new Button();
             menuStripCazador.SuspendLayout();
             tableLayoutPanelMain.SuspendLayout();
@@ -97,19 +98,9 @@
             menuStripCazador.Location = new Point(0, 0);
             menuStripCazador.Name = "menuStripCazador";
             menuStripCazador.Padding = new Padding(16, 0, 0, 16);
-            menuStripCazador.Size = new Size(406, 526);
+            menuStripCazador.Size = new Size(406, 1140);
             menuStripCazador.TabIndex = 9;
             menuStripCazador.Text = "menuStripCazador";
-            // 
-            // tomarPedidoDeResoluciónToolStripMenuItem
-            // 
-            tomarPedidoDeResoluciónToolStripMenuItem.ForeColor = Color.FromArgb(60, 60, 60);
-            tomarPedidoDeResoluciónToolStripMenuItem.Margin = new Padding(0, 5, 0, 5);
-            tomarPedidoDeResoluciónToolStripMenuItem.Name = "tomarPedidoDeResoluciónToolStripMenuItem";
-            tomarPedidoDeResoluciónToolStripMenuItem.Padding = new Padding(10, 8, 10, 8);
-            tomarPedidoDeResoluciónToolStripMenuItem.Size = new Size(389, 56);
-            tomarPedidoDeResoluciónToolStripMenuItem.Text = "Tomar Pedido de Resolución";
-            tomarPedidoDeResoluciónToolStripMenuItem.Click += tomarPedidoDeResoluciónToolStripMenuItem_Click;
             // 
             // realizarPedidoAgregacionToolStripMenuItem
             // 
@@ -120,6 +111,16 @@
             realizarPedidoAgregacionToolStripMenuItem.Size = new Size(389, 56);
             realizarPedidoAgregacionToolStripMenuItem.Text = "Pedidos de Agregación";
             realizarPedidoAgregacionToolStripMenuItem.Click += realizarPedidoAgregacionToolStripMenuItem_Click;
+            // 
+            // tomarPedidoDeResoluciónToolStripMenuItem
+            // 
+            tomarPedidoDeResoluciónToolStripMenuItem.ForeColor = Color.FromArgb(60, 60, 60);
+            tomarPedidoDeResoluciónToolStripMenuItem.Margin = new Padding(0, 5, 0, 5);
+            tomarPedidoDeResoluciónToolStripMenuItem.Name = "tomarPedidoDeResoluciónToolStripMenuItem";
+            tomarPedidoDeResoluciónToolStripMenuItem.Padding = new Padding(10, 8, 10, 8);
+            tomarPedidoDeResoluciónToolStripMenuItem.Size = new Size(389, 56);
+            tomarPedidoDeResoluciónToolStripMenuItem.Text = "Tomar Pedido de Resolución";
+            tomarPedidoDeResoluciónToolStripMenuItem.Click += tomarPedidoDeResoluciónToolStripMenuItem_Click;
             // 
             // toolStripMenuItemMasAjustes
             // 
@@ -171,7 +172,7 @@
             label1.Location = new Point(49, 48);
             label1.Margin = new Padding(5, 0, 5, 0);
             label1.Name = "label1";
-            label1.Size = new Size(624, 64);
+            label1.Size = new Size(1569, 64);
             label1.TabIndex = 14;
             label1.Text = "Bienvenido, Cazador";
             label1.TextAlign = ContentAlignment.MiddleLeft;
@@ -189,7 +190,7 @@
             tableLayoutPanelMain.Name = "tableLayoutPanelMain";
             tableLayoutPanelMain.RowCount = 1;
             tableLayoutPanelMain.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanelMain.Size = new Size(1138, 526);
+            tableLayoutPanelMain.Size = new Size(2083, 1140);
             tableLayoutPanelMain.TabIndex = 0;
             // 
             // panelMenu
@@ -200,22 +201,42 @@
             panelMenu.Location = new Point(0, 0);
             panelMenu.Margin = new Padding(0);
             panelMenu.Name = "panelMenu";
-            panelMenu.Size = new Size(406, 526);
+            panelMenu.Size = new Size(406, 1140);
             panelMenu.TabIndex = 0;
             // 
             // panelContent
             // 
             panelContent.BackColor = Color.White;
+            panelContent.Controls.Add(buttonVolver);
             panelContent.Controls.Add(label1);
             panelContent.Controls.Add(buttonTomarPedido);
             panelContent.Controls.Add(buttonPedidoAgregacion);
             panelContent.Dock = DockStyle.Fill;
             panelContent.Location = new Point(411, 5);
             panelContent.Margin = new Padding(5);
+            panelContent.MinimumSize = new Size(1517, 1130);
             panelContent.Name = "panelContent";
             panelContent.Padding = new Padding(49, 48, 49, 48);
-            panelContent.Size = new Size(722, 516);
+            panelContent.Size = new Size(1667, 1130);
             panelContent.TabIndex = 1;
+            // 
+            // buttonVolver
+            // 
+            buttonVolver.BackColor = Color.Gray;
+            buttonVolver.Cursor = Cursors.Hand;
+            buttonVolver.FlatAppearance.BorderSize = 0;
+            buttonVolver.FlatStyle = FlatStyle.Flat;
+            buttonVolver.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            buttonVolver.ForeColor = Color.White;
+            buttonVolver.Location = new Point(0, 0);
+            buttonVolver.Margin = new Padding(5);
+            buttonVolver.Name = "buttonVolver";
+            buttonVolver.Size = new Size(143, 40);
+            buttonVolver.TabIndex = 16;
+            buttonVolver.Text = "← Volver";
+            buttonVolver.UseVisualStyleBackColor = false;
+            buttonVolver.Visible = false;
+            buttonVolver.Click += buttonVolver_Click;
             // 
             // buttonPedidoAgregacion
             // 
@@ -238,7 +259,7 @@
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1138, 526);
+            ClientSize = new Size(2083, 1140);
             Controls.Add(tableLayoutPanelMain);
             Controls.Add(label2);
             Controls.Add(EnterCRUDTipoAnomaliaButton);
@@ -246,7 +267,7 @@
             Controls.Add(logoutButton);
             MainMenuStrip = menuStripCazador;
             Margin = new Padding(5);
-            MinimumSize = new Size(1040, 597);
+            MinimumSize = new Size(2059, 1211);
             Name = "MenuCazador";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Menu Cazador - Sistema de Resolución de Anomalías";
@@ -277,5 +298,6 @@
         private Panel panelMenu;
         private Panel panelContent;
         private Button buttonPedidoAgregacion;
+        private Button buttonVolver;
     }
 }

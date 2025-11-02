@@ -16,36 +16,83 @@ namespace WindowsForms
         public MenuOperador()
         {
             InitializeComponent();
+            MostrarPaginaInicio();
+        }
+
+        private void MostrarPaginaInicio()
+        {
+            panelContent.Controls.Clear();
+            panelContent.Controls.Add(buttonVolver);
+            panelContent.Controls.Add(flowLayoutPanelButtons);
+            panelContent.Controls.Add(tituloLabel);
+            buttonVolver.Visible = false;
+        }
+
+        private void CargarFormularioEnPanel(Form formulario)
+        {
+            panelContent.Controls.Clear();
+            panelContent.Controls.Add(buttonVolver);
+            buttonVolver.Visible = true;
+            buttonVolver.BringToFront();
+            formulario.TopLevel = false;
+            formulario.FormBorderStyle = FormBorderStyle.None;
+            formulario.Dock = DockStyle.Fill;
+            panelContent.Controls.Add(formulario);
+            formulario.Show();
+        }
+
+        private void buttonVolver_Click(object sender, EventArgs e)
+        {
+            foreach (Control control in panelContent.Controls.OfType<Form>().ToList())
+            {
+                control.Dispose();
+            }
+            MostrarPaginaInicio();
         }
 
         private void usuariosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            UsuarioLista usuarioLista = new UsuarioLista();
-            usuarioLista.ShowDialog();
+            var usuarioLista = new UsuarioLista();
+            usuarioLista.FormClosed += (s, args) => {
+                MostrarPaginaInicio();
+            };
+            CargarFormularioEnPanel(usuarioLista);
         }
 
         private void tiposDeAnomaliasToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            TipoAnomaliaLista tipoLista = new TipoAnomaliaLista();
-            tipoLista.ShowDialog();
+            var tipoLista = new TipoAnomaliaLista();
+            tipoLista.FormClosed += (s, args) => {
+                MostrarPaginaInicio();
+            };
+            CargarFormularioEnPanel(tipoLista);
         }
 
         private void localidadesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            LocalidadLista localidadLista = new LocalidadLista();
-            localidadLista.ShowDialog();
+            var localidadLista = new LocalidadLista();
+            localidadLista.FormClosed += (s, args) => {
+                MostrarPaginaInicio();
+            };
+            CargarFormularioEnPanel(localidadLista);
         }
 
         private void zonasToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ZonaLista zonaLista = new ZonaLista();
-            zonaLista.ShowDialog();
+            var zonaLista = new ZonaLista();
+            zonaLista.FormClosed += (s, args) => {
+                MostrarPaginaInicio();
+            };
+            CargarFormularioEnPanel(zonaLista);
         }
 
         private void pedidosDeAgregacionToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            PedidoAgregacionLista pedidoAg = new PedidoAgregacionLista();
-            pedidoAg.ShowDialog();
+            var pedidoAg = new PedidoAgregacionLista();
+            pedidoAg.FormClosed += (s, args) => {
+                MostrarPaginaInicio();
+            };
+            CargarFormularioEnPanel(pedidoAg);
         }
 
         private async void reporteToolStripMenuItem_Click(object sender, EventArgs e)
@@ -81,8 +128,11 @@ namespace WindowsForms
 
         private void verPedidosDeResoluciónToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ListaPedidoResolucion pedidoResolucion = new ListaPedidoResolucion();
-            pedidoResolucion.ShowDialog();
+            var pedidoResolucion = new ListaPedidoResolucion();
+            pedidoResolucion.FormClosed += (s, args) => {
+                MostrarPaginaInicio();
+            };
+            CargarFormularioEnPanel(pedidoResolucion);
         }
 
         private async void MenuOperador_FormClosing(object sender, FormClosingEventArgs e)

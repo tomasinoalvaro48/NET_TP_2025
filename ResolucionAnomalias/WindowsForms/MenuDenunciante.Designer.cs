@@ -40,6 +40,7 @@
             tableLayoutPanelMain = new TableLayoutPanel();
             panelMenu = new Panel();
             panelContent = new Panel();
+            buttonVolver = new Button();
             buttonRealizarPedido = new Button();
             menuStripDenunciante.SuspendLayout();
             tableLayoutPanelMain.SuspendLayout();
@@ -64,7 +65,7 @@
             label1.Location = new Point(49, 48);
             label1.Margin = new Padding(5, 0, 5, 0);
             label1.Name = "label1";
-            label1.Size = new Size(624, 64);
+            label1.Size = new Size(1419, 64);
             label1.TabIndex = 2;
             label1.Text = "Bienvenido, Denunciante";
             label1.TextAlign = ContentAlignment.MiddleLeft;
@@ -80,7 +81,7 @@
             menuStripDenunciante.Location = new Point(0, 0);
             menuStripDenunciante.Name = "menuStripDenunciante";
             menuStripDenunciante.Padding = new Padding(16, 0, 0, 16);
-            menuStripDenunciante.Size = new Size(406, 526);
+            menuStripDenunciante.Size = new Size(406, 1140);
             menuStripDenunciante.TabIndex = 8;
             menuStripDenunciante.Text = "menuStripDenunciante";
             // 
@@ -137,7 +138,7 @@
             buttonPedidoResolucion.FlatStyle = FlatStyle.Flat;
             buttonPedidoResolucion.Font = new Font("Segoe UI", 10F);
             buttonPedidoResolucion.ForeColor = Color.White;
-            buttonPedidoResolucion.Location = new Point(81, 192);
+            buttonPedidoResolucion.Location = new Point(130, 192);
             buttonPedidoResolucion.Margin = new Padding(5);
             buttonPedidoResolucion.Name = "buttonPedidoResolucion";
             buttonPedidoResolucion.Size = new Size(552, 88);
@@ -159,7 +160,7 @@
             tableLayoutPanelMain.Name = "tableLayoutPanelMain";
             tableLayoutPanelMain.RowCount = 1;
             tableLayoutPanelMain.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanelMain.Size = new Size(1138, 526);
+            tableLayoutPanelMain.Size = new Size(1933, 1140);
             tableLayoutPanelMain.TabIndex = 0;
             // 
             // panelMenu
@@ -170,22 +171,42 @@
             panelMenu.Location = new Point(0, 0);
             panelMenu.Margin = new Padding(0);
             panelMenu.Name = "panelMenu";
-            panelMenu.Size = new Size(406, 526);
+            panelMenu.Size = new Size(406, 1140);
             panelMenu.TabIndex = 0;
             // 
             // panelContent
             // 
             panelContent.BackColor = Color.White;
+            panelContent.Controls.Add(buttonVolver);
             panelContent.Controls.Add(label1);
             panelContent.Controls.Add(buttonRealizarPedido);
             panelContent.Controls.Add(buttonPedidoResolucion);
             panelContent.Dock = DockStyle.Fill;
             panelContent.Location = new Point(411, 5);
             panelContent.Margin = new Padding(5);
+            panelContent.MinimumSize = new Size(1517, 1130);
             panelContent.Name = "panelContent";
             panelContent.Padding = new Padding(49, 48, 49, 48);
-            panelContent.Size = new Size(722, 516);
+            panelContent.Size = new Size(1517, 1130);
             panelContent.TabIndex = 1;
+            // 
+            // buttonVolver
+            // 
+            buttonVolver.BackColor = Color.Gray;
+            buttonVolver.Cursor = Cursors.Hand;
+            buttonVolver.FlatAppearance.BorderSize = 0;
+            buttonVolver.FlatStyle = FlatStyle.Flat;
+            buttonVolver.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            buttonVolver.ForeColor = Color.White;
+            buttonVolver.Location = new Point(0, 0);
+            buttonVolver.Margin = new Padding(5);
+            buttonVolver.Name = "buttonVolver";
+            buttonVolver.Size = new Size(143, 40);
+            buttonVolver.TabIndex = 11;
+            buttonVolver.Text = "← Volver";
+            buttonVolver.UseVisualStyleBackColor = false;
+            buttonVolver.Visible = false;
+            buttonVolver.Click += buttonVolver_Click;
             // 
             // buttonRealizarPedido
             // 
@@ -195,7 +216,7 @@
             buttonRealizarPedido.FlatStyle = FlatStyle.Flat;
             buttonRealizarPedido.Font = new Font("Segoe UI", 10F);
             buttonRealizarPedido.ForeColor = Color.White;
-            buttonRealizarPedido.Location = new Point(81, 312);
+            buttonRealizarPedido.Location = new Point(130, 312);
             buttonRealizarPedido.Margin = new Padding(5);
             buttonRealizarPedido.Name = "buttonRealizarPedido";
             buttonRealizarPedido.Size = new Size(552, 88);
@@ -208,12 +229,12 @@
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1138, 526);
+            ClientSize = new Size(1933, 1140);
             Controls.Add(tableLayoutPanelMain);
             Controls.Add(logoutButton);
             MainMenuStrip = menuStripDenunciante;
             Margin = new Padding(5);
-            MinimumSize = new Size(1040, 597);
+            MinimumSize = new Size(1959, 1211);
             Name = "MenuDenunciante";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Menu Denunciante - Sistema de Resolución de Anomalías";
@@ -241,5 +262,6 @@
         private Panel panelContent;
         private Button buttonRealizarPedido;
         private ToolStripMenuItem toolStripMenuItemVerPedidos;
+        private Button buttonVolver;
     }
 }
