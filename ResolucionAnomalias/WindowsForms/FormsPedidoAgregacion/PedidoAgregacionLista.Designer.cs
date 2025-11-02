@@ -43,6 +43,87 @@
             panelButtons.SuspendLayout();
             SuspendLayout();
             // 
+            // pedidosAgregacionDataGridView
+            // 
+            pedidosAgregacionDataGridView.AllowUserToAddRows = false;
+            pedidosAgregacionDataGridView.AllowUserToDeleteRows = false;
+            pedidosAgregacionDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            pedidosAgregacionDataGridView.Dock = DockStyle.Fill;
+            pedidosAgregacionDataGridView.Location = new Point(16, 16);
+            pedidosAgregacionDataGridView.Margin = new Padding(5, 5, 5, 5);
+            pedidosAgregacionDataGridView.MultiSelect = false;
+            pedidosAgregacionDataGridView.Name = "pedidosAgregacionDataGridView";
+            pedidosAgregacionDataGridView.ReadOnly = true;
+            pedidosAgregacionDataGridView.RowHeadersWidth = 51;
+            pedidosAgregacionDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            pedidosAgregacionDataGridView.Size = new Size(1535, 694);
+            pedidosAgregacionDataGridView.TabIndex = 0;
+            pedidosAgregacionDataGridView.DataBindingComplete += pedidosAgregacionDataGridView_DataBindingComplete;
+            pedidosAgregacionDataGridView.SelectionChanged += pedidosAgregacionDataGridView_SelectionChanged;
+            // 
+            // agregarButton
+            // 
+            agregarButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            agregarButton.Font = new Font("Segoe UI", 10F);
+            agregarButton.Location = new Point(1373, 16);
+            agregarButton.Margin = new Padding(5, 5, 5, 5);
+            agregarButton.Name = "agregarButton";
+            agregarButton.Size = new Size(179, 56);
+            agregarButton.TabIndex = 1;
+            agregarButton.Text = "Nuevo";
+            agregarButton.UseVisualStyleBackColor = true;
+            agregarButton.Click += agregarButton_Click;
+            // 
+            // modificarButton
+            // 
+            modificarButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            modificarButton.Font = new Font("Segoe UI", 10F);
+            modificarButton.Location = new Point(1177, 16);
+            modificarButton.Margin = new Padding(5, 5, 5, 5);
+            modificarButton.Name = "modificarButton";
+            modificarButton.Size = new Size(179, 56);
+            modificarButton.TabIndex = 2;
+            modificarButton.Text = "Modificar";
+            modificarButton.UseVisualStyleBackColor = true;
+            modificarButton.Click += modificarButton_Click;
+            // 
+            // eliminarButton
+            // 
+            eliminarButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            eliminarButton.Font = new Font("Segoe UI", 10F);
+            eliminarButton.Location = new Point(999, 16);
+            eliminarButton.Margin = new Padding(5, 5, 5, 5);
+            eliminarButton.Name = "eliminarButton";
+            eliminarButton.Size = new Size(162, 56);
+            eliminarButton.TabIndex = 3;
+            eliminarButton.Text = "Eliminar";
+            eliminarButton.UseVisualStyleBackColor = true;
+            eliminarButton.Click += eliminarButton_Click;
+            // 
+            // buttonAceptar
+            // 
+            buttonAceptar.Font = new Font("Segoe UI", 10F);
+            buttonAceptar.Location = new Point(200, 16);
+            buttonAceptar.Margin = new Padding(5, 5, 5, 5);
+            buttonAceptar.Name = "buttonAceptar";
+            buttonAceptar.Size = new Size(162, 56);
+            buttonAceptar.TabIndex = 4;
+            buttonAceptar.Text = "Aceptar";
+            buttonAceptar.UseVisualStyleBackColor = true;
+            buttonAceptar.Click += buttonAceptar_Click;
+            // 
+            // buttonRechazar
+            // 
+            buttonRechazar.Font = new Font("Segoe UI", 10F);
+            buttonRechazar.Location = new Point(21, 16);
+            buttonRechazar.Margin = new Padding(5, 5, 5, 5);
+            buttonRechazar.Name = "buttonRechazar";
+            buttonRechazar.Size = new Size(162, 56);
+            buttonRechazar.TabIndex = 5;
+            buttonRechazar.Text = "Rechazar";
+            buttonRechazar.UseVisualStyleBackColor = true;
+            buttonRechazar.Click += buttonRechazar_Click;
+            // 
             // tableLayoutPanelMain
             // 
             tableLayoutPanelMain.ColumnCount = 1;
@@ -50,39 +131,25 @@
             tableLayoutPanelMain.Controls.Add(panelGrid, 0, 0);
             tableLayoutPanelMain.Controls.Add(panelButtons, 0, 1);
             tableLayoutPanelMain.Dock = DockStyle.Fill;
-            tableLayoutPanelMain.Location = new Point(15, 15);
+            tableLayoutPanelMain.Location = new Point(24, 24);
+            tableLayoutPanelMain.Margin = new Padding(5, 5, 5, 5);
             tableLayoutPanelMain.Name = "tableLayoutPanelMain";
             tableLayoutPanelMain.RowCount = 2;
             tableLayoutPanelMain.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanelMain.RowStyles.Add(new RowStyle(SizeType.AutoSize));
-            tableLayoutPanelMain.Size = new Size(970, 520);
+            tableLayoutPanelMain.RowStyles.Add(new RowStyle());
+            tableLayoutPanelMain.Size = new Size(1577, 832);
             tableLayoutPanelMain.TabIndex = 0;
             // 
             // panelGrid
             // 
             panelGrid.Controls.Add(pedidosAgregacionDataGridView);
             panelGrid.Dock = DockStyle.Fill;
-            panelGrid.Location = new Point(3, 3);
+            panelGrid.Location = new Point(5, 5);
+            panelGrid.Margin = new Padding(5, 5, 5, 5);
             panelGrid.Name = "panelGrid";
-            panelGrid.Padding = new Padding(10);
-            panelGrid.Size = new Size(964, 454);
+            panelGrid.Padding = new Padding(16, 16, 16, 16);
+            panelGrid.Size = new Size(1567, 726);
             panelGrid.TabIndex = 0;
-            // 
-            // pedidosAgregacionDataGridView
-            // 
-            pedidosAgregacionDataGridView.AllowUserToAddRows = false;
-            pedidosAgregacionDataGridView.AllowUserToDeleteRows = false;
-            pedidosAgregacionDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            pedidosAgregacionDataGridView.Dock = DockStyle.Fill;
-            pedidosAgregacionDataGridView.Location = new Point(10, 10);
-            pedidosAgregacionDataGridView.MultiSelect = false;
-            pedidosAgregacionDataGridView.Name = "pedidosAgregacionDataGridView";
-            pedidosAgregacionDataGridView.ReadOnly = true;
-            pedidosAgregacionDataGridView.RowHeadersWidth = 51;
-            pedidosAgregacionDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            pedidosAgregacionDataGridView.Size = new Size(944, 434);
-            pedidosAgregacionDataGridView.TabIndex = 0;
-            pedidosAgregacionDataGridView.SelectionChanged += pedidosAgregacionDataGridView_SelectionChanged;
             // 
             // panelButtons
             // 
@@ -92,79 +159,23 @@
             panelButtons.Controls.Add(modificarButton);
             panelButtons.Controls.Add(agregarButton);
             panelButtons.Dock = DockStyle.Fill;
-            panelButtons.Location = new Point(3, 463);
+            panelButtons.Location = new Point(5, 741);
+            panelButtons.Margin = new Padding(5, 5, 5, 5);
             panelButtons.Name = "panelButtons";
-            panelButtons.Padding = new Padding(10);
-            panelButtons.Size = new Size(964, 54);
+            panelButtons.Padding = new Padding(16, 16, 16, 16);
+            panelButtons.Size = new Size(1567, 86);
             panelButtons.TabIndex = 1;
-            // 
-            // buttonRechazar
-            // 
-            buttonRechazar.Font = new Font("Segoe UI", 10F);
-            buttonRechazar.Location = new Point(13, 10);
-            buttonRechazar.Name = "buttonRechazar";
-            buttonRechazar.Size = new Size(100, 35);
-            buttonRechazar.TabIndex = 5;
-            buttonRechazar.Text = "Rechazar";
-            buttonRechazar.UseVisualStyleBackColor = true;
-            buttonRechazar.Click += buttonRechazar_Click;
-            // 
-            // buttonAceptar
-            // 
-            buttonAceptar.Font = new Font("Segoe UI", 10F);
-            buttonAceptar.Location = new Point(123, 10);
-            buttonAceptar.Name = "buttonAceptar";
-            buttonAceptar.Size = new Size(100, 35);
-            buttonAceptar.TabIndex = 4;
-            buttonAceptar.Text = "Aceptar";
-            buttonAceptar.UseVisualStyleBackColor = true;
-            buttonAceptar.Click += buttonAceptar_Click;
-            // 
-            // eliminarButton
-            // 
-            eliminarButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            eliminarButton.Font = new Font("Segoe UI", 10F);
-            eliminarButton.Location = new Point(614, 10);
-            eliminarButton.Name = "eliminarButton";
-            eliminarButton.Size = new Size(100, 35);
-            eliminarButton.TabIndex = 3;
-            eliminarButton.Text = "Eliminar";
-            eliminarButton.UseVisualStyleBackColor = true;
-            eliminarButton.Click += eliminarButton_Click;
-            // 
-            // modificarButton
-            // 
-            modificarButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            modificarButton.Font = new Font("Segoe UI", 10F);
-            modificarButton.Location = new Point(724, 10);
-            modificarButton.Name = "modificarButton";
-            modificarButton.Size = new Size(110, 35);
-            modificarButton.TabIndex = 2;
-            modificarButton.Text = "Modificar";
-            modificarButton.UseVisualStyleBackColor = true;
-            modificarButton.Click += modificarButton_Click;
-            // 
-            // agregarButton
-            // 
-            agregarButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            agregarButton.Font = new Font("Segoe UI", 10F);
-            agregarButton.Location = new Point(844, 10);
-            agregarButton.Name = "agregarButton";
-            agregarButton.Size = new Size(110, 35);
-            agregarButton.TabIndex = 1;
-            agregarButton.Text = "Nuevo";
-            agregarButton.UseVisualStyleBackColor = true;
-            agregarButton.Click += agregarButton_Click;
             // 
             // PedidoAgregacionLista
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1000, 550);
-            MinimumSize = new Size(800, 500);
+            ClientSize = new Size(1625, 880);
             Controls.Add(tableLayoutPanelMain);
+            Margin = new Padding(5, 5, 5, 5);
+            MinimumSize = new Size(1284, 757);
             Name = "PedidoAgregacionLista";
-            Padding = new Padding(15);
+            Padding = new Padding(24, 24, 24, 24);
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Pedidos de agregacion de anomalías";
             Load += PedidosAgregacion_Load;

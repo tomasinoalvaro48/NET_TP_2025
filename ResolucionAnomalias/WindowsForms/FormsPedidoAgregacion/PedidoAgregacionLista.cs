@@ -316,5 +316,27 @@ namespace WindowsForms.FormsPedidoAgregacion
             if (pedidosAgregacionDataGridView.SelectedRows.Count > 0)
                 await ActualizarBotonesSegunUsuarioYPedido();
         }
+
+        private void pedidosAgregacionDataGridView_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            foreach (DataGridViewRow row in pedidosAgregacionDataGridView.Rows)
+            {
+                if (row.DataBoundItem is PedidoAgregacionDTO pedido)
+                {
+                    if (string.Equals(pedido.Estado_pedido_agreg, "rechazado", StringComparison.OrdinalIgnoreCase))
+                    {
+                        row.DefaultCellStyle.BackColor = Color.LightCoral;
+                    }
+                    else if (string.Equals(pedido.Estado_pedido_agreg, "aceptado", StringComparison.OrdinalIgnoreCase))
+                    {
+                        row.DefaultCellStyle.BackColor = Color.LightGreen;
+                    }
+                    else
+                    {
+                        row.DefaultCellStyle.BackColor = Color.White;
+                    }
+                }
+            }
+        }
     }
 }

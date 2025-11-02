@@ -11,6 +11,67 @@ namespace WindowsForms.FormsPedidoResolucion
             ConfigurarColumnas();
         }
 
+        private void DataGridViewPedidos_SelectionChanged(object sender, EventArgs e)
+        {
+            bool hasSelection = dataGridViewPedidos.SelectedRows.Count > 0;
+            if (hasSelection)
+            {
+                var pedido = this.SelectedItem();
+                if (pedido.Estado == "finalizado")
+                {
+                    if (buttonEliminar.Visible) buttonEliminar.Enabled = false;
+                    if (buttonModificar.Visible)
+                    {
+                        buttonModificar.Enabled = false;
+                        buttonModificar.Text = "Tomar Pedido";
+                    }
+                    if (buttonFinalizarPedido.Visible) buttonFinalizarPedido.Enabled = false;
+                }
+                else if (pedido.Estado == "aceptado")
+                {
+                    if (buttonEliminar.Visible) buttonEliminar.Enabled = false;
+                    if (buttonModificar.Visible)
+                    {
+                        buttonModificar.Enabled = true;
+                        buttonModificar.Text = "Modificar Comentario";
+                    }
+                    if (buttonFinalizarPedido.Visible) buttonFinalizarPedido.Enabled = true;
+                }
+                else
+                {
+                    if (buttonEliminar.Visible) buttonEliminar.Enabled = true;
+                    if (buttonFinalizarPedido.Visible) buttonFinalizarPedido.Enabled = false;
+                    if (buttonModificar.Visible)
+                    {
+                        buttonModificar.Enabled = true;
+                        buttonModificar.Text = "Tomar Pedido";
+                    }
+                }
+            }
+        }
+
+        private void DataGridViewPedidos_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            foreach (DataGridViewRow row in dataGridViewPedidos.Rows)
+            {
+                if (row.DataBoundItem is PedidoResolucionDTO pedido)
+                {
+                    if (string.Equals(pedido.Estado, "finalizado", StringComparison.OrdinalIgnoreCase))
+                    {
+                        row.DefaultCellStyle.BackColor = Color.LightCoral;
+                    }
+                    else if (string.Equals(pedido.Estado, "aceptado", StringComparison.OrdinalIgnoreCase))
+                    {
+                        row.DefaultCellStyle.BackColor = Color.LightGreen;
+                    }
+                    else
+                    {
+                        row.DefaultCellStyle.BackColor = Color.White;
+                    }
+                }
+            }
+        }
+
         private void ConfigurarColumnas()
         {
             this.dataGridViewPedidos.Columns.Clear();
@@ -104,6 +165,13 @@ namespace WindowsForms.FormsPedidoResolucion
         {
             try
             {
+                string estado = this.SelectedItem().Estado;
+                if (string.Equals(estado, "finalizado", StringComparison.OrdinalIgnoreCase))
+                {
+                    MessageBox.Show("No se puede modificar un pedido finalizado.", "Acción no permitida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
                 int id = this.SelectedItem().Id;
                 PedidoResolucionDTO pedido = await PedidoResolucionApiClient.GetAsync(id);
                 DetallePedidoResolucion pedidoDetalle = new DetallePedidoResolucion(FormMode.Update, pedido);
@@ -229,7 +297,8 @@ namespace WindowsForms.FormsPedidoResolucion
 
         private PedidoResolucionDTO SelectedItem()
         {
-            return (PedidoResolucionDTO)dataGridViewPedidos.SelectedRows[0].DataBoundItem;
+            PedidoResolucionDTO pedido = (PedidoResolucionDTO)dataGridViewPedidos.SelectedRows[0].DataBoundItem;
+            return pedido;
         }
 
         private async void buttonFinalizarPedido_Click(object sender, EventArgs e)
