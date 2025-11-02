@@ -64,5 +64,11 @@ namespace Data
             }
             return false;
         }
+
+        public async Task<bool> ExisteTipoAnomaliaEnPedidos(int cod_anom)
+        {
+            using var context = CreateContext();
+            return await context.PedidosAgregacion.AnyAsync(p => p.TipoAnomaliaId == cod_anom);
+        }
     }
 }

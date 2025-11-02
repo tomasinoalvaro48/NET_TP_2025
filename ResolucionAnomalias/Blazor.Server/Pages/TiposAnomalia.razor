@@ -73,10 +73,20 @@
     private async Task ConfirmDelete(TipoAnomaliaDTO ta)
     {
         var confirm = await JSRuntime.InvokeAsync<bool>("confirm", $"¿Eliminar {ta.Nombre_anom}?");
-        if (confirm)
+        if (!confirm) return;
+
+        try
         {
             await TipoAnomaliaApiClient.DeleteAsync(ta.Cod_anom);
             await LoadTiposAnomalia();
+        }
+        catch (HttpRequestException httpEx)
+        {
+            await JSRuntime.InvokeVoidAsync("alert", $"Error de red: {httpEx.Message}");
+        }
+        catch (Exception ex)
+        {
+            await JSRuntime.InvokeVoidAsync("alert", $"Error al eliminar: {ex.Message}");
         }
     }
 }

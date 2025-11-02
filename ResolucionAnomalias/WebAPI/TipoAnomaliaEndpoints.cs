@@ -1,4 +1,5 @@
 ﻿using Application.Services;
+using Data;
 using DTOs;
 
 namespace WebAPI
@@ -84,20 +85,38 @@ namespace WebAPI
 
             app.MapDelete("/tipoanomalia/{cod_tipo}", async (int cod_tipo) =>
             {
-                TipoAnomaliaService tipoService = new TipoAnomaliaService();
-
-                var deleted = await tipoService.DeleteAsync(cod_tipo);
-
-                if (!deleted)
+                try
                 {
-                    return Results.NotFound();
+                    TipoAnomaliaService tipoService = new TipoAnomaliaService();
+
+                    var repo = new PedidoAgregacionRepository();
+                    bool estaRelacionado = await repo.ExisteTipoAnomaliaEnPedidos(cod_tipo);
+
+                    if (estaRelacionado)
+                    {
+                        return Results.BadRequest(new
+                        {
+                            message = "No se puede eliminar el Tipo de Anomalía porque está asignado a uno o más pedidos."
+                        });
+                    }
+
+                    var deleted = await tipoService.DeleteAsync(cod_tipo);
+
+                    if (!deleted)
+                    {
+                        return Results.NotFound();
+                    }
+
+                    return Results.NoContent();
                 }
-
-                return Results.NoContent();
-
+                catch (Exception ex)
+                {
+                    return Results.Problem($"Error al eliminar: {ex.Message}");
+                }
             })
             .WithName("DeleteTipoAnomalia")
             .Produces(StatusCodes.Status204NoContent)
+            .Produces(StatusCodes.Status400BadRequest)
             .Produces(StatusCodes.Status404NotFound)
             .WithOpenApi();
         }
