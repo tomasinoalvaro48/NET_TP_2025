@@ -73,7 +73,7 @@
             menuStripOperador.Location = new Point(0, 0);
             menuStripOperador.Name = "menuStripOperador";
             menuStripOperador.Padding = new Padding(10, 0, 0, 10);
-            menuStripOperador.Size = new Size(280, 1140);
+            menuStripOperador.Size = new Size(280, 661);
             menuStripOperador.TabIndex = 7;
             menuStripOperador.Text = "menuStripOperador";
             // 
@@ -83,7 +83,7 @@
             usuariosToolStripMenuItem.Margin = new Padding(0, 5, 0, 5);
             usuariosToolStripMenuItem.Name = "usuariosToolStripMenuItem";
             usuariosToolStripMenuItem.Padding = new Padding(10, 8, 10, 8);
-            usuariosToolStripMenuItem.Size = new Size(269, 56);
+            usuariosToolStripMenuItem.Size = new Size(269, 37);
             usuariosToolStripMenuItem.Text = "Usuarios";
             usuariosToolStripMenuItem.Click += usuariosToolStripMenuItem_Click;
             // 
@@ -93,7 +93,7 @@
             tiposDeAnomaliasToolStripMenuItem.Margin = new Padding(0, 5, 0, 5);
             tiposDeAnomaliasToolStripMenuItem.Name = "tiposDeAnomaliasToolStripMenuItem";
             tiposDeAnomaliasToolStripMenuItem.Padding = new Padding(10, 8, 10, 8);
-            tiposDeAnomaliasToolStripMenuItem.Size = new Size(269, 56);
+            tiposDeAnomaliasToolStripMenuItem.Size = new Size(269, 37);
             tiposDeAnomaliasToolStripMenuItem.Text = "Tipos de Anomalías";
             tiposDeAnomaliasToolStripMenuItem.Click += tiposDeAnomaliasToolStripMenuItem_Click;
             // 
@@ -103,7 +103,7 @@
             localidadesToolStripMenuItem.Margin = new Padding(0, 5, 0, 5);
             localidadesToolStripMenuItem.Name = "localidadesToolStripMenuItem";
             localidadesToolStripMenuItem.Padding = new Padding(10, 8, 10, 8);
-            localidadesToolStripMenuItem.Size = new Size(269, 56);
+            localidadesToolStripMenuItem.Size = new Size(269, 37);
             localidadesToolStripMenuItem.Text = "Localidades";
             localidadesToolStripMenuItem.Click += localidadesToolStripMenuItem_Click;
             // 
@@ -113,7 +113,7 @@
             zonasToolStripMenuItem.Margin = new Padding(0, 5, 0, 5);
             zonasToolStripMenuItem.Name = "zonasToolStripMenuItem";
             zonasToolStripMenuItem.Padding = new Padding(10, 8, 10, 8);
-            zonasToolStripMenuItem.Size = new Size(269, 56);
+            zonasToolStripMenuItem.Size = new Size(269, 37);
             zonasToolStripMenuItem.Text = "Zonas";
             zonasToolStripMenuItem.Click += zonasToolStripMenuItem_Click;
             // 
@@ -123,7 +123,7 @@
             veToolStripMenuItem.Margin = new Padding(0, 5, 0, 5);
             veToolStripMenuItem.Name = "veToolStripMenuItem";
             veToolStripMenuItem.Padding = new Padding(10, 8, 10, 8);
-            veToolStripMenuItem.Size = new Size(269, 56);
+            veToolStripMenuItem.Size = new Size(269, 37);
             veToolStripMenuItem.Text = "Pedidos de Resolución";
             veToolStripMenuItem.Click += verPedidosDeResoluciónToolStripMenuItem_Click;
             // 
@@ -133,7 +133,7 @@
             pedidosDeAgregacionToolStripMenuItem.Margin = new Padding(0, 5, 0, 5);
             pedidosDeAgregacionToolStripMenuItem.Name = "pedidosDeAgregacionToolStripMenuItem";
             pedidosDeAgregacionToolStripMenuItem.Padding = new Padding(10, 8, 10, 8);
-            pedidosDeAgregacionToolStripMenuItem.Size = new Size(269, 56);
+            pedidosDeAgregacionToolStripMenuItem.Size = new Size(269, 37);
             pedidosDeAgregacionToolStripMenuItem.Text = "Pedidos de Agregación";
             pedidosDeAgregacionToolStripMenuItem.Click += pedidosDeAgregacionToolStripMenuItem_Click;
             // 
@@ -144,7 +144,7 @@
             reporteResolucionToolStripMenuItem.Margin = new Padding(0, 5, 0, 5);
             reporteResolucionToolStripMenuItem.Name = "reporteResolucionToolStripMenuItem";
             reporteResolucionToolStripMenuItem.Padding = new Padding(10, 8, 10, 8);
-            reporteResolucionToolStripMenuItem.Size = new Size(269, 56);
+            reporteResolucionToolStripMenuItem.Size = new Size(269, 37);
             reporteResolucionToolStripMenuItem.Text = "Reporte de Resolución";
             reporteResolucionToolStripMenuItem.Click += veToolStripMenuItem_Click;
             // 
@@ -155,7 +155,7 @@
             reporteAgregacionToolStripMenuItem.Margin = new Padding(0, 5, 0, 5);
             reporteAgregacionToolStripMenuItem.Name = "reporteAgregacionToolStripMenuItem";
             reporteAgregacionToolStripMenuItem.Padding = new Padding(10, 8, 10, 8);
-            reporteAgregacionToolStripMenuItem.Size = new Size(269, 56);
+            reporteAgregacionToolStripMenuItem.Size = new Size(269, 37);
             reporteAgregacionToolStripMenuItem.Text = "Reporte de Agregación";
             reporteAgregacionToolStripMenuItem.Click += reporteToolStripMenuItem_Click;
             // 
@@ -167,14 +167,14 @@
             toolStripMenuItemMasAjustes.Margin = new Padding(0, 5, 0, 5);
             toolStripMenuItemMasAjustes.Name = "toolStripMenuItemMasAjustes";
             toolStripMenuItemMasAjustes.Padding = new Padding(10, 8, 10, 8);
-            toolStripMenuItemMasAjustes.Size = new Size(269, 56);
+            toolStripMenuItemMasAjustes.Size = new Size(269, 37);
             toolStripMenuItemMasAjustes.Text = "Más Ajustes";
             toolStripMenuItemMasAjustes.TextImageRelation = TextImageRelation.TextBeforeImage;
             // 
             // cerrarSesionToolStripMenuItem
             // 
             cerrarSesionToolStripMenuItem.Name = "cerrarSesionToolStripMenuItem";
-            cerrarSesionToolStripMenuItem.Size = new Size(301, 44);
+            cerrarSesionToolStripMenuItem.Size = new Size(155, 22);
             cerrarSesionToolStripMenuItem.Text = "Cerrar Sesión";
             cerrarSesionToolStripMenuItem.Click += cerrarSesionToolStripMenuItem_Click;
             // 
@@ -198,7 +198,7 @@
             tableLayoutPanelMain.Name = "tableLayoutPanelMain";
             tableLayoutPanelMain.RowCount = 1;
             tableLayoutPanelMain.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanelMain.Size = new Size(1933, 1140);
+            tableLayoutPanelMain.Size = new Size(984, 661);
             tableLayoutPanelMain.TabIndex = 0;
             // 
             // panelMenu
@@ -209,7 +209,7 @@
             panelMenu.Location = new Point(0, 0);
             panelMenu.Margin = new Padding(0);
             panelMenu.Name = "panelMenu";
-            panelMenu.Size = new Size(280, 1140);
+            panelMenu.Size = new Size(280, 661);
             panelMenu.TabIndex = 0;
             // 
             // panelContent
@@ -221,10 +221,9 @@
             panelContent.Controls.Add(tituloLabel);
             panelContent.Dock = DockStyle.Fill;
             panelContent.Location = new Point(283, 3);
-            panelContent.MinimumSize = new Size(1517, 1130);
             panelContent.Name = "panelContent";
             panelContent.Padding = new Padding(30, 30, 30, 20);
-            panelContent.Size = new Size(1647, 1134);
+            panelContent.Size = new Size(698, 655);
             panelContent.TabIndex = 1;
             // 
             // buttonVolver
@@ -259,7 +258,7 @@
             flowLayoutPanelButtons.Location = new Point(30, 103);
             flowLayoutPanelButtons.Name = "flowLayoutPanelButtons";
             flowLayoutPanelButtons.Padding = new Padding(0, 10, 0, 0);
-            flowLayoutPanelButtons.Size = new Size(1087, 1011);
+            flowLayoutPanelButtons.Size = new Size(1000, 515);
             flowLayoutPanelButtons.TabIndex = 20;
             // 
             // buttonUsuarios
@@ -318,7 +317,7 @@
             buttonZonas.FlatStyle = FlatStyle.Flat;
             buttonZonas.Font = new Font("Segoe UI", 9.5F);
             buttonZonas.ForeColor = Color.White;
-            buttonZonas.Location = new Point(801, 13);
+            buttonZonas.Location = new Point(3, 69);
             buttonZonas.Name = "buttonZonas";
             buttonZonas.Size = new Size(260, 50);
             buttonZonas.TabIndex = 14;
@@ -334,7 +333,7 @@
             buttonPedidosResolucion.FlatStyle = FlatStyle.Flat;
             buttonPedidosResolucion.Font = new Font("Segoe UI", 9.5F);
             buttonPedidosResolucion.ForeColor = Color.White;
-            buttonPedidosResolucion.Location = new Point(3, 69);
+            buttonPedidosResolucion.Location = new Point(269, 69);
             buttonPedidosResolucion.Name = "buttonPedidosResolucion";
             buttonPedidosResolucion.Size = new Size(260, 86);
             buttonPedidosResolucion.TabIndex = 16;
@@ -350,7 +349,7 @@
             buttonPedidosAgregacion.FlatStyle = FlatStyle.Flat;
             buttonPedidosAgregacion.Font = new Font("Segoe UI", 9.5F);
             buttonPedidosAgregacion.ForeColor = Color.White;
-            buttonPedidosAgregacion.Location = new Point(269, 69);
+            buttonPedidosAgregacion.Location = new Point(535, 69);
             buttonPedidosAgregacion.Name = "buttonPedidosAgregacion";
             buttonPedidosAgregacion.Size = new Size(260, 86);
             buttonPedidosAgregacion.TabIndex = 15;
@@ -366,7 +365,7 @@
             buttonReportePedidosResolucion.FlatStyle = FlatStyle.Flat;
             buttonReportePedidosResolucion.Font = new Font("Segoe UI", 9.5F);
             buttonReportePedidosResolucion.ForeColor = Color.White;
-            buttonReportePedidosResolucion.Location = new Point(535, 69);
+            buttonReportePedidosResolucion.Location = new Point(3, 161);
             buttonReportePedidosResolucion.Name = "buttonReportePedidosResolucion";
             buttonReportePedidosResolucion.Size = new Size(260, 93);
             buttonReportePedidosResolucion.TabIndex = 17;
@@ -382,7 +381,7 @@
             buttonReportePedidosAgregacion.FlatStyle = FlatStyle.Flat;
             buttonReportePedidosAgregacion.Font = new Font("Segoe UI", 9.5F);
             buttonReportePedidosAgregacion.ForeColor = Color.White;
-            buttonReportePedidosAgregacion.Location = new Point(801, 69);
+            buttonReportePedidosAgregacion.Location = new Point(269, 161);
             buttonReportePedidosAgregacion.Name = "buttonReportePedidosAgregacion";
             buttonReportePedidosAgregacion.Size = new Size(260, 93);
             buttonReportePedidosAgregacion.TabIndex = 18;
@@ -397,18 +396,17 @@
             tituloLabel.ForeColor = Color.FromArgb(40, 40, 40);
             tituloLabel.Location = new Point(30, 30);
             tituloLabel.Name = "tituloLabel";
-            tituloLabel.Size = new Size(1587, 73);
+            tituloLabel.Size = new Size(970, 73);
             tituloLabel.TabIndex = 19;
             tituloLabel.Text = "Bienvenido, Operador";
             tituloLabel.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // MenuOperador
             // 
-            ClientSize = new Size(1933, 1140);
+            ClientSize = new Size(984, 661);
             Controls.Add(tableLayoutPanelMain);
             Controls.Add(buttonReportePedidoAgregacion);
             MainMenuStrip = menuStripOperador;
-            MinimumSize = new Size(1959, 1211);
             Name = "MenuOperador";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Menu Operador - Sistema de Resolución de Anomalías";

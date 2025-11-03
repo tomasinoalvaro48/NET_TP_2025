@@ -40,6 +40,46 @@
             panelGrid.SuspendLayout();
             SuspendLayout();
             // 
+            // usuariosDataGridView
+            // 
+            usuariosDataGridView.AllowUserToAddRows = false;
+            usuariosDataGridView.AllowUserToDeleteRows = false;
+            usuariosDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            usuariosDataGridView.Dock = DockStyle.Fill;
+            usuariosDataGridView.Location = new Point(9, 8);
+            usuariosDataGridView.Margin = new Padding(3, 2, 3, 2);
+            usuariosDataGridView.MultiSelect = false;
+            usuariosDataGridView.Name = "usuariosDataGridView";
+            usuariosDataGridView.ReadOnly = true;
+            usuariosDataGridView.RowHeadersWidth = 51;
+            usuariosDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            usuariosDataGridView.Size = new Size(825, 321);
+            usuariosDataGridView.TabIndex = 0;
+            // 
+            // buscarTextBox
+            // 
+            buscarTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            buscarTextBox.Font = new Font("Segoe UI", 10F);
+            buscarTextBox.Location = new Point(11, 11);
+            buscarTextBox.Margin = new Padding(3, 2, 3, 2);
+            buscarTextBox.Name = "buscarTextBox";
+            buscarTextBox.PlaceholderText = "Buscar por nombre, apellido o email...";
+            buscarTextBox.Size = new Size(698, 25);
+            buscarTextBox.TabIndex = 4;
+            // 
+            // buscarButton
+            // 
+            buscarButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            buscarButton.Font = new Font("Segoe UI", 10F);
+            buscarButton.Location = new Point(717, 10);
+            buscarButton.Margin = new Padding(3, 2, 3, 2);
+            buscarButton.Name = "buscarButton";
+            buscarButton.Size = new Size(114, 26);
+            buscarButton.TabIndex = 5;
+            buscarButton.Text = "Buscar";
+            buscarButton.UseVisualStyleBackColor = true;
+            buscarButton.Click += BuscarButton_Click;
+            // 
             // tableLayoutPanelMain
             // 
             tableLayoutPanelMain.ColumnCount = 1;
@@ -47,12 +87,13 @@
             tableLayoutPanelMain.Controls.Add(panelSearch, 0, 0);
             tableLayoutPanelMain.Controls.Add(panelGrid, 0, 1);
             tableLayoutPanelMain.Dock = DockStyle.Fill;
-            tableLayoutPanelMain.Location = new Point(15, 15);
+            tableLayoutPanelMain.Location = new Point(13, 11);
+            tableLayoutPanelMain.Margin = new Padding(3, 2, 3, 2);
             tableLayoutPanelMain.Name = "tableLayoutPanelMain";
             tableLayoutPanelMain.RowCount = 2;
-            tableLayoutPanelMain.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+            tableLayoutPanelMain.RowStyles.Add(new RowStyle());
             tableLayoutPanelMain.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanelMain.Size = new Size(970, 520);
+            tableLayoutPanelMain.Size = new Size(849, 390);
             tableLayoutPanelMain.TabIndex = 0;
             // 
             // panelSearch
@@ -60,68 +101,33 @@
             panelSearch.Controls.Add(buscarTextBox);
             panelSearch.Controls.Add(buscarButton);
             panelSearch.Dock = DockStyle.Fill;
-            panelSearch.Location = new Point(3, 3);
+            panelSearch.Location = new Point(3, 2);
+            panelSearch.Margin = new Padding(3, 2, 3, 2);
             panelSearch.Name = "panelSearch";
-            panelSearch.Padding = new Padding(10);
-            panelSearch.Size = new Size(964, 60);
+            panelSearch.Padding = new Padding(9, 8, 9, 8);
+            panelSearch.Size = new Size(843, 45);
             panelSearch.TabIndex = 0;
-            // 
-            // buscarTextBox
-            // 
-            buscarTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            buscarTextBox.Font = new Font("Segoe UI", 10F);
-            buscarTextBox.Location = new Point(13, 15);
-            buscarTextBox.Name = "buscarTextBox";
-            buscarTextBox.PlaceholderText = "Buscar por nombre, apellido o email...";
-            buscarTextBox.Size = new Size(798, 30);
-            buscarTextBox.TabIndex = 4;
-            // 
-            // buscarButton
-            // 
-            buscarButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            buscarButton.Font = new Font("Segoe UI", 10F);
-            buscarButton.Location = new Point(821, 13);
-            buscarButton.Name = "buscarButton";
-            buscarButton.Size = new Size(130, 35);
-            buscarButton.TabIndex = 5;
-            buscarButton.Text = "Buscar";
-            buscarButton.UseVisualStyleBackColor = true;
-            buscarButton.Click += BuscarButton_Click;
             // 
             // panelGrid
             // 
             panelGrid.Controls.Add(usuariosDataGridView);
             panelGrid.Dock = DockStyle.Fill;
-            panelGrid.Location = new Point(3, 69);
+            panelGrid.Location = new Point(3, 51);
+            panelGrid.Margin = new Padding(3, 2, 3, 2);
             panelGrid.Name = "panelGrid";
-            panelGrid.Padding = new Padding(10);
-            panelGrid.Size = new Size(964, 448);
+            panelGrid.Padding = new Padding(9, 8, 9, 8);
+            panelGrid.Size = new Size(843, 337);
             panelGrid.TabIndex = 1;
-            // 
-            // usuariosDataGridView
-            // 
-            usuariosDataGridView.AllowUserToAddRows = false;
-            usuariosDataGridView.AllowUserToDeleteRows = false;
-            usuariosDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            usuariosDataGridView.Dock = DockStyle.Fill;
-            usuariosDataGridView.Location = new Point(10, 10);
-            usuariosDataGridView.MultiSelect = false;
-            usuariosDataGridView.Name = "usuariosDataGridView";
-            usuariosDataGridView.ReadOnly = true;
-            usuariosDataGridView.RowHeadersWidth = 51;
-            usuariosDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            usuariosDataGridView.Size = new Size(944, 428);
-            usuariosDataGridView.TabIndex = 0;
             // 
             // UsuarioLista
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1000, 550);
-            MinimumSize = new Size(800, 500);
+            ClientSize = new Size(875, 412);
             Controls.Add(tableLayoutPanelMain);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "UsuarioLista";
-            Padding = new Padding(15);
+            Padding = new Padding(13, 11, 13, 11);
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Lista de Usuarios";
             Load += UsuarioLista_Load;

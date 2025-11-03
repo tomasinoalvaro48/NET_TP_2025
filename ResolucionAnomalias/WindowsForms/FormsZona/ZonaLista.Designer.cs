@@ -41,6 +41,61 @@
             panelButtons.SuspendLayout();
             SuspendLayout();
             // 
+            // dataGridViewZonas
+            // 
+            dataGridViewZonas.AllowUserToAddRows = false;
+            dataGridViewZonas.AllowUserToDeleteRows = false;
+            dataGridViewZonas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewZonas.Dock = DockStyle.Fill;
+            dataGridViewZonas.Location = new Point(9, 8);
+            dataGridViewZonas.Margin = new Padding(3, 2, 3, 2);
+            dataGridViewZonas.MultiSelect = false;
+            dataGridViewZonas.Name = "dataGridViewZonas";
+            dataGridViewZonas.ReadOnly = true;
+            dataGridViewZonas.RowHeadersWidth = 51;
+            dataGridViewZonas.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridViewZonas.Size = new Size(650, 252);
+            dataGridViewZonas.TabIndex = 0;
+            // 
+            // btnAgregar
+            // 
+            btnAgregar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnAgregar.Font = new Font("Segoe UI", 10F);
+            btnAgregar.Location = new Point(572, 8);
+            btnAgregar.Margin = new Padding(3, 2, 3, 2);
+            btnAgregar.Name = "btnAgregar";
+            btnAgregar.Size = new Size(88, 26);
+            btnAgregar.TabIndex = 1;
+            btnAgregar.Text = "Agregar";
+            btnAgregar.UseVisualStyleBackColor = true;
+            btnAgregar.Click += btnAgregar_Click;
+            // 
+            // btnEliminar
+            // 
+            btnEliminar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnEliminar.Font = new Font("Segoe UI", 10F);
+            btnEliminar.Location = new Point(476, 8);
+            btnEliminar.Margin = new Padding(3, 2, 3, 2);
+            btnEliminar.Name = "btnEliminar";
+            btnEliminar.Size = new Size(88, 26);
+            btnEliminar.TabIndex = 2;
+            btnEliminar.Text = "Eliminar";
+            btnEliminar.UseVisualStyleBackColor = true;
+            btnEliminar.Click += btnEliminar_Click;
+            // 
+            // btnModificar
+            // 
+            btnModificar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnModificar.Font = new Font("Segoe UI", 10F);
+            btnModificar.Location = new Point(380, 8);
+            btnModificar.Margin = new Padding(3, 2, 3, 2);
+            btnModificar.Name = "btnModificar";
+            btnModificar.Size = new Size(88, 26);
+            btnModificar.TabIndex = 3;
+            btnModificar.Text = "Modificar";
+            btnModificar.UseVisualStyleBackColor = true;
+            btnModificar.Click += btnModificar_Click;
+            // 
             // tableLayoutPanelMain
             // 
             tableLayoutPanelMain.ColumnCount = 1;
@@ -48,38 +103,25 @@
             tableLayoutPanelMain.Controls.Add(panelGrid, 0, 0);
             tableLayoutPanelMain.Controls.Add(panelButtons, 0, 1);
             tableLayoutPanelMain.Dock = DockStyle.Fill;
-            tableLayoutPanelMain.Location = new Point(15, 15);
+            tableLayoutPanelMain.Location = new Point(13, 11);
+            tableLayoutPanelMain.Margin = new Padding(3, 2, 3, 2);
             tableLayoutPanelMain.Name = "tableLayoutPanelMain";
             tableLayoutPanelMain.RowCount = 2;
             tableLayoutPanelMain.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanelMain.RowStyles.Add(new RowStyle(SizeType.AutoSize));
-            tableLayoutPanelMain.Size = new Size(770, 420);
+            tableLayoutPanelMain.RowStyles.Add(new RowStyle());
+            tableLayoutPanelMain.Size = new Size(674, 316);
             tableLayoutPanelMain.TabIndex = 0;
             // 
             // panelGrid
             // 
             panelGrid.Controls.Add(dataGridViewZonas);
             panelGrid.Dock = DockStyle.Fill;
-            panelGrid.Location = new Point(3, 3);
+            panelGrid.Location = new Point(3, 2);
+            panelGrid.Margin = new Padding(3, 2, 3, 2);
             panelGrid.Name = "panelGrid";
-            panelGrid.Padding = new Padding(10);
-            panelGrid.Size = new Size(764, 354);
+            panelGrid.Padding = new Padding(9, 8, 9, 8);
+            panelGrid.Size = new Size(668, 268);
             panelGrid.TabIndex = 0;
-            // 
-            // dataGridViewZonas
-            // 
-            dataGridViewZonas.AllowUserToAddRows = false;
-            dataGridViewZonas.AllowUserToDeleteRows = false;
-            dataGridViewZonas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewZonas.Dock = DockStyle.Fill;
-            dataGridViewZonas.Location = new Point(10, 10);
-            dataGridViewZonas.MultiSelect = false;
-            dataGridViewZonas.Name = "dataGridViewZonas";
-            dataGridViewZonas.ReadOnly = true;
-            dataGridViewZonas.RowHeadersWidth = 51;
-            dataGridViewZonas.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridViewZonas.Size = new Size(744, 334);
-            dataGridViewZonas.TabIndex = 0;
             // 
             // panelButtons
             // 
@@ -87,57 +129,22 @@
             panelButtons.Controls.Add(btnEliminar);
             panelButtons.Controls.Add(btnAgregar);
             panelButtons.Dock = DockStyle.Fill;
-            panelButtons.Location = new Point(3, 363);
+            panelButtons.Location = new Point(3, 274);
+            panelButtons.Margin = new Padding(3, 2, 3, 2);
             panelButtons.Name = "panelButtons";
-            panelButtons.Padding = new Padding(10);
-            panelButtons.Size = new Size(764, 54);
+            panelButtons.Padding = new Padding(9, 8, 9, 8);
+            panelButtons.Size = new Size(668, 40);
             panelButtons.TabIndex = 1;
-            // 
-            // btnModificar
-            // 
-            btnModificar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnModificar.Font = new Font("Segoe UI", 10F);
-            btnModificar.Location = new Point(434, 10);
-            btnModificar.Name = "btnModificar";
-            btnModificar.Size = new Size(100, 35);
-            btnModificar.TabIndex = 3;
-            btnModificar.Text = "Modificar";
-            btnModificar.UseVisualStyleBackColor = true;
-            btnModificar.Click += btnModificar_Click;
-            // 
-            // btnEliminar
-            // 
-            btnEliminar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnEliminar.Font = new Font("Segoe UI", 10F);
-            btnEliminar.Location = new Point(544, 10);
-            btnEliminar.Name = "btnEliminar";
-            btnEliminar.Size = new Size(100, 35);
-            btnEliminar.TabIndex = 2;
-            btnEliminar.Text = "Eliminar";
-            btnEliminar.UseVisualStyleBackColor = true;
-            btnEliminar.Click += btnEliminar_Click;
-            // 
-            // btnAgregar
-            // 
-            btnAgregar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnAgregar.Font = new Font("Segoe UI", 10F);
-            btnAgregar.Location = new Point(654, 10);
-            btnAgregar.Name = "btnAgregar";
-            btnAgregar.Size = new Size(100, 35);
-            btnAgregar.TabIndex = 1;
-            btnAgregar.Text = "Agregar";
-            btnAgregar.UseVisualStyleBackColor = true;
-            btnAgregar.Click += btnAgregar_Click;
             // 
             // ZonaLista
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
-            MinimumSize = new Size(600, 400);
+            ClientSize = new Size(700, 338);
             Controls.Add(tableLayoutPanelMain);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "ZonaLista";
-            Padding = new Padding(15);
+            Padding = new Padding(13, 11, 13, 11);
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Zonas";
             Load += ZonaLista_Load;
