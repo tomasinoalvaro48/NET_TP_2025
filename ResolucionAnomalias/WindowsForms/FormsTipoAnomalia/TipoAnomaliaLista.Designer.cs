@@ -41,65 +41,30 @@
             panelButtons.SuspendLayout();
             SuspendLayout();
             // 
-            // tableLayoutPanelMain
-            // 
-            tableLayoutPanelMain.ColumnCount = 1;
-            tableLayoutPanelMain.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            tableLayoutPanelMain.Controls.Add(panelGrid, 0, 0);
-            tableLayoutPanelMain.Controls.Add(panelButtons, 0, 1);
-            tableLayoutPanelMain.Dock = DockStyle.Fill;
-            tableLayoutPanelMain.Location = new Point(15, 15);
-            tableLayoutPanelMain.Name = "tableLayoutPanelMain";
-            tableLayoutPanelMain.RowCount = 2;
-            tableLayoutPanelMain.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanelMain.RowStyles.Add(new RowStyle(SizeType.AutoSize));
-            tableLayoutPanelMain.Size = new Size(870, 520);
-            tableLayoutPanelMain.TabIndex = 0;
-            // 
-            // panelGrid
-            // 
-            panelGrid.Controls.Add(dataGridViewTiposAnomalia);
-            panelGrid.Dock = DockStyle.Fill;
-            panelGrid.Location = new Point(3, 3);
-            panelGrid.Name = "panelGrid";
-            panelGrid.Padding = new Padding(10);
-            panelGrid.Size = new Size(864, 454);
-            panelGrid.TabIndex = 0;
-            // 
             // dataGridViewTiposAnomalia
             // 
             dataGridViewTiposAnomalia.AllowUserToAddRows = false;
             dataGridViewTiposAnomalia.AllowUserToDeleteRows = false;
             dataGridViewTiposAnomalia.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewTiposAnomalia.Dock = DockStyle.Fill;
-            dataGridViewTiposAnomalia.Location = new Point(10, 10);
+            dataGridViewTiposAnomalia.Location = new Point(9, 8);
+            dataGridViewTiposAnomalia.Margin = new Padding(3, 2, 3, 2);
             dataGridViewTiposAnomalia.MultiSelect = false;
             dataGridViewTiposAnomalia.Name = "dataGridViewTiposAnomalia";
             dataGridViewTiposAnomalia.ReadOnly = true;
             dataGridViewTiposAnomalia.RowHeadersWidth = 51;
             dataGridViewTiposAnomalia.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridViewTiposAnomalia.Size = new Size(844, 434);
+            dataGridViewTiposAnomalia.Size = new Size(738, 326);
             dataGridViewTiposAnomalia.TabIndex = 0;
-            // 
-            // panelButtons
-            // 
-            panelButtons.Controls.Add(buttonEliminarListTipo);
-            panelButtons.Controls.Add(buttonModificarListTipo);
-            panelButtons.Controls.Add(buttonAgregarListTipoAnomalia);
-            panelButtons.Dock = DockStyle.Fill;
-            panelButtons.Location = new Point(3, 463);
-            panelButtons.Name = "panelButtons";
-            panelButtons.Padding = new Padding(10);
-            panelButtons.Size = new Size(864, 54);
-            panelButtons.TabIndex = 1;
             // 
             // buttonEliminarListTipo
             // 
             buttonEliminarListTipo.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             buttonEliminarListTipo.Font = new Font("Segoe UI", 10F);
-            buttonEliminarListTipo.Location = new Point(534, 10);
+            buttonEliminarListTipo.Location = new Point(467, 8);
+            buttonEliminarListTipo.Margin = new Padding(3, 2, 3, 2);
             buttonEliminarListTipo.Name = "buttonEliminarListTipo";
-            buttonEliminarListTipo.Size = new Size(100, 35);
+            buttonEliminarListTipo.Size = new Size(88, 26);
             buttonEliminarListTipo.TabIndex = 6;
             buttonEliminarListTipo.Text = "Eliminar";
             buttonEliminarListTipo.UseVisualStyleBackColor = true;
@@ -109,9 +74,10 @@
             // 
             buttonModificarListTipo.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             buttonModificarListTipo.Font = new Font("Segoe UI", 10F);
-            buttonModificarListTipo.Location = new Point(644, 10);
+            buttonModificarListTipo.Location = new Point(564, 8);
+            buttonModificarListTipo.Margin = new Padding(3, 2, 3, 2);
             buttonModificarListTipo.Name = "buttonModificarListTipo";
-            buttonModificarListTipo.Size = new Size(100, 35);
+            buttonModificarListTipo.Size = new Size(88, 26);
             buttonModificarListTipo.TabIndex = 5;
             buttonModificarListTipo.Text = "Modificar";
             buttonModificarListTipo.UseVisualStyleBackColor = true;
@@ -121,23 +87,64 @@
             // 
             buttonAgregarListTipoAnomalia.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             buttonAgregarListTipoAnomalia.Font = new Font("Segoe UI", 10F);
-            buttonAgregarListTipoAnomalia.Location = new Point(754, 10);
+            buttonAgregarListTipoAnomalia.Location = new Point(660, 8);
+            buttonAgregarListTipoAnomalia.Margin = new Padding(3, 2, 3, 2);
             buttonAgregarListTipoAnomalia.Name = "buttonAgregarListTipoAnomalia";
-            buttonAgregarListTipoAnomalia.Size = new Size(100, 35);
+            buttonAgregarListTipoAnomalia.Size = new Size(88, 26);
             buttonAgregarListTipoAnomalia.TabIndex = 4;
             buttonAgregarListTipoAnomalia.Text = "Agregar";
             buttonAgregarListTipoAnomalia.UseVisualStyleBackColor = true;
             buttonAgregarListTipoAnomalia.Click += buttonAgregarListTipoAnomalia_Click;
             // 
+            // tableLayoutPanelMain
+            // 
+            tableLayoutPanelMain.ColumnCount = 1;
+            tableLayoutPanelMain.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutPanelMain.Controls.Add(panelGrid, 0, 0);
+            tableLayoutPanelMain.Controls.Add(panelButtons, 0, 1);
+            tableLayoutPanelMain.Dock = DockStyle.Fill;
+            tableLayoutPanelMain.Location = new Point(13, 11);
+            tableLayoutPanelMain.Margin = new Padding(3, 2, 3, 2);
+            tableLayoutPanelMain.Name = "tableLayoutPanelMain";
+            tableLayoutPanelMain.RowCount = 2;
+            tableLayoutPanelMain.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanelMain.RowStyles.Add(new RowStyle());
+            tableLayoutPanelMain.Size = new Size(762, 390);
+            tableLayoutPanelMain.TabIndex = 0;
+            // 
+            // panelGrid
+            // 
+            panelGrid.Controls.Add(dataGridViewTiposAnomalia);
+            panelGrid.Dock = DockStyle.Fill;
+            panelGrid.Location = new Point(3, 2);
+            panelGrid.Margin = new Padding(3, 2, 3, 2);
+            panelGrid.Name = "panelGrid";
+            panelGrid.Padding = new Padding(9, 8, 9, 8);
+            panelGrid.Size = new Size(756, 342);
+            panelGrid.TabIndex = 0;
+            // 
+            // panelButtons
+            // 
+            panelButtons.Controls.Add(buttonEliminarListTipo);
+            panelButtons.Controls.Add(buttonModificarListTipo);
+            panelButtons.Controls.Add(buttonAgregarListTipoAnomalia);
+            panelButtons.Dock = DockStyle.Fill;
+            panelButtons.Location = new Point(3, 348);
+            panelButtons.Margin = new Padding(3, 2, 3, 2);
+            panelButtons.Name = "panelButtons";
+            panelButtons.Padding = new Padding(9, 8, 9, 8);
+            panelButtons.Size = new Size(756, 40);
+            panelButtons.TabIndex = 1;
+            // 
             // TipoAnomaliaLista
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(900, 550);
-            MinimumSize = new Size(700, 500);
+            ClientSize = new Size(788, 412);
             Controls.Add(tableLayoutPanelMain);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "TipoAnomaliaLista";
-            Padding = new Padding(15);
+            Padding = new Padding(13, 11, 13, 11);
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Lista Tipo de Anomalía";
             Load += TipoAnomalia_Load;
